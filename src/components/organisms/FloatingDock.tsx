@@ -1,52 +1,67 @@
-import { View, Pressable } from 'react-native';
-import { BlurView } from 'expo-blur';
-import {
-  Home, Search, ClipboardList, UserCircle, Inbox, LayoutGrid, type LucideIcon,
-} from 'lucide-react-native';
+import React from 'react';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
-const ICONS: Record<string, LucideIcon> = {
-  index: Home,
-  search: Search,
-  visits: ClipboardList,
-  profile: UserCircle,
-  requests: Inbox,
-  listings: LayoutGrid,
+import { GlassDock } from '@/src/components/GlassDock/GlassDock';
+import { TENANT_DOCK_ITEMS } from '@/src/components/GlassDock/constants/tenantDockItems';
+import { LANDLORD_DOCK_ITEMS } from '@/src/components/GlassDock/constants/landlordDockItems';
+import type { DockItem } from '@/src/components/GlassDock/types/dock';
+
+// ─── Types ─────────────────────────────────────────────────────────────────────
+
+type FloatingDockProps = BottomTabBarProps & {
+  /** Which icon set and route map to use. */
+  variant: 'tenant' | 'landlord';
 };
 
-type Props = BottomTabBarProps & { variant: 'tenant' | 'landlord' };
+// ─── Component ─────────────────────────────────────────────────────────────────
 
-export const FloatingDock = ({ state, navigation, variant: _variant }: Props) => (
-  <View pointerEvents="box-none" className="absolute inset-x-0 bottom-7 items-center">
-    <BlurView
-      intensity={40}
-      tint="dark"
-      className="h-[64px] w-[312px] flex-row overflow-hidden rounded-pill"
-      style={{
-        backgroundColor: 'rgba(18,18,18,0.72)',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.28,
-        shadowRadius: 32,
-        elevation: 16,
-        borderTopWidth: 1,
-        borderTopColor: 'rgba(255,255,255,0.10)',
-      }}
-    >
-      {state.routes.map((route, i) => {
-        const Icon = ICONS[route.name] ?? Home;
-        const active = state.index === i;
-        const onPress = () => {
-          const event = navigation.emit({ type: 'tabPress', target: route.key, canPreventDefault: true });
-          if (!active && !event.defaultPrevented) navigation.navigate(route.name);
-        };
-        return (
-          <Pressable key={route.key} onPress={onPress} className="flex-1 items-center justify-center">
-            <Icon size={22} color={active ? '#FFFFFF' : 'rgba(255,255,255,0.35)'} strokeWidth={active ? 2.4 : 1.8} />
-            {active && <View className="mt-1 h-[3px] w-[20px] rounded-pill bg-white" />}
-          </Pressable>
-        );
-      })}
-    </BlurView>
-  </View>
-);
+/**
+ * FloatingDock — expo-router `tabBar` adapter for {@link GlassDock}.
+ *
+ * Bridges the `BottomTabBarProps` (state, navigation) that expo-router
+ * provides to the clean `(items, activeTab, onTabPress)` API of GlassDock.
+ *
+ * Usage in a `_layout.tsx`:
+ * ```tsx
+ * <Tabs tabBar={(props) => <FloatingDock variant="tenant" {...props} />}>
+ * ```
+ *
+ * Active-state accuracy:
+ *   `activeTab` is derived from `state.routeNames[state.index]` which is the
+ *   canonical current route name. Dock item `key` values are set to the exact
+ *   same route names, so `item.key === activeTab` is always correct.
+ *
+ * Navigation correctness:
+ *   `onTabPress` uses `navigation.emit` + `navigation.navigate` — the standard
+ *   pattern recommended by React Navigation for custom tab bars. It respects
+ *   `tabPress` event listeners and the `defaultPrevented` flag so deep-link
+ *   interception and modal guards continue to work.
+ */
+export const FloatingDock = React.memo(({ state, navigation, variant }: FloatingDockProps) => {
+  const items: readonly DockItem[] =
+    variant === 'landlord' ? LANDLORD_DOCK_ITEMS : TENANT_DOCK_ITEMS;
+
+  // The current route name — equals the `key` of whichever DockItem is active.
+  const activeTab = state.routeNames[state.index] ?? '';
+
+  const onTabPress = (key: string) => {
+    const route = state.routes.find((r) => r.name === key);
+    if (!route) return;
+
+    const event = navigation.emit({
+      type: 'tabPress',
+      target: route.key,
+      canPreventDefault: true,
+    });
+
+    // Only navigate if we're not already on this tab and nothing prevented it.
+    const isAlreadyActive = state.index === state.routes.indexOf(route);
+    if (!isAlreadyActive && !event.defaultPrevented) {
+      navigation.navigate(route.name);
+    }
+  };
+
+  return <GlassDock items={items} activeTab={activeTab} onTabPress={onTabPress} />;
+});
+
+FloatingDock.displayName = 'FloatingDock';
