@@ -95,10 +95,10 @@ export default function RequestsTab() {
 
             {req.status === 'pending' && (
               <View className="flex-row gap-2 border-t border-row-divider pt-3">
-                <Pressable className="bg-brandLight h-9 flex-1 items-center justify-center rounded-pill">
+                <Pressable className="h-9 flex-1 items-center justify-center rounded-pill bg-brand-light">
                   <Text className="font-semibold text-body-sm text-brand">Approve</Text>
                 </Pressable>
-                <Pressable className="bg-dangerBg h-9 flex-1 items-center justify-center rounded-pill">
+                <Pressable className="h-9 flex-1 items-center justify-center rounded-pill bg-danger-bg">
                   <Text className="font-semibold text-body-sm text-danger">Decline</Text>
                 </Pressable>
               </View>

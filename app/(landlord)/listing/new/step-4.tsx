@@ -13,19 +13,21 @@ export default function NewListingStep4() {
   return (
     <SafeAreaView edges={['top']} className="flex-1 bg-bg">
       <ScreenHeader title="New Listing" showBack={true} centerTitle={true} />
-      
+
       {/* Progress Bar */}
       <View className="h-1 w-full bg-line">
         <View className="h-full w-full bg-brand" />
       </View>
 
       <ScrollView className="px-6" contentContainerStyle={{ paddingTop: 20, paddingBottom: 100 }}>
-        <Text className="font-semibold text-h2 text-ink mb-1">Pricing & Review</Text>
-        <Text className="text-body text-ink2 mb-6">Specify financial requirements and review details.</Text>
+        <Text className="mb-1 font-semibold text-h2 text-ink">Pricing & Review</Text>
+        <Text className="mb-6 text-body text-ink2">
+          Specify financial requirements and review details.
+        </Text>
 
         {/* Monthly Rent */}
         <View className="mb-5">
-          <Text className="font-semibold text-bodySm text-ink mb-2">Monthly Rent (NPR)</Text>
+          <Text className="mb-2 font-semibold text-body-sm text-ink">Monthly Rent (NPR)</Text>
           <TextInput
             placeholder="e.g. 35000"
             placeholderTextColor="#C0C0C0"
@@ -36,7 +38,7 @@ export default function NewListingStep4() {
 
         {/* Security Deposit */}
         <View className="mb-5">
-          <Text className="font-semibold text-bodySm text-ink mb-2">Security Deposit (NPR)</Text>
+          <Text className="mb-2 font-semibold text-body-sm text-ink">Security Deposit (NPR)</Text>
           <TextInput
             placeholder="e.g. 70000"
             placeholderTextColor="#C0C0C0"
@@ -47,27 +49,26 @@ export default function NewListingStep4() {
 
         {/* Availability */}
         <View className="mb-6">
-          <Text className="font-semibold text-bodySm text-ink mb-2">Available From</Text>
+          <Text className="mb-2 font-semibold text-body-sm text-ink">Available From</Text>
           <View className="rounded-card border border-line bg-input px-4 py-4">
             <Text className="text-body text-ink">Immediately</Text>
           </View>
         </View>
 
         {/* Preview Summary */}
-        <Text className="font-semibold text-bodySm text-ink mb-2">Review Listing Summary</Text>
-        <View className="rounded-card border border-line bg-bg p-4 mb-6">
+        <Text className="mb-2 font-semibold text-body-sm text-ink">Review Listing Summary</Text>
+        <View className="mb-6 rounded-card border border-line bg-bg p-4">
           <Text className="font-semibold text-body text-ink">Baluwatar Apartment</Text>
-          <Text className="text-caption text-ink2 mt-1">2 BHK · 1 Bath · 1200 sq. ft.</Text>
-          <Text className="text-caption text-ink2 mt-1">NPR 35,000/mo · Deposit NPR 70,000</Text>
+          <Text className="mt-1 text-caption text-ink2">2 BHK · 1 Bath · 1200 sq. ft.</Text>
+          <Text className="mt-1 text-caption text-ink2">NPR 35,000/mo · Deposit NPR 70,000</Text>
         </View>
       </ScrollView>
 
       {/* Sticky Bottom */}
-      <View className="absolute bottom-6 inset-x-6">
+      <View className="absolute inset-x-6 bottom-6">
         <Pressable
           onPress={handleSubmit}
-          className="h-[56px] items-center justify-center rounded-pill bg-brand"
-        >
+          className="h-[56px] items-center justify-center rounded-pill bg-brand">
           <Text className="font-semibold text-body text-white">Publish Listing</Text>
         </Pressable>
       </View>
