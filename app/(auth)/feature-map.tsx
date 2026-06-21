@@ -1,15 +1,22 @@
-import { View, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from 'react';
+import { useRouter } from 'expo-router';
+
+import { OnboardingLayout } from '@/src/components/onboarding/OnboardingLayout';
+import { MapIllustration } from '@/src/components/onboarding/MapIllustration';
 
 export default function FeatureMapScreen() {
+  const router = useRouter();
+
   return (
-    <SafeAreaView edges={['top']} className="flex-1 bg-bg">
-      <View className="flex-1 items-center justify-center px-6">
-        <Text className="font-display text-h2 text-ink mb-2">Map Search</Text>
-        <Text className="font-sans text-body text-ink2 text-center">
-          Explore properties near you on an interactive map.
-        </Text>
-      </View>
-    </SafeAreaView>
+    <OnboardingLayout
+      currentStep={3}
+      overline="Search by area"
+      headline={'Explore by\nneighborhood.'}
+      body="See every verified rental on a live map. Filter by price, beds, and what matters most to you."
+      illustration={<MapIllustration />}
+      onSkip={() => router.replace('/(auth)/landing')}
+      onNext={() => router.replace('/(auth)/landing')}
+      isLast
+    />
   );
 }

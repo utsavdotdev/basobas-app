@@ -1,15 +1,21 @@
-import { View, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from 'react';
+import { useRouter } from 'expo-router';
+
+import { OnboardingLayout } from '@/src/components/onboarding/OnboardingLayout';
+import { VisitIllustration } from '@/src/components/onboarding/VisitIllustration';
 
 export default function FeatureVisitsScreen() {
+  const router = useRouter();
+
   return (
-    <SafeAreaView edges={['top']} className="flex-1 bg-bg">
-      <View className="flex-1 items-center justify-center px-6">
-        <Text className="font-display text-h2 text-ink mb-2">Schedule Visits</Text>
-        <Text className="font-sans text-body text-ink2 text-center">
-          Book in-person or video visits with one tap.
-        </Text>
-      </View>
-    </SafeAreaView>
+    <OnboardingLayout
+      currentStep={2}
+      overline="Visits in seconds"
+      headline={'Book a tour\nin one tap.'}
+      body="Pick a time that works. Landlords confirm fast. Skip the back and forth on Viber."
+      illustration={<VisitIllustration />}
+      onSkip={() => router.replace('/(auth)/landing')}
+      onNext={() => router.replace('/(auth)/feature-map')}
+    />
   );
 }
