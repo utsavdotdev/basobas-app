@@ -1,6 +1,10 @@
 node_modules/
 .expo/
 dist/
+
+# Environment — each developer has their own
+.env
+!.env.example
 npm-debug.*
 *.jks
 *.p8
