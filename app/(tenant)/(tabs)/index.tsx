@@ -66,9 +66,7 @@ export default function HomeTab() {
             accessibilityLabel="Open search"
             className="h-input-h flex-row items-center gap-3 rounded-pill bg-input px-5">
             <Search size={20} color="#888888" />
-            <Text className="font-sans text-body text-ink2">
-              Search city, area, or property
-            </Text>
+            <Text className="font-sans text-body text-ink2">Search city, area, or property</Text>
           </Pressable>
         </View>
 
@@ -86,10 +84,7 @@ export default function HomeTab() {
                 className={`h-[42px] items-center justify-center rounded-pill px-5 ${
                   isActive ? 'bg-ink' : 'bg-input'
                 }`}>
-                <Text
-                  className={`font-sans text-body-sm ${
-                    isActive ? 'text-bg' : 'text-ink'
-                  }`}>
+                <Text className={`font-sans text-body-sm ${isActive ? 'text-bg' : 'text-ink'}`}>
                   {city}
                 </Text>
               </Pressable>
@@ -102,17 +97,11 @@ export default function HomeTab() {
           <View className="w-full overflow-hidden rounded-hero bg-canvas pb-2">
             <View className="h-[210px] w-full bg-placeholder-image" />
             <View className="px-5 py-4">
-              <Text
-                numberOfLines={1}
-                className="font-semibold text-h3 text-ink">
+              <Text numberOfLines={1} className="font-semibold text-h3 text-ink">
                 2BHK Apartment in Kupondole
               </Text>
-              <Text className="mt-1 font-sans text-body text-brand">
-                Rs. 32,000 / month
-              </Text>
-              <Text className="mt-[6px] font-sans text-body-sm text-ink2">
-                Lalitpur · Verified
-              </Text>
+              <Text className="mt-1 font-sans text-body text-brand">Rs. 32,000 / month</Text>
+              <Text className="mt-[6px] font-sans text-body-sm text-ink2">Lalitpur · Verified</Text>
             </View>
           </View>
         </View>
@@ -132,17 +121,11 @@ export default function HomeTab() {
               }`}>
               <View className="h-[72px] w-[72px] rounded-lg bg-placeholder-image" />
               <View className="flex-1">
-                <Text
-                  numberOfLines={1}
-                  className="font-semibold text-body text-ink">
+                <Text numberOfLines={1} className="font-semibold text-body text-ink">
                   {row.title}
                 </Text>
-                <Text className="mt-1 font-sans text-body-sm text-ink2">
-                  {row.price}
-                </Text>
-                <Text className="mt-1 font-sans text-caption text-placeholder">
-                  {row.location}
-                </Text>
+                <Text className="mt-1 font-sans text-body-sm text-ink2">{row.price}</Text>
+                <Text className="mt-1 font-sans text-caption text-placeholder">{row.location}</Text>
               </View>
             </View>
           ))}

@@ -7,9 +7,9 @@ export default function ProfileSetupScreen() {
     <SafeAreaView edges={['top']} className="flex-1 bg-bg">
       <ScreenHeader title="Profile Setup" showBack centerTitle />
       <ScrollView className="px-6" contentContainerStyle={{ paddingTop: 16, paddingBottom: 24 }}>
-        <Text className="font-semibold text-h3 text-ink mb-6">Tell us about yourself</Text>
+        <Text className="mb-6 font-semibold text-h3 text-ink">Tell us about yourself</Text>
         <View className="mb-4">
-          <Text className="font-medium text-body-sm text-ink2 mb-1">Full Name</Text>
+          <Text className="mb-1 font-medium text-body-sm text-ink2">Full Name</Text>
           <TextInput
             placeholder="Enter your name"
             className="h-[56px] rounded-lg bg-input px-4 font-sans text-body text-ink"
@@ -17,7 +17,7 @@ export default function ProfileSetupScreen() {
           />
         </View>
         <View className="mb-4">
-          <Text className="font-medium text-body-sm text-ink2 mb-1">Email</Text>
+          <Text className="mb-1 font-medium text-body-sm text-ink2">Email</Text>
           <TextInput
             placeholder="Enter your email"
             keyboardType="email-address"

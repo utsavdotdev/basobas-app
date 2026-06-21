@@ -15,17 +15,16 @@ export default function RoleScreen() {
     <SafeAreaView edges={['top']} className="flex-1 bg-bg">
       <ScreenHeader title="Choose Your Role" showBack centerTitle />
       <View className="flex-1 items-center justify-center px-6">
-        <Text className="font-display text-h2 text-ink mb-2 text-center">
+        <Text className="mb-2 text-center font-display text-h2 text-ink">
           How will you use BasoBas?
         </Text>
-        <Text className="font-sans text-body text-ink2 text-center mb-8">
+        <Text className="mb-8 text-center font-sans text-body text-ink2">
           You can always switch later.
         </Text>
 
         <Pressable
           onPress={() => selectRole('tenant')}
-          className="mb-4 h-[80px] w-full flex-row items-center rounded-card border border-line bg-bg px-5"
-        >
+          className="mb-4 h-[80px] w-full flex-row items-center rounded-card border border-line bg-bg px-5">
           <View className="flex-1">
             <Text className="font-semibold text-h3 text-ink">{"I'm a Tenant"}</Text>
             <Text className="font-sans text-body-sm text-ink2">Looking for a place to rent</Text>
@@ -34,8 +33,7 @@ export default function RoleScreen() {
 
         <Pressable
           onPress={() => selectRole('landlord')}
-          className="h-[80px] w-full flex-row items-center rounded-card border border-line bg-bg px-5"
-        >
+          className="h-[80px] w-full flex-row items-center rounded-card border border-line bg-bg px-5">
           <View className="flex-1">
             <Text className="font-semibold text-h3 text-ink">{"I'm a Landlord"}</Text>
             <Text className="font-sans text-body-sm text-ink2">I have property to list</Text>

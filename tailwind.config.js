@@ -56,7 +56,7 @@ module.exports = {
         'section-gap': '20px',
         'input-h': '56px',
         'button-h': '56px',
-        'dock-h': '64px',
+        'dock-h': '72px',
         'dock-w': '312px',
         'header-h': '56px',
       },
