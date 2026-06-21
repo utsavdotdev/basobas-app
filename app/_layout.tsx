@@ -7,7 +7,10 @@ import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import {
-  DMSans_400Regular, DMSans_500Medium, DMSans_600SemiBold, DMSans_700Bold,
+  DMSans_400Regular,
+  DMSans_500Medium,
+  DMSans_600SemiBold,
+  DMSans_700Bold,
 } from '@expo-google-fonts/dm-sans';
 import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display';
 import { useAuth } from '../src/store/authStore';
@@ -30,7 +33,10 @@ function getDevMode(): DevMode {
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
-    DMSans_400Regular, DMSans_500Medium, DMSans_600SemiBold, DMSans_700Bold,
+    DMSans_400Regular,
+    DMSans_500Medium,
+    DMSans_600SemiBold,
+    DMSans_700Bold,
     DMSerifDisplay_400Regular,
   });
 
