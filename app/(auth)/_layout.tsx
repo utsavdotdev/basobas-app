@@ -8,9 +8,6 @@ export default function AuthLayout() {
 
       {/* Onboarding — single screen with internal step state */}
       <Stack.Screen name="onboarding" options={{ animation: 'fade', animationDuration: 350 }} />
-      <Stack.Screen name="feature-verified" options={{ animation: 'slide_from_right' }} />
-      <Stack.Screen name="feature-visits" options={{ animation: 'slide_from_right' }} />
-      <Stack.Screen name="feature-map" options={{ animation: 'slide_from_right' }} />
 
       {/* Auth flow — fade for the root landing, slide for sub-screens */}
       <Stack.Screen name="landing" options={{ animation: 'fade', animationDuration: 300 }} />
