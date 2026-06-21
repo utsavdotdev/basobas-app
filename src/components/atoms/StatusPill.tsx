@@ -26,7 +26,7 @@ const STATUS_STYLES: Record<Status, { bg: string; text: string; label: string; d
       dotColor: '#3B82F6',
     },
     occupied: { bg: 'bg-red-100', text: 'text-red-800', label: 'Occupied', dotColor: '#EF4444' },
-    verified: { bg: 'bg-brandLight', text: 'text-brand', label: 'Verified', dotColor: '#1A6B4A' },
+    verified: { bg: 'bg-brand-light', text: 'text-brand', label: 'Verified', dotColor: '#1A6B4A' },
     scheduled: {
       bg: 'bg-blue-100',
       text: 'text-blue-800',

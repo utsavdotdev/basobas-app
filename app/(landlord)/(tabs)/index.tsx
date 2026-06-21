@@ -57,10 +57,10 @@ export default function LandlordDashboard() {
               <Text className="text-caption text-ink2">Baluwatar Apartment · 2:30 PM</Text>
             </View>
             <View className="flex-row gap-2">
-              <Pressable className="bg-brandLight h-8 w-8 items-center justify-center rounded-full">
+              <Pressable className="h-8 w-8 items-center justify-center rounded-full bg-brand-light">
                 <Check size={16} color="#1A6B4A" />
               </Pressable>
-              <Pressable className="bg-dangerBg h-8 w-8 items-center justify-center rounded-full">
+              <Pressable className="h-8 w-8 items-center justify-center rounded-full bg-danger-bg">
                 <X size={16} color="#E53E3E" />
               </Pressable>
             </View>
@@ -71,10 +71,10 @@ export default function LandlordDashboard() {
               <Text className="text-caption text-ink2">Jhamsikhel Flat · 4:00 PM</Text>
             </View>
             <View className="flex-row gap-2">
-              <Pressable className="bg-brandLight h-8 w-8 items-center justify-center rounded-full">
+              <Pressable className="h-8 w-8 items-center justify-center rounded-full bg-brand-light">
                 <Check size={16} color="#1A6B4A" />
               </Pressable>
-              <Pressable className="bg-dangerBg h-8 w-8 items-center justify-center rounded-full">
+              <Pressable className="h-8 w-8 items-center justify-center rounded-full bg-danger-bg">
                 <X size={16} color="#E53E3E" />
               </Pressable>
             </View>
@@ -86,8 +86,8 @@ export default function LandlordDashboard() {
         <View className="rounded-card border border-line bg-bg p-4">
           <View className="mb-3">
             <View className="mb-1 flex-row justify-between">
-              <Text className="text-bodySm font-medium text-ink">Baluwatar Apartment</Text>
-              <Text className="text-bodySm text-ink2">142 views</Text>
+              <Text className="font-medium text-body-sm text-ink">Baluwatar Apartment</Text>
+              <Text className="text-body-sm text-ink2">142 views</Text>
             </View>
             <View className="h-2 w-full rounded bg-line">
               <View className="h-2 w-4/5 rounded bg-brand" />
@@ -95,8 +95,8 @@ export default function LandlordDashboard() {
           </View>
           <View>
             <View className="mb-1 flex-row justify-between">
-              <Text className="text-bodySm font-medium text-ink">Jhamsikhel Flat</Text>
-              <Text className="text-bodySm text-ink2">98 views</Text>
+              <Text className="font-medium text-body-sm text-ink">Jhamsikhel Flat</Text>
+              <Text className="text-body-sm text-ink2">98 views</Text>
             </View>
             <View className="h-2 w-full rounded bg-line">
               <View className="h-2 w-3/5 rounded bg-brand" />
