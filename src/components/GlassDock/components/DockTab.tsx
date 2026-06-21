@@ -4,7 +4,7 @@ import type { LucideIcon } from 'lucide-react-native';
 
 import type { DockItem } from '../types/dock';
 
-const ICON_SIZE = 22;
+const ICON_SIZE = 18;
 const INACTIVE_COLOR = 'rgba(75, 75, 75, 0.78)';
 const ACTIVE_COLOR = '#FFFFFF';
 
