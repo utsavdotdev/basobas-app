@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRouter } from 'expo-router'
-import { Upload, X, Shield, Check, Zap } from 'lucide-react-native'
+import { Upload, X, Shield, Check, Zap, CheckCheck } from 'lucide-react-native'
 import * as ImagePicker from 'expo-image-picker'
 import * as ImageManipulator from 'expo-image-manipulator'
 import * as Haptics from 'expo-haptics'
@@ -195,8 +195,7 @@ export default function KYCLandlordScreen() {
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-      >
+        showsVerticalScrollIndicator={false}>
         {/* Eyebrow + badge row */}
         <View style={styles.eyebrowRow}>
           <OnboardingEyebrow text="Step 3 · Identity Verification" />
@@ -206,9 +205,7 @@ export default function KYCLandlordScreen() {
         </View>
 
         {/* Headline */}
-        <Text style={styles.headline}>
-          Verify your{'\n'}identity
-        </Text>
+        <Text style={styles.headline}>Verify your{'\n'}identity</Text>
 
         {/* Body */}
         <Text style={styles.body}>
@@ -250,9 +247,7 @@ export default function KYCLandlordScreen() {
         </View>
 
         {/* Validation: document type */}
-        {!documentType && (
-          <Text style={styles.validationText}>Select a document type</Text>
-        )}
+        {!documentType && <Text style={styles.validationText}>Select a document type</Text>}
 
         {/* ── ID Document Upload ── */}
         <Text style={styles.sectionTitle}>
@@ -263,17 +258,13 @@ export default function KYCLandlordScreen() {
           <DocumentUploadZone
             label="Front side"
             imageUri={frontImageUri}
-            onUpload={() =>
-              pickFromOptions((uri) => setFrontImage(uri))
-            }
+            onUpload={() => pickFromOptions((uri) => setFrontImage(uri))}
             onRemove={() => setFrontImage(null)}
           />
           <DocumentUploadZone
             label="Back side"
             imageUri={backImageUri}
-            onUpload={() =>
-              pickFromOptions((uri) => setBackImage(uri))
-            }
+            onUpload={() => pickFromOptions((uri) => setBackImage(uri))}
             onRemove={() => setBackImage(null)}
           />
         </View>
@@ -298,9 +289,7 @@ export default function KYCLandlordScreen() {
             label="Electricity bill"
             sublabel="Recent bill preferred"
             imageUri={electricityBillUri}
-            onUpload={() =>
-              pickFromOptions((uri) => setElectricityBill(uri))
-            }
+            onUpload={() => pickFromOptions((uri) => setElectricityBill(uri))}
             onRemove={() => setElectricityBill(null)}
           />
         </View>
@@ -308,20 +297,17 @@ export default function KYCLandlordScreen() {
         {electricityBillUri && (
           <View style={styles.uploadSuccessBanner}>
             <Zap size={14} color={color.brand} strokeWidth={2.5} />
-            <Text style={styles.uploadSuccessText}>
-              Bill uploaded ✓
-            </Text>
+            <Text style={styles.uploadSuccessText}>Bill uploaded</Text>
+            <CheckCheck size={16} color={color.brand} />
           </View>
         )}
 
         {/* Validation: electricity bill */}
         {!electricityBillUri && (
-          <Text style={styles.validationText}>
-            Please upload a recent electricity bill
-          </Text>
+          <Text style={styles.validationText}>Please upload a recent electricity bill</Text>
         )}
 
-        <Text style={styles.fileNote}>JPEG or PNG  ·  Max 5MB each</Text>
+        <Text style={styles.fileNote}>JPEG or PNG · Max 5MB each</Text>
       </ScrollView>
 
       {/* CTAs */}
@@ -338,7 +324,7 @@ export default function KYCLandlordScreen() {
         </Text>
       </View>
     </SafeAreaView>
-  )
+  );
 }
 
 // ─── Styles ───────────────────────────────────────────────────────────────────
@@ -527,9 +513,10 @@ const styles = StyleSheet.create({
     borderRadius: radius.sm,
     padding: 8,
     marginBottom: 4,
+    flex: 1,
   },
   uploadSuccessText: {
-    flex: 1,
+    display:"flex",
     fontFamily: font.sans,
     fontSize: size.caption,
     color: color.brand,
