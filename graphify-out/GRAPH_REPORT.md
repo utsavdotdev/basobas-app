@@ -1,203 +1,224 @@
-# Graph Report - .  (2026-06-20)
+# Graph Report - .  (2026-06-22)
 
 ## Corpus Check
-- Corpus is ~15,839 words - fits in a single context window. You may not need a graph.
+- 70 files · ~37,809 words
+- Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 339 nodes · 410 edges · 52 communities (38 shown, 14 thin omitted)
-- Extraction: 85% EXTRACTED · 14% INFERRED · 0% AMBIGUOUS · INFERRED: 59 edges (avg confidence: 0.87)
-- Token cost: 195,261 input · 0 output
+- 527 nodes · 785 edges · 55 communities (35 shown, 20 thin omitted)
+- Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 95 edges (avg confidence: 0.85)
+- Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
-- [[_COMMUNITY_Expo SDK Dependencies|Expo SDK Dependencies]]
-- [[_COMMUNITY_StatusPill Component|StatusPill Component]]
-- [[_COMMUNITY_Expo App Config (app.json)|Expo App Config (app.json)]]
-- [[_COMMUNITY_Role Routing & Navigation|Role Routing & Navigation]]
-- [[_COMMUNITY_Package Dependencies|Package Dependencies]]
-- [[_COMMUNITY_Atomic Design Components|Atomic Design Components]]
-- [[_COMMUNITY_Profile Setup Screens|Profile Setup Screens]]
-- [[_COMMUNITY_Root Layout & Settings|Root Layout & Settings]]
-- [[_COMMUNITY_Listing Detail & Modals|Listing Detail & Modals]]
-- [[_COMMUNITY_New Listing Creation Flow|New Listing Creation Flow]]
-- [[_COMMUNITY_ExpoNativeWind Toolchain|Expo/NativeWind Toolchain]]
-- [[_COMMUNITY_Tenant Home & Notifications|Tenant Home & Notifications]]
-- [[_COMMUNITY_Profile & AI Preferences|Profile & AI Preferences]]
-- [[_COMMUNITY_Auth Funnel Screens|Auth Funnel Screens]]
-- [[_COMMUNITY_Visits & Requests (Landlord)|Visits & Requests (Landlord)]]
-- [[_COMMUNITY_FilterChip Component|FilterChip Component]]
-- [[_COMMUNITY_TypeScript Configuration|TypeScript Configuration]]
-- [[_COMMUNITY_Branding Asset Set|Branding Asset Set]]
-- [[_COMMUNITY_Feature Demo Screens|Feature Demo Screens]]
-- [[_COMMUNITY_KYC Verification Screens|KYC Verification Screens]]
-- [[_COMMUNITY_Menu Components|Menu Components]]
-- [[_COMMUNITY_Metro Bundler Config|Metro Bundler Config]]
-- [[_COMMUNITY_SectionLabel Atom|SectionLabel Atom]]
-- [[_COMMUNITY_Toggle Atom|Toggle Atom]]
-- [[_COMMUNITY_ESLint Configuration|ESLint Configuration]]
-- [[_COMMUNITY_Profile Edit Screens|Profile Edit Screens]]
-- [[_COMMUNITY_Project README|Project README]]
-- [[_COMMUNITY_Report Screen|Report Screen]]
-- [[_COMMUNITY_Auth Layout Concept|Auth Layout Concept]]
-- [[_COMMUNITY_KYC Flow Concept|KYC Flow Concept]]
-- [[_COMMUNITY_Listing Creation Concept|Listing Creation Concept]]
-- [[_COMMUNITY_Visit Request Concept|Visit Request Concept]]
-- [[_COMMUNITY_ESLint Config Detail|ESLint Config Detail]]
-- [[_COMMUNITY_Landlord Layout Concept|Landlord Layout Concept]]
-- [[_COMMUNITY_My Reviews Concept|My Reviews Concept]]
-- [[_COMMUNITY_Visits Tab Concept|Visits Tab Concept]]
+- [[_COMMUNITY_Confirmation Screen & Detail Rows|Confirmation Screen & Detail Rows]]
+- [[_COMMUNITY_Phone Auth & Public Landlord Profile|Phone Auth & Public Landlord Profile]]
+- [[_COMMUNITY_Landlord Visits, Requests & Tenant Filter|Landlord Visits, Requests & Tenant Filter]]
+- [[_COMMUNITY_Expo & Native Dependencies|Expo & Native Dependencies]]
+- [[_COMMUNITY_Expo App Config & Build Manifest|Expo App Config & Build Manifest]]
+- [[_COMMUNITY_Onboarding Slides & Step Content|Onboarding Slides & Step Content]]
+- [[_COMMUNITY_Product Docs Vision & Experience|Product Docs: Vision & Experience]]
+- [[_COMMUNITY_StatusPill Component & Status States|StatusPill Component & Status States]]
+- [[_COMMUNITY_package.json Dependencies|package.json Dependencies]]
+- [[_COMMUNITY_Landing, Loading & Brand Logo|Landing, Loading & Brand Logo]]
+- [[_COMMUNITY_Notifications & Profile Screens|Notifications & Profile Screens]]
+- [[_COMMUNITY_Root & Tenant Layouts|Root & Tenant Layouts]]
+- [[_COMMUNITY_Router Navigation & Screen Hierarchy|Router Navigation & Screen Hierarchy]]
+- [[_COMMUNITY_Profile Edit & AI Preferences|Profile Edit & AI Preferences]]
+- [[_COMMUNITY_Landlord Tabs, Dashboard & Listings|Landlord Tabs, Dashboard & Listings]]
+- [[_COMMUNITY_Atomic Design Atoms & Molecules|Atomic Design Atoms & Molecules]]
+- [[_COMMUNITY_New Listing Wizard Steps 1-3|New Listing Wizard Steps 1-3]]
+- [[_COMMUNITY_Design Tokens & NativeWind Config|Design Tokens & NativeWind Config]]
+- [[_COMMUNITY_FilterChip Component & Color Variants|FilterChip Component & Color Variants]]
+- [[_COMMUNITY_TypeScript Config & Path Aliases|TypeScript Config & Path Aliases]]
+- [[_COMMUNITY_App Icons, Splash & Graphify Concept|App Icons, Splash & Graphify Concept]]
+- [[_COMMUNITY_Feature Illustration Screens|Feature Illustration Screens]]
+- [[_COMMUNITY_MenuCard & MenuRow Components|MenuCard & MenuRow Components]]
+- [[_COMMUNITY_Metro Bundler Config (NativeWind)|Metro Bundler Config (NativeWind)]]
+- [[_COMMUNITY_SectionLabel Component|SectionLabel Component]]
+- [[_COMMUNITY_Toggle Component|Toggle Component]]
+- [[_COMMUNITY_ESLint Flat Config|ESLint Flat Config]]
+- [[_COMMUNITY_GlassDock useDockState Hook|GlassDock useDockState Hook]]
+- [[_COMMUNITY_AI Preferences Screen|AI Preferences Screen]]
+- [[_COMMUNITY_Edit Profile, KYC Upload, List Property|Edit Profile, KYC Upload, List Property]]
+- [[_COMMUNITY_Project & Concept Descriptions|Project & Concept Descriptions]]
+- [[_COMMUNITY_Expo App Config|Expo App Config]]
+- [[_COMMUNITY_Verification Screen|Verification Screen]]
+- [[_COMMUNITY_Profile Tab|Profile Tab]]
+- [[_COMMUNITY_Auth Stack Layout|Auth Stack Layout]]
+- [[_COMMUNITY_AuthOnboarding Linear Flow Concept|Auth/Onboarding Linear Flow Concept]]
+- [[_COMMUNITY_KYC Verification Concept|KYC Verification Concept]]
+- [[_COMMUNITY_Listing Creation Flow Concept|Listing Creation Flow Concept]]
+- [[_COMMUNITY_Visit Request Flow Concept|Visit Request Flow Concept]]
+- [[_COMMUNITY_ESLint Flat Config Concept|ESLint Flat Config Concept]]
+- [[_COMMUNITY_Landlord Layout|Landlord Layout]]
+- [[_COMMUNITY_Landlord Profile Tab|Landlord Profile Tab]]
+- [[_COMMUNITY_Local Claude Settings|Local Claude Settings]]
+- [[_COMMUNITY_My Reviews Screen|My Reviews Screen]]
+- [[_COMMUNITY_Visits Tab Screen|Visits Tab Screen]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `ScreenHeader()` - 48 edges
-2. `expo` - 15 edges
-3. `useAuth` - 10 edges
-4. `scripts` - 8 edges
-5. `PropertyCard()` - 8 edges
-6. `LandlordProfileTab()` - 7 edges
-7. `PropertyDetailScreen` - 7 edges
-8. `RoleScreen()` - 5 edges
-9. `FloatingDock()` - 5 edges
-10. `package.json - Expo 54 + React Native 0.81 + NativeWind` - 5 edges
+2. `useOnboardingStore` - 17 edges
+3. `expo` - 15 edges
+4. `useAuth` - 11 edges
+5. `Project Documentation Index` - 11 edges
+6. `ScreenBody()` - 10 edges
+7. `FloatingDock()` - 9 edges
+8. `scripts` - 8 edges
+9. `PropertyCard()` - 8 edges
+10. `StepProgressBar()` - 8 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `App Icon (basobas-app)` --references--> `Expo Project Visual Assets`  [INFERRED]
-  assets/icon.png → CLAUDE.md
-- `Android Adaptive Icon (basobas-app)` --references--> `Expo Project Visual Assets`  [INFERRED]
-  assets/adaptive-icon.png → CLAUDE.md
-- `Splash Screen (basobas-app)` --references--> `Expo Project Visual Assets`  [INFERRED]
-  assets/splash.png → CLAUDE.md
-- `Favicon (basobas-app)` --references--> `Expo Project Visual Assets`  [INFERRED]
-  assets/favicon.png → CLAUDE.md
-- `useAuth` --shares_data_with--> `SettingsScreen()`  [INFERRED]
-  src/store/authStore.ts → app/(landlord)/settings.tsx
+- `useOnboardingStore` --conceptually_related_to--> `KYC Verification States`  [INFERRED]
+  src/store/onboardingStore.ts → docs/AUTH_FLOW.md
+- `FloatingDock()` --conceptually_related_to--> `Real-Time Notification System`  [INFERRED]
+  src/components/organisms/FloatingDock.tsx → docs/FEATURES.md
+- `getInitialHref()` --conceptually_related_to--> `Dual Role System`  [INFERRED]
+  src/config/devMode.ts → docs/APP_VISION.md
+- `useOnboardingStore` --conceptually_related_to--> `KYC Mandatory For Landlord`  [INFERRED]
+  src/store/onboardingStore.ts → docs/AUTH_FLOW.md
+- `useOnboardingStore` --conceptually_related_to--> `Onboarding Steps`  [INFERRED]
+  src/store/onboardingStore.ts → docs/AUTH_FLOW.md
 
 ## Import Cycles
 - 1-file cycle: `metro.config.js -> metro.config.js`
 
 ## Hyperedges (group relationships)
-- **Multi-step Listing Creation Flow** — new_step_1_newlistingstep1, new_step_2_newlistingstep2, new_step_3_newlistingstep3, new_step_4_newlistingstep4, tabs_index_landlorddashboard, tabs_listings_listingstab [EXTRACTED 0.95]
-- **Visit Request Approval Flow** — landlord_visits_landlordvisitsscreen, tabs_requests_requeststab, request__id__requestdetailscreen, tenant__id__tenantprofilescreen, listing__id__listingdetailscreen [EXTRACTED 0.95]
-- **KYC Verification Flow** — auth_kyc_tenant_kyctenantscreen, auth_kyc_landlord_kyclandlordscreen, landlord_verification_verificationscreen [INFERRED 0.85]
-- **Tenant Property Discovery Flow** — tenant_searchresults_searchresultsscreen, tenant_filter_filtermodal, tenant_map_mapscreen, tenant_property_propertydetailscreen, tenant_property_gallery_gallerymodal [EXTRACTED 1.00]
-- **Tenant Visit Engagement Flow** — tenant_property_propertydetailscreen, tenant_schedulevisit_schedulevisitscreen, tenant_visit_visitdetailscreen, tenant_reviews_writereviewscreen, tenant_reviews_propertyreviewsscreen [INFERRED 0.95]
-- **Tenant Account Management Flow** — tenant_settings_settingsscreen, tenant_editprofile_editprofilescreen, tenant_preferences_preferencesscreen, tenant_aipreferences_aipreferencesscreen, tenant_kycupload_kycuploadscreen, tenant_notifications_notificationsscreen, tenant_notificationsprefs_notificationprefsmodal [INFERRED 0.95]
-- **Property listing concept group** — concept_property_listing, molecules_propertycard_propertycard, organisms_propertyhero_propertyhero, organisms_propertymappin_propertymappin, organisms_listingcomposer_listingcomposer [INFERRED 0.95]
-- **Atomic design system layers** — concept_atomic_design_layers, atoms_avatar_avatar, atoms_sectionlabel_sectionlabel, atoms_statuspill_statuspill, atoms_toggle_toggle, molecules_menucard_menucard, organisms_floatingdock_floatingdock [INFERRED 0.95]
-- **Expo + NativeWind + TypeScript toolchain** — config_package_json, config_app_json, config_babel_config, config_metro_config, config_tailwind, config_tsconfig, config_nativewind_env, config_eslint_config, config_prettier_config [EXTRACTED 1.00]
-- **Expo App Branding Asset Set** — assets_icon, assets_adaptive_icon, assets_splash, assets_favicon, expo_project_assets [INFERRED 0.95]
+- **Auth/onboarding funnel (loading -> onboarding -> phone -> otp -> role -> profile -> kyc -> confirmation)** — auth_loading, auth_onboarding, auth_phone, auth_otp, auth_role, auth_profile_setup, auth_kyc_tenant, auth_kyc_landlord, auth_confirmation [EXTRACTED 1.00]
+- **Landlord new listing 4-step creation flow** — landlord_new_step1, landlord_new_step2, landlord_new_step3, landlord_new_step4 [EXTRACTED 1.00]
+- **KYC document upload + ImagePicker compression pattern** — auth_kyc_tenant, auth_kyc_landlord, auth_profile_setup [INFERRED 0.85]
+- **Tenant Bottom Navigation Flow** — app_tenant_tabs_layout_tenanttabslayout, glassdock_glassdock, glassdock_constants_tenantdockitems_tenant_dock_items, app_tenant_tabs_index_hometab [INFERRED 0.85]
+- **Onboarding 3-step screen composition** — onboarding_onboardinglayout_onboardinglayout, onboarding_stepprogressbar_stepprogressbar, onboarding_paginationdots_paginationdots, onboarding_nextbutton_nextbutton, onboarding_skipbutton_skipbutton, onboarding_onboardingeyebrow_onboardingeyebrow, concept_onboarding_steps [INFERRED 0.85]
+- **Visit workflow visual concepts** — onboarding_visitillustration_visitillustration, onboarding_verifiedillustration_verifiedillustration, concept_visit_status_lifecycle, concept_post_visit_followup, concept_location_unlock_rule, app_vision_visit_request_workflow [INFERRED 0.85]
+- **KYC data flow (types -> store -> docs)** — types_onboardingtypes_onboardingkycdata, types_onboardingtypes_documenttype, types_onboardingtypes_kycstatus, store_onboardingstore_useonboardingstore, store_onboardingstore_onboardingstate, concept_kyc_states, concept_kyc_mandatory_landlord, concept_verification_trust [INFERRED 0.85]
 
-## Communities (52 total, 14 thin omitted)
+## Communities (55 total, 20 thin omitted)
 
-### Community 0 - "Expo SDK Dependencies"
+### Community 0 - "Confirmation Screen & Detail Rows"
 Cohesion: 0.06
-Nodes (33): dependencies, expo, expo-blur, expo-camera, expo-constants, expo-file-system, expo-font, @expo-google-fonts/dm-sans (+25 more)
+Nodes (47): ConfirmationScreen(), DetailRowProps, styles, SummaryCardProps, DocTypeChipProps, DocumentUploadZoneProps, KYCLandlordScreen(), styles (+39 more)
 
-### Community 1 - "StatusPill Component"
+### Community 1 - "Phone Auth & Public Landlord Profile"
+Cohesion: 0.07
+Nodes (5): styles, Props, ScreenHeader(), Props, ReportScreen()
+
+### Community 2 - "Landlord Visits, Requests & Tenant Filter"
 Cohesion: 0.09
-Nodes (21): Props, Status, STATUS_STYLES, Status type union (8 states), StatusPill(), Property listing concept group (Card/Hero/MapPin/Composer), PropertyCard(), PropertyCardVariant (+13 more)
+Nodes (28): RequestDetailScreen, TenantProfileScreen, LandlordVisitsScreen, FilterModal, HomeTab, TenantTabsLayout, SearchTab, VisitsTab (+20 more)
 
-### Community 2 - "Expo App Config (app.json)"
-Cohesion: 0.08
-Nodes (25): backgroundColor, foregroundImage, adaptiveIcon, tsconfigPaths, typedRoutes, expo, android, assetBundlePatterns (+17 more)
+### Community 3 - "Expo & Native Dependencies"
+Cohesion: 0.05
+Nodes (38): dependencies, expo, expo-blur, expo-camera, expo-constants, expo-document-picker, expo-file-system, expo-font (+30 more)
 
-### Community 3 - "Role Routing & Navigation"
+### Community 4 - "Expo App Config & Build Manifest"
+Cohesion: 0.07
+Nodes (26): backgroundColor, foregroundImage, adaptiveIcon, tsconfigPaths, typedRoutes, expo, android, assetBundlePatterns (+18 more)
+
+### Community 5 - "Onboarding Slides & Step Content"
+Cohesion: 0.12
+Nodes (18): FeatureSlide, SLIDES, Onboarding Steps, Verification Builds Trust, MapIllustration(), styles, NextButton, NextButtonProps (+10 more)
+
+### Community 6 - "Product Docs: Vision & Experience"
+Cohesion: 0.14
+Nodes (24): Authentication & Onboarding Flow, Features List, Landlord Experience, Project Documentation Index, Product Vision, Tenant Experience, Visit Request Workflow, 5-Day Auto-Archive (+16 more)
+
+### Community 7 - "StatusPill Component & Status States"
 Cohesion: 0.09
-Nodes (18): RootLayout (auth/role routing), AIPreferencesScreen, expo-router Stack navigation, FilterModal Screen, PublicLandlordProfileScreen, MapScreen(), NotificationsScreen(), NotificationPrefsModal Screen (+10 more)
+Nodes (20): Props, Status, STATUS_STYLES, Status type union (8 states), StatusPill(), Property listing concept group (Card/Hero/MapPin/Composer), PropertyCard(), PropertyCardVariant (+12 more)
 
-### Community 4 - "Package Dependencies"
+### Community 8 - "package.json Dependencies"
 Cohesion: 0.09
 Nodes (22): devDependencies, @babel/core, eslint, eslint-config-expo, eslint-config-prettier, prettier, prettier-plugin-tailwindcss, tailwindcss (+14 more)
 
-### Community 5 - "Atomic Design Components"
+### Community 9 - "Landing, Loading & Brand Logo"
 Cohesion: 0.12
-Nodes (10): Avatar(), Props, Atomic design: atoms, molecules, organisms, FormField(), Props, Props, SearchBar(), FloatingDock() (+2 more)
+Nodes (17): LandingScreen(), LoadingScreen(), styles, fmtTimer(), maskPhone(), OTPScreen(), _styles, PhoneScreen() (+9 more)
 
-### Community 7 - "Root Layout & Settings"
-Cohesion: 0.24
-Nodes (10): RootLayout(), RoleScreen(), SettingsScreen(), FloatingDock rendered with role-specific variant prop in each tab layout, AuthState, Role, useAuth, LandlordTabsLayout (+2 more)
+### Community 10 - "Notifications & Profile Screens"
+Cohesion: 0.14
+Nodes (10): NotificationsScreen(), dockBottomReserve(), ScreenBody(), ScreenBodyProps, ScreenBodyWithActionProps, HomeTab(), LandlordDashboard(), ProfileTab() (+2 more)
 
-### Community 8 - "Listing Detail & Modals"
-Cohesion: 0.15
-Nodes (5): Role-Based Routing, ScreenHeader(), Auth gate redirects unauthenticated users from loading screen, Role type: tenant | landlord | null, SavedScreen()
+### Community 11 - "Root & Tenant Layouts"
+Cohesion: 0.20
+Nodes (12): Index(), RootLayout(), TenantLayout, DevMode, getDevMode(), getInitialHref(), SettingsScreen(), Package Manifest (+4 more)
 
-### Community 9 - "New Listing Creation Flow"
+### Community 12 - "Router Navigation & Screen Hierarchy"
+Cohesion: 0.12
+Nodes (17): RootLayout (auth/role routing), expo-router Stack navigation, FilterModal Screen, PublicLandlordProfileScreen, MapScreen(), NotificationsScreen(), NotificationPrefsModal Screen, GalleryModal Screen (+9 more)
+
+### Community 13 - "Profile Edit & AI Preferences"
+Cohesion: 0.18
+Nodes (7): AIPreferencesScreen(), EditProfileScreen(), LandlordVisitsScreen(), ListingDetailScreen, RequestDetailScreen, LandlordProfileTab(), TenantProfileScreen
+
+### Community 14 - "Landlord Tabs, Dashboard & Listings"
+Cohesion: 0.22
+Nodes (9): LandlordDashboard (home/stats/visits), ListingDetailScreen (stats + pending requests), LandlordListingsTab (2-col property grid), NewListingStep1 (basics/property type/counters), NewListingStep2 (location/map pin), NewListingStep3 (photos/description/amenities/rules), NewListingStep4 (rent/deposit/publish), LandlordRequestsTab (visit request filter/approve/decline) (+1 more)
+
+### Community 15 - "Atomic Design Atoms & Molecules"
+Cohesion: 0.20
+Nodes (7): Avatar(), Props, Atomic design: atoms, molecules, organisms, FormField(), Props, Props, SearchBar()
+
+### Community 16 - "New Listing Wizard Steps 1-3"
 Cohesion: 0.22
 Nodes (5): NewListingStep1(), NewListingStep2(), NewListingStep3(), NewListingStep4(), ListingsTab()
 
-### Community 10 - "Expo/NativeWind Toolchain"
+### Community 17 - "Design Tokens & NativeWind Config"
 Cohesion: 0.33
 Nodes (9): BasoBas design token palette (brand green, neutrals), app.json - BasoBas Expo app config, babel.config.js - nativewind/reanimated preset, metro.config.js - withNativeWind wrapper, nativewind-env.d.ts type reference, package.json - Expo 54 + React Native 0.81 + NativeWind, prettier.config.js - tailwindcss plugin, tailwind.config.js - nativewind preset + design tokens (+1 more)
 
-### Community 11 - "Tenant Home & Notifications"
-Cohesion: 0.29
-Nodes (4): NotificationsScreen(), HomeTab(), LandlordDashboard(), SearchTab()
-
-### Community 12 - "Profile & AI Preferences"
-Cohesion: 0.25
-Nodes (4): AIPreferencesScreen(), EditProfileScreen(), LandlordProfileTab(), ProfileTab()
-
-### Community 13 - "Auth Funnel Screens"
-Cohesion: 0.25
-Nodes (4): LandingScreen(), LoadingScreen(), OTPScreen(), PhoneScreen()
-
-### Community 14 - "Visits & Requests (Landlord)"
-Cohesion: 0.29
-Nodes (5): LandlordVisitsScreen(), ListingDetailScreen, RequestDetailScreen, RequestsTab(), TenantProfileScreen
-
-### Community 15 - "FilterChip Component"
+### Community 18 - "FilterChip Component & Color Variants"
 Cohesion: 0.29
 Nodes (5): BG_MAP, ChipColor, ChipVariant, Props, TEXT_MAP
 
-### Community 16 - "TypeScript Configuration"
+### Community 19 - "TypeScript Config & Path Aliases"
 Cohesion: 0.29
 Nodes (6): compilerOptions, paths, strict, extends, include, @/*
 
-### Community 17 - "Branding Asset Set"
+### Community 20 - "App Icons, Splash & Graphify Concept"
 Cohesion: 0.73
 Nodes (6): Android Adaptive Icon (basobas-app), Favicon (basobas-app), App Icon (basobas-app), Splash Screen (basobas-app), Graphify Knowledge Graph Concept, Expo Project Visual Assets
 
-### Community 18 - "Feature Demo Screens"
+### Community 21 - "Feature Illustration Screens"
 Cohesion: 0.33
 Nodes (3): FeatureMapScreen(), FeatureVerifiedScreen(), FeatureVisitsScreen()
 
-### Community 19 - "KYC Verification Screens"
-Cohesion: 0.40
-Nodes (3): KYCLandlordScreen(), KYCTenantScreen(), VerificationScreen()
-
-### Community 20 - "Menu Components"
+### Community 22 - "MenuCard & MenuRow Components"
 Cohesion: 0.33
 Nodes (4): MenuCard(), Props, MenuRow(), Props
 
-### Community 21 - "Metro Bundler Config"
+### Community 23 - "Metro Bundler Config (NativeWind)"
 Cohesion: 0.67
 Nodes (3): config, { getDefaultConfig }, { withNativeWind }
 
-### Community 25 - "Profile Edit Screens"
+### Community 29 - "Edit Profile, KYC Upload, List Property"
 Cohesion: 0.67
 Nodes (3): EditProfileScreen, KYCUploadScreen, ListPropertyScreen
 
 ## Ambiguous Edges - Review These
 - `ReportScreen()` → `PropertyDetailScreen`  [AMBIGUOUS]
   app/(tenant)/report.tsx · relation: conceptually_related_to
+- `HomeTab` → `MapIllustration`  [AMBIGUOUS]
+  app/(tenant)/(tabs)/index.tsx · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **126 isolated node(s):** `name`, `slug`, `version`, `scheme`, `favicon` (+121 more)
+- **193 isolated node(s):** `name`, `slug`, `version`, `scheme`, `favicon` (+188 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **14 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **20 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **What is the exact relationship between `ReportScreen()` and `PropertyDetailScreen`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
-- **Why does `ScreenHeader()` connect `Listing Detail & Modals` to `StatusPill Component`, `My Reviews Screen`, `Tenant Profile Screen`, `List Property Screen`, `Role Routing & Navigation`, `Profile Setup Screens`, `Root Layout & Settings`, `Report Screen`, `New Listing Creation Flow`, `Visit Detail Screen`, `Tenant Home & Notifications`, `Profile & AI Preferences`, `Auth Funnel Screens`, `Visits & Requests (Landlord)`, `KYC Verification Screens`, `Property Reviews Screen`, `Filter Modal`?**
-  _High betweenness centrality (0.167) - this node is a cross-community bridge._
-- **Why does `ListingComposer()` connect `StatusPill Component` to `Listing Detail & Modals`?**
-  _High betweenness centrality (0.063) - this node is a cross-community bridge._
+- **What is the exact relationship between `HomeTab` and `MapIllustration`?**
+  _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
+- **Why does `ScreenHeader()` connect `Phone Auth & Public Landlord Profile` to `Confirmation Screen & Detail Rows`, `Landlord Request Detail`, `Landlord Visits, Requests & Tenant Filter`, `StatusPill Component & Status States`, `Landing, Loading & Brand Logo`, `Notifications & Profile Screens`, `Root & Tenant Layouts`, `Profile Edit & AI Preferences`, `New Listing Wizard Steps 1-3`, `AI Preferences Screen`?**
+  _High betweenness centrality (0.189) - this node is a cross-community bridge._
+- **Why does `ListingComposer()` connect `StatusPill Component & Status States` to `Phone Auth & Public Landlord Profile`?**
+  _High betweenness centrality (0.056) - this node is a cross-community bridge._
+- **Why does `FloatingDock()` connect `Landlord Visits, Requests & Tenant Filter` to `Notifications & Profile Screens`, `Root & Tenant Layouts`, `Product Docs: Vision & Experience`, `Atomic Design Atoms & Molecules`?**
+  _High betweenness centrality (0.056) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `ScreenHeader()` (e.g. with `Role-Based Routing` and `Role type: tenant | landlord | null`) actually correct?**
   _`ScreenHeader()` has 2 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 2 inferred relationships involving `useAuth` (e.g. with `RoleScreen()` and `SettingsScreen()`) actually correct?**
-  _`useAuth` has 2 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `name`, `slug`, `version` to the rest of the system?**
-  _127 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Expo SDK Dependencies` be split into smaller, more focused modules?**
-  _Cohesion score 0.06060606060606061 - nodes in this community are weakly interconnected._
+- **Are the 3 inferred relationships involving `useOnboardingStore` (e.g. with `KYC Mandatory For Landlord` and `KYC Verification States`) actually correct?**
+  _`useOnboardingStore` has 3 INFERRED edges - model-reasoned connections that need verification._
