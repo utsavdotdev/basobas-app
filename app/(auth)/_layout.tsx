@@ -9,14 +9,14 @@ export default function AuthLayout() {
       {/* Onboarding — single screen with internal step state */}
       <Stack.Screen name="onboarding" options={{ animation: 'fade', animationDuration: 350 }} />
 
-      {/* Auth flow — fade for the root landing, slide for sub-screens */}
-      <Stack.Screen name="landing" options={{ animation: 'fade', animationDuration: 300 }} />
+      {/* Auth flow — slide for sub-screens */}
       <Stack.Screen name="phone" options={{ animation: 'slide_from_right' }} />
       <Stack.Screen name="otp" options={{ animation: 'slide_from_right' }} />
-      <Stack.Screen name="role" options={{ animation: 'slide_from_right' }} />
-      <Stack.Screen name="profile-setup" options={{ animation: 'slide_from_right' }} />
-      <Stack.Screen name="kyc-tenant" options={{ animation: 'slide_from_right' }} />
-      <Stack.Screen name="kyc-landlord" options={{ animation: 'slide_from_right' }} />
+      <Stack.Screen name="role" options={{ animation: 'slide_from_right', animationDuration: 200 }} />
+      <Stack.Screen name="profile-setup" options={{ animation: 'slide_from_right', animationDuration: 200 }} />
+      <Stack.Screen name="kyc-tenant" options={{ animation: 'slide_from_right', animationDuration: 200 }} />
+      <Stack.Screen name="kyc-landlord" options={{ animation: 'slide_from_right', animationDuration: 200 }} />
+      <Stack.Screen name="confirmation" options={{ animation: 'fade', animationDuration: 400 }} />
     </Stack>
   );
 }
