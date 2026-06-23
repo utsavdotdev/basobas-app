@@ -31,13 +31,13 @@ const SLIDES: FeatureSlide[] = [
   {
     overline: 'Only Verified',
     headline: 'Real homes.\nVerified humans.',
-    body: 'Every listing on BasoBas is checked by our team. No catfish. No scams. Just the real deal.',
+    body: 'Every listing on BasoBas is checked by system. No catfish. No scams. Just the real deal.',
     Illustration: VerifiedIllustration,
   },
   {
     overline: 'Visits in seconds',
-    headline: 'Book a tour\nin one tap.',
-    body: 'Pick a time that works. Landlords confirm fast. Skip the back and forth on Viber.',
+    headline: 'Book a Rental\nin one tap.',
+    body: 'Pick a time that works. Landlords confirm fast. Skip the back and forth on chat.',
     Illustration: VisitIllustration,
   },
   {
@@ -139,14 +139,14 @@ export default function OnboardingScreen() {
 
   const handleNext = useCallback(() => {
     if (isLast) {
-      router.replace('/(auth)/landing');
+      router.replace('/(auth)/phone');
     } else {
       snapTo(activeIndex + 1);
     }
   }, [isLast, activeIndex, router, snapTo]);
 
   const handleSkip = useCallback(() => {
-    router.replace('/(auth)/landing');
+    router.replace('/(auth)/phone');
   }, [router]);
 
   // ── Animated styles ──────────────────────────────────────────────────────────

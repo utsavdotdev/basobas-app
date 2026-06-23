@@ -22,7 +22,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.utsavdotdev.basobas-app"
     },
     "android": {
       "adaptiveIcon": {
