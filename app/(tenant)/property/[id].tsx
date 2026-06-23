@@ -11,9 +11,11 @@ export default function PropertyDetailScreen() {
     <SafeAreaView edges={['top']} className="flex-1 bg-bg">
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         {/* Hero */}
-        <View className="h-[280px] bg-canvas relative">
-          <View className="absolute top-4 left-6 right-6 flex-row justify-between z-10">
-            <Pressable onPress={() => router.back()} className="h-10 w-10 items-center justify-center rounded-pill bg-white/80">
+        <View className="relative h-[280px] bg-canvas">
+          <View className="absolute left-6 right-6 top-4 z-10 flex-row justify-between">
+            <Pressable
+              onPress={() => router.back()}
+              className="h-10 w-10 items-center justify-center rounded-pill bg-white/80">
               <ArrowLeft size={18} color="#0A0A0A" />
             </Pressable>
             <View className="flex-row">
@@ -30,26 +32,30 @@ export default function PropertyDetailScreen() {
           </View>
           <Pressable
             onPress={() => router.push(`/(tenant)/property/${id}/gallery` as any)}
-            className="absolute bottom-3 right-6 rounded-pill bg-white/80 px-3 py-1"
-          >
+            className="absolute bottom-3 right-6 rounded-pill bg-white/80 px-3 py-1">
             <Text className="font-medium text-caption text-ink">View all</Text>
           </Pressable>
         </View>
 
         <View className="px-6 pt-4">
           {/* Title block */}
-          <Text className="font-semibold text-h2 text-ink mb-1">Modern 2BHK in Thamel</Text>
-          <Text className="font-sans text-body text-ink2 mb-1">Thamel, Kathmandu</Text>
-          <Text className="font-bold text-h3 text-brand mb-4">NPR 25,000/mo</Text>
+          <Text className="mb-1 font-semibold text-h2 text-ink">Modern 2BHK in Thamel</Text>
+          <Text className="mb-1 font-sans text-body text-ink2">Thamel, Kathmandu</Text>
+          <Text className="mb-4 font-bold text-h3 text-brand">NPR 25,000/mo</Text>
 
           {/* Verified pill */}
-          <View className="self-start rounded-pill bg-brand-light px-3 py-1 mb-4">
+          <View className="mb-4 self-start rounded-pill bg-brand-light px-3 py-1">
             <Text className="font-medium text-caption text-brand">✓ Verified</Text>
           </View>
 
           {/* Quick stats */}
-          <View className="flex-row justify-between mb-5 rounded-card bg-canvas p-4">
-            {[['2', 'Beds'], ['1', 'Bath'], ['850', 'sqft'], ['3', 'Floor']].map(([val, label]) => (
+          <View className="mb-5 flex-row justify-between rounded-card bg-canvas p-4">
+            {[
+              ['2', 'Beds'],
+              ['1', 'Bath'],
+              ['850', 'sqft'],
+              ['3', 'Floor'],
+            ].map(([val, label]) => (
               <View key={label} className="items-center">
                 <Text className="font-bold text-body text-ink">{val}</Text>
                 <Text className="font-sans text-caption text-ink2">{label}</Text>
@@ -58,28 +64,29 @@ export default function PropertyDetailScreen() {
           </View>
 
           {/* Description */}
-          <Text className="font-semibold text-h3 text-ink mb-2">Description</Text>
-          <Text className="font-sans text-body text-ink2 mb-5">
-            A beautiful, well-maintained apartment in the heart of Thamel. Walking distance to restaurants, shops, and public transport. The apartment features modern amenities and natural lighting.
+          <Text className="mb-2 font-semibold text-h3 text-ink">Description</Text>
+          <Text className="mb-5 font-sans text-body text-ink2">
+            A beautiful, well-maintained apartment in the heart of Thamel. Walking distance to
+            restaurants, shops, and public transport. The apartment features modern amenities and
+            natural lighting.
           </Text>
 
           {/* Amenities */}
-          <Text className="font-semibold text-h3 text-ink mb-2">Amenities</Text>
-          <View className="flex-row flex-wrap mb-5">
+          <Text className="mb-2 font-semibold text-h3 text-ink">Amenities</Text>
+          <View className="mb-5 flex-row flex-wrap">
             {['WiFi', 'Parking', 'Water 24/7', 'Balcony', 'Kitchen', 'Laundry'].map((a) => (
-              <View key={a} className="mr-2 mb-2 rounded-pill bg-canvas px-3 py-1.5">
+              <View key={a} className="mb-2 mr-2 rounded-pill bg-canvas px-3 py-1.5">
                 <Text className="font-sans text-body-sm text-ink">{a}</Text>
               </View>
             ))}
           </View>
 
           {/* Landlord card */}
-          <Text className="font-semibold text-h3 text-ink mb-2">Landlord</Text>
+          <Text className="mb-2 font-semibold text-h3 text-ink">Landlord</Text>
           <Pressable
             onPress={() => router.push('/(tenant)/landlord/1' as any)}
-            className="flex-row items-center rounded-card border border-line p-4 mb-5"
-          >
-            <View className="h-12 w-12 rounded-pill bg-canvas items-center justify-center mr-3">
+            className="mb-5 flex-row items-center rounded-card border border-line p-4">
+            <View className="mr-3 h-12 w-12 items-center justify-center rounded-pill bg-canvas">
               <Text className="font-sans text-body text-ink3">L</Text>
             </View>
             <View>
@@ -89,17 +96,17 @@ export default function PropertyDetailScreen() {
           </Pressable>
 
           {/* Reviews preview */}
-          <View className="flex-row items-center justify-between mb-3">
+          <View className="mb-3 flex-row items-center justify-between">
             <Text className="font-semibold text-h3 text-ink">Reviews</Text>
             <Pressable onPress={() => router.push(`/(tenant)/reviews/property/${id}` as any)}>
               <Text className="font-medium text-body-sm text-brand">See all</Text>
             </Pressable>
           </View>
-          <View className="rounded-card bg-canvas p-4 mb-5">
+          <View className="mb-5 rounded-card bg-canvas p-4">
             <Text className="font-sans text-body-sm text-ink2">
               {'"Great location and well-maintained property. Landlord is very responsive."'}
             </Text>
-            <Text className="font-sans text-caption text-ink3 mt-1">— Tenant, 2 weeks ago</Text>
+            <Text className="mt-1 font-sans text-caption text-ink3">— Tenant, 2 weeks ago</Text>
           </View>
         </View>
       </ScrollView>
@@ -111,8 +118,7 @@ export default function PropertyDetailScreen() {
         </Pressable>
         <Pressable
           onPress={() => router.push(`/(tenant)/schedule-visit/${id}` as any)}
-          className="flex-1 h-[48px] items-center justify-center rounded-pill bg-ink"
-        >
+          className="h-[48px] flex-1 items-center justify-center rounded-pill bg-ink">
           <Text className="font-semibold text-body text-white">Schedule Visit</Text>
         </Pressable>
       </View>

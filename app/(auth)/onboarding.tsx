@@ -99,7 +99,7 @@ export default function OnboardingScreen() {
         easing: Easing.out(Easing.cubic),
       });
     },
-    [screenWidth],
+    [screenWidth]
   );
 
   // ── Gesture swipe ────────────────────────────────────────────────────────────
@@ -132,7 +132,7 @@ export default function OnboardingScreen() {
             snapTo(cur);
           }
         }),
-    [screenWidth, snapTo],
+    [screenWidth, snapTo]
   );
 
   // ── Handlers ─────────────────────────────────────────────────────────────────
@@ -203,7 +203,9 @@ export default function OnboardingScreen() {
                         style={{ lineHeight: 37 }}>
                         {slide.headline}
                       </Text>
-                      <Text className="mt-3 font-sans text-body text-ink2" style={{ lineHeight: 22 }}>
+                      <Text
+                        className="mt-3 font-sans text-body text-ink2"
+                        style={{ lineHeight: 22 }}>
                         {slide.body}
                       </Text>
                     </View>

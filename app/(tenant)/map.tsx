@@ -8,7 +8,7 @@ export default function MapScreen() {
       <ScreenHeader title="Map" showBack centerTitle />
       <View className="flex-1 items-center justify-center bg-canvas">
         <Text className="font-sans text-body text-ink2">MapView placeholder</Text>
-        <Text className="font-sans text-body-sm text-ink3 mt-1">
+        <Text className="mt-1 font-sans text-body-sm text-ink3">
           react-native-maps will render here
         </Text>
       </View>
