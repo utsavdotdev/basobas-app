@@ -130,7 +130,7 @@ export default function SearchResults() {
         {RESULTS.map((row) => (
           <Pressable
             key={row.id}
-            onPress={() => router.push('/(tenant)/(tabs)/index' as any)}
+            onPress={() => router.push(`/(tenant)/property/${row.id}` as any)}
             accessibilityRole="button"
             accessibilityLabel={`${row.title}, ${row.price}`}
             className="flex-row items-start gap-4 rounded-card bg-bg p-4">
