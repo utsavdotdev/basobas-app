@@ -14,6 +14,7 @@ import {
 
 import { PropertyHero } from '@/src/components/organisms/PropertyHero';
 import { Avatar } from '@/src/components/atoms/Avatar';
+import { ScheduleVisitDrawer } from '@/src/components/organisms/ScheduleVisitDrawer';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const HERO_HEIGHT = SCREEN_HEIGHT * 0.42;
@@ -88,6 +89,7 @@ export default function PropertyDetailScreen() {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [saved, setSaved] = useState(false);
+  const [showScheduleDrawer, setShowScheduleDrawer] = useState(false);
 
   const property = MOCK_PROPERTY;
   const ownerInitials = property.owner.name
@@ -123,8 +125,20 @@ export default function PropertyDetailScreen() {
   }, []);
 
   const handleScheduleVisit = useCallback(() => {
-    router.push(`/(tenant)/schedule-visit/${id}` as any);
-  }, [router, id]);
+    setShowScheduleDrawer(true);
+  }, []);
+
+  const handleScheduleClose = useCallback(() => {
+    setShowScheduleDrawer(false);
+  }, []);
+
+  const handleScheduleConfirm = useCallback(
+    async (selection: { date: Date; time: string }) => {
+      // TODO: send visit request to API
+      console.log('Visit confirmed:', { selection, propertyId: id });
+    },
+    [id],
+  );
 
   return (
     <View className="flex-1 bg-bg">
@@ -242,6 +256,15 @@ export default function PropertyDetailScreen() {
           <Text className="font-semibold text-body text-white">Schedule a Visit</Text>
         </Pressable>
       </View>
+
+      {/* ═══ Schedule Visit Drawer ═══ */}
+      <ScheduleVisitDrawer
+        propertyTitle={property.title}
+        propertyLocation={property.location.split(',')[0]}
+        isOpen={showScheduleDrawer}
+        onClose={handleScheduleClose}
+        onConfirm={handleScheduleConfirm}
+      />
     </View>
   );
 }
