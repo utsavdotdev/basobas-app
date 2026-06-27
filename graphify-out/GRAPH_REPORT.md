@@ -1,16 +1,16 @@
 # Graph Report - basobas-app  (2026-06-24)
 
 ## Corpus Check
-- 121 files · ~43,125 words
+- 122 files · ~45,610 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 690 nodes · 869 edges · 61 communities (44 shown, 17 thin omitted)
+- 704 nodes · 884 edges · 62 communities (46 shown, 16 thin omitted)
 - Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 52 edges (avg confidence: 0.88)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `1f4d24d4`
+- Built from commit: `5951a13f`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -66,6 +66,7 @@
 - [[_COMMUNITY_Community 57|Community 57]]
 - [[_COMMUNITY_Community 58|Community 58]]
 - [[_COMMUNITY_Community 59|Community 59]]
+- [[_COMMUNITY_Community 61|Community 61]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `ScreenHeader()` - 47 edges
@@ -88,8 +89,8 @@
   assets/splash.png → CLAUDE.md
 - `Favicon (basobas-app)` --references--> `Expo Project Visual Assets`  [INFERRED]
   assets/favicon.png → CLAUDE.md
-- `LandlordProfileTab()` --semantically_similar_to--> `ProfileTab()`  [INFERRED] [semantically similar]
-  app/(landlord)/(tabs)/profile.tsx → app/(tenant)/(tabs)/profile.tsx
+- `useAuth` --shares_data_with--> `SettingsScreen()`  [INFERRED]
+  src/store/authStore.ts → app/(landlord)/settings.tsx
 
 ## Import Cycles
 - 1-file cycle: `metro.config.js -> metro.config.js`
@@ -106,35 +107,35 @@
 - **Expo + NativeWind + TypeScript toolchain** — config_package_json, config_app_json, config_babel_config, config_metro_config, config_tailwind, config_tsconfig, config_nativewind_env, config_eslint_config, config_prettier_config [EXTRACTED 1.00]
 - **Expo App Branding Asset Set** — assets_icon, assets_adaptive_icon, assets_splash, assets_favicon, expo_project_assets [INFERRED 0.95]
 
-## Communities (61 total, 17 thin omitted)
+## Communities (62 total, 16 thin omitted)
 
 ### Community 0 - "Expo SDK Dependencies"
 Cohesion: 0.05
 Nodes (38): dependencies, expo, expo-blur, expo-camera, expo-constants, expo-document-picker, expo-file-system, expo-font (+30 more)
 
 ### Community 1 - "StatusPill Component"
-Cohesion: 0.05
-Nodes (38): Avatar(), Props, Props, Status, STATUS_STYLES, Status type union (8 states), StatusPill(), Property listing concept group (Card/Hero/MapPin/Composer) (+30 more)
+Cohesion: 0.07
+Nodes (25): Avatar(), Props, Atomic design: atoms, molecules, organisms, FormField(), Props, Props, SearchBar(), Props (+17 more)
 
 ### Community 2 - "Expo App Config (app.json)"
 Cohesion: 0.07
 Nodes (26): backgroundColor, foregroundImage, adaptiveIcon, tsconfigPaths, typedRoutes, expo, android, assetBundlePatterns (+18 more)
 
 ### Community 3 - "Role Routing & Navigation"
-Cohesion: 0.09
-Nodes (26): Index(), RootLayout(), RootLayout (auth/role routing), Role-Based Routing, DevMode, getDevMode(), getInitialHref(), SettingsScreen() (+18 more)
+Cohesion: 0.11
+Nodes (21): Index(), RootLayout(), RootLayout (auth/role routing), DevMode, getDevMode(), getInitialHref(), SettingsScreen(), AuthState (+13 more)
 
 ### Community 4 - "Package Dependencies"
 Cohesion: 0.09
 Nodes (22): devDependencies, @babel/core, eslint, eslint-config-expo, eslint-config-prettier, prettier, prettier-plugin-tailwindcss, tailwindcss (+14 more)
 
 ### Community 5 - "Atomic Design Components"
-Cohesion: 0.12
-Nodes (15): DockTab, DockTabProps, Atomic design: atoms, molecules, organisms, LANDLORD_DOCK_ITEMS, TENANT_DOCK_ITEMS, GlassDock(), styles, FormField() (+7 more)
+Cohesion: 0.18
+Nodes (10): DockTab, DockTabProps, LANDLORD_DOCK_ITEMS, TENANT_DOCK_ITEMS, GlassDock(), styles, FloatingDock, FloatingDockProps (+2 more)
 
 ### Community 6 - "Profile Setup Screens"
-Cohesion: 0.08
-Nodes (5): Props, ScreenHeader(), Props, ReportScreen(), SavedScreen()
+Cohesion: 0.07
+Nodes (13): PhoneScreen(), styles, Role-Based Routing, Props, ScreenHeader(), Props, Auth gate redirects unauthenticated users from loading screen, Role type: tenant | landlord | null (+5 more)
 
 ### Community 7 - "Root Layout & Settings"
 Cohesion: 1.00
@@ -146,27 +147,27 @@ Nodes (13): Props, STATUS_STYLES, VisitStatus, VisitStatusBadge(), EMPTY_COPY, f
 
 ### Community 9 - "New Listing Creation Flow"
 Cohesion: 0.22
-Nodes (5): NewListingStep1(), NewListingStep2(), NewListingStep3(), NewListingStep4(), ListingsTab()
+Nodes (6): ListingDetailScreen, NewListingStep1(), NewListingStep2(), NewListingStep3(), NewListingStep4(), ListingsTab()
 
 ### Community 10 - "Expo/NativeWind Toolchain"
 Cohesion: 0.33
 Nodes (9): BasoBas design token palette (brand green, neutrals), app.json - BasoBas Expo app config, babel.config.js - nativewind/reanimated preset, metro.config.js - withNativeWind wrapper, nativewind-env.d.ts type reference, package.json - Expo 54 + React Native 0.81 + NativeWind, prettier.config.js - tailwindcss plugin, tailwind.config.js - nativewind preset + design tokens (+1 more)
 
 ### Community 11 - "Tenant Home & Notifications"
-Cohesion: 0.29
-Nodes (6): NotificationsScreen(), CITIES, City, HomeTab(), LandlordDashboard(), RECOMMENDED
+Cohesion: 0.11
+Nodes (18): Props, Status, STATUS_STYLES, Status type union (8 states), StatusPill(), Property listing concept group (Card/Hero/MapPin/Composer), PropertyCard(), PropertyCardVariant (+10 more)
 
 ### Community 12 - "Profile & AI Preferences"
-Cohesion: 0.20
-Nodes (7): AIPreferencesScreen(), EditProfileScreen(), LandlordVisitsScreen(), ListingDetailScreen, RequestDetailScreen, LandlordProfileTab(), TenantProfileScreen
+Cohesion: 0.22
+Nodes (7): AIPreferencesScreen(), EditProfileScreen(), NotificationsScreen(), HomeTab(), LandlordDashboard(), LandlordProfileTab(), ProfileTab()
 
 ### Community 13 - "Auth Funnel Screens"
-Cohesion: 0.18
-Nodes (11): fmtTimer(), maskPhone(), OTPScreen(), _styles, PhoneScreen(), styles, OTPCell, OTPCellProps (+3 more)
+Cohesion: 0.24
+Nodes (9): fmtTimer(), maskPhone(), OTPScreen(), _styles, OTPCell, OTPCellProps, OTPInput, OTPInputProps (+1 more)
 
 ### Community 14 - "Visits & Requests (Landlord)"
-Cohesion: 0.23
-Nodes (5): ScreenBody(), ScreenBodyProps, ScreenBodyWithActionProps, ProfileTab(), RequestsTab()
+Cohesion: 0.19
+Nodes (6): ScreenBody(), ScreenBodyProps, ScreenBodyWithActionProps, CITIES, City, RECOMMENDED
 
 ### Community 15 - "FilterChip Component"
 Cohesion: 0.29
@@ -244,29 +245,37 @@ Nodes (8): BasoBas — Project Documentation Index, Critical Rules — Read Befo
 Cohesion: 0.25
 Nodes (7): BasoBas — Complete Feature List, Core Features — Free for All Users, Every Feature, Who It Serves, and Whether It Is Free or Pro, Features That Will Never Be Gated, Free Tier Limits, Post-MVP Roadmap Features, Pro Features — Tenant Only, Paid Plan
 
+### Community 58 - "Community 58"
+Cohesion: 0.14
+Nodes (9): getRadiusCircleSizeForKm(), RadiusMapView(), RadiusMapViewProps, RING_COLORS, ALL_NEARBY, INITIAL_LOCATION, LOCATION_OPTIONS, NearbyProperty (+1 more)
+
+### Community 61 - "Community 61"
+Cohesion: 0.40
+Nodes (4): LandlordVisitsScreen(), RequestDetailScreen, RequestsTab(), TenantProfileScreen
+
 ## Ambiguous Edges - Review These
 - `ReportScreen()` → `PropertyDetailScreen`  [AMBIGUOUS]
   app/(tenant)/report.tsx · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **357 isolated node(s):** `name`, `slug`, `version`, `scheme`, `favicon` (+352 more)
+- **364 isolated node(s):** `name`, `slug`, `version`, `scheme`, `favicon` (+359 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **17 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **16 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **What is the exact relationship between `ReportScreen()` and `PropertyDetailScreen`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
-- **Why does `ScreenHeader()` connect `Profile Setup Screens` to `StatusPill Component`, `Role Routing & Navigation`, `Visit Detail Screen`, `Listing Detail & Modals`, `New Listing Creation Flow`, `Tenant Home & Notifications`, `Profile & AI Preferences`, `Auth Funnel Screens`, `Visits & Requests (Landlord)`, `KYC Verification Screens`, `Community 52`, `Community 58`, `Filter Modal`?**
-  _High betweenness centrality (0.118) - this node is a cross-community bridge._
-- **Why does `ListingComposer()` connect `StatusPill Component` to `Profile Setup Screens`?**
-  _High betweenness centrality (0.048) - this node is a cross-community bridge._
+- **Why does `ScreenHeader()` connect `Profile Setup Screens` to `Role Routing & Navigation`, `Visit Detail Screen`, `Listing Detail & Modals`, `New Listing Creation Flow`, `Tenant Home & Notifications`, `Profile & AI Preferences`, `Auth Funnel Screens`, `Visits & Requests (Landlord)`, `KYC Verification Screens`, `Community 52`, `Community 58`, `Community 61`, `Filter Modal`?**
+  _High betweenness centrality (0.125) - this node is a cross-community bridge._
+- **Why does `ListingComposer()` connect `Tenant Home & Notifications` to `Profile Setup Screens`?**
+  _High betweenness centrality (0.049) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `ScreenHeader()` (e.g. with `Role-Based Routing` and `Role type: tenant | landlord | null`) actually correct?**
   _`ScreenHeader()` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `name`, `slug`, `version` to the rest of the system?**
-  _358 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _365 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Expo SDK Dependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.05263157894736842 - nodes in this community are weakly interconnected._
 - **Should `StatusPill Component` be split into smaller, more focused modules?**
-  _Cohesion score 0.04846938775510204 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.0659536541889483 - nodes in this community are weakly interconnected._
