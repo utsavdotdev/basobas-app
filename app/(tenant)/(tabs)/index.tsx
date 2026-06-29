@@ -4,32 +4,39 @@ import { useRouter, Link } from 'expo-router';
 import { Bell, Search } from 'lucide-react-native';
 
 import { ScreenBody } from '@/src/components/organisms/ScreenBody';
+import { usePropertyStore } from '@/src/store/propertyStore';
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 
 const CITIES = ['Kathmandu', 'Lalitpur', 'Bhaktapur'] as const;
 type City = (typeof CITIES)[number];
 
-const RECOMMENDED = [
-  {
-    id: 'thamel',
-    title: 'Studio near Thamel',
-    price: 'Rs. 18,000 / month',
-    location: 'Kathmandu',
-  },
-  {
-    id: 'patan',
-    title: '1BHK in Patan',
-    price: 'Rs. 22,000 / month',
-    location: 'Lalitpur',
-  },
-] as const;
-
 // ─── Screen ─────────────────────────────────────────────────────────────────
 
 export default function HomeTab() {
   const router = useRouter();
   const [activeCity, setActiveCity] = useState<City>('Kathmandu');
+
+  const { properties, setFilter } = usePropertyStore((state) => ({
+    properties: state.properties,
+    setFilter: state.setFilter,
+  }));
+
+  // Select featured property (e.g. highest rated in Kathmandu)
+  const featuredProperty = properties.find((p) => p.id === 'p1') || properties[0];
+
+  // Select recommended properties (e.g. p2, p3, p4)
+  const recommendedProperties = properties.filter((p) => p.id !== featuredProperty.id).slice(0, 3);
+
+  const handleCityPress = (city: City) => {
+    setActiveCity(city);
+    setFilter('city', city);
+    router.push('/(tenant)/(tabs)/search' as any);
+  };
+
+  const handlePropertyPress = (id: string) => {
+    router.push({ pathname: '/(tenant)/property/[id]' as any, params: { id } });
+  };
 
   return (
     <ScreenBody>
@@ -77,7 +84,7 @@ export default function HomeTab() {
             return (
               <Pressable
                 key={city}
-                onPress={() => setActiveCity(city)}
+                onPress={() => handleCityPress(city)}
                 accessibilityRole="button"
                 accessibilityState={{ selected: isActive }}
                 accessibilityLabel={`Filter by ${city}`}
@@ -92,18 +99,26 @@ export default function HomeTab() {
           })}
         </View>
 
-        {/* Featured property card — placeholder */}
+        {/* Featured property card */}
         <View className="px-[24px] pt-6">
-          <View className="w-full overflow-hidden rounded-hero bg-canvas pb-2">
+          <Pressable
+            onPress={() => handlePropertyPress(featuredProperty.id)}
+            accessibilityRole="button"
+            accessibilityLabel={`Featured: ${featuredProperty.title}`}
+            className="w-full overflow-hidden rounded-hero bg-canvas pb-2">
             <View className="h-[210px] w-full bg-placeholder-image" />
             <View className="px-5 py-4">
               <Text numberOfLines={1} className="font-semibold text-h3 text-ink">
-                2BHK Apartment in Kupondole
+                {featuredProperty.title}
               </Text>
-              <Text className="mt-1 font-sans text-body text-brand">Rs. 32,000 / month</Text>
-              <Text className="mt-[6px] font-sans text-body-sm text-ink2">Lalitpur · Verified</Text>
+              <Text className="mt-1 font-sans text-body text-brand">
+                {featuredProperty.currency} {featuredProperty.priceMonthly.toLocaleString()} / month
+              </Text>
+              <Text className="mt-[6px] font-sans text-body-sm text-ink2">
+                {featuredProperty.area} · Verified
+              </Text>
             </View>
-          </View>
+          </Pressable>
         </View>
 
         {/* Recommended heading */}
@@ -113,24 +128,30 @@ export default function HomeTab() {
 
         {/* Recommended rows */}
         <View className="px-[24px] pt-4">
-          {RECOMMENDED.map((row, idx) => (
-            <View
+          {recommendedProperties.map((row, idx) => (
+            <Pressable
               key={row.id}
+              onPress={() => handlePropertyPress(row.id)}
+              accessibilityRole="button"
+              accessibilityLabel={`Recommended: ${row.title}`}
               className={`flex-row items-center gap-4 py-4 ${
-                idx < RECOMMENDED.length - 1 ? 'border-b border-divider' : ''
+                idx < recommendedProperties.length - 1 ? 'border-b border-divider' : ''
               }`}>
               <View className="h-[72px] w-[72px] rounded-lg bg-placeholder-image" />
               <View className="flex-1">
                 <Text numberOfLines={1} className="font-semibold text-body text-ink">
                   {row.title}
                 </Text>
-                <Text className="mt-1 font-sans text-body-sm text-ink2">{row.price}</Text>
-                <Text className="mt-1 font-sans text-caption text-placeholder">{row.location}</Text>
+                <Text className="mt-1 font-sans text-body-sm text-ink2">
+                  {row.currency} {row.priceMonthly.toLocaleString()} / month
+                </Text>
+                <Text className="mt-1 font-sans text-caption text-placeholder">{row.area}</Text>
               </View>
-            </View>
+            </Pressable>
           ))}
         </View>
       </ScrollView>
     </ScreenBody>
   );
 }
+

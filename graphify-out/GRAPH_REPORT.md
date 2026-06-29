@@ -1,16 +1,16 @@
-# Graph Report - basobas-app  (2026-06-24)
+# Graph Report - basobas-app  (2026-06-29)
 
 ## Corpus Check
-- 122 files · ~45,610 words
+- 124 files · ~49,840 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 704 nodes · 884 edges · 62 communities (46 shown, 16 thin omitted)
-- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 52 edges (avg confidence: 0.88)
+- 721 nodes · 924 edges · 63 communities (47 shown, 16 thin omitted)
+- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 54 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `5951a13f`
+- Built from commit: `c0ae1407`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -107,7 +107,7 @@
 - **Expo + NativeWind + TypeScript toolchain** — config_package_json, config_app_json, config_babel_config, config_metro_config, config_tailwind, config_tsconfig, config_nativewind_env, config_eslint_config, config_prettier_config [EXTRACTED 1.00]
 - **Expo App Branding Asset Set** — assets_icon, assets_adaptive_icon, assets_splash, assets_favicon, expo_project_assets [INFERRED 0.95]
 
-## Communities (62 total, 16 thin omitted)
+## Communities (63 total, 16 thin omitted)
 
 ### Community 0 - "Expo SDK Dependencies"
 Cohesion: 0.05
@@ -134,8 +134,8 @@ Cohesion: 0.18
 Nodes (10): DockTab, DockTabProps, LANDLORD_DOCK_ITEMS, TENANT_DOCK_ITEMS, GlassDock(), styles, FloatingDock, FloatingDockProps (+2 more)
 
 ### Community 6 - "Profile Setup Screens"
-Cohesion: 0.07
-Nodes (13): PhoneScreen(), styles, Role-Based Routing, Props, ScreenHeader(), Props, Auth gate redirects unauthenticated users from loading screen, Role type: tenant | landlord | null (+5 more)
+Cohesion: 0.10
+Nodes (4): Props, Props, AIPreferencesScreen, PreferencesScreen()
 
 ### Community 7 - "Root Layout & Settings"
 Cohesion: 1.00
@@ -146,8 +146,8 @@ Cohesion: 0.15
 Nodes (13): Props, STATUS_STYLES, VisitStatus, VisitStatusBadge(), EMPTY_COPY, formatDate(), subtitleFor(), TabKey (+5 more)
 
 ### Community 9 - "New Listing Creation Flow"
-Cohesion: 0.22
-Nodes (6): ListingDetailScreen, NewListingStep1(), NewListingStep2(), NewListingStep3(), NewListingStep4(), ListingsTab()
+Cohesion: 0.25
+Nodes (4): NewListingStep1(), NewListingStep2(), NewListingStep3(), NewListingStep4()
 
 ### Community 10 - "Expo/NativeWind Toolchain"
 Cohesion: 0.33
@@ -158,8 +158,8 @@ Cohesion: 0.11
 Nodes (18): Props, Status, STATUS_STYLES, Status type union (8 states), StatusPill(), Property listing concept group (Card/Hero/MapPin/Composer), PropertyCard(), PropertyCardVariant (+10 more)
 
 ### Community 12 - "Profile & AI Preferences"
-Cohesion: 0.22
-Nodes (7): AIPreferencesScreen(), EditProfileScreen(), NotificationsScreen(), HomeTab(), LandlordDashboard(), LandlordProfileTab(), ProfileTab()
+Cohesion: 0.29
+Nodes (4): AIPreferencesScreen(), EditProfileScreen(), LandlordVisitsScreen(), LandlordProfileTab()
 
 ### Community 13 - "Auth Funnel Screens"
 Cohesion: 0.24
@@ -167,7 +167,7 @@ Nodes (9): fmtTimer(), maskPhone(), OTPScreen(), _styles, OTPCell, OTPCellProps,
 
 ### Community 14 - "Visits & Requests (Landlord)"
 Cohesion: 0.19
-Nodes (6): ScreenBody(), ScreenBodyProps, ScreenBodyWithActionProps, CITIES, City, RECOMMENDED
+Nodes (8): ListingDetailScreen, ScreenBody(), ScreenBodyProps, ScreenBodyWithActionProps, RequestDetailScreen, ListingsTab(), RequestsTab(), TenantProfileScreen
 
 ### Community 15 - "FilterChip Component"
 Cohesion: 0.29
@@ -190,12 +190,16 @@ Cohesion: 0.06
 Nodes (47): ConfirmationScreen(), DetailRowProps, styles, SummaryCardProps, DocTypeChipProps, DocumentUploadZoneProps, KYCLandlordScreen(), styles (+39 more)
 
 ### Community 20 - "Menu Components"
-Cohesion: 0.33
-Nodes (4): MenuCard(), Props, MenuRow(), Props
+Cohesion: 0.13
+Nodes (14): Props, SectionLabel(), MenuCard(), Props, MenuRow(), Props, INITIAL_PROFILE, UserProfile (+6 more)
 
 ### Community 21 - "Metro Bundler Config"
 Cohesion: 0.67
 Nodes (3): config, { getDefaultConfig }, { withNativeWind }
+
+### Community 22 - "SectionLabel Atom"
+Cohesion: 0.12
+Nodes (7): Role-Based Routing, ScreenHeader(), Auth gate redirects unauthenticated users from loading screen, Role type: tenant | landlord | null, NotificationsScreen(), ReportScreen(), SavedScreen()
 
 ### Community 25 - "Profile Edit Screens"
 Cohesion: 0.67
@@ -210,8 +214,8 @@ Cohesion: 0.07
 Nodes (27): BasoBas — Tenant Experience, Category Chips (Horizontal Scroll), Content Area (Scrollable), Content Sections (Top to Bottom), Everything the Tenant Sees and Does, Filter Options, Gallery Header, Header (Fixed, Always Visible) (+19 more)
 
 ### Community 31 - "Filter Modal"
-Cohesion: 0.25
-Nodes (6): AMENITIES, Amenity, PROPERTY_TYPES, PropertyType, SortOption, SORTS
+Cohesion: 0.29
+Nodes (5): NotificationsScreen(), CITIES, City, HomeTab(), LandlordDashboard()
 
 ### Community 33 - "My Reviews Screen"
 Cohesion: 0.12
@@ -234,8 +238,8 @@ Cohesion: 0.18
 Nodes (6): DetailRowProps, MOCK_VISIT, STATUS_STYLES, styles, SummaryCardProps, VisitData
 
 ### Community 52 - "Community 52"
-Cohesion: 0.20
-Nodes (8): AMENITIES, FilterDrawer(), FilterDrawerProps, PROPERTY_TYPES, SORT_OPTIONS, BHK_FILTERS, BhkFilter, RESULTS
+Cohesion: 0.09
+Nodes (23): AMENITIES, Amenity, FilterDrawer(), PROPERTY_TYPES, PropertyType, SortOption, SORTS, AMENITIES (+15 more)
 
 ### Community 53 - "Community 53"
 Cohesion: 0.22
@@ -246,19 +250,15 @@ Cohesion: 0.25
 Nodes (7): BasoBas — Complete Feature List, Core Features — Free for All Users, Every Feature, Who It Serves, and Whether It Is Free or Pro, Features That Will Never Be Gated, Free Tier Limits, Post-MVP Roadmap Features, Pro Features — Tenant Only, Paid Plan
 
 ### Community 58 - "Community 58"
-Cohesion: 0.14
-Nodes (9): getRadiusCircleSizeForKm(), RadiusMapView(), RadiusMapViewProps, RING_COLORS, ALL_NEARBY, INITIAL_LOCATION, LOCATION_OPTIONS, NearbyProperty (+1 more)
-
-### Community 61 - "Community 61"
-Cohesion: 0.40
-Nodes (4): LandlordVisitsScreen(), RequestDetailScreen, RequestsTab(), TenantProfileScreen
+Cohesion: 0.15
+Nodes (8): getRadiusCircleSizeForKm(), RadiusMapView(), RadiusMapViewProps, RING_COLORS, ALL_NEARBY, NearbyProperty, NEPAL_LOCATIONS, SearchLocation
 
 ## Ambiguous Edges - Review These
 - `ReportScreen()` → `PropertyDetailScreen`  [AMBIGUOUS]
   app/(tenant)/report.tsx · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **364 isolated node(s):** `name`, `slug`, `version`, `scheme`, `favicon` (+359 more)
+- **372 isolated node(s):** `name`, `slug`, `version`, `scheme`, `favicon` (+367 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **16 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -267,14 +267,14 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **What is the exact relationship between `ReportScreen()` and `PropertyDetailScreen`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
-- **Why does `ScreenHeader()` connect `Profile Setup Screens` to `Role Routing & Navigation`, `Visit Detail Screen`, `Listing Detail & Modals`, `New Listing Creation Flow`, `Tenant Home & Notifications`, `Profile & AI Preferences`, `Auth Funnel Screens`, `Visits & Requests (Landlord)`, `KYC Verification Screens`, `Community 52`, `Community 58`, `Community 61`, `Filter Modal`?**
-  _High betweenness centrality (0.125) - this node is a cross-community bridge._
-- **Why does `ListingComposer()` connect `Tenant Home & Notifications` to `Profile Setup Screens`?**
-  _High betweenness centrality (0.049) - this node is a cross-community bridge._
+- **Why does `ScreenHeader()` connect `SectionLabel Atom` to `Role Routing & Navigation`, `Profile Setup Screens`, `Visit Detail Screen`, `Listing Detail & Modals`, `New Listing Creation Flow`, `Tenant Home & Notifications`, `Profile & AI Preferences`, `Auth Funnel Screens`, `Visits & Requests (Landlord)`, `KYC Verification Screens`, `Menu Components`, `Community 52`, `Community 58`, `Community 61`, `Community 62`, `Filter Modal`?**
+  _High betweenness centrality (0.116) - this node is a cross-community bridge._
+- **Why does `ListingComposer()` connect `Tenant Home & Notifications` to `Profile Setup Screens`, `SectionLabel Atom`?**
+  _High betweenness centrality (0.025) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `ScreenHeader()` (e.g. with `Role-Based Routing` and `Role type: tenant | landlord | null`) actually correct?**
   _`ScreenHeader()` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `name`, `slug`, `version` to the rest of the system?**
-  _365 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _373 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Expo SDK Dependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.05263157894736842 - nodes in this community are weakly interconnected._
 - **Should `StatusPill Component` be split into smaller, more focused modules?**

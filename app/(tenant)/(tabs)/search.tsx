@@ -7,44 +7,32 @@ import { ArrowLeft, MapPin, ChevronDown, SlidersHorizontal, Heart, Map } from 'l
 import { tokens } from '@/src/theme/tokens';
 import { FilterDrawer } from '@/src/components/organisms/FilterDrawer';
 import { DOCK_BOTTOM_GAP } from '@/src/components/GlassDock/GlassDock';
+import { usePropertyStore } from '@/src/store/propertyStore';
 
-const BHK_FILTERS = ['All', '1BHK', '2BHK', 'Studio'] as const;
+const BHK_FILTERS = ['All', '1BHK', '2BHK', '3BHK', 'Studio'] as const;
 type BhkFilter = (typeof BHK_FILTERS)[number];
-
-const RESULTS = [
-  {
-    id: 'kupondole',
-    title: '2BHK in Kupondole',
-    price: 'Rs. 32,000 / month',
-    location: 'Lalitpur',
-    distance: '1.2 km',
-  },
-  {
-    id: 'thamel',
-    title: 'Studio near Thamel',
-    price: 'Rs. 18,000 / month',
-    location: 'Kathmandu',
-    distance: '2.4 km',
-  },
-  {
-    id: 'patan',
-    title: '1BHK in Patan',
-    price: 'Rs. 22,000 / month',
-    location: 'Lalitpur',
-    distance: '3.1 km',
-  },
-] as const;
 
 const FAB_SIZE = 56;
 
 export default function SearchResults() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const [activeBhk, setActiveBhk] = useState<BhkFilter>('All');
   const [isFilterVisible, setIsFilterVisible] = useState(false);
+
+  const { filters, setFilter, toggleSaved, savedPropertyIds, getFilteredProperties } = usePropertyStore();
+  const filteredProperties = getFilteredProperties();
 
   const dockTopEdge = insets.bottom + DOCK_BOTTOM_GAP + tokens.space.dockH;
   const fabBottom = dockTopEdge + 16; // 16px gap above the floating dock
+
+  const handleBhkPress = (chip: BhkFilter) => {
+    setFilter('type', chip);
+  };
+
+  const handleSortPress = () => {
+    const nextSort = filters.sortBy === 'Newest' ? 'Price: Low to High' : 'Newest';
+    setFilter('sortBy', nextSort);
+  };
 
   return (
     <SafeAreaView edges={['top']} className="flex-1 bg-bg">
@@ -62,7 +50,9 @@ export default function SearchResults() {
 
             <View className="h-[48px] flex-1 flex-row items-center gap-2 rounded-pill bg-input px-4">
               <MapPin size={18} color="#0A0A0A" />
-              <Text className="font-sans text-body text-ink">Kathmandu</Text>
+              <Text className="font-sans text-body text-ink">
+                {filters.city === 'All' ? 'All Nepal' : filters.city}
+              </Text>
             </View>
 
             <Pressable
@@ -81,11 +71,11 @@ export default function SearchResults() {
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{ gap: 12, paddingRight: 24 }}>
               {BHK_FILTERS.map((chip) => {
-                const isActive = chip === activeBhk;
+                const isActive = chip === filters.type;
                 return (
                   <Pressable
                     key={chip}
-                    onPress={() => setActiveBhk(chip)}
+                    onPress={() => handleBhkPress(chip)}
                     accessibilityRole="button"
                     accessibilityState={{ selected: isActive }}
                     accessibilityLabel={`Filter ${chip}`}
@@ -105,14 +95,16 @@ export default function SearchResults() {
 
         {/* ── Results count + sort bar ───────────────────────────────────── */}
         <View className="flex-row items-center justify-between border-t border-canvas px-[24px] py-4">
-          <Text className="font-semibold text-body-sm text-ink2">128 results</Text>
+          <Text className="font-semibold text-body-sm text-ink2">
+            {filteredProperties.length} results
+          </Text>
           <Pressable
-            onPress={() => {}}
+            onPress={handleSortPress}
             accessibilityRole="button"
             accessibilityLabel="Sort"
             className="flex-row items-center gap-1.5">
             <ChevronDown size={16} color="#888888" strokeWidth={2} />
-            <Text className="font-sans text-body-sm text-ink2">Sort: Newest</Text>
+            <Text className="font-sans text-body-sm text-ink2">Sort: {filters.sortBy}</Text>
           </Pressable>
         </View>
       </View>
@@ -127,33 +119,50 @@ export default function SearchResults() {
           gap: 16,
         }}
         showsVerticalScrollIndicator={false}>
-        {RESULTS.map((row) => (
-          <Pressable
-            key={row.id}
-            onPress={() => router.push(`/(tenant)/property/${row.id}` as any)}
-            accessibilityRole="button"
-            accessibilityLabel={`${row.title}, ${row.price}`}
-            className="flex-row items-start gap-4 rounded-card bg-bg p-4">
-            <View className="h-[80px] w-[80px] shrink-0 rounded-lg bg-placeholder-image" />
-            <View className="flex-1 justify-center py-1">
-              <Text numberOfLines={1} className="font-semibold text-body text-ink">
-                {row.title}
-              </Text>
-              <View className="mt-1">
-                <Text className="font-sans text-body-sm text-brand">{row.price}</Text>
-              </View>
-              <View className="mt-1.5 flex-row items-center gap-1">
-                <MapPin size={12} color="#888888" />
-                <Text className="font-sans text-caption text-ink3">
-                  {row.location} · {row.distance}
+        {filteredProperties.map((row) => {
+          const isSaved = savedPropertyIds.includes(row.id);
+          return (
+            <Pressable
+              key={row.id}
+              onPress={() => router.push({ pathname: '/(tenant)/property/[id]' as any, params: { id: row.id } })}
+              accessibilityRole="button"
+              accessibilityLabel={`${row.title}, ${row.currency} ${row.priceMonthly.toLocaleString()} / month`}
+              className="flex-row items-start gap-4 rounded-card bg-bg p-4">
+              <View className="h-[80px] w-[80px] shrink-0 rounded-lg bg-placeholder-image" />
+              <View className="flex-1 justify-center py-1">
+                <Text numberOfLines={1} className="font-semibold text-body text-ink">
+                  {row.title}
                 </Text>
+                <View className="mt-1">
+                  <Text className="font-sans text-body-sm text-brand">
+                    {row.currency} {row.priceMonthly.toLocaleString()} / month
+                  </Text>
+                </View>
+                <View className="mt-1.5 flex-row items-center gap-1">
+                  <MapPin size={12} color="#888888" />
+                  <Text className="font-sans text-caption text-ink3">
+                    {row.area}
+                  </Text>
+                </View>
               </View>
-            </View>
-            <View className="h-[24px] w-[24px] items-center justify-center">
-              <Heart size={20} color="#AAAAAA" strokeWidth={1.5} />
-            </View>
-          </Pressable>
-        ))}
+              <Pressable
+                onPress={(e) => {
+                  e.stopPropagation();
+                  toggleSaved(row.id);
+                }}
+                accessibilityRole="button"
+                accessibilityLabel={isSaved ? 'Remove from saved' : 'Save property'}
+                className="h-[24px] w-[24px] items-center justify-center">
+                <Heart
+                  size={20}
+                  color={isSaved ? '#E53E3E' : '#AAAAAA'}
+                  fill={isSaved ? '#E53E3E' : 'transparent'}
+                  strokeWidth={1.5}
+                />
+              </Pressable>
+            </Pressable>
+          );
+        })}
       </ScrollView>
 
       {/* ── Floating map FAB ────────────────────────────────────────────── */}
@@ -178,3 +187,4 @@ export default function SearchResults() {
     </SafeAreaView>
   );
 }
+

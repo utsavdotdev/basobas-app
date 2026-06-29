@@ -8,7 +8,7 @@ import {
   type ListRenderItem,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import {
   CalendarDays,
   Clock,
@@ -142,7 +142,10 @@ const subtitleFor = (tab: TabKey, count: number): string => {
 export default function VisitsTab() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const [activeTab, setActiveTab] = useState<TabKey>('upcoming');
+  const { initialTab } = useLocalSearchParams<{ initialTab?: string }>();
+  const validInitialTab: TabKey = (TABS.find((t) => t.key === initialTab)?.key ??
+    'upcoming') as TabKey;
+  const [activeTab, setActiveTab] = useState<TabKey>(validInitialTab);
   const [refreshing, setRefreshing] = useState(false);
 
   // Filter once per activeTab. Using a single today's-midnight stamp keeps
