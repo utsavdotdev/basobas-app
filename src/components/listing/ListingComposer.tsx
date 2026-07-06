@@ -1,6 +1,6 @@
 import { View, Text, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScreenHeader } from '../molecules/ScreenHeader';
+import { ScreenHeader } from '../layout/ScreenHeader';
 
 type Props = {
   title: string;

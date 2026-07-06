@@ -2,7 +2,7 @@ import { ScrollView, View, Text, Pressable } from 'react-native';
 import { useRouter, Link } from 'expo-router';
 import { Bell, Plus, Check, X } from 'lucide-react-native';
 
-import { ScreenBody } from '@/src/components/organisms/ScreenBody';
+import { ScreenBody } from '@/src/components/layout/ScreenBody';
 
 export default function LandlordDashboard() {
   const router = useRouter();

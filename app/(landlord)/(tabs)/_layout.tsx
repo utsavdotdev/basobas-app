@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { FloatingDock } from '@/src/components/organisms/FloatingDock';
+import { FloatingDock } from '@/src/components/navigation/FloatingDock';
 
 export default function LandlordTabsLayout() {
   return (

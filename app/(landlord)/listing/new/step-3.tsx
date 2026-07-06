@@ -1,7 +1,7 @@
 import { ScrollView, View, Text, Pressable, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { ScreenHeader } from '../../../../src/components/molecules/ScreenHeader';
+import { ScreenHeader } from '../../../../src/components/layout/ScreenHeader';
 import { Image, Upload } from 'lucide-react-native';
 
 export default function NewListingStep3() {

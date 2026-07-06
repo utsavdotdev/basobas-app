@@ -1,5 +1,5 @@
 import { Home, Search, CalendarDays, User } from 'lucide-react-native';
-import type { DockItem } from '@/src/components/GlassDock/types/dock';
+import type { DockItem } from '../types/dock';
 
 /**
  * Tenant bottom dock: Home → Search → Visits → Profile.

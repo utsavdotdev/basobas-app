@@ -1,7 +1,7 @@
 import { Text } from 'react-native';
 
-import { ScreenBody } from '@/src/components/organisms/ScreenBody';
-import { ScreenHeader } from '@/src/components/molecules/ScreenHeader';
+import { ScreenBody } from '@/src/components/layout/ScreenBody';
+import { ScreenHeader } from '@/src/components/layout/ScreenHeader';
 
 export default function VisitsTab() {
   return (

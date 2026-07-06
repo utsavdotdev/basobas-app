@@ -4,9 +4,9 @@ import { SlidersHorizontal } from 'lucide-react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { SearchBar } from '@/src/components/molecules/SearchBar';
+import { SearchBar } from '@/src/components/search/SearchBar';
 import { tokens } from '@/src/theme/tokens';
-import { DOCK_BOTTOM_GAP } from '@/src/components/GlassDock/GlassDock';
+import { DOCK_BOTTOM_GAP } from '@/src/components/navigation/GlassDock/GlassDock';
 
 // Height of the "Show results" floating pill button + its gap above the dock.
 const RESULTS_BTN_HEIGHT = 52;

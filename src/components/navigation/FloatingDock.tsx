@@ -1,10 +1,10 @@
 import React from 'react';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
-import { GlassDock } from '@/src/components/GlassDock/GlassDock';
-import { TENANT_DOCK_ITEMS } from '@/src/components/GlassDock/constants/tenantDockItems';
-import { LANDLORD_DOCK_ITEMS } from '@/src/components/GlassDock/constants/landlordDockItems';
-import type { DockItem } from '@/src/components/GlassDock/types/dock';
+import { GlassDock } from './GlassDock/GlassDock';
+import { TENANT_DOCK_ITEMS } from './GlassDock/constants/tenantDockItems';
+import { LANDLORD_DOCK_ITEMS } from './GlassDock/constants/landlordDockItems';
+import type { DockItem } from './GlassDock/types/dock';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 

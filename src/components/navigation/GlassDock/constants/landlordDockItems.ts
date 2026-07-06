@@ -1,5 +1,5 @@
 import { Home, Building2, Bell, User } from 'lucide-react-native';
-import type { DockItem } from '@/src/components/GlassDock/types/dock';
+import type { DockItem } from '../types/dock';
 
 /**
  * Landlord bottom dock: Home → Properties → Requests → Profile.

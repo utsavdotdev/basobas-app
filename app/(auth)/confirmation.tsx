@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Image, Alert } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRouter } from 'expo-router'
 import {
@@ -22,9 +22,13 @@ import Animated, {
   FadeInDown,
 } from 'react-native-reanimated'
 
-import { PrimaryButton } from '@/src/components/shared/PrimaryButton'
+import { PrimaryButton } from '@/src/components/form/PrimaryButton'
 import { useOnboardingStore } from '@/src/store/onboardingStore'
-import { useAuth } from '@/src/store/authStore'
+// NOTE: supabase is obtained via useClerkSupabase() hook below
+import { useAuthStore } from '@/src/store/authStore'
+import { useUser } from '@clerk/expo'
+import { useClerkSupabase } from '@/src/hooks/useClerkSupabase'
+import { completeOnboarding } from '@/src/services/onboarding.service'
 import { tokens } from '@/src/theme/tokens'
 import type { UserRole } from '@/src/types/onboarding.types'
 
@@ -136,7 +140,10 @@ const TagPill: React.FC<{ label: string }> = ({ label }) => (
 
 export default function ConfirmationScreen() {
   const router = useRouter()
-  const { roles, profile, kyc, reset } = useOnboardingStore()
+  const { roles, profile, kyc, reset, setSubmitting, setSubmitError, onboardingComplete } = useOnboardingStore()
+  const { user } = useUser()
+  const supabase = useClerkSupabase()
+  const { setProfile } = useAuthStore()
 
   const role: UserRole = roles[0] || 'tenant'
   const isLandlord = role === 'landlord'
@@ -153,12 +160,94 @@ export default function ConfirmationScreen() {
         .slice(0, 2)
     : '?'
 
-  const handleGoToApp = useCallback(() => {
-    useAuth.getState().login(role)
-    reset()
+  const handleGoToApp = useCallback(async () => {
+    if (!user) {
+      const target = isLandlord ? '/(landlord)/(tabs)' : '/(tenant)/(tabs)'
+      router.replace(target as any)
+      return
+    }
+
     const target = isLandlord ? '/(landlord)/(tabs)' : '/(tenant)/(tabs)'
+
+    // ── If KYC was already submitted on the KYC screen, just navigate ──
+    if (onboardingComplete) {
+      const { data: existingProfile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('clerk_id', user.id)
+        .single()
+
+      if (existingProfile) {
+        setProfile(existingProfile as any)
+      }
+
+      reset()
+      router.replace(target as any)
+      return
+    }
+
+    // ── Tenant skipped KYC — complete onboarding now (profile only) ──
+    setSubmitting(true)
+
+    const result = await completeOnboarding({
+      clerkId: user.id,
+      phone: user.phoneNumbers?.[0]?.phoneNumber ?? '',
+      roles,
+      fullName: profile.fullName,
+      city: profile.city,
+      avatarLocalUri: profile.avatarUri,
+      preferences: profile.preferences as any,
+      supabase,
+      kyc: null,
+    })
+
+    setSubmitting(false)
+
+    // Debug: check DB state after onboarding (dev only)
+    if (__DEV__) {
+      const { debugOnboardingState } = await import('@/src/utils/debug')
+      await debugOnboardingState(user.id, supabase)
+    }
+
+    if (!result.success) {
+      setSubmitError(result.error)
+      Alert.alert('Setup Failed', result.error, [
+        { text: 'Try Again', onPress: handleGoToApp },
+        { text: 'Continue Anyway', onPress: async () => {
+          // Fallback: call RPC directly even if avatar upload failed
+          if (user) {
+            await supabase.rpc('complete_onboarding', {
+              p_clerk_id: user.id,
+              p_full_name: profile.fullName,
+              p_city: profile.city,
+              p_roles: roles,
+              p_property_types: profile.preferences,
+              p_has_landlord_role: roles.includes('landlord'),
+              p_phone: user.phoneNumbers?.[0]?.phoneNumber ?? '',
+              p_kyc_submission_id: undefined,
+            })
+          }
+          reset()
+          router.replace(target as any)
+        }},
+      ])
+      return
+    }
+
+    // Refresh profile to trigger navigation
+    const { data: updatedProfile } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('clerk_id', user.id)
+      .single()
+
+    if (updatedProfile) {
+      setProfile(updatedProfile as any)
+    }
+
+    reset()
     router.replace(target as any)
-  }, [role, isLandlord, router, reset])
+  }, [user, roles, profile, kyc, isLandlord, onboardingComplete, router, reset, setSubmitting, setSubmitError, setProfile])
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>

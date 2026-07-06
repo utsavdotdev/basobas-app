@@ -3,8 +3,8 @@ import { View, StyleSheet } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { DockTab } from '@/src/components/GlassDock/components/DockTab';
-import type { GlassDockProps } from '@/src/components/GlassDock/types/dock';
+import { DockTab } from './components/DockTab';
+import type { GlassDockProps } from './types/dock';
 
 /**
  * Gap between the dock's bottom edge and the safe-area bottom.

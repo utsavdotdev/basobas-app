@@ -1,34 +1,81 @@
-import { View, Text } from 'react-native';
+import { View, Text, Pressable, Alert, ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
 
-import { ScreenBody } from '@/src/components/organisms/ScreenBody';
-import { ScreenHeader } from '@/src/components/molecules/ScreenHeader';
+import { ScreenBody } from '@/src/components/layout/ScreenBody';
+import { ScreenHeader } from '@/src/components/layout/ScreenHeader';
+import { useAuth } from '@clerk/expo';
+import { useAuthStore } from '@/src/store/authStore';
+import { useOnboardingStore } from '@/src/store/onboardingStore';
 
 export default function ProfileTab() {
+  const router = useRouter();
+  const { signOut } = useAuth();
+
+  const menuItems = [
+    { label: 'Edit Profile', route: '/(tenant)/edit-profile' },
+    { label: 'Saved Properties', route: '/(tenant)/saved' },
+    { label: 'My Reviews', route: '/(tenant)/reviews/index' },
+    { label: 'Rental Preferences', route: '/(tenant)/preferences' },
+    { label: 'KYC Upload', route: '/(tenant)/kyc-upload' },
+    { label: 'Settings', route: '/(tenant)/settings' },
+  ];
+
+  const handleLogout = async () => {
+    Alert.alert(
+      'Log Out',
+      'Are you sure you want to log out?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Log Out',
+          style: 'destructive',
+          onPress: async () => {
+            try { await signOut() } catch {}
+            useAuthStore.getState().clearAll();
+            useOnboardingStore.getState().reset();
+            router.replace('/(auth)/phone');
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <ScreenBody>
-      <ScreenHeader title="Profile" rightIcon="settings" />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ScreenHeader title="Profile" rightIcon="settings" />
 
-      {/* Avatar */}
-      <View className="mb-5 mt-4 items-center px-6">
-        <View className="mb-3 h-[80px] w-[80px] items-center justify-center rounded-pill bg-canvas">
-          <Text className="font-sans text-h1 text-ink3">U</Text>
+        {/* Avatar */}
+        <View className="mb-5 mt-4 items-center px-6">
+          <View className="mb-3 h-[80px] w-[80px] items-center justify-center rounded-pill bg-canvas">
+            <Text className="font-sans text-h1 text-ink3">U</Text>
+          </View>
+          <Text className="font-semibold text-h3 text-ink">User Name</Text>
+          <Text className="font-sans text-body-sm text-ink2">+977 98XXXXXXXX</Text>
         </View>
-        <Text className="font-semibold text-h3 text-ink">User Name</Text>
-        <Text className="font-sans text-body-sm text-ink2">+977 98XXXXXXXX</Text>
-      </View>
 
-      {/* Menu sections placeholder */}
-      <View className="mx-6 rounded-card border border-line bg-bg">
-        {['Edit Profile', 'Saved Properties', 'My Reviews', 'Rental Preferences', 'KYC Upload'].map(
-          (item, i, arr) => (
-            <View
-              key={item}
+        {/* Menu sections */}
+        <View className="mx-6 rounded-card border border-line bg-bg">
+          {menuItems.map((item, i, arr) => (
+            <Pressable
+              key={item.label}
+              onPress={() => router.push(item.route as any)}
               className={`px-4 py-4 ${i < arr.length - 1 ? 'border-b border-row-divider' : ''}`}>
-              <Text className="font-medium text-body text-ink">{item}</Text>
-            </View>
-          )
-        )}
-      </View>
+              <Text className="font-medium text-body text-ink">{item.label}</Text>
+            </Pressable>
+          ))}
+        </View>
+
+        {/* Logout */}
+        <View className="mx-6 mt-8">
+          <Text className="mb-2 font-semibold text-caption uppercase tracking-wider text-ink3">Account</Text>
+          <Pressable
+            onPress={handleLogout}
+            className="h-[56px] items-center justify-center rounded-pill border border-danger">
+            <Text className="font-semibold text-body text-danger">Log Out</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
     </ScreenBody>
   );
 }
