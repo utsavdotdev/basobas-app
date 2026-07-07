@@ -22,7 +22,7 @@ import Animated, {
   FadeInDown,
 } from 'react-native-reanimated'
 
-import { PrimaryButton } from '@/src/components/form/PrimaryButton'
+import { PrimaryButton } from '@/src/components/shared/PrimaryButton'
 import { useOnboardingStore } from '@/src/store/onboardingStore'
 // NOTE: supabase is obtained via useClerkSupabase() hook below
 import { useAuthStore } from '@/src/store/authStore'
