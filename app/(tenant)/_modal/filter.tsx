@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
+import { usePropertyStore } from '@/src/store/propertyStore';
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 
@@ -17,12 +18,14 @@ type SortOption = (typeof SORTS)[number];
 
 export default function FilterDrawer() {
   const router = useRouter();
+  
+  const { filters, setFilter, properties } = usePropertyStore();
 
-  const [type, setType] = useState<PropertyType>('All');
-  const [amenities, setAmenities] = useState<Set<Amenity>>(new Set());
-  const [sort, setSort] = useState<SortOption>('Newest');
-  const [minPrice] = useState('15,000');
-  const [maxPrice] = useState('45,000');
+  const [type, setType] = useState<PropertyType>(filters.type as PropertyType);
+  const [amenities, setAmenities] = useState<Set<Amenity>>(new Set(filters.amenities as Amenity[]));
+  const [sort, setSort] = useState<SortOption>(filters.sortBy as SortOption);
+  const [minPrice, setMinPrice] = useState<number>(filters.minPrice);
+  const [maxPrice, setMaxPrice] = useState<number>(filters.maxPrice);
 
   const toggleAmenity = (a: Amenity) => {
     setAmenities((prev) => {
@@ -32,6 +35,35 @@ export default function FilterDrawer() {
       return next;
     });
   };
+
+  const handleApply = () => {
+    setFilter('type', type);
+    setFilter('amenities', Array.from(amenities));
+    setFilter('sortBy', sort);
+    setFilter('minPrice', minPrice);
+    setFilter('maxPrice', maxPrice);
+    router.back();
+  };
+
+  // Dynamically count matching results based on current draft filters
+  const draftFilteredCount = properties.filter((property) => {
+    if (type !== 'All' && property.type !== type) {
+      return false;
+    }
+    if (filters.city !== 'All' && property.location !== filters.city) {
+      return false;
+    }
+    if (property.priceMonthly < minPrice || property.priceMonthly > maxPrice) {
+      return false;
+    }
+    if (amenities.size > 0) {
+      const hasAll = Array.from(amenities).every((amenity) =>
+        property.amenityStrings.includes(amenity),
+      );
+      if (!hasAll) return false;
+    }
+    return true;
+  }).length;
 
   return (
     <View
@@ -62,6 +94,8 @@ export default function FilterDrawer() {
               setType('All');
               setAmenities(new Set());
               setSort('Newest');
+              setMinPrice(10000);
+              setMaxPrice(60000);
             }}
             accessibilityRole="button"
             accessibilityLabel="Reset all filters">
@@ -76,14 +110,14 @@ export default function FilterDrawer() {
             <View className="h-[32px] flex-1 flex-row items-center rounded-sm border border-line bg-input px-[10px]">
               <Text className="font-sans text-[9px] leading-[13.5px] text-ink3">Rs.</Text>
               <Text className="ml-1 font-sans text-[9px] leading-[13.5px] text-ink">
-                {minPrice}
+                {minPrice.toLocaleString()}
               </Text>
             </View>
             <Text className="font-sans text-[10px] leading-[15px] text-placeholder">to</Text>
             <View className="h-[32px] flex-1 flex-row items-center rounded-sm border border-line bg-input px-[10px]">
               <Text className="font-sans text-[9px] leading-[13.5px] text-ink3">Rs.</Text>
               <Text className="ml-1 font-sans text-[9px] leading-[13.5px] text-ink">
-                {maxPrice}
+                {maxPrice.toLocaleString()}
               </Text>
             </View>
           </View>
@@ -175,13 +209,16 @@ export default function FilterDrawer() {
 
         {/* Show results primary button */}
         <Pressable
-          onPress={() => router.back()}
+          onPress={handleApply}
           accessibilityRole="button"
-          accessibilityLabel="Show 128 results"
+          accessibilityLabel={`Show ${draftFilteredCount} results`}
           className="mt-[18px] h-[38px] w-full items-center justify-center rounded-pill bg-ink">
-          <Text className="font-bold text-[10px] leading-[15px] text-bg">Show 128 results</Text>
+          <Text className="font-bold text-[10px] leading-[15px] text-bg">
+            Show {draftFilteredCount} results
+          </Text>
         </Pressable>
       </ScrollView>
     </View>
   );
 }
+
