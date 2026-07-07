@@ -17,9 +17,9 @@ import {
   CalendarX,
 } from 'lucide-react-native';
 
-import { ScreenBody } from '@/src/components/organisms/ScreenBody';
-import { VisitStatusBadge } from '@/src/components/atoms/VisitStatusBadge';
-import type { VisitStatus } from '@/src/components/atoms/VisitStatusBadge';
+import { ScreenBody } from '@/src/components/layout/ScreenBody';
+import { VisitStatusBadge } from '@/src/components/user/VisitStatusBadge';
+import type { VisitStatus } from '@/src/components/user/VisitStatusBadge';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 

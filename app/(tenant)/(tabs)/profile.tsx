@@ -21,11 +21,11 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
 
-import { ScreenBody } from '@/src/components/organisms/ScreenBody';
-import { Avatar } from '@/src/components/atoms/Avatar';
-import { MenuCard } from '@/src/components/molecules/MenuCard';
-import { MenuRow } from '@/src/components/molecules/MenuRow';
-import { SectionLabel } from '@/src/components/atoms/SectionLabel';
+import { ScreenBody } from '@/src/components/layout/ScreenBody';
+import { Avatar } from '@/src/components/user/Avatar';
+import { MenuCard } from '@/src/components/shared/MenuCard';
+import { MenuRow } from '@/src/components/shared/MenuRow';
+import { SectionLabel } from '@/src/components/layout/SectionLabel';
 import { useUserStore } from '@/src/store/userStore';
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────

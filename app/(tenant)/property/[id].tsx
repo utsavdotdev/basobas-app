@@ -12,9 +12,9 @@ import {
   Car,
 } from 'lucide-react-native';
 
-import { PropertyHero } from '@/src/components/organisms/PropertyHero';
-import { Avatar } from '@/src/components/atoms/Avatar';
-import { ScheduleVisitDrawer } from '@/src/components/organisms/ScheduleVisitDrawer';
+import { PropertyHero } from '@/src/components/property/PropertyHero';
+import { Avatar } from '@/src/components/user/Avatar';
+import { ScheduleVisitDrawer } from '@/src/components/property/ScheduleVisitDrawer';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const HERO_HEIGHT = SCREEN_HEIGHT * 0.42;

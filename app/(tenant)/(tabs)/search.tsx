@@ -5,8 +5,8 @@ import { useRouter } from 'expo-router';
 import { ArrowLeft, MapPin, ChevronDown, SlidersHorizontal, Heart, Map } from 'lucide-react-native';
 
 import { tokens } from '@/src/theme/tokens';
-import { FilterDrawer } from '@/src/components/organisms/FilterDrawer';
-import { DOCK_BOTTOM_GAP } from '@/src/components/GlassDock/GlassDock';
+import { FilterDrawer } from '@/src/components/property/FilterDrawer';
+import { DOCK_BOTTOM_GAP } from '@/src/components/navigation/GlassDock/GlassDock';
 import { usePropertyStore } from '@/src/store/propertyStore';
 
 const BHK_FILTERS = ['All', '1BHK', '2BHK', '3BHK', 'Studio'] as const;

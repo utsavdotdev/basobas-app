@@ -1,6 +1,6 @@
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
-import { ScreenHeader } from '../../../src/components/molecules/ScreenHeader';
+import { ScreenHeader } from '../../../src/components/layout/ScreenHeader';
 
 export default function NotificationPrefsModal() {
   const router = useRouter();

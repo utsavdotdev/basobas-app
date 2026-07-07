@@ -1,6 +1,6 @@
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScreenHeader } from '../../src/components/molecules/ScreenHeader';
+import { ScreenHeader } from '../../src/components/layout/ScreenHeader';
 
 export default function NotificationsScreen() {
   return (

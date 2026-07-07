@@ -3,7 +3,7 @@ import { ScrollView, View, Text, Pressable } from 'react-native';
 import { useRouter, Link } from 'expo-router';
 import { Bell, Search } from 'lucide-react-native';
 
-import { ScreenBody } from '@/src/components/organisms/ScreenBody';
+import { ScreenBody } from '@/src/components/layout/ScreenBody';
 import { usePropertyStore } from '@/src/store/propertyStore';
 
 // ─── Constants ──────────────────────────────────────────────────────────────

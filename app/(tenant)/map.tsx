@@ -22,7 +22,7 @@ import {
   X,
 } from 'lucide-react-native';
 
-import { RadiusMapView } from '@/src/components/organisms/RadiusMapView';
+import { RadiusMapView } from '@/src/components/property/RadiusMapView';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 

@@ -1,7 +1,7 @@
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScreenHeader } from '../../src/components/molecules/ScreenHeader';
-import { useAuth } from '../../src/store/authStore';
+import { ScreenHeader } from '../../src/components/layout/ScreenHeader';
+import { useAuth } from '../../src/hooks/useAuth';
 
 export default function SettingsScreen() {
   const { logout } = useAuth();
