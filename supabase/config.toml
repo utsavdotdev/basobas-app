@@ -341,7 +341,8 @@ enabled = true
 # Obtain from https://clerk.com/setup/supabase
 # ⚠️ Replace with your actual Clerk domain from the Clerk Dashboard
 #    (Configure → Connect → Supabase)
-domain = "your-app.clerk.accounts.dev"
+#    NOTE: bare host only — no scheme, no trailing slash.
+domain = "lenient-gnat-77.clerk.accounts.dev"
 
 # OAuth server configuration
 [auth.oauth_server]
@@ -393,7 +394,7 @@ entrypoint = "./functions/hello-world/index.ts"
 
 [functions.create-esewa-order]
 enabled = true
-verify_jwt = true
+verify_jwt = false
 import_map = "./functions/create-esewa-order/deno.json"
 entrypoint = "./functions/create-esewa-order/index.ts"
 
@@ -411,6 +412,6 @@ entrypoint = "./functions/esewa-payment-failed/index.ts"
 
 [functions.check-payment-status]
 enabled = true
-verify_jwt = true
+verify_jwt = false
 import_map = "./functions/check-payment-status/deno.json"
 entrypoint = "./functions/check-payment-status/index.ts"

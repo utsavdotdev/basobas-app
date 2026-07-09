@@ -18,17 +18,26 @@ import {
   getEsewaConfig,
   grantUserPass,
 } from "../_shared/esewa.ts";
+import { verifyClerkJwt } from "../_shared/auth.ts";
 
 // If a transaction stays PENDING longer than this, do a server-side
 // status check with eSewa rather than just returning the local status.
 const PENDING_THRESHOLD_MS = 10 * 60 * 1000; // 10 minutes
 
 export default {
-  fetch: withSupabase({ auth: ["user"] }, async (req, ctx) => {
-    // ── 1. Get authenticated user ───────────────────────────────────
-    const clerkId = ctx.userClaims?.id as string | undefined;
-    if (!clerkId) {
-      return Response.json({ error: "Unauthorized" }, { status: 401 });
+  fetch: withSupabase({ auth: "none" }, async (req, ctx) => {
+    // ── 1. Manually verify the Clerk JWT ───────────────────────────
+    // withSupabase({ auth: 'user' }) cannot verify raw Clerk tokens.
+    // We verify them manually using Clerk's JWKS endpoint via `jose`.
+    let clerkId: string;
+    try {
+      clerkId = await verifyClerkJwt(req);
+    } catch (err) {
+      console.error("Clerk JWT verification failed:", err);
+      return Response.json(
+        { error: "Unauthorized — invalid or missing session token" },
+        { status: 401 },
+      );
     }
 
     // ── 2. Parse request body ──────────────────────────────────────

@@ -5,22 +5,49 @@
 // eSewa redirects the browser to {failure_url}?data=<base64>.
 //
 // This function marks the matching transaction as FAILED (only if it
-// is still PENDING — never overwrite a COMPLETE status), then
-// redirects the WebView to a deep link so the app can close it.
+// is still PENDING — never overwrite a COMPLETE status), then returns
+// a 302 redirect to basobas://payment-failed for the WebView to
+// intercept.
 // ════════════════════════════════════════════════════════════════════
 
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { withSupabase } from "npm:@supabase/server";
 
+function extractDataParam(searchParams: URLSearchParams, body: Record<string, string>): string | null {
+  return searchParams.get("data") ?? body["data"] ?? null;
+}
+
+async function parseBody(req: Request): Promise<Record<string, string>> {
+  const ct = req.headers.get("content-type") ?? "";
+  if (ct.includes("application/x-www-form-urlencoded")) {
+    const formData = await req.formData();
+    const obj: Record<string, string> = {};
+    for (const [k, v] of formData.entries()) {
+      obj[k] = String(v);
+    }
+    return obj;
+  }
+  if (ct.includes("application/json")) {
+    const json = await req.json();
+    return typeof json === "object" && json !== null ? json : {};
+  }
+  return {};
+}
+
 export default {
   fetch: withSupabase({ auth: ["none"] }, async (req, ctx) => {
-    // ── 1. Extract data from query string ──────────────────────────
+    // ── 1. Extract Base64 data param (query string OR POST body) ────
     const url = new URL(req.url);
-    const data = url.searchParams.get("data");
+    const body = req.method === "POST" ? await parseBody(req) : {};
+    const data = extractDataParam(url.searchParams, body);
+
+    console.log(
+      `[esewa-payment-failed] ${req.method} ${req.url} | data=${data ? "present" : "MISSING"} | bodyKeys=${Object.keys(body).join(",") || "none"}`,
+    );
 
     if (!data) {
-      console.error("esewa-payment-failed: missing 'data' query param");
-      return Response.redirect("basobas://payment-failed?reason=missing_data", 302);
+      console.log("esewa-payment-failed: no data param — payment did not complete on eSewa");
+      return Response.redirect("basobas://payment-failed?reason=cancelled", 302);
     }
 
     // ── 2. Decode the callback payload ─────────────────────────────
@@ -43,8 +70,6 @@ export default {
     }
 
     // ── 3. Look up and mark the transaction as FAILED ───────────────
-    // Only update if the status is still PENDING — don't overwrite a
-    // COMPLETE or already-FAILED transaction.
     const { error: updateError } = await ctx.supabaseAdmin
       .from("transactions")
       .update({
@@ -52,7 +77,7 @@ export default {
         raw_callback: payload,
       })
       .eq("transaction_uuid", transactionUuid)
-      .eq("status", "PENDING");  // Only update if still PENDING
+      .eq("status", "PENDING");
 
     if (updateError) {
       console.error(
@@ -61,10 +86,7 @@ export default {
       );
     }
 
-    // ── 4. Redirect to deep link so the app can close the WebView ──
-    return Response.redirect(
-      `basobas://payment-failed?transaction_uuid=${transactionUuid}`,
-      302,
-    );
+    // ── 4. Return failure HTML page ─────────────────────────────────
+    return Response.redirect(`basobas://payment-failed?reason=failed&transaction_uuid=${transactionUuid}`, 302);
   }),
 };

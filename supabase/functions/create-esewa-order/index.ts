@@ -21,14 +21,22 @@ import {
   PRODUCTS,
   SIGNED_FIELD_NAMES,
 } from "../_shared/esewa.ts";
+import { verifyClerkJwt } from "../_shared/auth.ts";
 
 export default {
-  fetch: withSupabase({ auth: ["user"] }, async (req, ctx) => {
-    // ── 1. Get the authenticated user's Clerk ID ────────────────────
-    // ctx.userClaims is populated from the verified Clerk JWT
-    const clerkId = ctx.userClaims?.id as string | undefined;
-    if (!clerkId) {
-      return Response.json({ error: "Unauthorized — no valid user JWT" }, { status: 401 });
+  fetch: withSupabase({ auth: "none" }, async (req, ctx) => {
+    // ── 1. Manually verify the Clerk JWT ───────────────────────────
+    // withSupabase({ auth: 'user' }) cannot verify raw Clerk tokens.
+    // We verify them manually using Clerk's JWKS endpoint via `jose`.
+    let clerkId: string;
+    try {
+      clerkId = await verifyClerkJwt(req);
+    } catch (err) {
+      console.error("Clerk JWT verification failed:", err);
+      return Response.json(
+        { error: "Unauthorized — invalid or missing session token" },
+        { status: 401 },
+      );
     }
 
     // ── 2. Parse and validate the request body ──────────────────────
@@ -59,7 +67,8 @@ export default {
 
     // ── 4. Generate a unique transaction UUID ───────────────────────
     // This UUID is sent to eSewa and used to reconcile the callback.
-    const transactionUuid = crypto.randomUUID();
+    // Using Date.now() + random suffix to match the working recurrly project's format.
+    const transactionUuid = `${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
 
     // ── 5. Get eSewa configuration ──────────────────────────────────
     const esewa = getEsewaConfig();
@@ -102,14 +111,16 @@ export default {
     // The signature can only be generated server-side (secret key is never
     // exposed to the client). transaction_uuid is a UUID — it authorizes
     // nothing on its own.
+    //
+    // Amounts are returned as strings to match the working recurrly project.
     return Response.json({
-      amount,
-      tax_amount: taxAmount,
-      total_amount: totalAmount,
+      amount: amount.toString(),
+      tax_amount: taxAmount.toString(),
+      total_amount: totalAmount.toString(),
       transaction_uuid: transactionUuid,
       product_code: esewa.productCode,
-      product_service_charge: serviceCharge,
-      product_delivery_charge: deliveryCharge,
+      product_service_charge: serviceCharge.toString(),
+      product_delivery_charge: deliveryCharge.toString(),
       success_url: esewa.successUrl,
       failure_url: esewa.failureUrl,
       signed_field_names: SIGNED_FIELD_NAMES,
