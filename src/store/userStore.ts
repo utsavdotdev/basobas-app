@@ -60,6 +60,8 @@ interface UserState {
   toggleFavorite: (propertyId: string) => void;
   isFavorite: (propertyId: string) => boolean;
   activatePro: (totalDays: number) => void;
+  /** Clears all per-user data (profile, Pro status, favorites) on logout. */
+  reset: () => void;
 }
 
 const INITIAL_PROFILE: UserProfile = {
@@ -147,6 +149,12 @@ export const useUserStore = create<UserState>((set, get) => ({
       },
     }));
   },
+
+  reset: () =>
+    set({
+      profile: INITIAL_PROFILE,
+      favoriteIds: [],
+    }),
 }));
 
 /**
