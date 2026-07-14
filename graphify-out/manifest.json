@@ -5,13 +5,13 @@
     "semantic_hash": ""
   },
   ".claude/settings.local.json": {
-    "mtime": 1783152812.477283,
-    "ast_hash": "5c90a2d44074a07e5e9636056b2f9071",
+    "mtime": 1783567396.3337371,
+    "ast_hash": "5f7ed0df855b70e0405d7bb77eb11790",
     "semantic_hash": ""
   },
   "app.json": {
-    "mtime": 1783477768.404089,
-    "ast_hash": "ab2fbc9b66d799322a03bc662f701219",
+    "mtime": 1783948528.2595758,
+    "ast_hash": "a421cce354fadcbcfd5d36009d3c13f6",
     "semantic_hash": ""
   },
   "app/(auth)/_layout.tsx": {
@@ -170,8 +170,8 @@
     "semantic_hash": ""
   },
   "app/(tenant)/(tabs)/profile.tsx": {
-    "mtime": 1783522045.8874109,
-    "ast_hash": "b39b3df713976539ea4b3dd7c3373902",
+    "mtime": 1783928417.594018,
+    "ast_hash": "dd716b56125e0ffc3524c9d3097e8d99",
     "semantic_hash": ""
   },
   "app/(tenant)/(tabs)/search.tsx": {
@@ -185,8 +185,8 @@
     "semantic_hash": ""
   },
   "app/(tenant)/_layout.tsx": {
-    "mtime": 1783522115.9115067,
-    "ast_hash": "0a5366e7f370d4637f1b7c845155dead",
+    "mtime": 1783949001.7855778,
+    "ast_hash": "1a1aff864be76593de6ba3cd2c79d1dc",
     "semantic_hash": ""
   },
   "app/(tenant)/_modal/filter.tsx": {
@@ -200,8 +200,8 @@
     "semantic_hash": ""
   },
   "app/(tenant)/ai-preferences.tsx": {
-    "mtime": 1783477768.4092848,
-    "ast_hash": "3138a17177bff59628d9abbbe86059e5",
+    "mtime": 1783928417.5945463,
+    "ast_hash": "c345980e5a1827b26483c52acc24f338",
     "semantic_hash": ""
   },
   "app/(tenant)/edit-profile.tsx": {
@@ -320,8 +320,8 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1783477768.4280677,
-    "ast_hash": "aff66999142ca55776ca1b24a6fa2253",
+    "mtime": 1783948511.557008,
+    "ast_hash": "3174d3a2b2029a731af3c12eff1dbb06",
     "semantic_hash": ""
   },
   "prettier.config.js": {
@@ -480,8 +480,8 @@
     "semantic_hash": ""
   },
   "src/store/userStore.ts": {
-    "mtime": 1783521971.445414,
-    "ast_hash": "0072280c5719baf90f3c0d5458cc11cd",
+    "mtime": 1783928625.2022126,
+    "ast_hash": "0fa6bbfe3c4574b184207caa58498b5f",
     "semantic_hash": ""
   },
   ".vscode/extensions.json": {
@@ -495,18 +495,18 @@
     "semantic_hash": ""
   },
   "app/(tenant)/payment-failed.tsx": {
-    "mtime": 1783522107.9952338,
-    "ast_hash": "786c67d64fe809d6c8426404c31da6b3",
+    "mtime": 1783949098.0022817,
+    "ast_hash": "0e5dbcb9c6f1d1ffd01499ffce1c1431",
     "semantic_hash": ""
   },
   "app/(tenant)/payment-success.tsx": {
-    "mtime": 1783522092.8705046,
-    "ast_hash": "93ddf332f20ddad5dae2616511060392",
+    "mtime": 1783949097.9874587,
+    "ast_hash": "ee208a5325fbd030b59e4fc1f01403dc",
     "semantic_hash": ""
   },
   "app/(tenant)/pro-plan.tsx": {
-    "mtime": 1783522078.4160345,
-    "ast_hash": "d342c13e20b4707853d958c9e621e9b8",
+    "mtime": 1783948935.8329868,
+    "ast_hash": "2da263f57cab195e7097ff9ed7f859c5",
     "semantic_hash": ""
   },
   "src/components/form/FilterChip.tsx": {
@@ -630,18 +630,18 @@
     "semantic_hash": ""
   },
   "src/components/shared/MenuCard.tsx": {
-    "mtime": 1783477768.4311051,
-    "ast_hash": "8a97ddbbed389facd615402a948f0eda",
+    "mtime": 1783928417.6013885,
+    "ast_hash": "25596f1f95f44911b4a8da61dcd8e5ef",
     "semantic_hash": ""
   },
   "src/components/shared/MenuRow.tsx": {
-    "mtime": 1783522053.5463853,
+    "mtime": 1783928417.6015718,
     "ast_hash": "b952d5a0296de91b4c7488f548fb8962",
     "semantic_hash": ""
   },
   "src/components/shared/ProPill.tsx": {
-    "mtime": 1783522015.4237351,
-    "ast_hash": "6a5351a3ad8b486f4c910c03b18572b9",
+    "mtime": 1783928417.6017091,
+    "ast_hash": "c2a044f4d9c10664b8d1590c65803ecd",
     "semantic_hash": ""
   },
   "src/components/shared/StatusPill.tsx": {
@@ -660,13 +660,13 @@
     "semantic_hash": ""
   },
   "src/hooks/useAuth.ts": {
-    "mtime": 1783477768.4316685,
-    "ast_hash": "5c4474d7df1456ba1a17086adb989c42",
+    "mtime": 1783928625.201431,
+    "ast_hash": "ba84643406a09c0eefa77aab5ef3de7f",
     "semantic_hash": ""
   },
   "src/hooks/useClerkSupabase.ts": {
-    "mtime": 1783477768.4317615,
-    "ast_hash": "e782c5557a27efda94064af6c8ec8810",
+    "mtime": 1783928417.6024182,
+    "ast_hash": "13c75763212e65450b2bf4d3b6288e7e",
     "semantic_hash": ""
   },
   "src/lib/clerkTokenCache.ts": {
@@ -680,8 +680,8 @@
     "semantic_hash": ""
   },
   "src/lib/supabase.ts": {
-    "mtime": 1783477768.4320655,
-    "ast_hash": "3965d17cb37a1d64dd11806528595344",
+    "mtime": 1783928417.602891,
+    "ast_hash": "5cf8158b7c7f812d125d12113e883bca",
     "semantic_hash": ""
   },
   "src/services/kyc.service.ts": {
@@ -720,38 +720,38 @@
     "semantic_hash": ""
   },
   "supabase/functions/_shared/esewa.ts": {
-    "mtime": 1783478737.0571632,
+    "mtime": 1783928417.6036623,
     "ast_hash": "5803ba1f12820018bb14b8e485bd7dec",
     "semantic_hash": ""
   },
   "supabase/functions/check-payment-status/deno.json": {
-    "mtime": 1783478558.793196,
+    "mtime": 1783928417.6037853,
     "ast_hash": "c67b349b14a67ef36e462028509432b7",
     "semantic_hash": ""
   },
   "supabase/functions/check-payment-status/index.ts": {
-    "mtime": 1783478685.215328,
-    "ast_hash": "4d86e800103ac13d200010f2b330df0c",
+    "mtime": 1783928417.6039274,
+    "ast_hash": "1fad1e89df3d835baf1e04c5861df060",
     "semantic_hash": ""
   },
   "supabase/functions/create-esewa-order/deno.json": {
-    "mtime": 1783478471.7601292,
+    "mtime": 1783928417.6040363,
     "ast_hash": "c67b349b14a67ef36e462028509432b7",
     "semantic_hash": ""
   },
   "supabase/functions/create-esewa-order/index.ts": {
-    "mtime": 1783478464.8923802,
-    "ast_hash": "a59183eadf1d95a72f9c71d025bf8ba0",
+    "mtime": 1783948583.2179,
+    "ast_hash": "523993927da126589f9046e17c5ad7cf",
     "semantic_hash": ""
   },
   "supabase/functions/esewa-payment-failed/deno.json": {
-    "mtime": 1783478534.6460583,
+    "mtime": 1783928417.6042767,
     "ast_hash": "c67b349b14a67ef36e462028509432b7",
     "semantic_hash": ""
   },
   "supabase/functions/esewa-payment-failed/index.ts": {
-    "mtime": 1783478528.0822318,
-    "ast_hash": "1fd16fe00fed0a942315d32031ab6984",
+    "mtime": 1783928417.604401,
+    "ast_hash": "07ade684182b1310248391274f9463b5",
     "semantic_hash": ""
   },
   "supabase/functions/hello-world/deno.json": {
@@ -765,13 +765,13 @@
     "semantic_hash": ""
   },
   "supabase/functions/verify-esewa-payment/deno.json": {
-    "mtime": 1783478517.8579671,
+    "mtime": 1783928417.604508,
     "ast_hash": "c67b349b14a67ef36e462028509432b7",
     "semantic_hash": ""
   },
   "supabase/functions/verify-esewa-payment/index.ts": {
-    "mtime": 1783478666.0875788,
-    "ast_hash": "e465fd62718a6f3a3ede0d2de5434190",
+    "mtime": 1783928417.6046593,
+    "ast_hash": "cfd2ff06352e6831dd2dbf1ecd649fd8",
     "semantic_hash": ""
   },
   "supabase/migrations/20260624122857_fix_onboarding_flow.sql": {
@@ -790,7 +790,7 @@
     "semantic_hash": ""
   },
   "supabase/migrations/20260708000000_esewa_payment_schema.sql": {
-    "mtime": 1783478422.1844113,
+    "mtime": 1783928417.6048014,
     "ast_hash": "c33ce79afab2c559db7b6acb3b0e91c5",
     "semantic_hash": ""
   },
@@ -810,8 +810,53 @@
     "semantic_hash": ""
   },
   "docs/ESEWA_PAYMENT_TESTING.md": {
-    "mtime": 1783478707.702314,
+    "mtime": 1783928417.595456,
     "ast_hash": "b4dbbb36aae9690dc719b9a8d3f9595a",
+    "semantic_hash": ""
+  },
+  "app/(tenant)/_modal/pro-gate.tsx": {
+    "mtime": 1783928417.5943825,
+    "ast_hash": "fe2fcd220e875c06632856989d384321",
+    "semantic_hash": ""
+  },
+  "src/hooks/useEsewaBrowserPayment.ts": {
+    "mtime": 1783948891.668941,
+    "ast_hash": "2846babd43acd9a8a0c2f91d27189fec",
+    "semantic_hash": ""
+  },
+  "src/hooks/useProGate.ts": {
+    "mtime": 1783928417.6025596,
+    "ast_hash": "bdde1410e06ca365b85ee8bdda0091ce",
+    "semantic_hash": ""
+  },
+  "src/hooks/usePurchasePlan.ts": {
+    "mtime": 1783948891.684735,
+    "ast_hash": "a019ee8352c0a5ed1f068a3765122921",
+    "semantic_hash": ""
+  },
+  "src/lib/esewaDeepLink.ts": {
+    "mtime": 1783948891.6933937,
+    "ast_hash": "cbb4d684619e469325c1da5d0a387120",
+    "semantic_hash": ""
+  },
+  "supabase/functions/_shared/auth.ts": {
+    "mtime": 1783928417.6035073,
+    "ast_hash": "72b50d8661231a0b865904a312764568",
+    "semantic_hash": ""
+  },
+  "supabase/functions/esewa-checkout/deno.json": {
+    "mtime": 1783948566.3532822,
+    "ast_hash": "c67b349b14a67ef36e462028509432b7",
+    "semantic_hash": ""
+  },
+  "supabase/functions/esewa-checkout/index.ts": {
+    "mtime": 1783948891.7518275,
+    "ast_hash": "52b39ac00eba2df0d5f6eb021d660bb2",
+    "semantic_hash": ""
+  },
+  "previous_context.txt": {
+    "mtime": 1783928417.601125,
+    "ast_hash": "d1d348aaeb6219a60e4862d3d5876256",
     "semantic_hash": ""
   }
 }

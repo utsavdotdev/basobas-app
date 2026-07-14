@@ -17,7 +17,6 @@ import {
   Edit,
   LogOut,
   MapPin,
-  Pencil,
   Settings,
   SlidersHorizontal,
   Sparkles,
@@ -232,19 +231,14 @@ export default function ProfileTab() {
               elevation: 2,
             }}>
             <View className="flex-row items-center">
-              {/* Avatar (overridden visually — 64px, not the default 80) */}
-              <View
-                className="relative h-16 w-16 items-center justify-center  rounded-pill"
-                style={{ backgroundColor: '#F0EDE8' }}>
-                <User size={26} color="#C0C0C0" strokeWidth={1.6} />
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel="Change profile photo"
-                  onPress={showAvatarOptions}
-                  className="absolute -bottom-0.5 -right-0.5 h-5 w-5 items-center justify-center rounded-pill bg-brand">
-                  <Pencil size={9} color="#FFFFFF" strokeWidth={2.4} />
-                </Pressable>
-              </View>
+              {/* Avatar — shows the real profile image, falls back to initials */}
+              <Avatar
+                size={64}
+                uri={profile.avatarUrl}
+                initials={initialsOf(profile.firstName, profile.lastName) || '?'}
+                showEditBadge
+                onEditPress={showAvatarOptions}
+              />
 
               <View className="ml-4 flex-1 pr-1">
                 <View className="flex-row items-center">

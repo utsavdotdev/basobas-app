@@ -1,6 +1,10 @@
 import { Stack } from 'expo-router';
+import { useProfileBootstrap } from '@/src/hooks/useProfileBootstrap';
 
 export default function TenantLayout() {
+  // Load profile + Pro status early (on mount) so the Profile tab isn't blank.
+  useProfileBootstrap();
+
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="(tabs)" />
