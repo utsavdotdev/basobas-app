@@ -258,13 +258,15 @@ export default function PropertyDetailScreen() {
       </View>
 
       {/* ═══ Schedule Visit Drawer ═══ */}
-      <ScheduleVisitDrawer
-        propertyTitle={property.title}
-        propertyLocation={property.location.split(',')[0]}
-        isOpen={showScheduleDrawer}
-        onClose={handleScheduleClose}
-        onConfirm={handleScheduleConfirm}
-      />
+      {showScheduleDrawer && (
+        <ScheduleVisitDrawer
+          propertyTitle={property.title}
+          propertyLocation={property.location.split(',')[0]}
+          isOpen
+          onClose={handleScheduleClose}
+          onConfirm={handleScheduleConfirm}
+        />
+      )}
     </View>
   );
 }
