@@ -1,15 +1,16 @@
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScreenHeader } from '../../../src/components/layout/ScreenHeader';
 
 export default function LandlordNotificationsTab() {
   return (
     <SafeAreaView edges={['top']} className="flex-1 bg-bg">
-      <ScreenHeader
-        title="Notifications"
-        centerTitle
-        rightText={{ label: 'Mark all read' }}
-      />
+      {/* ── Header ────────────────────────────────────────── */}
+      <View className="flex-row items-center justify-between border-b border-gray-200 px-4 pt-3 pb-3">
+        <Text className="text-xl font-bold text-gray-900">Notifications</Text>
+        <Pressable>
+          <Text className="text-sm font-semibold text-brand">Mark all read</Text>
+        </Pressable>
+      </View>
       <ScrollView className="px-6" contentContainerStyle={{ paddingTop: 16, paddingBottom: 24 }}>
         {/* Tabs */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-5">

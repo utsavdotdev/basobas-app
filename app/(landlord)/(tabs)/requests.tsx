@@ -1,111 +1,149 @@
-import { ScrollView, View, Text, Pressable } from 'react-native';
+import { useState, useMemo } from 'react';
+import { View, Text, Pressable, FlatList } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Calendar, MapPin } from 'lucide-react-native';
+import { User, Calendar, ArrowRight } from 'lucide-react-native';
 
 import { ScreenBody } from '@/src/components/layout/ScreenBody';
-import { ScreenHeader } from '@/src/components/layout/ScreenHeader';
 
-export default function RequestsTab() {
+// ─── Types ──────────────────────────────────────────────────────────────────
+
+type RequestStatus = 'pending' | 'accepted';
+
+type VisitRequest = {
+  id: string;
+  tenant: string;
+  property: string;
+  date: string;
+  time: string;
+  status: RequestStatus;
+};
+
+// ─── Mock Data ──────────────────────────────────────────────────────────────
+
+const VISIT_REQUESTS: VisitRequest[] = [
+  { id: '1', tenant: 'Aayush Shrestha', property: 'Baluwatar Apartment', date: 'June 15, 2026', time: '2:30 PM', status: 'pending' },
+  { id: '2', tenant: 'Priya Adhikari', property: 'Jhamsikhel Flat', date: 'June 15, 2026', time: '4:00 PM', status: 'pending' },
+  { id: '3', tenant: 'Anisha KC', property: 'Lazimpat Studio', date: 'June 16, 2026', time: '10:00 AM', status: 'pending' },
+  { id: '4', tenant: 'Rohan Thapa', property: 'Lazimpat Studio', date: 'June 17, 2026', time: '11:00 AM', status: 'accepted' },
+  { id: '5', tenant: 'Binod Karki', property: 'Baluwatar Apartment', date: 'June 18, 2026', time: '1:00 PM', status: 'accepted' },
+  { id: '6', tenant: 'Riya Pandey', property: 'Jhamsikhel Flat', date: 'June 19, 2026', time: '3:00 PM', status: 'pending' },
+];
+
+type Tab = { key: string; label: string; count: number };
+const TABS: Tab[] = [
+  { key: 'all', label: 'All', count: VISIT_REQUESTS.length },
+  { key: 'pending', label: 'Pending', count: VISIT_REQUESTS.filter((r) => r.status === 'pending').length },
+  { key: 'accepted', label: 'Accepted', count: VISIT_REQUESTS.filter((r) => r.status === 'accepted').length },
+];
+
+// ─── Component ──────────────────────────────────────────────────────────────
+
+export default function VisitRequestsScreen() {
   const router = useRouter();
+  const [activeTab, setActiveTab] = useState<string>('all');
+
+  const filteredRequests = useMemo(
+    () =>
+      activeTab === 'all'
+        ? VISIT_REQUESTS
+        : VISIT_REQUESTS.filter((r) => r.status === activeTab),
+    [activeTab],
+  );
 
   return (
-    <ScreenBody>
-      <ScreenHeader title="Requests" />
-
-      {/* Filter Tabs */}
-      <View className="border-b border-line">
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} className="px-6 py-3">
-          {['All', 'Pending', 'Approved', 'Rejected', 'Completed'].map((tab, i) => (
-            <Pressable
-              key={tab}
-              className={`mr-4 pb-2 ${i === 1 ? 'border-b-2 border-brand' : ''}`}>
-              <Text className={`font-medium text-body-sm ${i === 1 ? 'text-brand' : 'text-ink2'}`}>
-                {tab}
-              </Text>
-            </Pressable>
-          ))}
-        </ScrollView>
+    <ScreenBody className="flex-1 bg-[#fafafa]">
+      {/* ── Header ────────────────────────────────────────── */}
+      <View className="border-b border-gray-200 px-4 pt-3 pb-3">
+        <Text className="text-xl font-bold text-gray-900">Visit Requests</Text>
       </View>
 
-      <ScrollView
-        className="flex-1 px-6"
-        contentContainerStyle={{ paddingTop: 16, paddingBottom: 120 }}>
-        {/* Request Cards */}
-        {[
-          {
-            id: '1',
-            tenant: 'Aayush Shrestha',
-            property: 'Baluwatar Apartment',
-            date: 'June 15, 2026',
-            time: '2:30 PM',
-            status: 'pending',
-          },
-          {
-            id: '2',
-            tenant: 'Priya Adhikari',
-            property: 'Jhamsikhel Flat',
-            date: 'June 15, 2026',
-            time: '4:00 PM',
-            status: 'pending',
-          },
-          {
-            id: '3',
-            tenant: 'Rohan Thapa',
-            property: 'Lazimpat Studio',
-            date: 'June 17, 2026',
-            time: '11:00 AM',
-            status: 'approved',
-          },
-        ].map((req) => (
+      {/* ── Filter Tabs ──────────────────────────────────── */}
+      <View className="flex-row items-center gap-2 px-4 py-3">
+        {TABS.map((tab) => {
+          const isActive = tab.key === activeTab;
+          return (
+            <Pressable
+              key={tab.key}
+              onPress={() => setActiveTab(tab.key)}
+              className={`flex-row items-center gap-1 rounded-full px-4 py-2 ${
+                isActive ? 'bg-black' : 'bg-gray-100'
+              }`}>
+              <Text
+                className={`text-xs font-semibold ${
+                  isActive ? 'text-white' : 'text-gray-600'
+                }`}>
+                {tab.label} ({tab.count})
+              </Text>
+            </Pressable>
+          );
+        })}
+      </View>
+
+      {/* ── Request Cards ────────────────────────────────── */}
+      <FlatList
+        data={filteredRequests}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120 }}
+        className="flex-1"
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={() => <View className="h-3" />}
+        ListEmptyComponent={() => (
+          <View className="items-center py-20">
+            <Text className="font-sans text-body-sm text-ink3">No requests found</Text>
+          </View>
+        )}
+        renderItem={({ item }) => (
           <Pressable
-            key={req.id}
             onPress={() =>
               router.push({
                 pathname: '/(landlord)/request/[id]',
-                params: { id: req.id },
+                params: { id: item.id },
               } as any)
             }
-            className="mb-4 rounded-card border border-line bg-bg p-4">
-            <View className="mb-2 flex-row items-center justify-between">
-              <Text className="font-semibold text-body text-ink">{req.tenant}</Text>
+            className="rounded-2xl border border-gray-200/50 bg-white p-5 shadow-sm">
+            {/* User Info Row */}
+            <View className="flex-row items-center">
+              {/* Avatar */}
+              <View className="h-11 w-11 items-center justify-center rounded-full bg-gray-100">
+                <User size={18} color="#6B6B6B" />
+              </View>
+              {/* Name + Property */}
+              <View className="ml-3 flex-1">
+                <Text className="text-base font-bold text-gray-900">{item.tenant}</Text>
+                <Text className="text-xs font-medium text-gray-400">{item.property}</Text>
+              </View>
+              {/* Status Pill */}
               <View
-                className={`rounded-pill px-2.5 py-0.5 ${
-                  req.status === 'pending' ? 'bg-amber-100' : 'bg-green-100'
+                className={`rounded-full px-3 py-1 ${
+                  item.status === 'pending' ? 'bg-amber-100/80' : 'bg-emerald-100/80'
                 }`}>
                 <Text
-                  className={`font-semibold text-[11px] capitalize ${
-                    req.status === 'pending' ? 'text-amber-800' : 'text-green-800'
+                  className={`text-xs font-semibold ${
+                    item.status === 'pending' ? 'text-amber-800' : 'text-emerald-800'
                   }`}>
-                  {req.status}
+                  {item.status === 'pending' ? 'Pending' : 'Accepted'}
                 </Text>
               </View>
             </View>
 
-            <View className="mb-1 flex-row items-center gap-1">
-              <MapPin size={14} color="#6B6B6B" />
-              <Text className="text-body-sm text-ink2">{req.property}</Text>
-            </View>
-
-            <View className="mb-4 flex-row items-center gap-1">
-              <Calendar size={14} color="#6B6B6B" />
-              <Text className="text-body-sm text-ink2">
-                {req.date} at {req.time}
+            {/* Date Row */}
+            <View className="mt-3 flex-row items-center gap-1.5">
+              <Calendar size={14} color="#9CA3AF" />
+              <Text className="text-xs font-medium text-gray-500">
+                {item.date} at {item.time}
               </Text>
             </View>
 
-            {req.status === 'pending' && (
-              <View className="flex-row gap-2 border-t border-row-divider pt-3">
-                <Pressable className="h-9 flex-1 items-center justify-center rounded-pill bg-brand-light">
-                  <Text className="font-semibold text-body-sm text-brand">Approve</Text>
-                </Pressable>
-                <Pressable className="h-9 flex-1 items-center justify-center rounded-pill bg-danger-bg">
-                  <Text className="font-semibold text-body-sm text-danger">Decline</Text>
-                </Pressable>
+            {/* Conditional Action Link (Pending only) */}
+            {item.status === 'pending' && (
+              <View className="mt-3 flex-row items-center gap-1">
+                <Text className="text-xs font-bold text-gray-900">Tap to review</Text>
+                <ArrowRight size={14} color="#111827" strokeWidth={2.5} />
               </View>
             )}
           </Pressable>
-        ))}
-      </ScrollView>
+        )}
+      />
     </ScreenBody>
   );
 }

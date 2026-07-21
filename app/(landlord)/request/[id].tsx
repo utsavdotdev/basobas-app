@@ -78,8 +78,8 @@ export default function RequestDetailScreen() {
           <Text className="font-semibold text-body text-ink2">Decline</Text>
         </Pressable>
         <Pressable
-          onPress={() => router.back()}
-          className="h-[56px] flex-[2] items-center justify-center rounded-pill bg-brand">
+          onPress={() => router.push('/(landlord)/share-details' as any)}
+          className="h-[56px] flex-[2] items-center justify-center rounded-pill bg-black">
           <Text className="font-semibold text-body text-white">Approve Request</Text>
         </Pressable>
       </View>

@@ -12,6 +12,8 @@ export default function LandlordLayout() {
       <Stack.Screen name="listing/new/step-3" />
       <Stack.Screen name="listing/new/step-4" />
       <Stack.Screen name="request/[id]" />
+      <Stack.Screen name="share-details" />
+      <Stack.Screen name="share-confirmation" />
       <Stack.Screen name="settings" />
       <Stack.Screen name="tenant/[id]" />
       <Stack.Screen name="verification" />
