@@ -425,9 +425,26 @@ export default function LandlordDashboard({
 
         {/* ── Stats Row ─────────────────────────────────────── */}
         <View style={s.statsRow}>
-          {stats.map((stat) => (
-            <StatCard key={stat.label} item={stat} />
-          ))}
+          {stats.map((stat) => {
+            const card = <StatCard item={stat} />;
+            const navigate = () =>
+              router.push('/(landlord)/(tabs)/listings' as never);
+
+            return stat.label === 'Active Listings' ? (
+              <TouchableOpacity
+                key={stat.label}
+                style={{ flex: 1 }}
+                onPress={navigate}
+                activeOpacity={0.7}
+              >
+                {card}
+              </TouchableOpacity>
+            ) : (
+              <View key={stat.label} style={{ flex: 1 }}>
+                {card}
+              </View>
+            );
+          })}
         </View>
 
         {/* ── Add New Listing (pill outline) ────────────────── */}
@@ -517,7 +534,6 @@ const s = StyleSheet.create({
     marginTop: 20,
   },
   statCard: {
-    flex: 1,
     borderRadius: 11,
     padding: 12,
     paddingTop: 10,
