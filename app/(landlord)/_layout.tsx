@@ -5,6 +5,7 @@ export default function LandlordLayout() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="ai-preferences" />
+      <Stack.Screen name="decline-request" />
       <Stack.Screen name="edit-profile" />
       <Stack.Screen name="listing/[id]" />
       <Stack.Screen name="listing/new/step-1" />
@@ -14,6 +15,8 @@ export default function LandlordLayout() {
       <Stack.Screen name="request/[id]" />
       <Stack.Screen name="share-details" />
       <Stack.Screen name="share-confirmation" />
+      <Stack.Screen name="suggest-time" />
+      <Stack.Screen name="suggest-time-confirmation" />
       <Stack.Screen name="settings" />
       <Stack.Screen name="tenant/[id]" />
       <Stack.Screen name="verification" />
