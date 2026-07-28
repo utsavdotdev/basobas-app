@@ -12,6 +12,7 @@ export default function TenantLayout() {
       <Stack.Screen name="edit-profile" />
       <Stack.Screen name="esewa-webview" />
       <Stack.Screen name="kyc-upload" />
+      <Stack.Screen name="kyc-status" />
       <Stack.Screen name="landlord/[id]" />
       <Stack.Screen name="list-property" />
       <Stack.Screen name="map" />

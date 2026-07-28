@@ -287,7 +287,7 @@
       "label": "orientation",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L21",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "app_expo_orientation",
       "community": 2,
@@ -297,7 +297,7 @@
       "label": "icon",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L22",
+      "source_location": "L21",
       "_origin": "ast",
       "id": "app_expo_icon",
       "community": 2,
@@ -307,7 +307,7 @@
       "label": "userInterfaceStyle",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L23",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "app_expo_userinterfacestyle",
       "community": 2,
@@ -317,7 +317,7 @@
       "label": "splash",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L24",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "app_expo_splash",
       "community": 2,
@@ -327,7 +327,7 @@
       "label": "image",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L25",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "app_splash_image",
       "community": 2,
@@ -337,7 +337,7 @@
       "label": "resizeMode",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L26",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "app_splash_resizemode",
       "community": 2,
@@ -347,7 +347,7 @@
       "label": "backgroundColor",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L27",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "app_splash_backgroundcolor",
       "community": 2,
@@ -357,7 +357,7 @@
       "label": "assetBundlePatterns",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L29",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "app_expo_assetbundlepatterns",
       "community": 2,
@@ -367,7 +367,7 @@
       "label": "ios",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L32",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "app_expo_ios",
       "community": 2,
@@ -377,7 +377,7 @@
       "label": "supportsTablet",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L33",
+      "source_location": "L30",
       "_origin": "ast",
       "id": "app_ios_supportstablet",
       "community": 2,
@@ -387,7 +387,7 @@
       "label": "bundleIdentifier",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L34",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "app_ios_bundleidentifier",
       "community": 2,
@@ -397,7 +397,7 @@
       "label": "android",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L36",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "app_expo_android",
       "community": 2,
@@ -407,7 +407,7 @@
       "label": "newArchEnabled",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L37",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "app_android_newarchenabled",
       "community": 2,
@@ -417,7 +417,7 @@
       "label": "package",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L38",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "app_android_package",
       "community": 2,
@@ -427,7 +427,7 @@
       "label": "adaptiveIcon",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L39",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "app_android_adaptiveicon",
       "community": 2,
@@ -437,7 +437,7 @@
       "label": "foregroundImage",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L40",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "app_adaptiveicon_foregroundimage",
       "community": 2,
@@ -447,7 +447,7 @@
       "label": "backgroundColor",
       "file_type": "code",
       "source_file": "app.json",
-      "source_location": "L41",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "app_adaptiveicon_backgroundcolor",
       "community": 2,
@@ -480,7 +480,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "auth_confirmation",
-      "community": 19,
+      "community": 55,
       "norm_label": "confirmation.tsx"
     },
     {
@@ -490,7 +490,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "auth_confirmation_successcheckmark",
-      "community": 19,
+      "community": 55,
       "norm_label": "successcheckmark()"
     },
     {
@@ -500,7 +500,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "auth_confirmation_summarycardprops",
-      "community": 19,
+      "community": 55,
       "norm_label": "summarycardprops"
     },
     {
@@ -510,7 +510,7 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "auth_confirmation_summarycard",
-      "community": 19,
+      "community": 55,
       "norm_label": "summarycard()"
     },
     {
@@ -520,7 +520,7 @@
       "source_location": "L103",
       "_origin": "ast",
       "id": "auth_confirmation_detailrowprops",
-      "community": 19,
+      "community": 55,
       "norm_label": "detailrowprops"
     },
     {
@@ -530,7 +530,7 @@
       "source_location": "L109",
       "_origin": "ast",
       "id": "auth_confirmation_detailrow",
-      "community": 19,
+      "community": 55,
       "norm_label": "detailrow()"
     },
     {
@@ -540,7 +540,7 @@
       "source_location": "L133",
       "_origin": "ast",
       "id": "auth_confirmation_tagpill",
-      "community": 19,
+      "community": 55,
       "norm_label": "tagpill()"
     },
     {
@@ -550,7 +550,7 @@
       "source_location": "L141",
       "_origin": "ast",
       "id": "auth_confirmation_confirmationscreen",
-      "community": 78,
+      "community": 55,
       "norm_label": "confirmationscreen()"
     },
     {
@@ -560,7 +560,7 @@
       "source_location": "L547",
       "_origin": "ast",
       "id": "auth_confirmation_styles",
-      "community": 19,
+      "community": 55,
       "norm_label": "styles"
     },
     {
@@ -570,7 +570,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "auth_kyc_landlord",
-      "community": 79,
+      "community": 19,
       "norm_label": "kyc-landlord.tsx"
     },
     {
@@ -580,7 +580,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "auth_kyc_landlord_documentuploadzoneprops",
-      "community": 79,
+      "community": 19,
       "norm_label": "documentuploadzoneprops"
     },
     {
@@ -590,7 +590,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "auth_kyc_landlord_documentuploadzone",
-      "community": 79,
+      "community": 19,
       "norm_label": "documentuploadzone()"
     },
     {
@@ -600,7 +600,7 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "auth_kyc_landlord_compressdoc",
-      "community": 79,
+      "community": 19,
       "norm_label": "compressdoc()"
     },
     {
@@ -610,7 +610,7 @@
       "source_location": "L86",
       "_origin": "ast",
       "id": "auth_kyc_landlord_pickfromoptions",
-      "community": 79,
+      "community": 19,
       "norm_label": "pickfromoptions()"
     },
     {
@@ -620,7 +620,7 @@
       "source_location": "L138",
       "_origin": "ast",
       "id": "auth_kyc_landlord_doctypechipprops",
-      "community": 79,
+      "community": 19,
       "norm_label": "doctypechipprops"
     },
     {
@@ -630,7 +630,7 @@
       "source_location": "L144",
       "_origin": "ast",
       "id": "auth_kyc_landlord_doctypechip",
-      "community": 79,
+      "community": 19,
       "norm_label": "doctypechip()"
     },
     {
@@ -640,7 +640,7 @@
       "source_location": "L164",
       "_origin": "ast",
       "id": "auth_kyc_landlord_kyclandlordscreen",
-      "community": 83,
+      "community": 19,
       "norm_label": "kyclandlordscreen()"
     },
     {
@@ -650,7 +650,7 @@
       "source_location": "L376",
       "_origin": "ast",
       "id": "auth_kyc_landlord_styles",
-      "community": 79,
+      "community": 19,
       "norm_label": "styles"
     },
     {
@@ -660,7 +660,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "auth_kyc_tenant",
-      "community": 84,
+      "community": 19,
       "norm_label": "kyc-tenant.tsx"
     },
     {
@@ -670,7 +670,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "auth_kyc_tenant_documentuploadzoneprops",
-      "community": 84,
+      "community": 19,
       "norm_label": "documentuploadzoneprops"
     },
     {
@@ -680,7 +680,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "auth_kyc_tenant_documentuploadzone",
-      "community": 84,
+      "community": 19,
       "norm_label": "documentuploadzone()"
     },
     {
@@ -690,7 +690,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "auth_kyc_tenant_doctypechipprops",
-      "community": 84,
+      "community": 19,
       "norm_label": "doctypechipprops"
     },
     {
@@ -700,7 +700,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "auth_kyc_tenant_doctypechip",
-      "community": 84,
+      "community": 19,
       "norm_label": "doctypechip()"
     },
     {
@@ -710,7 +710,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "auth_kyc_tenant_usedocumentpicker",
-      "community": 83,
+      "community": 19,
       "norm_label": "usedocumentpicker()"
     },
     {
@@ -720,7 +720,7 @@
       "source_location": "L163",
       "_origin": "ast",
       "id": "auth_kyc_tenant_kyctenantscreen",
-      "community": 83,
+      "community": 19,
       "norm_label": "kyctenantscreen()"
     },
     {
@@ -730,7 +730,7 @@
       "source_location": "L372",
       "_origin": "ast",
       "id": "auth_kyc_tenant_styles",
-      "community": 84,
+      "community": 19,
       "norm_label": "styles"
     },
     {
@@ -740,7 +740,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "auth_loading",
-      "community": 78,
+      "community": 55,
       "norm_label": "loading.tsx"
     },
     {
@@ -750,7 +750,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "auth_loading_loadingscreen",
-      "community": 78,
+      "community": 55,
       "norm_label": "loadingscreen()"
     },
     {
@@ -760,7 +760,7 @@
       "source_location": "L126",
       "_origin": "ast",
       "id": "auth_loading_logomark",
-      "community": 78,
+      "community": 55,
       "norm_label": "logomark()"
     },
     {
@@ -770,7 +770,7 @@
       "source_location": "L139",
       "_origin": "ast",
       "id": "auth_loading_styles",
-      "community": 78,
+      "community": 55,
       "norm_label": "styles"
     },
     {
@@ -830,7 +830,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "auth_otp",
-      "community": 78,
+      "community": 55,
       "norm_label": "otp.tsx"
     },
     {
@@ -840,7 +840,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "auth_otp_maskphone",
-      "community": 78,
+      "community": 55,
       "norm_label": "maskphone()"
     },
     {
@@ -850,7 +850,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "auth_otp_otpverificationscreen",
-      "community": 78,
+      "community": 55,
       "norm_label": "otpverificationscreen()"
     },
     {
@@ -860,7 +860,7 @@
       "source_location": "L321",
       "_origin": "ast",
       "id": "auth_otp_s",
-      "community": 78,
+      "community": 55,
       "norm_label": "s"
     },
     {
@@ -870,47 +870,47 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "auth_phone",
-      "community": 61,
+      "community": 55,
       "norm_label": "phone.tsx"
     },
     {
       "label": "PREFERRED",
       "file_type": "code",
       "source_file": "app/(auth)/phone.tsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "auth_phone_preferred",
-      "community": 61,
+      "community": 55,
       "norm_label": "preferred"
     },
     {
       "label": "PhoneEntryScreen()",
       "file_type": "code",
       "source_file": "app/(auth)/phone.tsx",
-      "source_location": "L23",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "auth_phone_phoneentryscreen",
-      "community": 61,
+      "community": 55,
       "norm_label": "phoneentryscreen()"
     },
     {
       "label": "countryCodeToFlag()",
       "file_type": "code",
       "source_file": "app/(auth)/phone.tsx",
-      "source_location": "L243",
+      "source_location": "L256",
       "_origin": "ast",
       "id": "auth_phone_countrycodetoflag",
-      "community": 61,
+      "community": 55,
       "norm_label": "countrycodetoflag()"
     },
     {
       "label": "styles",
       "file_type": "code",
       "source_file": "app/(auth)/phone.tsx",
-      "source_location": "L251",
+      "source_location": "L264",
       "_origin": "ast",
       "id": "auth_phone_styles",
-      "community": 61,
+      "community": 55,
       "norm_label": "styles"
     },
     {
@@ -920,7 +920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "auth_profile_setup",
-      "community": 80,
+      "community": 19,
       "norm_label": "profile-setup.tsx"
     },
     {
@@ -930,7 +930,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "auth_profile_setup_nepal_cities",
-      "community": 80,
+      "community": 19,
       "norm_label": "nepal_cities"
     },
     {
@@ -940,7 +940,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "auth_profile_setup_preferences",
-      "community": 80,
+      "community": 19,
       "norm_label": "preferences"
     },
     {
@@ -950,7 +950,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "auth_profile_setup_profileschema",
-      "community": 80,
+      "community": 19,
       "norm_label": "profileschema"
     },
     {
@@ -960,7 +960,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "auth_profile_setup_profileformvalues",
-      "community": 80,
+      "community": 19,
       "norm_label": "profileformvalues"
     },
     {
@@ -970,7 +970,7 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "auth_profile_setup_compressimage",
-      "community": 80,
+      "community": 19,
       "norm_label": "compressimage()"
     },
     {
@@ -980,7 +980,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "auth_profile_setup_useavatarpicker",
-      "community": 83,
+      "community": 19,
       "norm_label": "useavatarpicker()"
     },
     {
@@ -990,7 +990,7 @@
       "source_location": "L131",
       "_origin": "ast",
       "id": "auth_profile_setup_profilesetupscreen",
-      "community": 83,
+      "community": 19,
       "norm_label": "profilesetupscreen()"
     },
     {
@@ -1000,7 +1000,7 @@
       "source_location": "L392",
       "_origin": "ast",
       "id": "auth_profile_setup_styles",
-      "community": 80,
+      "community": 19,
       "norm_label": "styles"
     },
     {
@@ -1010,7 +1010,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "auth_role",
-      "community": 82,
+      "community": 19,
       "norm_label": "role.tsx"
     },
     {
@@ -1020,7 +1020,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "auth_role_roles",
-      "community": 82,
+      "community": 19,
       "norm_label": "roles"
     },
     {
@@ -1030,7 +1030,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "auth_role_rolecardprops",
-      "community": 82,
+      "community": 19,
       "norm_label": "rolecardprops"
     },
     {
@@ -1040,7 +1040,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "auth_role_rolecard",
-      "community": 82,
+      "community": 19,
       "norm_label": "rolecard()"
     },
     {
@@ -1050,7 +1050,7 @@
       "source_location": "L117",
       "_origin": "ast",
       "id": "auth_role_roleselectionscreen",
-      "community": 83,
+      "community": 19,
       "norm_label": "roleselectionscreen()"
     },
     {
@@ -1060,7 +1060,7 @@
       "source_location": "L190",
       "_origin": "ast",
       "id": "auth_role_styles",
-      "community": 82,
+      "community": 19,
       "norm_label": "styles"
     },
     {
@@ -1100,7 +1100,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "tabs_index_landlorddashboard",
-      "community": 85,
+      "community": 80,
       "norm_label": "landlorddashboard()"
     },
     {
@@ -1130,7 +1130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_landlord_tabs_profile_tsx_tabs_profile",
-      "community": 12,
+      "community": 79,
       "norm_label": "profile.tsx"
     },
     {
@@ -1140,7 +1140,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "tabs_profile_landlordprofiletab",
-      "community": 12,
+      "community": 79,
       "norm_label": "landlordprofiletab()"
     },
     {
@@ -1160,7 +1160,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "tabs_requests_requeststab",
-      "community": 14,
+      "community": 12,
       "norm_label": "requeststab()"
     },
     {
@@ -1190,7 +1190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "landlord_ai_preferences",
-      "community": 12,
+      "community": 79,
       "norm_label": "ai-preferences.tsx"
     },
     {
@@ -1200,7 +1200,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "landlord_ai_preferences_aipreferencesscreen",
-      "community": 12,
+      "community": 79,
       "norm_label": "aipreferencesscreen()"
     },
     {
@@ -1210,7 +1210,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "landlord_edit_profile",
-      "community": 12,
+      "community": 79,
       "norm_label": "edit-profile.tsx"
     },
     {
@@ -1220,7 +1220,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "landlord_edit_profile_editprofilescreen",
-      "community": 12,
+      "community": 79,
       "norm_label": "editprofilescreen()"
     },
     {
@@ -1250,7 +1250,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "new_step_1",
-      "community": 85,
+      "community": 80,
       "norm_label": "step-1.tsx"
     },
     {
@@ -1260,7 +1260,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "new_step_1_newlistingstep1",
-      "community": 85,
+      "community": 80,
       "norm_label": "newlistingstep1()"
     },
     {
@@ -1330,7 +1330,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "landlord_notifications",
-      "community": 85,
+      "community": 80,
       "norm_label": "notifications.tsx"
     },
     {
@@ -1340,7 +1340,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "landlord_notifications_notificationsscreen",
-      "community": 85,
+      "community": 80,
       "norm_label": "notificationsscreen()"
     },
     {
@@ -1420,7 +1420,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "landlord_verification_verificationscreen",
-      "community": 83,
+      "community": 19,
       "norm_label": "verificationscreen()"
     },
     {
@@ -1500,7 +1500,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "tabs_index_hometab",
-      "community": 85,
+      "community": 80,
       "norm_label": "hometab()"
     },
     {
@@ -1517,7 +1517,7 @@
       "label": "monthYear()",
       "file_type": "code",
       "source_file": "app/(tenant)/(tabs)/profile.tsx",
-      "source_location": "L44",
+      "source_location": "L50",
       "_origin": "ast",
       "id": "tabs_profile_monthyear",
       "community": 20,
@@ -1527,7 +1527,7 @@
       "label": "initialsOf()",
       "file_type": "code",
       "source_file": "app/(tenant)/(tabs)/profile.tsx",
-      "source_location": "L47",
+      "source_location": "L53",
       "_origin": "ast",
       "id": "tabs_profile_initialsof",
       "community": 20,
@@ -1537,7 +1537,7 @@
       "label": "compressImage()",
       "file_type": "code",
       "source_file": "app/(tenant)/(tabs)/profile.tsx",
-      "source_location": "L50",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "tabs_profile_compressimage",
       "community": 20,
@@ -1547,7 +1547,7 @@
       "label": "ProfileTab()",
       "file_type": "code",
       "source_file": "app/(tenant)/(tabs)/profile.tsx",
-      "source_location": "L63",
+      "source_location": "L69",
       "_origin": "ast",
       "id": "tabs_profile_profiletab",
       "community": 20,
@@ -1557,7 +1557,7 @@
       "label": "StatColumn()",
       "file_type": "code",
       "source_file": "app/(tenant)/(tabs)/profile.tsx",
-      "source_location": "L479",
+      "source_location": "L556",
       "_origin": "ast",
       "id": "tabs_profile_statcolumn",
       "community": 20,
@@ -1730,17 +1730,17 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tenant_layout",
-      "community": 35,
+      "community": 20,
       "norm_label": "_layout.tsx"
     },
     {
       "label": "TenantLayout()",
       "file_type": "code",
       "source_file": "app/(tenant)/_layout.tsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "_origin": "ast",
       "id": "tenant_layout_tenantlayout",
-      "community": 35,
+      "community": 20,
       "norm_label": "tenantlayout()"
     },
     {
@@ -1904,24 +1904,184 @@
       "norm_label": "editprofilescreen()"
     },
     {
+      "label": "esewa-webview.tsx",
+      "file_type": "code",
+      "source_file": "app/(tenant)/esewa-webview.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tenant_esewa_webview",
+      "community": 20,
+      "norm_label": "esewa-webview.tsx"
+    },
+    {
+      "label": "WEBVIEW_UA",
+      "file_type": "code",
+      "source_file": "app/(tenant)/esewa-webview.tsx",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "tenant_esewa_webview_webview_ua",
+      "community": 20,
+      "norm_label": "webview_ua"
+    },
+    {
+      "label": "parseQuery()",
+      "file_type": "code",
+      "source_file": "app/(tenant)/esewa-webview.tsx",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "tenant_esewa_webview_parsequery",
+      "community": 20,
+      "norm_label": "parsequery()"
+    },
+    {
+      "label": "EsewaWebViewScreen()",
+      "file_type": "code",
+      "source_file": "app/(tenant)/esewa-webview.tsx",
+      "source_location": "L45",
+      "_origin": "ast",
+      "id": "tenant_esewa_webview_esewawebviewscreen",
+      "community": 20,
+      "norm_label": "esewawebviewscreen()"
+    },
+    {
+      "label": "buildEsewaForm()",
+      "file_type": "code",
+      "source_file": "app/(tenant)/esewa-webview.tsx",
+      "source_location": "L240",
+      "_origin": "ast",
+      "id": "tenant_esewa_webview_buildesewaform",
+      "community": 20,
+      "norm_label": "buildesewaform()"
+    },
+    {
+      "label": "styles",
+      "file_type": "code",
+      "source_file": "app/(tenant)/esewa-webview.tsx",
+      "source_location": "L308",
+      "_origin": "ast",
+      "id": "tenant_esewa_webview_styles",
+      "community": 20,
+      "norm_label": "styles"
+    },
+    {
+      "label": "kyc-status.tsx",
+      "file_type": "code",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tenant_kyc_status",
+      "community": 63,
+      "norm_label": "kyc-status.tsx"
+    },
+    {
+      "label": "formatDateTime()",
+      "file_type": "code",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L36",
+      "_origin": "ast",
+      "id": "tenant_kyc_status_formatdatetime",
+      "community": 63,
+      "norm_label": "formatdatetime()"
+    },
+    {
+      "label": "KYCStatusScreen()",
+      "file_type": "code",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L52",
+      "_origin": "ast",
+      "id": "tenant_kyc_status_kycstatusscreen",
+      "community": 63,
+      "norm_label": "kycstatusscreen()"
+    },
+    {
+      "label": "Row()",
+      "file_type": "code",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L264",
+      "_origin": "ast",
+      "id": "tenant_kyc_status_row",
+      "community": 63,
+      "norm_label": "row()"
+    },
+    {
+      "label": "Divider()",
+      "file_type": "code",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L281",
+      "_origin": "ast",
+      "id": "tenant_kyc_status_divider",
+      "community": 63,
+      "norm_label": "divider()"
+    },
+    {
+      "label": "styles",
+      "file_type": "code",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L285",
+      "_origin": "ast",
+      "id": "tenant_kyc_status_styles",
+      "community": 63,
+      "norm_label": "styles"
+    },
+    {
       "label": "kyc-upload.tsx",
       "file_type": "code",
       "source_file": "app/(tenant)/kyc-upload.tsx",
       "source_location": "L1",
       "_origin": "ast",
       "id": "tenant_kyc_upload",
-      "community": 6,
+      "community": 35,
       "norm_label": "kyc-upload.tsx"
+    },
+    {
+      "label": "SlotState",
+      "file_type": "code",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L38",
+      "_origin": "ast",
+      "id": "tenant_kyc_upload_slotstate",
+      "community": 35,
+      "norm_label": "slotstate"
+    },
+    {
+      "label": "emptySlot()",
+      "file_type": "code",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L48",
+      "_origin": "ast",
+      "id": "tenant_kyc_upload_emptyslot",
+      "community": 35,
+      "norm_label": "emptyslot()"
+    },
+    {
+      "label": "uploadedFromServer()",
+      "file_type": "code",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L55",
+      "_origin": "ast",
+      "id": "tenant_kyc_upload_uploadedfromserver",
+      "community": 35,
+      "norm_label": "uploadedfromserver()"
     },
     {
       "label": "KYCUploadScreen()",
       "file_type": "code",
       "source_file": "app/(tenant)/kyc-upload.tsx",
-      "source_location": "L5",
+      "source_location": "L62",
       "_origin": "ast",
       "id": "tenant_kyc_upload_kycuploadscreen",
-      "community": 6,
+      "community": 35,
       "norm_label": "kycuploadscreen()"
+    },
+    {
+      "label": "styles",
+      "file_type": "code",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L372",
+      "_origin": "ast",
+      "id": "tenant_kyc_upload_styles",
+      "community": 35,
+      "norm_label": "styles"
     },
     {
       "label": "[id].tsx",
@@ -2090,37 +2250,37 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tenant_payment_failed",
-      "community": 87,
+      "community": 78,
       "norm_label": "payment-failed.tsx"
     },
     {
       "label": "REASON_INFO",
       "file_type": "code",
       "source_file": "app/(tenant)/payment-failed.tsx",
-      "source_location": "L12",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "tenant_payment_failed_reason_info",
-      "community": 87,
+      "community": 78,
       "norm_label": "reason_info"
     },
     {
       "label": "GENERAL_REASONS",
       "file_type": "code",
       "source_file": "app/(tenant)/payment-failed.tsx",
-      "source_location": "L66",
+      "source_location": "L75",
       "_origin": "ast",
       "id": "tenant_payment_failed_general_reasons",
-      "community": 87,
+      "community": 78,
       "norm_label": "general_reasons"
     },
     {
       "label": "PaymentFailedScreen()",
       "file_type": "code",
       "source_file": "app/(tenant)/payment-failed.tsx",
-      "source_location": "L74",
+      "source_location": "L83",
       "_origin": "ast",
       "id": "tenant_payment_failed_paymentfailedscreen",
-      "community": 87,
+      "community": 78,
       "norm_label": "paymentfailedscreen()"
     },
     {
@@ -2137,7 +2297,7 @@
       "label": "Status",
       "file_type": "code",
       "source_file": "app/(tenant)/payment-success.tsx",
-      "source_location": "L26",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "tenant_payment_success_status",
       "community": 20,
@@ -2147,7 +2307,7 @@
       "label": "Feature",
       "file_type": "code",
       "source_file": "app/(tenant)/payment-success.tsx",
-      "source_location": "L28",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "tenant_payment_success_feature",
       "community": 20,
@@ -2157,7 +2317,7 @@
       "label": "UNLOCKED",
       "file_type": "code",
       "source_file": "app/(tenant)/payment-success.tsx",
-      "source_location": "L35",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "tenant_payment_success_unlocked",
       "community": 20,
@@ -2167,7 +2327,7 @@
       "label": "PaymentSuccessScreen()",
       "file_type": "code",
       "source_file": "app/(tenant)/payment-success.tsx",
-      "source_location": "L70",
+      "source_location": "L75",
       "_origin": "ast",
       "id": "tenant_payment_success_paymentsuccessscreen",
       "community": 20,
@@ -2207,7 +2367,7 @@
       "label": "PlanId",
       "file_type": "code",
       "source_file": "app/(tenant)/pro-plan.tsx",
-      "source_location": "L21",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "tenant_pro_plan_planid",
       "community": 20,
@@ -2217,7 +2377,7 @@
       "label": "Plan",
       "file_type": "code",
       "source_file": "app/(tenant)/pro-plan.tsx",
-      "source_location": "L23",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "tenant_pro_plan_plan",
       "community": 20,
@@ -2227,7 +2387,7 @@
       "label": "PLANS",
       "file_type": "code",
       "source_file": "app/(tenant)/pro-plan.tsx",
-      "source_location": "L35",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "tenant_pro_plan_plans",
       "community": 20,
@@ -2237,7 +2397,7 @@
       "label": "Feature",
       "file_type": "code",
       "source_file": "app/(tenant)/pro-plan.tsx",
-      "source_location": "L47",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "tenant_pro_plan_feature",
       "community": 20,
@@ -2247,7 +2407,7 @@
       "label": "FEATURES",
       "file_type": "code",
       "source_file": "app/(tenant)/pro-plan.tsx",
-      "source_location": "L55",
+      "source_location": "L51",
       "_origin": "ast",
       "id": "tenant_pro_plan_features",
       "community": 20,
@@ -2257,7 +2417,7 @@
       "label": "ProPlanScreen()",
       "file_type": "code",
       "source_file": "app/(tenant)/pro-plan.tsx",
-      "source_location": "L93",
+      "source_location": "L89",
       "_origin": "ast",
       "id": "tenant_pro_plan_proplanscreen",
       "community": 20,
@@ -2760,7 +2920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "package",
-      "community": 4,
+      "community": 71,
       "norm_label": "package.json"
     },
     {
@@ -2770,7 +2930,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "package_name",
-      "community": 4,
+      "community": 71,
       "norm_label": "name"
     },
     {
@@ -2780,7 +2940,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "package_version",
-      "community": 4,
+      "community": 71,
       "norm_label": "version"
     },
     {
@@ -2790,7 +2950,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "package_scripts",
-      "community": 4,
+      "community": 61,
       "norm_label": "scripts"
     },
     {
@@ -2800,7 +2960,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "package_scripts_android",
-      "community": 4,
+      "community": 61,
       "norm_label": "android"
     },
     {
@@ -2810,7 +2970,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "package_scripts_ios",
-      "community": 4,
+      "community": 61,
       "norm_label": "ios"
     },
     {
@@ -2820,7 +2980,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "package_scripts_start",
-      "community": 4,
+      "community": 61,
       "norm_label": "start"
     },
     {
@@ -2830,7 +2990,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "package_scripts_prebuild",
-      "community": 4,
+      "community": 61,
       "norm_label": "prebuild"
     },
     {
@@ -2840,7 +3000,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "package_scripts_lint",
-      "community": 4,
+      "community": 61,
       "norm_label": "lint"
     },
     {
@@ -2850,7 +3010,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "package_scripts_format",
-      "community": 4,
+      "community": 61,
       "norm_label": "format"
     },
     {
@@ -2860,7 +3020,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "package_scripts_web",
-      "community": 4,
+      "community": 61,
       "norm_label": "web"
     },
     {
@@ -3144,20 +3304,10 @@
       "norm_label": "expo-status-bar"
     },
     {
-      "label": "expo-web-browser",
-      "file_type": "code",
-      "source_file": "package.json",
-      "source_location": "L41",
-      "_origin": "ast",
-      "id": "package_dependencies_expo_web_browser",
-      "community": 0,
-      "norm_label": "expo-web-browser"
-    },
-    {
       "label": "lucide-react-native",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L42",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "package_dependencies_lucide_react_native",
       "community": 0,
@@ -3167,7 +3317,7 @@
       "label": "nativewind",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L43",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "package_dependencies_nativewind",
       "community": 0,
@@ -3177,7 +3327,7 @@
       "label": "react",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L44",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "package_dependencies_react",
       "community": 0,
@@ -3187,7 +3337,7 @@
       "label": "react-dom",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L45",
+      "source_location": "L44",
       "_origin": "ast",
       "id": "package_dependencies_react_dom",
       "community": 0,
@@ -3197,7 +3347,7 @@
       "label": "react-hook-form",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L46",
+      "source_location": "L45",
       "_origin": "ast",
       "id": "package_dependencies_react_hook_form",
       "community": 0,
@@ -3207,7 +3357,7 @@
       "label": "react-native",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L47",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "package_dependencies_react_native",
       "community": 0,
@@ -3217,7 +3367,7 @@
       "label": "react-native-country-picker-modal",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L48",
+      "source_location": "L47",
       "_origin": "ast",
       "id": "package_dependencies_react_native_country_picker_modal",
       "community": 0,
@@ -3227,7 +3377,7 @@
       "label": "react-native-gesture-handler",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L49",
+      "source_location": "L48",
       "_origin": "ast",
       "id": "package_dependencies_react_native_gesture_handler",
       "community": 0,
@@ -3237,7 +3387,7 @@
       "label": "react-native-maps",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L50",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "package_dependencies_react_native_maps",
       "community": 0,
@@ -3247,7 +3397,7 @@
       "label": "react-native-reanimated",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L51",
+      "source_location": "L50",
       "_origin": "ast",
       "id": "package_dependencies_react_native_reanimated",
       "community": 0,
@@ -3257,7 +3407,7 @@
       "label": "react-native-safe-area-context",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L52",
+      "source_location": "L51",
       "_origin": "ast",
       "id": "package_dependencies_react_native_safe_area_context",
       "community": 0,
@@ -3267,7 +3417,7 @@
       "label": "react-native-screens",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L53",
+      "source_location": "L52",
       "_origin": "ast",
       "id": "package_dependencies_react_native_screens",
       "community": 0,
@@ -3277,7 +3427,7 @@
       "label": "react-native-svg",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L54",
+      "source_location": "L53",
       "_origin": "ast",
       "id": "package_dependencies_react_native_svg",
       "community": 0,
@@ -3287,7 +3437,7 @@
       "label": "react-native-url-polyfill",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L55",
+      "source_location": "L54",
       "_origin": "ast",
       "id": "package_dependencies_react_native_url_polyfill",
       "community": 0,
@@ -3297,7 +3447,7 @@
       "label": "react-native-web",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L56",
+      "source_location": "L55",
       "_origin": "ast",
       "id": "package_dependencies_react_native_web",
       "community": 0,
@@ -3307,7 +3457,7 @@
       "label": "react-native-webview",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L57",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "package_dependencies_react_native_webview",
       "community": 0,
@@ -3317,7 +3467,7 @@
       "label": "zod",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L58",
+      "source_location": "L57",
       "_origin": "ast",
       "id": "package_dependencies_zod",
       "community": 0,
@@ -3327,7 +3477,7 @@
       "label": "zustand",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L59",
+      "source_location": "L58",
       "_origin": "ast",
       "id": "package_dependencies_zustand",
       "community": 0,
@@ -3337,7 +3487,7 @@
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L61",
+      "source_location": "L60",
       "_origin": "ast",
       "id": "package_devdependencies",
       "community": 4,
@@ -3347,7 +3497,7 @@
       "label": "@babel/core",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L62",
+      "source_location": "L61",
       "_origin": "ast",
       "id": "package_devdependencies_babel_core",
       "community": 4,
@@ -3357,7 +3507,7 @@
       "label": "@types/react",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L63",
+      "source_location": "L62",
       "_origin": "ast",
       "id": "package_devdependencies_types_react",
       "community": 4,
@@ -3367,7 +3517,7 @@
       "label": "babel-preset-expo",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L64",
+      "source_location": "L63",
       "_origin": "ast",
       "id": "package_devdependencies_babel_preset_expo",
       "community": 4,
@@ -3377,7 +3527,7 @@
       "label": "eslint",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L65",
+      "source_location": "L64",
       "_origin": "ast",
       "id": "package_devdependencies_eslint",
       "community": 4,
@@ -3387,7 +3537,7 @@
       "label": "eslint-config-expo",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L66",
+      "source_location": "L65",
       "_origin": "ast",
       "id": "package_devdependencies_eslint_config_expo",
       "community": 4,
@@ -3397,7 +3547,7 @@
       "label": "eslint-config-prettier",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L67",
+      "source_location": "L66",
       "_origin": "ast",
       "id": "package_devdependencies_eslint_config_prettier",
       "community": 4,
@@ -3407,7 +3557,7 @@
       "label": "prettier",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L68",
+      "source_location": "L67",
       "_origin": "ast",
       "id": "package_devdependencies_prettier",
       "community": 4,
@@ -3417,7 +3567,7 @@
       "label": "prettier-plugin-tailwindcss",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L69",
+      "source_location": "L68",
       "_origin": "ast",
       "id": "package_devdependencies_prettier_plugin_tailwindcss",
       "community": 4,
@@ -3427,7 +3577,7 @@
       "label": "tailwindcss",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L70",
+      "source_location": "L69",
       "_origin": "ast",
       "id": "package_devdependencies_tailwindcss",
       "community": 4,
@@ -3437,7 +3587,7 @@
       "label": "typescript",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L71",
+      "source_location": "L70",
       "_origin": "ast",
       "id": "package_devdependencies_typescript",
       "community": 4,
@@ -3447,20 +3597,20 @@
       "label": "main",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L73",
+      "source_location": "L72",
       "_origin": "ast",
       "id": "package_main",
-      "community": 4,
+      "community": 71,
       "norm_label": "main"
     },
     {
       "label": "private",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L74",
+      "source_location": "L73",
       "_origin": "ast",
       "id": "package_private",
-      "community": 4,
+      "community": 71,
       "norm_label": "private"
     },
     {
@@ -3664,6 +3814,416 @@
       "norm_label": "toggle()"
     },
     {
+      "label": "DocumentTypeSelector.tsx",
+      "file_type": "code",
+      "source_file": "src/components/kyc/DocumentTypeSelector.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kyc_documenttypeselector",
+      "community": 35,
+      "norm_label": "documenttypeselector.tsx"
+    },
+    {
+      "label": "KYCDocumentType",
+      "file_type": "code",
+      "source_file": "src/components/kyc/DocumentTypeSelector.tsx",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "kyc_documenttypeselector_kycdocumenttype",
+      "community": 35,
+      "norm_label": "kycdocumenttype"
+    },
+    {
+      "label": "Option",
+      "file_type": "code",
+      "source_file": "src/components/kyc/DocumentTypeSelector.tsx",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "kyc_documenttypeselector_option",
+      "community": 35,
+      "norm_label": "option"
+    },
+    {
+      "label": "OPTIONS",
+      "file_type": "code",
+      "source_file": "src/components/kyc/DocumentTypeSelector.tsx",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "kyc_documenttypeselector_options",
+      "community": 35,
+      "norm_label": "options"
+    },
+    {
+      "label": "DocumentTypeSelectorProps",
+      "file_type": "code",
+      "source_file": "src/components/kyc/DocumentTypeSelector.tsx",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "kyc_documenttypeselector_documenttypeselectorprops",
+      "community": 35,
+      "norm_label": "documenttypeselectorprops"
+    },
+    {
+      "label": "DocumentTypeSelector()",
+      "file_type": "code",
+      "source_file": "src/components/kyc/DocumentTypeSelector.tsx",
+      "source_location": "L48",
+      "_origin": "ast",
+      "id": "kyc_documenttypeselector_documenttypeselector",
+      "community": 35,
+      "norm_label": "documenttypeselector()"
+    },
+    {
+      "label": "styles",
+      "file_type": "code",
+      "source_file": "src/components/kyc/DocumentTypeSelector.tsx",
+      "source_location": "L91",
+      "_origin": "ast",
+      "id": "kyc_documenttypeselector_styles",
+      "community": 35,
+      "norm_label": "styles"
+    },
+    {
+      "label": "DocumentUploadCard.tsx",
+      "file_type": "code",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kyc_documentuploadcard",
+      "community": 35,
+      "norm_label": "documentuploadcard.tsx"
+    },
+    {
+      "label": "DocumentUploadCardStatus",
+      "file_type": "code",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "kyc_documentuploadcard_documentuploadcardstatus",
+      "community": 35,
+      "norm_label": "documentuploadcardstatus"
+    },
+    {
+      "label": "DocumentUploadCardProps",
+      "file_type": "code",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L32",
+      "_origin": "ast",
+      "id": "kyc_documentuploadcard_documentuploadcardprops",
+      "community": 35,
+      "norm_label": "documentuploadcardprops"
+    },
+    {
+      "label": "compressImage()",
+      "file_type": "code",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L52",
+      "_origin": "ast",
+      "id": "kyc_documentuploadcard_compressimage",
+      "community": 35,
+      "norm_label": "compressimage()"
+    },
+    {
+      "label": "pickFromOptions()",
+      "file_type": "code",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L65",
+      "_origin": "ast",
+      "id": "kyc_documentuploadcard_pickfromoptions",
+      "community": 35,
+      "norm_label": "pickfromoptions()"
+    },
+    {
+      "label": "DocumentUploadCard()",
+      "file_type": "code",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L120",
+      "_origin": "ast",
+      "id": "kyc_documentuploadcard_documentuploadcard",
+      "community": 35,
+      "norm_label": "documentuploadcard()"
+    },
+    {
+      "label": "styles",
+      "file_type": "code",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L365",
+      "_origin": "ast",
+      "id": "kyc_documentuploadcard_styles",
+      "community": 35,
+      "norm_label": "styles"
+    },
+    {
+      "label": "KYCBenefitsList.tsx",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCBenefitsList.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kyc_kycbenefitslist",
+      "community": 35,
+      "norm_label": "kycbenefitslist.tsx"
+    },
+    {
+      "label": "Benefit",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCBenefitsList.tsx",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "kyc_kycbenefitslist_benefit",
+      "community": 35,
+      "norm_label": "benefit"
+    },
+    {
+      "label": "BENEFITS",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCBenefitsList.tsx",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "kyc_kycbenefitslist_benefits",
+      "community": 35,
+      "norm_label": "benefits"
+    },
+    {
+      "label": "KYCBenefitsList()",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCBenefitsList.tsx",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "kyc_kycbenefitslist_kycbenefitslist",
+      "community": 35,
+      "norm_label": "kycbenefitslist()"
+    },
+    {
+      "label": "styles",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCBenefitsList.tsx",
+      "source_location": "L52",
+      "_origin": "ast",
+      "id": "kyc_kycbenefitslist_styles",
+      "community": 35,
+      "norm_label": "styles"
+    },
+    {
+      "label": "KYCRejectionNotice.tsx",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCRejectionNotice.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kyc_kycrejectionnotice",
+      "community": 19,
+      "norm_label": "kycrejectionnotice.tsx"
+    },
+    {
+      "label": "Props",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCRejectionNotice.tsx",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "kyc_kycrejectionnotice_props",
+      "community": 19,
+      "norm_label": "props"
+    },
+    {
+      "label": "KYCRejectionNotice()",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCRejectionNotice.tsx",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "kyc_kycrejectionnotice_kycrejectionnotice",
+      "community": 63,
+      "norm_label": "kycrejectionnotice()"
+    },
+    {
+      "label": "styles",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCRejectionNotice.tsx",
+      "source_location": "L57",
+      "_origin": "ast",
+      "id": "kyc_kycrejectionnotice_styles",
+      "community": 19,
+      "norm_label": "styles"
+    },
+    {
+      "label": "KYCStatusHero.tsx",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kyc_kycstatushero",
+      "community": 63,
+      "norm_label": "kycstatushero.tsx"
+    },
+    {
+      "label": "HeroConfig",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "kyc_kycstatushero_heroconfig",
+      "community": 63,
+      "norm_label": "heroconfig"
+    },
+    {
+      "label": "HERO_BY_STATUS",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "kyc_kycstatushero_hero_by_status",
+      "community": 63,
+      "norm_label": "hero_by_status"
+    },
+    {
+      "label": "Props",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L72",
+      "_origin": "ast",
+      "id": "kyc_kycstatushero_props",
+      "community": 63,
+      "norm_label": "props"
+    },
+    {
+      "label": "KYCStatusHero()",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L85",
+      "_origin": "ast",
+      "id": "kyc_kycstatushero_kycstatushero",
+      "community": 63,
+      "norm_label": "kycstatushero()"
+    },
+    {
+      "label": "styles",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L140",
+      "_origin": "ast",
+      "id": "kyc_kycstatushero_styles",
+      "community": 63,
+      "norm_label": "styles"
+    },
+    {
+      "label": "KYCStatusTimeline.tsx",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kyc_kycstatustimeline",
+      "community": 63,
+      "norm_label": "kycstatustimeline.tsx"
+    },
+    {
+      "label": "StepKey",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "kyc_kycstatustimeline_stepkey",
+      "community": 63,
+      "norm_label": "stepkey"
+    },
+    {
+      "label": "Step",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "kyc_kycstatustimeline_step",
+      "community": 63,
+      "norm_label": "step"
+    },
+    {
+      "label": "STEPS",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "kyc_kycstatustimeline_steps",
+      "community": 63,
+      "norm_label": "steps"
+    },
+    {
+      "label": "Props",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "kyc_kycstatustimeline_props",
+      "community": 63,
+      "norm_label": "props"
+    },
+    {
+      "label": "resolveActiveStep()",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L36",
+      "_origin": "ast",
+      "id": "kyc_kycstatustimeline_resolveactivestep",
+      "community": 63,
+      "norm_label": "resolveactivestep()"
+    },
+    {
+      "label": "formatTime()",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L50",
+      "_origin": "ast",
+      "id": "kyc_kycstatustimeline_formattime",
+      "community": 63,
+      "norm_label": "formattime()"
+    },
+    {
+      "label": "KYCStatusTimeline()",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L79",
+      "_origin": "ast",
+      "id": "kyc_kycstatustimeline_kycstatustimeline",
+      "community": 63,
+      "norm_label": "kycstatustimeline()"
+    },
+    {
+      "label": "styles",
+      "file_type": "code",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L156",
+      "_origin": "ast",
+      "id": "kyc_kycstatustimeline_styles",
+      "community": 63,
+      "norm_label": "styles"
+    },
+    {
+      "label": "UploadPlaceholder.tsx",
+      "file_type": "code",
+      "source_file": "src/components/kyc/UploadPlaceholder.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kyc_uploadplaceholder",
+      "community": 35,
+      "norm_label": "uploadplaceholder.tsx"
+    },
+    {
+      "label": "UploadPlaceholder()",
+      "file_type": "code",
+      "source_file": "src/components/kyc/UploadPlaceholder.tsx",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "kyc_uploadplaceholder_uploadplaceholder",
+      "community": 35,
+      "norm_label": "uploadplaceholder()"
+    },
+    {
+      "label": "styles",
+      "file_type": "code",
+      "source_file": "src/components/kyc/UploadPlaceholder.tsx",
+      "source_location": "L45",
+      "_origin": "ast",
+      "id": "kyc_uploadplaceholder_styles",
+      "community": 35,
+      "norm_label": "styles"
+    },
+    {
       "label": "ScreenBody.tsx",
       "file_type": "code",
       "source_file": "src/components/layout/ScreenBody.tsx",
@@ -3760,7 +4320,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "layout_sectionlabel",
-      "community": 20,
+      "community": 35,
       "norm_label": "sectionlabel.tsx"
     },
     {
@@ -3770,7 +4330,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "layout_sectionlabel_props",
-      "community": 20,
+      "community": 35,
       "norm_label": "props"
     },
     {
@@ -3780,7 +4340,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "layout_sectionlabel_sectionlabel",
-      "community": 20,
+      "community": 35,
       "norm_label": "sectionlabel()"
     },
     {
@@ -3790,7 +4350,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "listing_listingcomposer",
-      "community": 71,
+      "community": 6,
       "norm_label": "listingcomposer.tsx"
     },
     {
@@ -3800,7 +4360,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "listing_listingcomposer_props",
-      "community": 71,
+      "community": 6,
       "norm_label": "props"
     },
     {
@@ -3810,7 +4370,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "listing_listingcomposer_listingcomposer",
-      "community": 71,
+      "community": 6,
       "norm_label": "listingcomposer()"
     },
     {
@@ -3867,7 +4427,7 @@
       "label": "styles",
       "file_type": "code",
       "source_file": "src/components/navigation/GlassDock/GlassDock.tsx",
-      "source_location": "L81",
+      "source_location": "L88",
       "_origin": "ast",
       "id": "glassdock_glassdock_styles",
       "community": 5,
@@ -4080,7 +4640,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "onboarding_onboardingeyebrow",
-      "community": 80,
+      "community": 19,
       "norm_label": "onboardingeyebrow.tsx"
     },
     {
@@ -4090,7 +4650,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "onboarding_onboardingeyebrow_props",
-      "community": 80,
+      "community": 19,
       "norm_label": "props"
     },
     {
@@ -4100,7 +4660,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "onboarding_onboardingeyebrow_onboardingeyebrow",
-      "community": 80,
+      "community": 19,
       "norm_label": "onboardingeyebrow()"
     },
     {
@@ -4110,7 +4670,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "onboarding_onboardingeyebrow_styles",
-      "community": 80,
+      "community": 19,
       "norm_label": "styles"
     },
     {
@@ -4120,7 +4680,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "onboarding_onboardingheader",
-      "community": 79,
+      "community": 19,
       "norm_label": "onboardingheader.tsx"
     },
     {
@@ -4130,7 +4690,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "onboarding_onboardingheader_props",
-      "community": 79,
+      "community": 19,
       "norm_label": "props"
     },
     {
@@ -4140,7 +4700,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "onboarding_onboardingheader_onboardingheader",
-      "community": 79,
+      "community": 19,
       "norm_label": "onboardingheader()"
     },
     {
@@ -4150,7 +4710,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "onboarding_onboardingheader_styles",
-      "community": 79,
+      "community": 19,
       "norm_label": "styles"
     },
     {
@@ -4250,7 +4810,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "onboarding_stepprogressbar",
-      "community": 82,
+      "community": 19,
       "norm_label": "stepprogressbar.tsx"
     },
     {
@@ -4260,7 +4820,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "onboarding_stepprogressbar_props",
-      "community": 82,
+      "community": 19,
       "norm_label": "props"
     },
     {
@@ -4270,7 +4830,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "onboarding_stepprogressbar_stepprogressbar",
-      "community": 82,
+      "community": 19,
       "norm_label": "stepprogressbar()"
     },
     {
@@ -4280,7 +4840,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "onboarding_stepprogressbar_styles",
-      "community": 82,
+      "community": 19,
       "norm_label": "styles"
     },
     {
@@ -4957,7 +5517,7 @@
       "label": "STATUS_STYLES",
       "file_type": "code",
       "source_file": "src/components/shared/StatusPill.tsx",
-      "source_location": "L13",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "shared_statuspill_status_styles",
       "community": 63,
@@ -4967,7 +5527,7 @@
       "label": "Props",
       "file_type": "code",
       "source_file": "src/components/shared/StatusPill.tsx",
-      "source_location": "L45",
+      "source_location": "L67",
       "_origin": "ast",
       "id": "shared_statuspill_props",
       "community": 63,
@@ -4977,7 +5537,7 @@
       "label": "StatusPill()",
       "file_type": "code",
       "source_file": "src/components/shared/StatusPill.tsx",
-      "source_location": "L50",
+      "source_location": "L72",
       "_origin": "ast",
       "id": "shared_statuspill_statuspill",
       "community": 63,
@@ -5090,7 +5650,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_useclerksupabase",
-      "community": 78,
+      "community": 55,
       "norm_label": "useclerksupabase.ts"
     },
     {
@@ -5100,38 +5660,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "hooks_useclerksupabase_useclerksupabase",
-      "community": 78,
+      "community": 55,
       "norm_label": "useclerksupabase()"
-    },
-    {
-      "label": "useEsewaBrowserPayment.ts",
-      "file_type": "code",
-      "source_file": "src/hooks/useEsewaBrowserPayment.ts",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "hooks_useesewabrowserpayment",
-      "community": 20,
-      "norm_label": "useesewabrowserpayment.ts"
-    },
-    {
-      "label": "EsewaPaymentResult",
-      "file_type": "code",
-      "source_file": "src/hooks/useEsewaBrowserPayment.ts",
-      "source_location": "L6",
-      "_origin": "ast",
-      "id": "hooks_useesewabrowserpayment_esewapaymentresult",
-      "community": 20,
-      "norm_label": "esewapaymentresult"
-    },
-    {
-      "label": "useEsewaBrowserPayment()",
-      "file_type": "code",
-      "source_file": "src/hooks/useEsewaBrowserPayment.ts",
-      "source_location": "L27",
-      "_origin": "ast",
-      "id": "hooks_useesewabrowserpayment_useesewabrowserpayment",
-      "community": 20,
-      "norm_label": "useesewabrowserpayment()"
     },
     {
       "label": "useProGate.ts",
@@ -5172,6 +5702,26 @@
       "id": "hooks_useprogate_useprogate",
       "community": 20,
       "norm_label": "useprogate()"
+    },
+    {
+      "label": "useProfileBootstrap.ts",
+      "file_type": "code",
+      "source_file": "src/hooks/useProfileBootstrap.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "hooks_useprofilebootstrap",
+      "community": 20,
+      "norm_label": "useprofilebootstrap.ts"
+    },
+    {
+      "label": "useProfileBootstrap()",
+      "file_type": "code",
+      "source_file": "src/hooks/useProfileBootstrap.ts",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "hooks_useprofilebootstrap_useprofilebootstrap",
+      "community": 20,
+      "norm_label": "useprofilebootstrap()"
     },
     {
       "label": "usePurchasePlan.ts",
@@ -5217,7 +5767,7 @@
       "label": "usePurchasePlan()",
       "file_type": "code",
       "source_file": "src/hooks/usePurchasePlan.ts",
-      "source_location": "L40",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "hooks_usepurchaseplan_usepurchaseplan",
       "community": 20,
@@ -5242,46 +5792,6 @@
       "id": "lib_clerktokencache_clerktokencache",
       "community": 55,
       "norm_label": "clerktokencache"
-    },
-    {
-      "label": "esewaDeepLink.ts",
-      "file_type": "code",
-      "source_file": "src/lib/esewaDeepLink.ts",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "lib_esewadeeplink",
-      "community": 20,
-      "norm_label": "esewadeeplink.ts"
-    },
-    {
-      "label": "EsewaDeepLink",
-      "file_type": "code",
-      "source_file": "src/lib/esewaDeepLink.ts",
-      "source_location": "L15",
-      "_origin": "ast",
-      "id": "lib_esewadeeplink_esewadeeplink",
-      "community": 20,
-      "norm_label": "esewadeeplink"
-    },
-    {
-      "label": "parseEsewaDeepLink()",
-      "file_type": "code",
-      "source_file": "src/lib/esewaDeepLink.ts",
-      "source_location": "L27",
-      "_origin": "ast",
-      "id": "lib_esewadeeplink_parseesewadeeplink",
-      "community": 20,
-      "norm_label": "parseesewadeeplink()"
-    },
-    {
-      "label": "deepLinkToRoute()",
-      "file_type": "code",
-      "source_file": "src/lib/esewaDeepLink.ts",
-      "source_location": "L64",
-      "_origin": "ast",
-      "id": "lib_esewadeeplink_deeplinktoroute",
-      "community": 20,
-      "norm_label": "deeplinktoroute()"
     },
     {
       "label": "result.ts",
@@ -5340,7 +5850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_supabase",
-      "community": 78,
+      "community": 55,
       "norm_label": "supabase.ts"
     },
     {
@@ -5350,7 +5860,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "lib_supabase_createclerksupabaseclient",
-      "community": 78,
+      "community": 55,
       "norm_label": "createclerksupabaseclient()"
     },
     {
@@ -5360,7 +5870,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "lib_supabase_supabasepublic",
-      "community": 78,
+      "community": 55,
       "norm_label": "supabasepublic"
     },
     {
@@ -5377,7 +5887,7 @@
       "label": "KYCInput",
       "file_type": "code",
       "source_file": "src/services/kyc.service.ts",
-      "source_location": "L7",
+      "source_location": "L8",
       "_origin": "ast",
       "id": "services_kyc_service_kycinput",
       "community": 13,
@@ -5387,7 +5897,7 @@
       "label": "KYCResult",
       "file_type": "code",
       "source_file": "src/services/kyc.service.ts",
-      "source_location": "L16",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "services_kyc_service_kycresult",
       "community": 13,
@@ -5397,11 +5907,31 @@
       "label": "submitKYC()",
       "file_type": "code",
       "source_file": "src/services/kyc.service.ts",
-      "source_location": "L21",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "services_kyc_service_submitkyc",
       "community": 13,
       "norm_label": "submitkyc()"
+    },
+    {
+      "label": "getLatestKYCSubmission()",
+      "file_type": "code",
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L141",
+      "_origin": "ast",
+      "id": "services_kyc_service_getlatestkycsubmission",
+      "community": 13,
+      "norm_label": "getlatestkycsubmission()"
+    },
+    {
+      "label": "getUserKYCStatusUi()",
+      "file_type": "code",
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L185",
+      "_origin": "ast",
+      "id": "services_kyc_service_getuserkycstatusui",
+      "community": 13,
+      "norm_label": "getuserkycstatusui()"
     },
     {
       "label": "onboarding.service.ts",
@@ -5557,7 +6087,7 @@
       "label": "uploadKYCDocument()",
       "file_type": "code",
       "source_file": "src/services/storage.service.ts",
-      "source_location": "L90",
+      "source_location": "L95",
       "_origin": "ast",
       "id": "services_storage_service_uploadkycdocument",
       "community": 13,
@@ -5567,7 +6097,7 @@
       "label": "uploadKYCElectricityBill()",
       "file_type": "code",
       "source_file": "src/services/storage.service.ts",
-      "source_location": "L130",
+      "source_location": "L153",
       "_origin": "ast",
       "id": "services_storage_service_uploadkycelectricitybill",
       "community": 13,
@@ -5610,7 +6140,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "store_authstore_useauthstore",
-      "community": 78,
+      "community": 55,
       "norm_label": "useauthstore"
     },
     {
@@ -5620,7 +6150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "store_onboardingstore",
-      "community": 81,
+      "community": 19,
       "norm_label": "onboardingstore.ts"
     },
     {
@@ -5630,7 +6160,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "store_onboardingstore_onboardingstate",
-      "community": 81,
+      "community": 19,
       "norm_label": "onboardingstate"
     },
     {
@@ -5640,7 +6170,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "store_onboardingstore_initialprofile",
-      "community": 81,
+      "community": 19,
       "norm_label": "initialprofile"
     },
     {
@@ -5650,7 +6180,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "store_onboardingstore_initialkyc",
-      "community": 81,
+      "community": 19,
       "norm_label": "initialkyc"
     },
     {
@@ -5660,7 +6190,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "store_onboardingstore_useonboardingstore",
-      "community": 83,
+      "community": 19,
       "norm_label": "useonboardingstore"
     },
     {
@@ -5974,13 +6504,83 @@
       "norm_label": "constants"
     },
     {
+      "label": "kyc.types.ts",
+      "file_type": "code",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "types_kyc_types",
+      "community": 63,
+      "norm_label": "kyc.types.ts"
+    },
+    {
+      "label": "KYCStatus",
+      "file_type": "code",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "types_kyc_types_kycstatus",
+      "community": 63,
+      "norm_label": "kycstatus"
+    },
+    {
+      "label": "KYCStatusUi",
+      "file_type": "code",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "types_kyc_types_kycstatusui",
+      "community": 63,
+      "norm_label": "kycstatusui"
+    },
+    {
+      "label": "KYCDocumentSlot",
+      "file_type": "code",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L31",
+      "_origin": "ast",
+      "id": "types_kyc_types_kycdocumentslot",
+      "community": 63,
+      "norm_label": "kycdocumentslot"
+    },
+    {
+      "label": "KYCSubmission",
+      "file_type": "code",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "types_kyc_types_kycsubmission",
+      "community": 63,
+      "norm_label": "kycsubmission"
+    },
+    {
+      "label": "toKYCStatusUi()",
+      "file_type": "code",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L48",
+      "_origin": "ast",
+      "id": "types_kyc_types_tokycstatusui",
+      "community": 13,
+      "norm_label": "tokycstatusui()"
+    },
+    {
+      "label": "KYCSubmissionRow",
+      "file_type": "code",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L67",
+      "_origin": "ast",
+      "id": "types_kyc_types_kycsubmissionrow",
+      "community": 63,
+      "norm_label": "kycsubmissionrow"
+    },
+    {
       "label": "onboarding.types.ts",
       "file_type": "code",
       "source_file": "src/types/onboarding.types.ts",
       "source_location": "L1",
       "_origin": "ast",
       "id": "types_onboarding_types",
-      "community": 81,
+      "community": 19,
       "norm_label": "onboarding.types.ts"
     },
     {
@@ -5990,7 +6590,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "types_onboarding_types_userrole",
-      "community": 81,
+      "community": 19,
       "norm_label": "userrole"
     },
     {
@@ -6000,57 +6600,47 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "types_onboarding_types_documenttype",
-      "community": 84,
+      "community": 19,
       "norm_label": "documenttype"
-    },
-    {
-      "label": "KYCStatus",
-      "file_type": "code",
-      "source_file": "src/types/onboarding.types.ts",
-      "source_location": "L5",
-      "_origin": "ast",
-      "id": "types_onboarding_types_kycstatus",
-      "community": 81,
-      "norm_label": "kycstatus"
     },
     {
       "label": "PropertyPreference",
       "file_type": "code",
       "source_file": "src/types/onboarding.types.ts",
-      "source_location": "L11",
+      "source_location": "L5",
       "_origin": "ast",
       "id": "types_onboarding_types_propertypreference",
-      "community": 81,
+      "community": 19,
       "norm_label": "propertypreference"
     },
     {
       "label": "OnboardingProfileData",
       "file_type": "code",
       "source_file": "src/types/onboarding.types.ts",
-      "source_location": "L18",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "types_onboarding_types_onboardingprofiledata",
-      "community": 81,
+      "community": 19,
       "norm_label": "onboardingprofiledata"
     },
     {
       "label": "OnboardingKYCData",
       "file_type": "code",
       "source_file": "src/types/onboarding.types.ts",
-      "source_location": "L25",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "types_onboarding_types_onboardingkycdata",
-      "community": 81,
+      "community": 19,
       "norm_label": "onboardingkycdata"
     },
     {
       "label": "OnboardingPayload",
       "file_type": "code",
       "source_file": "src/types/onboarding.types.ts",
-      "source_location": "L33",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "types_onboarding_types_onboardingpayload",
-      "community": 81,
+      "community": 19,
       "norm_label": "onboardingpayload"
     },
     {
@@ -6312,66 +6902,6 @@
       "id": "create_esewa_order_index",
       "community": 15,
       "norm_label": "index.ts"
-    },
-    {
-      "label": "deno.json",
-      "file_type": "code",
-      "source_file": "supabase/functions/esewa-checkout/deno.json",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "esewa_checkout_deno",
-      "community": 86,
-      "norm_label": "deno.json"
-    },
-    {
-      "label": "imports",
-      "file_type": "code",
-      "source_file": "supabase/functions/esewa-checkout/deno.json",
-      "source_location": "L2",
-      "_origin": "ast",
-      "id": "esewa_checkout_deno_imports",
-      "community": 86,
-      "norm_label": "imports"
-    },
-    {
-      "label": "@supabase/functions-js",
-      "file_type": "code",
-      "source_file": "supabase/functions/esewa-checkout/deno.json",
-      "source_location": "L3",
-      "_origin": "ast",
-      "id": "esewa_checkout_deno_imports_supabase_functions_js",
-      "community": 86,
-      "norm_label": "@supabase/functions-js"
-    },
-    {
-      "label": "@supabase/server",
-      "file_type": "code",
-      "source_file": "supabase/functions/esewa-checkout/deno.json",
-      "source_location": "L4",
-      "_origin": "ast",
-      "id": "esewa_checkout_deno_imports_supabase_server",
-      "community": 86,
-      "norm_label": "@supabase/server"
-    },
-    {
-      "label": "index.ts",
-      "file_type": "code",
-      "source_file": "supabase/functions/esewa-checkout/index.ts",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "esewa_checkout_index",
-      "community": 15,
-      "norm_label": "index.ts"
-    },
-    {
-      "label": "buildEsewaForm()",
-      "file_type": "code",
-      "source_file": "supabase/functions/esewa-checkout/index.ts",
-      "source_location": "L116",
-      "_origin": "ast",
-      "id": "esewa_checkout_index_buildesewaform",
-      "community": 15,
-      "norm_label": "buildesewaform()"
     },
     {
       "label": "deno.json",
@@ -8571,7 +9101,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 12,
       "norm_label": "listingdetailscreen",
       "id": "listing__id__listingdetailscreen"
     },
@@ -8584,7 +9114,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 12,
       "norm_label": "requestdetailscreen",
       "id": "request__id__requestdetailscreen"
     },
@@ -8597,7 +9127,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 12,
       "norm_label": "tenantprofilescreen",
       "id": "tenant__id__tenantprofilescreen"
     },
@@ -8740,7 +9270,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 3,
       "norm_label": "notificationprefsmodal screen",
       "id": "tenant_notificationsprefs_notificationprefsmodal"
     },
@@ -12238,9 +12768,9 @@
       "source_file": "app/(tenant)/(tabs)/profile.tsx",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_tenant_tabs_profile_tsx_tabs_profile",
-      "target": "hooks_useclerksupabase",
-      "confidence_score": 1.0
+      "target": "hooks_useclerksupabase"
     },
     {
       "relation": "imports",
@@ -12249,9 +12779,9 @@
       "source_file": "app/(tenant)/(tabs)/profile.tsx",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_tenant_tabs_profile_tsx_tabs_profile",
-      "target": "hooks_useclerksupabase_useclerksupabase",
-      "confidence_score": 1.0
+      "target": "hooks_useclerksupabase_useclerksupabase"
     },
     {
       "relation": "imports_from",
@@ -12260,9 +12790,9 @@
       "source_file": "app/(tenant)/(tabs)/profile.tsx",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_tenant_tabs_profile_tsx_tabs_profile",
-      "target": "hooks_useprogate",
-      "confidence_score": 1.0
+      "target": "hooks_useprogate"
     },
     {
       "relation": "imports",
@@ -12271,9 +12801,9 @@
       "source_file": "app/(tenant)/(tabs)/profile.tsx",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_tenant_tabs_profile_tsx_tabs_profile",
-      "target": "hooks_useprogate_useprogate",
-      "confidence_score": 1.0
+      "target": "hooks_useprogate_useprogate"
     },
     {
       "relation": "imports_from",
@@ -12324,11 +12854,33 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "app/(tenant)/(tabs)/profile.tsx",
+      "source_location": "L41",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_tenant_tabs_profile_tsx_tabs_profile",
+      "target": "services_kyc_service"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/(tabs)/profile.tsx",
+      "source_location": "L41",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_tenant_tabs_profile_tsx_tabs_profile",
+      "target": "services_kyc_service_getuserkycstatusui"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/(tabs)/profile.tsx",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_tenant_tabs_profile_tsx_tabs_profile",
-      "target": "services_profile_service",
-      "confidence_score": 1.0
+      "target": "services_profile_service"
     },
     {
       "relation": "imports",
@@ -12337,9 +12889,9 @@
       "source_file": "app/(tenant)/(tabs)/profile.tsx",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_tenant_tabs_profile_tsx_tabs_profile",
-      "target": "services_profile_service_getprofile",
-      "confidence_score": 1.0
+      "target": "services_profile_service_getprofile"
     },
     {
       "relation": "imports_from",
@@ -12478,6 +13030,28 @@
       "confidence_score": 1.0,
       "source": "app_tenant_tabs_profile_tsx_tabs_profile",
       "target": "tabs_profile_statcolumn"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/(tabs)/profile.tsx",
+      "source_location": "L43",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_tenant_tabs_profile_tsx_tabs_profile",
+      "target": "types_kyc_types"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/(tabs)/profile.tsx",
+      "source_location": "L43",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_tenant_tabs_profile_tsx_tabs_profile",
+      "target": "types_kyc_types_kycstatusui"
     },
     {
       "relation": "imports_from",
@@ -12851,6 +13425,28 @@
       "target": "tabs_visits_subtitlefor"
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/_layout.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_layout",
+      "target": "hooks_useprofilebootstrap"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/_layout.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_layout",
+      "target": "hooks_useprofilebootstrap_useprofilebootstrap"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app/(tenant)/_layout.tsx",
@@ -12859,6 +13455,17 @@
       "confidence_score": 1.0,
       "source": "tenant_layout",
       "target": "tenant_layout_tenantlayout"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/(tenant)/_layout.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "tenant_layout_tenantlayout",
+      "target": "hooks_useprofilebootstrap_useprofilebootstrap"
     },
     {
       "relation": "contains",
@@ -13002,9 +13609,9 @@
       "source_file": "app/(tenant)/_modal/pro-gate.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modal_pro_gate",
-      "target": "hooks_useprogate",
-      "confidence_score": 1.0
+      "target": "hooks_useprogate"
     },
     {
       "relation": "imports",
@@ -13013,9 +13620,9 @@
       "source_file": "app/(tenant)/_modal/pro-gate.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modal_pro_gate",
-      "target": "hooks_useprogate_useprogatestore",
-      "confidence_score": 1.0
+      "target": "hooks_useprogate_useprogatestore"
     },
     {
       "relation": "contains",
@@ -13023,9 +13630,9 @@
       "source_file": "app/(tenant)/_modal/pro-gate.tsx",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modal_pro_gate",
-      "target": "modal_pro_gate_progatemodal",
-      "confidence_score": 1.0
+      "target": "modal_pro_gate_progatemodal"
     },
     {
       "relation": "imports_from",
@@ -13034,9 +13641,9 @@
       "source_file": "app/(tenant)/_modal/pro-gate.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modal_pro_gate",
-      "target": "shared_propill",
-      "confidence_score": 1.0
+      "target": "shared_propill"
     },
     {
       "relation": "imports",
@@ -13045,9 +13652,9 @@
       "source_file": "app/(tenant)/_modal/pro-gate.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modal_pro_gate",
-      "target": "shared_propill_propill",
-      "confidence_score": 1.0
+      "target": "shared_propill_propill"
     },
     {
       "relation": "calls",
@@ -13089,9 +13696,9 @@
       "source_file": "app/(tenant)/ai-preferences.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tenant_ai_preferences",
-      "target": "store_userstore",
-      "confidence_score": 1.0
+      "target": "store_userstore"
     },
     {
       "relation": "imports",
@@ -13100,9 +13707,9 @@
       "source_file": "app/(tenant)/ai-preferences.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tenant_ai_preferences",
-      "target": "store_userstore_useuserstore",
-      "confidence_score": 1.0
+      "target": "store_userstore_useuserstore"
     },
     {
       "relation": "contains",
@@ -13161,6 +13768,480 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/esewa-webview.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_esewa_webview",
+      "target": "hooks_usepurchaseplan"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/esewa-webview.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_esewa_webview",
+      "target": "hooks_usepurchaseplan_esewaformfields"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/esewa-webview.tsx",
+      "source_location": "L240",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_esewa_webview",
+      "target": "tenant_esewa_webview_buildesewaform"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/esewa-webview.tsx",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_esewa_webview",
+      "target": "tenant_esewa_webview_esewawebviewscreen"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/esewa-webview.tsx",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_esewa_webview",
+      "target": "tenant_esewa_webview_parsequery"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/esewa-webview.tsx",
+      "source_location": "L308",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_esewa_webview",
+      "target": "tenant_esewa_webview_styles"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/esewa-webview.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_esewa_webview",
+      "target": "tenant_esewa_webview_webview_ua"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "hooks_useclerksupabase"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "hooks_useclerksupabase_useclerksupabase"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "kyc_kycrejectionnotice"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "kyc_kycrejectionnotice_kycrejectionnotice"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "kyc_kycstatushero"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "kyc_kycstatushero_kycstatushero"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "kyc_kycstatustimeline"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "kyc_kycstatustimeline_kycstatustimeline"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "layout_screenheader"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "layout_screenheader_screenheader"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "services_kyc_service"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "services_kyc_service_getlatestkycsubmission"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L21",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "shared_primarybutton"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L21",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "shared_primarybutton_primarybutton"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L281",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "tenant_kyc_status_divider"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "tenant_kyc_status_formatdatetime"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L52",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "tenant_kyc_status_kycstatusscreen"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L264",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "tenant_kyc_status_row"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L285",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "tenant_kyc_status_styles"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "types_kyc_types"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "types_kyc_types_kycstatus"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "types_kyc_types_kycstatusui"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "types_kyc_types_kycsubmission"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status",
+      "target": "types_kyc_types_tokycstatusui"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L192",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_status_kycstatusscreen",
+      "target": "tenant_kyc_status_formatdatetime"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "tenant_kyc_status_kycstatusscreen",
+      "target": "hooks_useclerksupabase_useclerksupabase"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/(tenant)/kyc-status.tsx",
+      "source_location": "L118",
+      "weight": 1.0,
+      "source": "tenant_kyc_status_kycstatusscreen",
+      "target": "types_kyc_types_tokycstatusui"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "hooks_useclerksupabase"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "hooks_useclerksupabase_useclerksupabase"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "kyc_documenttypeselector"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "kyc_documenttypeselector_documenttypeselector"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "kyc_documenttypeselector_kycdocumenttype"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "kyc_documentuploadcard"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "kyc_documentuploadcard_documentuploadcard"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "kyc_documentuploadcard_documentuploadcardstatus"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "kyc_kycbenefitslist"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "kyc_kycbenefitslist_kycbenefitslist"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "app/(tenant)/kyc-upload.tsx",
       "source_location": "L3",
       "weight": 1.0,
@@ -13180,6 +14261,93 @@
       "target": "layout_screenheader_screenheader"
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "layout_sectionlabel"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "layout_sectionlabel_sectionlabel"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "services_kyc_service"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "services_kyc_service_getlatestkycsubmission"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "services_kyc_service_submitkyc"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "shared_primarybutton"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "shared_primarybutton_primarybutton"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L42",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "tenant_kyc_upload_emptyslot"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app/(tenant)/kyc-upload.tsx",
@@ -13188,6 +14356,91 @@
       "confidence_score": 1.0,
       "source": "tenant_kyc_upload",
       "target": "tenant_kyc_upload_kycuploadscreen"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L34",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "tenant_kyc_upload_slotstate"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L304",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "tenant_kyc_upload_styles"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L49",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "tenant_kyc_upload_uploadedfromserver"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "types_kyc_types"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "types_kyc_types_kycdocumentslot"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload",
+      "target": "types_kyc_types_kycsubmission"
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L35",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tenant_kyc_upload_slotstate",
+      "target": "kyc_documentuploadcard_documentuploadcardstatus"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/(tenant)/kyc-upload.tsx",
+      "source_location": "L62",
+      "weight": 1.0,
+      "source": "tenant_kyc_upload_kycuploadscreen",
+      "target": "hooks_useclerksupabase_useclerksupabase"
     },
     {
       "relation": "contains",
@@ -13435,9 +14688,9 @@
       "source_file": "app/(tenant)/payment-failed.tsx",
       "source_location": "L66",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tenant_payment_failed",
-      "target": "tenant_payment_failed_general_reasons",
-      "confidence_score": 1.0
+      "target": "tenant_payment_failed_general_reasons"
     },
     {
       "relation": "contains",
@@ -13455,9 +14708,9 @@
       "source_file": "app/(tenant)/payment-failed.tsx",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tenant_payment_failed",
-      "target": "tenant_payment_failed_reason_info",
-      "confidence_score": 1.0
+      "target": "tenant_payment_failed_reason_info"
     },
     {
       "relation": "imports_from",
@@ -13466,9 +14719,9 @@
       "source_file": "app/(tenant)/payment-success.tsx",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tenant_payment_success",
-      "target": "hooks_useclerksupabase",
-      "confidence_score": 1.0
+      "target": "hooks_useclerksupabase"
     },
     {
       "relation": "imports",
@@ -13477,9 +14730,9 @@
       "source_file": "app/(tenant)/payment-success.tsx",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tenant_payment_success",
-      "target": "hooks_useclerksupabase_useclerksupabase",
-      "confidence_score": 1.0
+      "target": "hooks_useclerksupabase_useclerksupabase"
     },
     {
       "relation": "imports_from",
@@ -13510,9 +14763,9 @@
       "source_file": "app/(tenant)/payment-success.tsx",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tenant_payment_success",
-      "target": "store_userstore",
-      "confidence_score": 1.0
+      "target": "store_userstore"
     },
     {
       "relation": "imports",
@@ -13521,9 +14774,9 @@
       "source_file": "app/(tenant)/payment-success.tsx",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tenant_payment_success",
-      "target": "store_userstore_useuserstore",
-      "confidence_score": 1.0
+      "target": "store_userstore_useuserstore"
     },
     {
       "relation": "contains",
@@ -13551,9 +14804,9 @@
       "source_file": "app/(tenant)/payment-success.tsx",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tenant_payment_success",
-      "target": "tenant_payment_success_status",
-      "confidence_score": 1.0
+      "target": "tenant_payment_success_status"
     },
     {
       "relation": "contains",
@@ -13644,33 +14897,11 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "app/(tenant)/pro-plan.tsx",
-      "source_location": "L19",
-      "weight": 1.0,
-      "source": "tenant_pro_plan",
-      "target": "hooks_useesewabrowserpayment",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "app/(tenant)/pro-plan.tsx",
-      "source_location": "L19",
-      "weight": 1.0,
-      "source": "tenant_pro_plan",
-      "target": "hooks_useesewabrowserpayment_useesewabrowserpayment",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "app/(tenant)/pro-plan.tsx",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tenant_pro_plan",
-      "target": "hooks_usepurchaseplan",
-      "confidence_score": 1.0
+      "target": "hooks_usepurchaseplan"
     },
     {
       "relation": "imports",
@@ -13679,9 +14910,9 @@
       "source_file": "app/(tenant)/pro-plan.tsx",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tenant_pro_plan",
-      "target": "hooks_usepurchaseplan_usepurchaseplan",
-      "confidence_score": 1.0
+      "target": "hooks_usepurchaseplan_usepurchaseplan"
     },
     {
       "relation": "imports_from",
@@ -13786,17 +15017,6 @@
       "confidence_score": 1.0,
       "source": "tenant_pro_plan",
       "target": "tenant_pro_plan_proplanscreen"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/(tenant)/pro-plan.tsx",
-      "source_location": "L104",
-      "weight": 1.0,
-      "source": "tenant_pro_plan_proplanscreen",
-      "target": "hooks_useesewabrowserpayment_useesewabrowserpayment"
     },
     {
       "relation": "calls",
@@ -14841,16 +16061,6 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L41",
-      "weight": 1.0,
-      "source": "package_dependencies",
-      "target": "package_dependencies_expo_web_browser",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "package.json",
       "source_location": "L16",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -15033,9 +16243,9 @@
       "source_file": "package.json",
       "source_location": "L57",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "package_dependencies",
-      "target": "package_dependencies_react_native_webview",
-      "confidence_score": 1.0
+      "target": "package_dependencies_react_native_webview"
     },
     {
       "relation": "contains",
@@ -15336,6 +16546,500 @@
       "confidence_score": 1.0,
       "source": "form_toggle",
       "target": "form_toggle_toggle"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/DocumentTypeSelector.tsx",
+      "source_location": "L48",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_documenttypeselector",
+      "target": "kyc_documenttypeselector_documenttypeselector"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/DocumentTypeSelector.tsx",
+      "source_location": "L30",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_documenttypeselector",
+      "target": "kyc_documenttypeselector_documenttypeselectorprops"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/DocumentTypeSelector.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_documenttypeselector",
+      "target": "kyc_documenttypeselector_kycdocumenttype"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/DocumentTypeSelector.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_documenttypeselector",
+      "target": "kyc_documenttypeselector_option"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/DocumentTypeSelector.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_documenttypeselector",
+      "target": "kyc_documenttypeselector_options"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/DocumentTypeSelector.tsx",
+      "source_location": "L88",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_documenttypeselector",
+      "target": "kyc_documenttypeselector_styles"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L51",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_documentuploadcard",
+      "target": "kyc_documentuploadcard_compressimage"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L119",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_documentuploadcard",
+      "target": "kyc_documentuploadcard_documentuploadcard"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_documentuploadcard",
+      "target": "kyc_documentuploadcard_documentuploadcardprops"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_documentuploadcard",
+      "target": "kyc_documentuploadcard_documentuploadcardstatus"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L64",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_documentuploadcard",
+      "target": "kyc_documentuploadcard_pickfromoptions"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L344",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_documentuploadcard",
+      "target": "kyc_documentuploadcard_styles"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_documentuploadcard",
+      "target": "kyc_uploadplaceholder"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/DocumentUploadCard.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_documentuploadcard",
+      "target": "kyc_uploadplaceholder_uploadplaceholder"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCBenefitsList.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycbenefitslist",
+      "target": "kyc_kycbenefitslist_benefit"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCBenefitsList.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycbenefitslist",
+      "target": "kyc_kycbenefitslist_benefits"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCBenefitsList.tsx",
+      "source_location": "L34",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycbenefitslist",
+      "target": "kyc_kycbenefitslist_kycbenefitslist"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCBenefitsList.tsx",
+      "source_location": "L52",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycbenefitslist",
+      "target": "kyc_kycbenefitslist_styles"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCRejectionNotice.tsx",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycrejectionnotice",
+      "target": "kyc_kycrejectionnotice_kycrejectionnotice"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCRejectionNotice.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycrejectionnotice",
+      "target": "kyc_kycrejectionnotice_props"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCRejectionNotice.tsx",
+      "source_location": "L57",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycrejectionnotice",
+      "target": "kyc_kycrejectionnotice_styles"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCRejectionNotice.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycrejectionnotice",
+      "target": "shared_primarybutton"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCRejectionNotice.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycrejectionnotice",
+      "target": "shared_primarybutton_primarybutton"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatushero",
+      "target": "kyc_kycstatushero_hero_by_status"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatushero",
+      "target": "kyc_kycstatushero_heroconfig"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L85",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatushero",
+      "target": "kyc_kycstatushero_kycstatushero"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L72",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatushero",
+      "target": "kyc_kycstatushero_props"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L140",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatushero",
+      "target": "kyc_kycstatushero_styles"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatushero",
+      "target": "shared_statuspill"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatushero",
+      "target": "shared_statuspill_statuspill"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatushero",
+      "target": "types_kyc_types"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatushero",
+      "target": "types_kyc_types_kycstatusui"
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusHero.tsx",
+      "source_location": "L73",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatushero_props",
+      "target": "types_kyc_types_kycstatusui"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L50",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatustimeline",
+      "target": "kyc_kycstatustimeline_formattime"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L79",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatustimeline",
+      "target": "kyc_kycstatustimeline_kycstatustimeline"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatustimeline",
+      "target": "kyc_kycstatustimeline_props"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatustimeline",
+      "target": "kyc_kycstatustimeline_resolveactivestep"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatustimeline",
+      "target": "kyc_kycstatustimeline_step"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatustimeline",
+      "target": "kyc_kycstatustimeline_stepkey"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatustimeline",
+      "target": "kyc_kycstatustimeline_steps"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L156",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatustimeline",
+      "target": "kyc_kycstatustimeline_styles"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatustimeline",
+      "target": "types_kyc_types"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatustimeline",
+      "target": "types_kyc_types_kycstatus"
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatustimeline_props",
+      "target": "types_kyc_types_kycstatus"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L84",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatustimeline_kycstatustimeline",
+      "target": "kyc_kycstatustimeline_resolveactivestep"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/KYCStatusTimeline.tsx",
+      "source_location": "L87",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_kycstatustimeline_kycstatustimeline",
+      "target": "kyc_kycstatustimeline_formattime"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/UploadPlaceholder.tsx",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_uploadplaceholder",
+      "target": "kyc_uploadplaceholder_styles"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/kyc/UploadPlaceholder.tsx",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "kyc_uploadplaceholder",
+      "target": "kyc_uploadplaceholder_uploadplaceholder"
     },
     {
       "relation": "contains",
@@ -16586,9 +18290,9 @@
       "source_file": "src/components/shared/ProPill.tsx",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "shared_propill",
-      "target": "shared_propill_iconcomponent",
-      "confidence_score": 1.0
+      "target": "shared_propill_iconcomponent"
     },
     {
       "relation": "contains",
@@ -16791,9 +18495,9 @@
       "source_file": "src/hooks/useAuth.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_useauth",
-      "target": "store_userstore",
-      "confidence_score": 1.0
+      "target": "store_userstore"
     },
     {
       "relation": "imports",
@@ -16802,9 +18506,9 @@
       "source_file": "src/hooks/useAuth.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_useauth",
-      "target": "store_userstore_useuserstore",
-      "confidence_score": 1.0
+      "target": "store_userstore_useuserstore"
     },
     {
       "relation": "contains",
@@ -16842,12 +18546,45 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useProfileBootstrap.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "hooks_useprofilebootstrap",
+      "target": "hooks_useclerksupabase"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "src/hooks/usePurchasePlan.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usepurchaseplan",
-      "target": "hooks_useclerksupabase",
-      "confidence_score": 1.0
+      "target": "hooks_useclerksupabase"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useProfileBootstrap.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "hooks_useprofilebootstrap",
+      "target": "hooks_useclerksupabase_useclerksupabase"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/hooks/useProfileBootstrap.ts",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "hooks_useprofilebootstrap_useprofilebootstrap",
+      "target": "hooks_useclerksupabase_useclerksupabase"
     },
     {
       "relation": "imports",
@@ -16856,9 +18593,9 @@
       "source_file": "src/hooks/usePurchasePlan.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usepurchaseplan",
-      "target": "hooks_useclerksupabase_useclerksupabase",
-      "confidence_score": 1.0
+      "target": "hooks_useclerksupabase_useclerksupabase"
     },
     {
       "relation": "calls",
@@ -16874,54 +18611,12 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/hooks/useEsewaBrowserPayment.ts",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "hooks_useesewabrowserpayment",
-      "target": "hooks_useesewabrowserpayment_esewapaymentresult",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/hooks/useEsewaBrowserPayment.ts",
-      "source_location": "L27",
-      "weight": 1.0,
-      "source": "hooks_useesewabrowserpayment",
-      "target": "hooks_useesewabrowserpayment_useesewabrowserpayment",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/hooks/useEsewaBrowserPayment.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "source": "hooks_useesewabrowserpayment",
-      "target": "lib_esewadeeplink",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/hooks/useEsewaBrowserPayment.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "source": "hooks_useesewabrowserpayment",
-      "target": "lib_esewadeeplink_parseesewadeeplink",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "src/hooks/useProGate.ts",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_useprogate",
-      "target": "hooks_useprogate_progatestate",
-      "confidence_score": 1.0
+      "target": "hooks_useprogate_progatestate"
     },
     {
       "relation": "contains",
@@ -16929,9 +18624,9 @@
       "source_file": "src/hooks/useProGate.ts",
       "source_location": "L42",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_useprogate",
-      "target": "hooks_useprogate_useprogate",
-      "confidence_score": 1.0
+      "target": "hooks_useprogate_useprogate"
     },
     {
       "relation": "contains",
@@ -16939,9 +18634,9 @@
       "source_file": "src/hooks/useProGate.ts",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_useprogate",
-      "target": "hooks_useprogate_useprogatestore",
-      "confidence_score": 1.0
+      "target": "hooks_useprogate_useprogatestore"
     },
     {
       "relation": "imports_from",
@@ -16950,9 +18645,9 @@
       "source_file": "src/hooks/useProGate.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_useprogate",
-      "target": "store_userstore",
-      "confidence_score": 1.0
+      "target": "store_userstore"
     },
     {
       "relation": "imports",
@@ -16961,9 +18656,9 @@
       "source_file": "src/hooks/useProGate.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_useprogate",
-      "target": "store_userstore_useuserstore",
-      "confidence_score": 1.0
+      "target": "store_userstore_useuserstore"
     },
     {
       "relation": "calls",
@@ -16972,9 +18667,9 @@
       "source_file": "src/hooks/useProGate.ts",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_useprogate_useprogate",
-      "target": "hooks_useprogate_useprogatestore",
-      "confidence_score": 1.0
+      "target": "hooks_useprogate_useprogatestore"
     },
     {
       "relation": "calls",
@@ -16990,12 +18685,77 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useProfileBootstrap.ts",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "hooks_useprofilebootstrap",
+      "target": "hooks_useprofilebootstrap_useprofilebootstrap"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useProfileBootstrap.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "hooks_useprofilebootstrap",
+      "target": "services_profile_service"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useProfileBootstrap.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "hooks_useprofilebootstrap",
+      "target": "services_profile_service_getprofile"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useProfileBootstrap.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "hooks_useprofilebootstrap",
+      "target": "store_userstore"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useProfileBootstrap.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "hooks_useprofilebootstrap",
+      "target": "store_userstore_useuserstore"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/hooks/useProfileBootstrap.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "hooks_useprofilebootstrap_useprofilebootstrap",
+      "target": "store_userstore_useuserstore"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/hooks/usePurchasePlan.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usepurchaseplan",
-      "target": "hooks_usepurchaseplan_esewaformfields",
-      "confidence_score": 1.0
+      "target": "hooks_usepurchaseplan_esewaformfields"
     },
     {
       "relation": "contains",
@@ -17003,9 +18763,9 @@
       "source_file": "src/hooks/usePurchasePlan.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usepurchaseplan",
-      "target": "hooks_usepurchaseplan_planid",
-      "confidence_score": 1.0
+      "target": "hooks_usepurchaseplan_planid"
     },
     {
       "relation": "contains",
@@ -17013,9 +18773,9 @@
       "source_file": "src/hooks/usePurchasePlan.ts",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usepurchaseplan",
-      "target": "hooks_usepurchaseplan_purchaseplanstate",
-      "confidence_score": 1.0
+      "target": "hooks_usepurchaseplan_purchaseplanstate"
     },
     {
       "relation": "contains",
@@ -17023,9 +18783,9 @@
       "source_file": "src/hooks/usePurchasePlan.ts",
       "source_location": "L40",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usepurchaseplan",
-      "target": "hooks_usepurchaseplan_usepurchaseplan",
-      "confidence_score": 1.0
+      "target": "hooks_usepurchaseplan_usepurchaseplan"
     },
     {
       "relation": "imports_from",
@@ -17034,9 +18794,9 @@
       "source_file": "src/hooks/usePurchasePlan.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usepurchaseplan",
-      "target": "store_userstore",
-      "confidence_score": 1.0
+      "target": "store_userstore"
     },
     {
       "relation": "imports",
@@ -17045,9 +18805,9 @@
       "source_file": "src/hooks/usePurchasePlan.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usepurchaseplan",
-      "target": "store_userstore_useuserstore",
-      "confidence_score": 1.0
+      "target": "store_userstore_useuserstore"
     },
     {
       "relation": "calls",
@@ -17069,36 +18829,6 @@
       "confidence_score": 1.0,
       "source": "lib_clerktokencache",
       "target": "lib_clerktokencache_clerktokencache"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/lib/esewaDeepLink.ts",
-      "source_location": "L64",
-      "weight": 1.0,
-      "source": "lib_esewadeeplink",
-      "target": "lib_esewadeeplink_deeplinktoroute",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/lib/esewaDeepLink.ts",
-      "source_location": "L15",
-      "weight": 1.0,
-      "source": "lib_esewadeeplink",
-      "target": "lib_esewadeeplink_esewadeeplink",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/lib/esewaDeepLink.ts",
-      "source_location": "L27",
-      "weight": 1.0,
-      "source": "lib_esewadeeplink",
-      "target": "lib_esewadeeplink_parseesewadeeplink",
-      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -17237,6 +18967,28 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "services_kyc_service",
+      "target": "lib_result_ok"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L85",
+      "weight": 1.0,
+      "source": "services_kyc_service_getlatestkycsubmission",
+      "target": "lib_result_ok"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L121",
+      "weight": 1.0,
+      "source": "services_kyc_service_getuserkycstatusui",
       "target": "lib_result_ok"
     },
     {
@@ -17399,6 +19151,28 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/services/kyc.service.ts",
+      "source_location": "L84",
+      "weight": 1.0,
+      "source": "services_kyc_service_getlatestkycsubmission",
+      "target": "lib_result_err"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L120",
+      "weight": 1.0,
+      "source": "services_kyc_service_getuserkycstatusui",
+      "target": "lib_result_err"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/services/kyc.service.ts",
       "source_location": "L29",
       "weight": 1.0,
       "source": "services_kyc_service_submitkyc",
@@ -17535,6 +19309,28 @@
       "weight": 1.0,
       "source": "services_storage_service_uploadkycelectricitybill",
       "target": "lib_result_err"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_kyc_service",
+      "target": "lib_result_geterrormessage"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L84",
+      "weight": 1.0,
+      "source": "services_kyc_service_getlatestkycsubmission",
+      "target": "lib_result_geterrormessage"
     },
     {
       "relation": "imports",
@@ -17692,6 +19488,26 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/services/kyc.service.ts",
+      "source_location": "L71",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_kyc_service",
+      "target": "services_kyc_service_getlatestkycsubmission"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L115",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_kyc_service",
+      "target": "services_kyc_service_getuserkycstatusui"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/kyc.service.ts",
       "source_location": "L7",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -17777,6 +19593,61 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_kyc_service",
+      "target": "types_kyc_types"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_kyc_service",
+      "target": "types_kyc_types_kycstatus"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_kyc_service",
+      "target": "types_kyc_types_kycstatusui"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_kyc_service",
+      "target": "types_kyc_types_kycsubmission"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_kyc_service",
+      "target": "types_kyc_types_tokycstatusui"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "src/services/onboarding.service.ts",
       "source_location": "L3",
       "weight": 1.0,
@@ -17838,6 +19709,28 @@
       "weight": 1.0,
       "source": "services_onboarding_service_completeonboarding",
       "target": "services_kyc_service_submitkyc"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L119",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_kyc_service_getuserkycstatusui",
+      "target": "services_kyc_service_getlatestkycsubmission"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/services/kyc.service.ts",
+      "source_location": "L121",
+      "weight": 1.0,
+      "source": "services_kyc_service_getuserkycstatusui",
+      "target": "types_kyc_types_tokycstatusui"
     },
     {
       "relation": "contains",
@@ -18462,9 +20355,9 @@
       "source_file": "src/store/userStore.ts",
       "source_location": "L41",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_userstore",
-      "target": "store_userstore_profilerow",
-      "confidence_score": 1.0
+      "target": "store_userstore_profilerow"
     },
     {
       "relation": "contains",
@@ -18652,12 +20545,34 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_kyc_types",
+      "target": "types_database_types"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "src/utils/debug.ts",
       "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "utils_debug",
       "target": "types_database_types"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_kyc_types",
+      "target": "types_database_types_database"
     },
     {
       "relation": "imports",
@@ -18673,22 +20588,72 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_kyc_types",
+      "target": "types_kyc_types_kycdocumentslot"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_kyc_types",
+      "target": "types_kyc_types_kycstatus"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_kyc_types",
+      "target": "types_kyc_types_kycstatusui"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L34",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_kyc_types",
+      "target": "types_kyc_types_kycsubmission"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L67",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_kyc_types",
+      "target": "types_kyc_types_kycsubmissionrow"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/kyc.types.ts",
+      "source_location": "L48",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_kyc_types",
+      "target": "types_kyc_types_tokycstatusui"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/types/onboarding.types.ts",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "types_onboarding_types",
       "target": "types_onboarding_types_documenttype"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/types/onboarding.types.ts",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "types_onboarding_types",
-      "target": "types_onboarding_types_kycstatus"
     },
     {
       "relation": "contains",
@@ -18757,9 +20722,9 @@
       "source_file": "supabase/functions/check-payment-status/index.ts",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "check_payment_status_index",
-      "target": "shared_auth",
-      "confidence_score": 1.0
+      "target": "shared_auth"
     },
     {
       "relation": "imports_from",
@@ -18768,9 +20733,9 @@
       "source_file": "supabase/functions/create-esewa-order/index.ts",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "create_esewa_order_index",
-      "target": "shared_auth",
-      "confidence_score": 1.0
+      "target": "shared_auth"
     },
     {
       "relation": "contains",
@@ -18778,9 +20743,9 @@
       "source_file": "supabase/functions/_shared/auth.ts",
       "source_location": "L49",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "shared_auth",
-      "target": "shared_auth_getjwks",
-      "confidence_score": 1.0
+      "target": "shared_auth_getjwks"
     },
     {
       "relation": "contains",
@@ -18788,9 +20753,9 @@
       "source_file": "supabase/functions/_shared/auth.ts",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "shared_auth",
-      "target": "shared_auth_getjwksurl",
-      "confidence_score": 1.0
+      "target": "shared_auth_getjwksurl"
     },
     {
       "relation": "contains",
@@ -18798,9 +20763,9 @@
       "source_file": "supabase/functions/_shared/auth.ts",
       "source_location": "L66",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "shared_auth",
-      "target": "shared_auth_verifyclerkjwt",
-      "confidence_score": 1.0
+      "target": "shared_auth_verifyclerkjwt"
     },
     {
       "relation": "calls",
@@ -18809,9 +20774,9 @@
       "source_file": "supabase/functions/_shared/auth.ts",
       "source_location": "L51",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "shared_auth_getjwks",
-      "target": "shared_auth_getjwksurl",
-      "confidence_score": 1.0
+      "target": "shared_auth_getjwksurl"
     },
     {
       "relation": "calls",
@@ -18820,9 +20785,9 @@
       "source_file": "supabase/functions/_shared/auth.ts",
       "source_location": "L78",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "shared_auth_verifyclerkjwt",
-      "target": "shared_auth_getjwks",
-      "confidence_score": 1.0
+      "target": "shared_auth_getjwks"
     },
     {
       "relation": "imports",
@@ -18831,9 +20796,9 @@
       "source_file": "supabase/functions/check-payment-status/index.ts",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "check_payment_status_index",
-      "target": "shared_auth_verifyclerkjwt",
-      "confidence_score": 1.0
+      "target": "shared_auth_verifyclerkjwt"
     },
     {
       "relation": "imports",
@@ -18842,9 +20807,9 @@
       "source_file": "supabase/functions/create-esewa-order/index.ts",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "create_esewa_order_index",
-      "target": "shared_auth_verifyclerkjwt",
-      "confidence_score": 1.0
+      "target": "shared_auth_verifyclerkjwt"
     },
     {
       "relation": "imports_from",
@@ -18867,17 +20832,6 @@
       "confidence_score": 1.0,
       "source": "create_esewa_order_index",
       "target": "shared_esewa"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "supabase/functions/esewa-checkout/index.ts",
-      "source_location": "L30",
-      "weight": 1.0,
-      "source": "esewa_checkout_index",
-      "target": "shared_esewa",
-      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -19028,17 +20982,6 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "supabase/functions/esewa-checkout/index.ts",
-      "source_location": "L30",
-      "weight": 1.0,
-      "source": "esewa_checkout_index",
-      "target": "shared_esewa_getesewaconfig",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "supabase/functions/verify-esewa-payment/index.ts",
       "source_location": "L25",
       "weight": 1.0,
@@ -19056,17 +20999,6 @@
       "confidence_score": 1.0,
       "source": "create_esewa_order_index",
       "target": "shared_esewa_generatesignature"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "supabase/functions/esewa-checkout/index.ts",
-      "source_location": "L30",
-      "weight": 1.0,
-      "source": "esewa_checkout_index",
-      "target": "shared_esewa_generatesignature",
-      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -19208,46 +21140,6 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "supabase/functions/esewa-checkout/deno.json",
-      "source_location": "L2",
-      "weight": 1.0,
-      "source": "esewa_checkout_deno",
-      "target": "esewa_checkout_deno_imports",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "supabase/functions/esewa-checkout/deno.json",
-      "source_location": "L3",
-      "weight": 1.0,
-      "source": "esewa_checkout_deno_imports",
-      "target": "esewa_checkout_deno_imports_supabase_functions_js",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "supabase/functions/esewa-checkout/deno.json",
-      "source_location": "L4",
-      "weight": 1.0,
-      "source": "esewa_checkout_deno_imports",
-      "target": "esewa_checkout_deno_imports_supabase_server",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "supabase/functions/esewa-checkout/index.ts",
-      "source_location": "L116",
-      "weight": 1.0,
-      "source": "esewa_checkout_index",
-      "target": "esewa_checkout_index_buildesewaform",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "supabase/functions/esewa-payment-failed/deno.json",
       "source_location": "L2",
       "weight": 1.0,
@@ -19281,9 +21173,9 @@
       "source_file": "supabase/functions/esewa-payment-failed/index.ts",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "esewa_payment_failed_index",
-      "target": "esewa_payment_failed_index_extractdataparam",
-      "confidence_score": 1.0
+      "target": "esewa_payment_failed_index_extractdataparam"
     },
     {
       "relation": "contains",
@@ -19291,9 +21183,9 @@
       "source_file": "supabase/functions/esewa-payment-failed/index.ts",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "esewa_payment_failed_index",
-      "target": "esewa_payment_failed_index_parsebody",
-      "confidence_score": 1.0
+      "target": "esewa_payment_failed_index_parsebody"
     },
     {
       "relation": "contains",
@@ -19361,9 +21253,9 @@
       "source_file": "supabase/functions/verify-esewa-payment/index.ts",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "verify_esewa_payment_index",
-      "target": "verify_esewa_payment_index_extractdataparam",
-      "confidence_score": 1.0
+      "target": "verify_esewa_payment_index_extractdataparam"
     },
     {
       "relation": "contains",
@@ -19381,9 +21273,9 @@
       "source_file": "supabase/functions/verify-esewa-payment/index.ts",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "verify_esewa_payment_index",
-      "target": "verify_esewa_payment_index_parsebody",
-      "confidence_score": 1.0
+      "target": "verify_esewa_payment_index_parsebody"
     },
     {
       "relation": "contains",
@@ -21805,5 +23697,5 @@
       "source_file": "CLAUDE.md"
     }
   ],
-  "built_at_commit": "b40248a2d52cfb9333c178e68bb319e67815e1ec"
+  "built_at_commit": "f8dc6d2a53b00d85106ed3e6bf8cf64bcfe34b2c"
 }

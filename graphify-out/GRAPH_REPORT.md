@@ -1,16 +1,16 @@
-# Graph Report - basobas-app  (2026-07-13)
+# Graph Report - basobas-app  (2026-07-28)
 
 ## Corpus Check
-- 167 files · ~81,821 words
+- 173 files · ~79,755 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 886 nodes · 1202 edges · 88 communities (68 shown, 20 thin omitted)
+- 939 nodes · 1330 edges · 81 communities (62 shown, 19 thin omitted)
 - Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 40 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b40248a2`
+- Built from commit: `f8dc6d2a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -47,6 +47,7 @@
 - [[_COMMUNITY_Project README|Project README]]
 - [[_COMMUNITY_My Reviews Screen|My Reviews Screen]]
 - [[_COMMUNITY_Tenant Profile Screen|Tenant Profile Screen]]
+- [[_COMMUNITY_Tenant Layout|Tenant Layout]]
 - [[_COMMUNITY_List Property Screen|List Property Screen]]
 - [[_COMMUNITY_Report Screen|Report Screen]]
 - [[_COMMUNITY_Visit Detail Screen|Visit Detail Screen]]
@@ -83,25 +84,18 @@
 - [[_COMMUNITY_Community 78|Community 78]]
 - [[_COMMUNITY_Community 79|Community 79]]
 - [[_COMMUNITY_Community 80|Community 80]]
-- [[_COMMUNITY_Community 81|Community 81]]
-- [[_COMMUNITY_Community 82|Community 82]]
-- [[_COMMUNITY_Community 83|Community 83]]
-- [[_COMMUNITY_Community 84|Community 84]]
-- [[_COMMUNITY_Community 85|Community 85]]
-- [[_COMMUNITY_Community 86|Community 86]]
-- [[_COMMUNITY_Community 87|Community 87]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `ScreenHeader()` - 33 edges
-2. `expo` - 15 edges
-3. `useClerkSupabase()` - 15 edges
-4. `ok()` - 15 edges
-5. `err()` - 15 edges
-6. `useUserStore` - 15 edges
+1. `ScreenHeader()` - 34 edges
+2. `useClerkSupabase()` - 21 edges
+3. `ok()` - 17 edges
+4. `err()` - 17 edges
+5. `useUserStore` - 17 edges
+6. `expo` - 15 edges
 7. `BasoBas — Tenant Experience` - 15 edges
 8. `useOnboardingStore` - 14 edges
-9. `BasoBas — Landlord Experience` - 13 edges
-10. `BasoBas — Visit Request Workflow` - 13 edges
+9. `getErrorMessage()` - 13 edges
+10. `BasoBas — Landlord Experience` - 13 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `App Icon (basobas-app)` --references--> `Expo Project Visual Assets`  [INFERRED]
@@ -112,8 +106,8 @@
   assets/splash.png → CLAUDE.md
 - `Favicon (basobas-app)` --references--> `Expo Project Visual Assets`  [INFERRED]
   assets/favicon.png → CLAUDE.md
-- `LoadingScreen()` --calls--> `useAuth()`  [INFERRED]
-  app/(auth)/loading.tsx → src/hooks/useAuth.ts
+- `HomeTab()` --calls--> `usePropertyStore`  [INFERRED]
+  app/(tenant)/(tabs)/index.tsx → src/store/propertyStore.ts
 
 ## Import Cycles
 - 1-file cycle: `metro.config.js -> metro.config.js`
@@ -130,11 +124,11 @@
 - **Expo + NativeWind + TypeScript toolchain** — config_package_json, config_app_json, config_babel_config, config_metro_config, config_tailwind, config_tsconfig, config_nativewind_env, config_eslint_config, config_prettier_config [EXTRACTED 1.00]
 - **Expo App Branding Asset Set** — assets_icon, assets_adaptive_icon, assets_splash, assets_favicon, expo_project_assets [INFERRED 0.95]
 
-## Communities (88 total, 20 thin omitted)
+## Communities (81 total, 19 thin omitted)
 
 ### Community 0 - "Expo SDK Dependencies"
 Cohesion: 0.04
-Nodes (47): dependencies, @clerk/expo, expo, expo-blur, expo-camera, expo-constants, expo-crypto, expo-document-picker (+39 more)
+Nodes (46): dependencies, @clerk/expo, expo, expo-blur, expo-camera, expo-constants, expo-crypto, expo-document-picker (+38 more)
 
 ### Community 1 - "StatusPill Component"
 Cohesion: 0.08
@@ -145,12 +139,12 @@ Cohesion: 0.07
 Nodes (28): backgroundColor, foregroundImage, adaptiveIcon, newArchEnabled, package, tsconfigPaths, typedRoutes, expo (+20 more)
 
 ### Community 3 - "Role Routing & Navigation"
-Cohesion: 0.18
-Nodes (10): RootLayout (auth/role routing), expo-router Stack navigation, FilterModal Screen, PublicLandlordProfileScreen, GalleryModal Screen, PropertyDetailScreen, PropertyReviewsScreen, Role-based redirect after auth (+2 more)
+Cohesion: 0.17
+Nodes (11): RootLayout (auth/role routing), expo-router Stack navigation, FilterModal Screen, PublicLandlordProfileScreen, NotificationPrefsModal Screen, GalleryModal Screen, PropertyDetailScreen, PropertyReviewsScreen (+3 more)
 
 ### Community 4 - "Package Dependencies"
-Cohesion: 0.08
-Nodes (23): devDependencies, @babel/core, babel-preset-expo, eslint, eslint-config-expo, eslint-config-prettier, prettier, prettier-plugin-tailwindcss (+15 more)
+Cohesion: 0.18
+Nodes (11): devDependencies, @babel/core, babel-preset-expo, eslint, eslint-config-expo, eslint-config-prettier, prettier, prettier-plugin-tailwindcss (+3 more)
 
 ### Community 5 - "Atomic Design Components"
 Cohesion: 0.18
@@ -158,7 +152,7 @@ Nodes (10): DockTab, DockTabProps, LANDLORD_DOCK_ITEMS, TENANT_DOCK_ITEMS, Glass
 
 ### Community 6 - "Profile Setup Screens"
 Cohesion: 0.08
-Nodes (8): Props, ScreenHeader(), AIPreferencesScreen, NotificationsScreen(), NotificationPrefsModal Screen, PreferencesScreen(), ReportScreen(), SavedScreen()
+Nodes (8): Props, ScreenHeader(), Props, AIPreferencesScreen, NotificationsScreen(), PreferencesScreen(), ReportScreen(), SavedScreen()
 
 ### Community 7 - "Root Layout & Settings"
 Cohesion: 1.00
@@ -181,19 +175,19 @@ Cohesion: 0.12
 Nodes (15): BasoBas Design System, Border Radius, Buttons, Cards, Colors, Components, Do's and Don'ts, Elevation (+7 more)
 
 ### Community 12 - "Profile & AI Preferences"
-Cohesion: 0.25
-Nodes (4): AIPreferencesScreen(), EditProfileScreen(), LandlordVisitsScreen(), LandlordProfileTab()
+Cohesion: 0.33
+Nodes (5): LandlordVisitsScreen(), ListingDetailScreen, RequestDetailScreen, RequestsTab(), TenantProfileScreen
 
 ### Community 13 - "Auth Funnel Screens"
 Cohesion: 0.14
-Nodes (31): err(), getErrorMessage(), ok(), Result, KYCInput, KYCResult, submitKYC(), completeOnboarding() (+23 more)
+Nodes (34): err(), getErrorMessage(), ok(), Result, getLatestKYCSubmission(), getUserKYCStatusUi(), KYCInput, KYCResult (+26 more)
 
 ### Community 14 - "Visits & Requests (Landlord)"
-Cohesion: 0.15
-Nodes (10): ScreenBody(), ScreenBodyProps, ScreenBodyWithActionProps, ListingDetailScreen, RequestDetailScreen, CITIES, City, ListingsTab() (+2 more)
+Cohesion: 0.21
+Nodes (6): ScreenBody(), ScreenBodyProps, ScreenBodyWithActionProps, CITIES, City, ListingsTab()
 
 ### Community 15 - "FilterChip Component"
-Cohesion: 0.18
+Cohesion: 0.19
 Nodes (12): getJwks(), getJwksUrl(), verifyClerkJwt(), arrayBufferToBase64(), checkEsewaTransactionStatus(), generateSignature(), getEsewaConfig(), grantUserPass() (+4 more)
 
 ### Community 16 - "TypeScript Configuration"
@@ -209,12 +203,12 @@ Cohesion: 0.05
 Nodes (39): 1. Property Discovery, 1. Receive Request, 2. Request Creation, 2. Take Action on Request, 3. Awaiting Response, 3. Post-Visit Follow-Up, 48-Hour Reminder, 4. Managing Multiple Applicants (+31 more)
 
 ### Community 19 - "KYC Verification Screens"
-Cohesion: 0.18
-Nodes (6): DetailRowProps, styles, SummaryCardProps, PrimaryButton(), Props, styles
+Cohesion: 0.06
+Nodes (45): DocTypeChipProps, DocumentUploadZoneProps, KYCLandlordScreen(), styles, DocTypeChipProps, DocumentUploadZoneProps, KYCTenantScreen(), styles (+37 more)
 
 ### Community 20 - "Menu Components"
 Cohesion: 0.05
-Nodes (46): EsewaPaymentResult, useEsewaBrowserPayment(), ProGateState, useProGate(), useProGateStore, EsewaFormFields, PlanId, PurchasePlanState (+38 more)
+Nodes (44): useProfileBootstrap(), ProGateState, useProGate(), useProGateStore, EsewaFormFields, PlanId, PurchasePlanState, usePurchasePlan() (+36 more)
 
 ### Community 21 - "Metro Bundler Config"
 Cohesion: 0.67
@@ -252,6 +246,10 @@ Nodes (16): FeatureSlide, s, SLIDES, MapIllustration(), styles, NextButton, Next
 Cohesion: 0.11
 Nodes (18): BasoBas — Authentication & Onboarding Flow, Every Step, Every Rule, Every Decision, KYC Verification States, OTP Technical Rules, Profile Setup Rules, Returning User Flow, Screen 01 — Landing Screen, Screen 02 — Phone Entry Screen (+10 more)
 
+### Community 35 - "Tenant Layout"
+Cohesion: 0.08
+Nodes (21): DocumentTypeSelector(), DocumentTypeSelectorProps, KYCDocumentType, Option, OPTIONS, styles, DocumentUploadCard(), DocumentUploadCardProps (+13 more)
+
 ### Community 36 - "List Property Screen"
 Cohesion: 0.11
 Nodes (17): 1. Privacy First — The Address Rule, 2. No Broker, No Commission, 3. Verification Builds Trust, 4. Phone Number Is Identity, 5. Broker Replacement, Not Broker Supplement, BasoBas — Product Vision, Core Principles, Dual Role Users (+9 more)
@@ -277,24 +275,24 @@ Cohesion: 0.25
 Nodes (7): BasoBas — Complete Feature List, Core Features — Free for All Users, Every Feature, Who It Serves, and Whether It Is Free or Pro, Features That Will Never Be Gated, Free Tier Limits, Post-MVP Roadmap Features, Pro Features — Tenant Only, Paid Plan
 
 ### Community 55 - "Community 55"
-Cohesion: 0.23
-Nodes (7): AuthGate(), useAuth(), SettingsScreen(), clerkTokenCache, AuthStore, Profile, SettingsScreen()
+Cohesion: 0.08
+Nodes (24): AuthGate(), ConfirmationScreen(), DetailRowProps, styles, SummaryCardProps, LoadingScreen(), styles, maskPhone() (+16 more)
 
 ### Community 58 - "Community 58"
 Cohesion: 0.15
 Nodes (8): getRadiusCircleSizeForKm(), RadiusMapView(), RadiusMapViewProps, RING_COLORS, ALL_NEARBY, NearbyProperty, NEPAL_LOCATIONS, SearchLocation
 
 ### Community 61 - "Community 61"
-Cohesion: 0.50
-Nodes (4): countryCodeToFlag(), PhoneEntryScreen(), PREFERRED, styles
+Cohesion: 0.25
+Nodes (8): scripts, android, format, ios, lint, prebuild, start, web
 
 ### Community 62 - "Community 62"
 Cohesion: 0.33
 Nodes (4): PropertyCardVariant, Props, STATUS_BADGES, StatusOverlay
 
 ### Community 63 - "Community 63"
-Cohesion: 0.40
-Nodes (3): Props, Status, STATUS_STYLES
+Cohesion: 0.09
+Nodes (26): KYCRejectionNotice(), HERO_BY_STATUS, HeroConfig, KYCStatusHero(), Props, styles, formatTime(), KYCStatusTimeline() (+18 more)
 
 ### Community 64 - "Community 64"
 Cohesion: 0.50
@@ -316,65 +314,41 @@ Nodes (3): imports, @supabase/functions-js, @supabase/server
 Cohesion: 0.50
 Nodes (3): imports, @supabase/functions-js, @supabase/server
 
-### Community 78 - "Community 78"
-Cohesion: 0.22
-Nodes (10): ConfirmationScreen(), LoadingScreen(), styles, maskPhone(), OTPVerificationScreen(), s, useClerkSupabase(), createClerkSupabaseClient() (+2 more)
+### Community 71 - "Community 71"
+Cohesion: 0.40
+Nodes (4): main, name, private, version
 
 ### Community 79 - "Community 79"
-Cohesion: 0.18
-Nodes (6): DocTypeChipProps, DocumentUploadZoneProps, styles, OnboardingHeader(), Props, styles
+Cohesion: 0.33
+Nodes (3): AIPreferencesScreen(), EditProfileScreen(), LandlordProfileTab()
 
 ### Community 80 - "Community 80"
-Cohesion: 0.20
-Nodes (8): NEPAL_CITIES, PREFERENCES, ProfileFormValues, profileSchema, styles, OnboardingEyebrow(), Props, styles
-
-### Community 81 - "Community 81"
-Cohesion: 0.36
-Nodes (9): initialKYC, initialProfile, OnboardingState, KYCStatus, OnboardingKYCData, OnboardingPayload, OnboardingProfileData, PropertyPreference (+1 more)
-
-### Community 82 - "Community 82"
-Cohesion: 0.25
-Nodes (6): RoleCardProps, ROLES, styles, Props, StepProgressBar(), styles
-
-### Community 83 - "Community 83"
-Cohesion: 0.39
-Nodes (8): KYCLandlordScreen(), KYCTenantScreen(), useDocumentPicker(), ProfileSetupScreen(), useAvatarPicker(), RoleSelectionScreen(), VerificationScreen(), useOnboardingStore
-
-### Community 84 - "Community 84"
-Cohesion: 0.29
-Nodes (4): DocTypeChipProps, DocumentUploadZoneProps, styles, DocumentType
-
-### Community 85 - "Community 85"
 Cohesion: 0.40
 Nodes (4): NotificationsScreen(), NewListingStep1(), HomeTab(), LandlordDashboard()
-
-### Community 86 - "Community 86"
-Cohesion: 0.50
-Nodes (3): imports, @supabase/functions-js, @supabase/server
 
 ## Ambiguous Edges - Review These
 - `ReportScreen()` → `PropertyDetailScreen`  [AMBIGUOUS]
   app/(tenant)/report.tsx · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **446 isolated node(s):** `name`, `slug`, `version`, `scheme`, `favicon` (+441 more)
+- **463 isolated node(s):** `name`, `slug`, `version`, `scheme`, `favicon` (+458 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **20 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **19 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **What is the exact relationship between `ReportScreen()` and `PropertyDetailScreen`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
-- **Why does `ScreenBody()` connect `Visits & Requests (Landlord)` to `Listing Detail & Modals`, `Profile & AI Preferences`, `Menu Components`?**
-  _High betweenness centrality (0.033) - this node is a cross-community bridge._
-- **Why does `ScreenHeader()` connect `Profile Setup Screens` to `Community 71`, `New Listing Creation Flow`, `Profile & AI Preferences`, `Visits & Requests (Landlord)`, `Menu Components`, `Community 85`, `Community 87`, `Community 55`?**
-  _High betweenness centrality (0.028) - this node is a cross-community bridge._
-- **Why does `useClerkSupabase()` connect `Community 78` to `Community 79`, `Community 83`, `KYC Verification Screens`, `Menu Components`, `Community 84`?**
-  _High betweenness centrality (0.021) - this node is a cross-community bridge._
+- **Why does `ScreenHeader()` connect `Profile Setup Screens` to `Tenant Layout`, `New Listing Creation Flow`, `Profile & AI Preferences`, `Visits & Requests (Landlord)`, `Community 79`, `Community 80`, `Community 78`, `Menu Components`, `Community 55`, `Community 63`?**
+  _High betweenness centrality (0.034) - this node is a cross-community bridge._
+- **Why does `ScreenBody()` connect `Visits & Requests (Landlord)` to `Listing Detail & Modals`, `Menu Components`, `Community 79`?**
+  _High betweenness centrality (0.032) - this node is a cross-community bridge._
+- **Why does `useClerkSupabase()` connect `Community 55` to `Tenant Layout`, `KYC Verification Screens`, `Menu Components`, `Community 63`?**
+  _High betweenness centrality (0.030) - this node is a cross-community bridge._
 - **What connects `name`, `slug`, `version` to the rest of the system?**
-  _447 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _464 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Expo SDK Dependencies` be split into smaller, more focused modules?**
-  _Cohesion score 0.0425531914893617 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.043478260869565216 - nodes in this community are weakly interconnected._
 - **Should `StatusPill Component` be split into smaller, more focused modules?**
   _Cohesion score 0.08465608465608465 - nodes in this community are weakly interconnected._
