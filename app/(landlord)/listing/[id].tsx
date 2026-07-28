@@ -1,87 +1,298 @@
-import { ScrollView, View, Text, Pressable } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useState, useCallback } from 'react';
+import { ScrollView, View, Text, Pressable, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
-import { ScreenHeader } from '../../../src/components/layout/ScreenHeader';
-import { Eye, Calendar, Star, MessageSquare } from 'lucide-react-native';
 
-export default function ListingDetailScreen() {
+import {
+  MapPin,
+  Star,
+  Bed,
+  Bath,
+  Wifi,
+  Car,
+  Eye,
+  Heart,
+  Pause,
+  Users,
+} from 'lucide-react-native';
+
+import { PropertyHero } from '@/src/components/property/PropertyHero';
+import { Avatar } from '@/src/components/user/Avatar';
+
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
+const HERO_HEIGHT = SCREEN_HEIGHT * 0.42;
+
+const FORMATTER = new Intl.NumberFormat('en-IN');
+
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+interface Amenity {
+  icon: string;
+  label: string;
+}
+
+interface Owner {
+  name: string;
+  avatarUrl?: string;
+  verified: boolean;
+  listingsCount: number;
+}
+
+interface ListingDetail {
+  id: string;
+  title: string;
+  location: string;
+  rating: number;
+  priceMonthly: number;
+  currency: string;
+  images: string[];
+  amenities: Amenity[];
+  about: string;
+  owner: Owner;
+  status: 'active' | 'paused';
+  views: number;
+  savedCount: number;
+  requestCount: number;
+}
+
+// ─── Mock Data ───────────────────────────────────────────────────────────────
+
+const MOCK_LISTING: ListingDetail = {
+  id: '1',
+  title: '2BHK Apartment in Baluwatar',
+  location: 'Baluwatar, Kathmandu',
+  rating: 4.8,
+  priceMonthly: 28000,
+  currency: 'Rs.',
+  images: Array.from({ length: 12 }, (_, i) => `photo-${i + 1}`),
+  amenities: [
+    { icon: 'bed', label: '2 Bed' },
+    { icon: 'bath', label: '1 Bath' },
+    { icon: 'wifi', label: 'Wi-Fi' },
+    { icon: 'car', label: 'Parking' },
+  ],
+  about:
+    'Sunlit 2BHK with balcony, walking distance to UN Park. Newly renovated with modern fittings. Quiet neighborhood with excellent water supply and active security.',
+  owner: {
+    name: 'Sita Sharma',
+    verified: true,
+    listingsCount: 12,
+  },
+  status: 'active',
+  views: 412,
+  savedCount: 38,
+  requestCount: 8,
+};
+
+interface ListingDetailScreenProps {
+  onBack?: () => void;
+  onPauseListing?: () => void;
+  onViewApplicants?: () => void;
+}
+
+// ─── Amenity Icon Map ────────────────────────────────────────────────────────
+
+const AMENITY_ICONS: Record<string, React.ComponentType<{ size?: number; color?: string }>> = {
+  bed: Bed,
+  bath: Bath,
+  wifi: Wifi,
+  car: Car,
+};
+
+// ─── Screen ──────────────────────────────────────────────────────────────────
+
+export default function ListingDetailScreen({
+  onBack,
+  onPauseListing,
+  onViewApplicants,
+}: ListingDetailScreenProps) {
   const router = useRouter();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const listing = MOCK_LISTING;
+  const ownerInitials = listing.owner.name
+    .split(' ')
+    .map((n) => n[0])
+    .join('');
+
+  const handleBack = useCallback(() => {
+    if (onBack) onBack();
+    else router.back();
+  }, [onBack, router]);
+
+  const handleShare = useCallback(async () => {
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share({
+          title: listing.title,
+          text: `${listing.title} — ${listing.currency} ${FORMATTER.format(listing.priceMonthly)}/mo`,
+          url: typeof window !== 'undefined' ? window.location.href : undefined,
+        });
+      } catch {
+        // user cancelled
+      }
+    } else {
+      console.log('Share:', listing.title);
+    }
+  }, [listing]);
 
   return (
-    <SafeAreaView edges={['top']} className="flex-1 bg-bg">
-      <ScreenHeader
-        title="Listing Detail"
-        showBack={true}
-        centerTitle={true}
-        rightText={{ label: 'Edit', onPress: () => {} }}
-      />
-      <ScrollView className="px-6" contentContainerStyle={{ paddingTop: 16, paddingBottom: 24 }}>
-        {/* Photo Carousel Area */}
-        <View className="mb-5 h-48 items-center justify-center rounded-card bg-canvas">
-          <Text className="text-body-sm text-ink3">Property Photos Carousel</Text>
-        </View>
+    <View className="flex-1 bg-bg">
+      <ScrollView
+        className="flex-1"
+        contentContainerStyle={{ paddingBottom: 160 }}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* ═══ Hero Image Area ═══ */}
+        <PropertyHero
+          height={HERO_HEIGHT}
+          images={listing.images}
+          onBack={handleBack}
+          onShare={handleShare}
+          currentIndex={currentImageIndex}
+          onIndexChange={setCurrentImageIndex}
+        />
 
-        {/* Title and Status */}
-        <View className="mb-4 flex-row items-start justify-between">
-          <View className="mr-4 flex-1">
-            <Text className="font-semibold text-h2 text-ink">Baluwatar Luxury Apartment</Text>
-            <Text className="mt-1 text-body text-ink2">NPR 45,000 / month</Text>
-          </View>
-          <View className="rounded-pill bg-brand-light px-3 py-1">
-            <Text className="font-semibold text-caption text-brand">Active</Text>
-          </View>
-        </View>
-
-        {/* Performance Stats */}
-        <Text className="mb-3 font-semibold text-h3 text-ink">Inquiry Performance</Text>
-        <View className="mb-6 flex-row gap-3">
-          {[
-            { label: 'Views', value: '412', icon: Eye },
-            { label: 'Visits', value: '18', icon: Calendar },
-            { label: 'Chats', value: '29', icon: MessageSquare },
-          ].map((stat) => {
-            const Icon = stat.icon;
-            return (
-              <View
-                key={stat.label}
-                className="flex-1 items-center rounded-card border border-line bg-bg p-4">
-                <Icon size={18} color="#1A6B4A" />
-                <Text className="mt-2 font-bold text-h3 text-ink">{stat.value}</Text>
-                <Text className="mt-0.5 text-caption text-ink2">{stat.label}</Text>
-              </View>
-            );
-          })}
-        </View>
-
-        {/* Active Visit Requests */}
-        <Text className="mb-3 font-semibold text-h3 text-ink">Pending Requests</Text>
-        <View className="mb-6 rounded-card border border-line bg-bg p-4">
-          <Pressable
-            onPress={() =>
-              router.push({ pathname: '/(landlord)/request/[id]', params: { id: '1' } } as any)
-            }
-            className="flex-row items-center justify-between">
-            <View>
-              <Text className="font-medium text-body text-ink">Aayush Shrestha</Text>
-              <Text className="mt-0.5 text-caption text-ink2">Tomorrow · 2:30 PM</Text>
-            </View>
-            <Text className="font-semibold text-body-sm text-brand">View Details ➔</Text>
-          </Pressable>
-        </View>
-
-        {/* Reviews */}
-        <Text className="mb-3 font-semibold text-h3 text-ink">Reviews</Text>
-        <View className="rounded-card border border-line bg-bg p-4">
-          <View className="mb-2 flex-row items-center gap-1">
-            <Star size={16} color="#F5A623" fill="#F5A623" />
-            <Text className="font-semibold text-body text-ink">4.8</Text>
-            <Text className="text-caption text-ink2">(6 reviews)</Text>
-          </View>
-          <Text className="text-body-sm italic text-ink2">
-            {'"Highly responsive landlord and a very neat apartment." - Priya'}
+        {/* ═══ Content ═══ */}
+        <View className="px-6 pt-4">
+          {/* Title — serif */}
+          <Text className="font-display text-h1 leading-tight text-ink">
+            {listing.title}
           </Text>
+
+          {/* Location + Rating row */}
+          <View className="mt-2 flex-row items-center justify-between">
+            <View className="flex-row items-center">
+              <MapPin size={14} color="#6B6B6B" />
+              <Text className="ml-1 font-sans text-body-sm text-ink2">
+                {listing.location}
+              </Text>
+            </View>
+            <View className="flex-row items-center">
+              <Star size={14} color="#F5A623" fill="#F5A623" />
+              <Text className="ml-1 font-medium text-body-sm text-ink">
+                {listing.rating}
+              </Text>
+            </View>
+          </View>
+
+          {/* Price row */}
+          <Text className="mt-3 font-bold text-h2 text-brand">
+            {listing.currency} {FORMATTER.format(listing.priceMonthly)}
+            <Text className="font-sans text-body text-ink2">
+              {' '}/ month
+            </Text>
+          </Text>
+
+          {/* Status pill */}
+          <View className="mt-3 flex-row items-center gap-2">
+            <View
+              className={`rounded-pill px-3 py-1 ${
+                listing.status === 'active' ? 'bg-emerald-100/90' : 'bg-gray-100'
+              }`}
+            >
+              <Text
+                className={`text-xs font-semibold ${
+                  listing.status === 'active' ? 'text-emerald-800' : 'text-gray-500'
+                }`}
+              >
+                {listing.status === 'active' ? 'Active' : 'Paused'}
+              </Text>
+            </View>
+          </View>
+
+          {/* ═══ Amenities Card ═══ */}
+          <View className="mt-5 flex-row items-center rounded-card bg-canvas px-4 py-4">
+            {listing.amenities.map((amenity, i) => {
+              const IconComponent = AMENITY_ICONS[amenity.icon];
+              return (
+                <View key={amenity.label} className="flex-1 flex-row items-center">
+                  <View className="flex-1 items-center">
+                    {IconComponent && <IconComponent size={20} color="#6B6B6B" />}
+                    <Text className="mt-1.5 font-sans text-caption text-ink2">
+                      {amenity.label}
+                    </Text>
+                  </View>
+                  {i < listing.amenities.length - 1 && (
+                    <View className="h-8 w-[1px] bg-line" />
+                  )}
+                </View>
+              );
+            })}
+          </View>
+
+          {/* ═══ About Section ═══ */}
+          <Text className="mt-6 font-semibold text-h3 text-ink">About</Text>
+          <Text className="mt-2 font-sans text-body leading-relaxed text-ink2">
+            {listing.about}
+          </Text>
+
+          {/* ═══ Owner Card ═══ */}
+          <View className="mt-5 flex-row items-center rounded-card bg-canvas p-4">
+            <Avatar size={48} initials={ownerInitials} />
+            <View className="ml-3 flex-1">
+              <Text className="font-semibold text-body text-ink">
+                {listing.owner.name}
+              </Text>
+              <Text className="mt-0.5 font-sans text-body-sm text-ink2">
+                Verified owner · {listing.owner.listingsCount} listings
+              </Text>
+            </View>
+          </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+
+      {/* ═══ Sticky Bottom Action Bar ═══ */}
+      <View className="border-t border-line bg-bg px-6 pb-6 pt-4">
+        {/* Stats row */}
+        <View className="mb-4 flex-row items-center justify-center gap-6">
+          <View className="flex-row items-center gap-1.5">
+            <Eye size={16} color="#6B6B6B" />
+            <Text className="font-bold text-body text-ink">
+              {FORMATTER.format(listing.views)}
+            </Text>
+            <Text className="font-sans text-body-sm text-ink2">views</Text>
+          </View>
+          <View className="h-4 w-[1px] bg-line" />
+          <View className="flex-row items-center gap-1.5">
+            <Heart size={16} color="#6B6B6B" />
+            <Text className="font-bold text-body text-ink">
+              {FORMATTER.format(listing.savedCount)}
+            </Text>
+            <Text className="font-sans text-body-sm text-ink2">saved</Text>
+          </View>
+          <View className="h-4 w-[1px] bg-line" />
+          <View className="flex-row items-center gap-1.5">
+            <Users size={16} color="#6B6B6B" />
+            <Text className="font-bold text-body text-ink">
+              {FORMATTER.format(listing.requestCount)}
+            </Text>
+            <Text className="font-sans text-body-sm text-ink2">requests</Text>
+          </View>
+        </View>
+
+        {/* Action buttons */}
+        <View className="flex-row gap-3">
+          <Pressable
+            onPress={onPauseListing}
+            className="h-[48px] flex-1 flex-row items-center justify-center gap-2 rounded-pill border border-line"
+            accessibilityRole="button"
+            accessibilityLabel="Pause listing"
+          >
+            <Pause size={16} color="#0A0A0A" />
+            <Text className="font-semibold text-body text-ink">Pause Listing</Text>
+          </Pressable>
+
+          <Pressable
+            onPress={onViewApplicants}
+            className="h-[48px] flex-1 flex-row items-center justify-center gap-2 rounded-pill bg-ink"
+            accessibilityRole="button"
+            accessibilityLabel="View applicants"
+          >
+            <Users size={16} color="#FFFFFF" />
+            <Text className="font-semibold text-body text-white">View Applicants</Text>
+          </Pressable>
+        </View>
+      </View>
+    </View>
   );
 }
