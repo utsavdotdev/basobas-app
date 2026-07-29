@@ -97,7 +97,7 @@ export default function VisitRequestsScreen() {
             onPress={() =>
               router.push({
                 pathname: '/(landlord)/request/[id]',
-                params: { id: item.id },
+                params: { id: item.id, status: item.status },
               } as any)
             }
             className="rounded-2xl border border-gray-200/50 bg-white p-5 shadow-sm">

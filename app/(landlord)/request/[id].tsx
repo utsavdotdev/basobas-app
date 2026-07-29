@@ -1,11 +1,13 @@
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { ScreenHeader } from '../../../src/components/layout/ScreenHeader';
-import { Calendar, Clock, MapPin, User, ChevronRight } from 'lucide-react-native';
+import { Calendar, Clock, MapPin, User, CheckCircle, ChevronRight } from 'lucide-react-native';
 
 export default function RequestDetailScreen() {
   const router = useRouter();
+  const { status } = useLocalSearchParams<{ status: string }>();
+  const isAccepted = status === 'accepted';
 
   return (
     <SafeAreaView edges={['top']} className="flex-1 bg-bg">
@@ -64,25 +66,38 @@ export default function RequestDetailScreen() {
           </Text>
         </View>
 
-        {/* Suggest Time */}
-        <Pressable className="items-center py-2">
-          <Text className="font-semibold text-body-sm text-brand">Suggest a different time</Text>
-        </Pressable>
+        {/* Suggest Time — only for pending requests */}
+        {!isAccepted && (
+          <Pressable
+            onPress={() => router.push('/(landlord)/suggest-time' as any)}
+            className="items-center py-2">
+            <Text className="font-semibold text-body-sm text-brand">Suggest a different time</Text>
+          </Pressable>
+        )}
       </ScrollView>
 
       {/* Sticky Bottom Actions */}
-      <View className="absolute inset-x-6 bottom-6 flex-row gap-3">
-        <Pressable
-          onPress={() => router.back()}
-          className="h-[56px] flex-1 items-center justify-center rounded-pill border border-line bg-bg">
-          <Text className="font-semibold text-body text-ink2">Decline</Text>
-        </Pressable>
-        <Pressable
-          onPress={() => router.push('/(landlord)/share-details' as any)}
-          className="h-[56px] flex-[2] items-center justify-center rounded-pill bg-black">
-          <Text className="font-semibold text-body text-white">Approve Request</Text>
-        </Pressable>
-      </View>
+      {isAccepted ? (
+        <View className="absolute inset-x-6 bottom-6">
+          <View className="h-[56px] flex-row items-center justify-center gap-2 rounded-pill bg-brand-light">
+            <CheckCircle size={18} color="#1A6B4A" strokeWidth={2} />
+            <Text className="font-semibold text-body text-brand">Request Accepted</Text>
+          </View>
+        </View>
+      ) : (
+        <View className="absolute inset-x-6 bottom-6 flex-row gap-3">
+          <Pressable
+            onPress={() => router.push('/(landlord)/decline-request' as any)}
+            className="h-[56px] flex-1 items-center justify-center rounded-pill border border-line bg-bg">
+            <Text className="font-semibold text-body text-ink2">Decline</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => router.push('/(landlord)/share-details' as any)}
+            className="h-[56px] flex-[2] items-center justify-center rounded-pill bg-black">
+            <Text className="font-semibold text-body text-white">Approve Request</Text>
+          </Pressable>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
