@@ -375,7 +375,6 @@ const styles = StyleSheet.create({
     backgroundColor: color.input,
     alignItems: 'center',
     justifyContent: 'center',
-    height:"100",
   },
 
   // Empty upload zone
