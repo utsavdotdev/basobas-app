@@ -9,6 +9,7 @@ export default function LandlordTabsLayout() {
       <Tabs.Screen name="index" options={{ title: 'Home' }} />
       <Tabs.Screen name="requests" options={{ title: 'Request' }} />
       <Tabs.Screen name="listings" options={{ title: 'Listing' }} />
+      <Tabs.Screen name="notifications" options={{ title: 'Notifications' }} />
       <Tabs.Screen name="profile" options={{ title: 'Profile' }} />
     </Tabs>
   );

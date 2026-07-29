@@ -31,6 +31,7 @@ export default function TenantLayout() {
       <Stack.Screen name="search-results" />
       <Stack.Screen name="settings" />
       <Stack.Screen name="visit/[id]" />
+      <Stack.Screen name="visit/reschedule" />
       <Stack.Screen name="_modal/filter" options={{ presentation: 'modal' }} />
       <Stack.Screen name="_modal/notifications-prefs" options={{ presentation: 'modal' }} />
       <Stack.Screen name="_modal/pro-gate" options={{ presentation: 'modal' }} />

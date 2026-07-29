@@ -10,6 +10,7 @@ import {
   Bath,
   Wifi,
   Car,
+  ChevronRight,
 } from 'lucide-react-native';
 
 import { PropertyHero } from '@/src/components/property/PropertyHero';
@@ -27,6 +28,7 @@ interface Amenity {
 }
 
 interface Owner {
+  id: string;
   name: string;
   avatarUrl?: string;
   verified: boolean;
@@ -65,6 +67,7 @@ const MOCK_PROPERTY: PropertyDetail = {
   about:
     'Sunlit 2BHK with balcony, walking distance to UN Park. Newly renovated with modern fittings.',
   owner: {
+    id: '1',
     name: 'Sita Sharma',
     verified: true,
     listingsCount: 12,
@@ -90,6 +93,10 @@ export default function PropertyDetailScreen() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [saved, setSaved] = useState(false);
   const [showScheduleDrawer, setShowScheduleDrawer] = useState(false);
+
+  const handleViewLandlord = useCallback(() => {
+    router.push({ pathname: '/(tenant)/landlord/[id]', params: { id: property.owner.id } } as any);
+  }, [router]);
 
   const property = MOCK_PROPERTY;
   const ownerInitials = property.owner.name
@@ -216,7 +223,11 @@ export default function PropertyDetailScreen() {
           </Text>
 
           {/* ═══ Owner Card ═══ */}
-          <View className="mt-5 flex-row items-center rounded-card bg-canvas p-4">
+          <Pressable
+            onPress={handleViewLandlord}
+            className="mt-5 flex-row items-center rounded-card bg-canvas p-4"
+            accessibilityLabel={`View ${property.owner.name}'s profile`}
+            accessibilityRole="button">
             <Avatar size={48} initials={ownerInitials} />
             <View className="ml-3 flex-1">
               <Text className="font-semibold text-body text-ink">
@@ -226,7 +237,8 @@ export default function PropertyDetailScreen() {
                 Verified owner · {property.owner.listingsCount} listings
               </Text>
             </View>
-          </View>
+            <ChevronRight size={18} color="#AAAAAA" strokeWidth={1.8} />
+          </Pressable>
         </View>
       </ScrollView>
 
