@@ -1,6 +1,10 @@
 import { Stack } from 'expo-router';
+import { useProfileBootstrap } from '@/src/hooks/useProfileBootstrap';
 
 export default function TenantLayout() {
+  // Load profile + Pro status early (on mount) so the Profile tab isn't blank.
+  useProfileBootstrap();
+
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="(tabs)" />
@@ -8,6 +12,7 @@ export default function TenantLayout() {
       <Stack.Screen name="edit-profile" />
       <Stack.Screen name="esewa-webview" />
       <Stack.Screen name="kyc-upload" />
+      <Stack.Screen name="kyc-status" />
       <Stack.Screen name="landlord/[id]" />
       <Stack.Screen name="list-property" />
       <Stack.Screen name="map" />

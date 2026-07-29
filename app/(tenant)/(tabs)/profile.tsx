@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useEffect } from 'react';
+import { useCallback, useMemo, useEffect, useState } from 'react';
 import {
   Alert,
   Pressable,
@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { useRouter, useFocusEffect } from 'expo-router';
 import {
+  AlertCircle,
   BadgeCheck,
   Bell,
   Bookmark,
@@ -17,8 +18,8 @@ import {
   Edit,
   LogOut,
   MapPin,
-  Pencil,
   Settings,
+  ShieldCheck,
   SlidersHorizontal,
   Sparkles,
   Star,
@@ -37,7 +38,12 @@ import { useProGate } from '@/src/hooks/useProGate';
 import { useUser } from '@clerk/expo';
 import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
 import { getProfile } from '@/src/services/profile.service';
+import { getUserKYCStatusUi } from '@/src/services/kyc.service';
 import { useUserStore } from '@/src/store/userStore';
+import type { KYCStatusUi } from '@/src/types/kyc.types';
+import { tokens } from '@/src/theme/tokens';
+
+const { color } = tokens;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -71,6 +77,10 @@ export default function ProfileTab() {
   const activatePro = useUserStore((s) => s.activatePro);
 
   const { isPro, requireProOrModal } = useProGate();
+
+  // KYC status — refreshed on every Profile focus so the menu row subtitle
+  // and tap target reflect the latest server state.
+  const [kycStatus, setKycStatus] = useState<KYCStatusUi | null>(null);
 
   const proDaysLeft = useMemo(() => {
     if (!profile.pro.expiresAt) return 0;
@@ -118,6 +128,24 @@ export default function ProfileTab() {
 
       return () => { cancelled = true; };
     }, [clerkUser?.id, supabase, syncProfileFromDb, activatePro])
+  );
+
+  // ── Refresh KYC status on every focus ─────────────────────────────────────
+  useFocusEffect(
+    useCallback(() => {
+      let cancelled = false;
+
+      (async () => {
+        const clerkId = clerkUser?.id;
+        if (!clerkId) return;
+        const result = await getUserKYCStatusUi(clerkId, supabase);
+        if (!cancelled && result.success) {
+          setKycStatus(result.data);
+        }
+      })();
+
+      return () => { cancelled = true; };
+    }, [clerkUser?.id, supabase])
   );
 
   // Optimistic avatar update — actually uploading to the backend is a TODO.
@@ -202,6 +230,53 @@ export default function ProfileTab() {
     </View>
   );
 
+  // ── KYC row bindings ─────────────────────────────────────────────────────
+  // Status-driven icon, subtitle, color, and tap target for the Identity
+  // Verification row. `kycStatus === null` means we haven't fetched yet — show
+  // a neutral "checking" subtitle while we wait.
+  const kycRow = useMemo(() => {
+    const status = kycStatus;
+    switch (status) {
+      case 'verified':
+        return {
+          subtitle: 'Verified',
+          subtitleClassName: 'text-brand',
+          target: '/(tenant)/kyc-status',
+          Icon: BadgeCheck,
+          iconColor: color.successDark,
+          iconBg: color.successBg,
+        };
+      case 'pending':
+        return {
+          subtitle: 'In progress',
+          subtitleClassName: 'text-warn',
+          target: '/(tenant)/kyc-status',
+          Icon: ShieldCheck,
+          iconColor: color.brand,
+          iconBg: color.brandLight,
+        };
+      case 'rejected':
+        return {
+          subtitle: 'Action required',
+          subtitleClassName: 'text-danger',
+          target: '/(tenant)/kyc-status',
+          Icon: AlertCircle,
+          iconColor: color.danger,
+          iconBg: color.dangerBg,
+        };
+      case 'not_submitted':
+      default:
+        return {
+          subtitle: 'Verify to unlock full access',
+          subtitleClassName: undefined,
+          target: '/(tenant)/kyc-upload',
+          Icon: ShieldCheck,
+          iconColor: color.ink2,
+          iconBg: color.input,
+        };
+    }
+  }, [kycStatus]);
+
   return (
     <ScreenBody>
       <ScrollView
@@ -232,19 +307,14 @@ export default function ProfileTab() {
               elevation: 2,
             }}>
             <View className="flex-row items-center">
-              {/* Avatar (overridden visually — 64px, not the default 80) */}
-              <View
-                className="relative h-16 w-16 items-center justify-center  rounded-pill"
-                style={{ backgroundColor: '#F0EDE8' }}>
-                <User size={26} color="#C0C0C0" strokeWidth={1.6} />
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel="Change profile photo"
-                  onPress={showAvatarOptions}
-                  className="absolute -bottom-0.5 -right-0.5 h-5 w-5 items-center justify-center rounded-pill bg-brand">
-                  <Pencil size={9} color="#FFFFFF" strokeWidth={2.4} />
-                </Pressable>
-              </View>
+              {/* Avatar — shows the real profile image, falls back to initials */}
+              <Avatar
+                size={64}
+                uri={profile.avatarUrl}
+                initials={initialsOf(profile.firstName, profile.lastName) || '?'}
+                showEditBadge
+                onEditPress={showAvatarOptions}
+              />
 
               <View className="ml-4 flex-1 pr-1">
                 <View className="flex-row items-center">
@@ -412,6 +482,13 @@ export default function ProfileTab() {
           <View className="mt-5">
             <SectionLabel label="ACCOUNT" className="mb-2.5 ml-1" />
             <MenuCard>
+              <MenuRow
+                label="Identity Verification"
+                subtitle={kycRow.subtitle}
+                subtitleClassName={kycRow.subtitleClassName}
+                onPress={() => go(kycRow.target)}
+                icon={iconCell(kycRow.Icon, { color: kycRow.iconColor, bg: kycRow.iconBg })}
+              />
               <MenuRow
                 label="Edit Profile"
                 onPress={() => go('/(tenant)/edit-profile')}

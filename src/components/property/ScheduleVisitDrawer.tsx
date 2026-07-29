@@ -223,7 +223,7 @@ export const ScheduleVisitDrawer = ({
   return (
     <BottomSheet
       ref={sheetRef}
-      index={isOpen ? 0 : -1}
+      index={0}
       snapPoints={snapPoints}
       enablePanDownToClose
       backgroundStyle={sheetStyles.background}
@@ -303,7 +303,7 @@ export const ScheduleVisitDrawer = ({
                   accessibilityRole="button"
                   accessibilityState={{ selected, disabled: past }}>
                   <View
-                    className={`aspect-square h-10 w-10 items-center justify-center rounded-lg ${
+                    className={`aspect-square h-10 w-10 items-center justify-center rounded-pill ${
                       selected
                         ? 'bg-ink'
                         : past

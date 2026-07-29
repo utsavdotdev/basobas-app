@@ -1,12 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import {
-  ActivityIndicator,
-  Platform,
-  Pressable,
-  Text,
-  View,
-  StyleSheet,
-} from 'react-native';
+import { ActivityIndicator, Platform, Pressable, Text, View, StyleSheet } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
@@ -19,9 +12,11 @@ import type { EsewaFormFields } from '@/src/hooks/usePurchasePlan';
 // WebViews are often detected by CAPTCHA services and blocked.
 // Using a real mobile browser UA avoids this issue.
 const WEBVIEW_UA = Platform.select({
-  android: 'Mozilla/5.0 (Linux; Android 14; SM-S928B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
+  android:
+    'Mozilla/5.0 (Linux; Android 14; SM-S928B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
   ios: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1',
-  default: 'Mozilla/5.0 (Linux; Android 14; SM-S928B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
+  default:
+    'Mozilla/5.0 (Linux; Android 14; SM-S928B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
 });
 
 // ─── Deep Link Scheme ──────────────────────────────────────────────────────
@@ -39,7 +34,9 @@ function parseQuery(url: string): Record<string, string> {
       const [key, val] = part.split('=');
       if (key) params[decodeURIComponent(key)] = val ? decodeURIComponent(val) : '';
     }
-  } catch { /* ignore malformed */ }
+  } catch {
+    /* ignore malformed */
+  }
   return params;
 }
 
@@ -58,20 +55,38 @@ export default function EsewaWebViewScreen() {
   // Parse the serialized form data from navigation params
   // Use useMemo to derive both formFields and error synchronously
   // without calling setState during render.
-  const { formFields, formHtml, parseError } = useMemo(() => {
+  const { formHtml, baseUrl, parseError } = useMemo(() => {
     if (!params.formData) {
-      return { formFields: null, formHtml: '', parseError: 'Missing payment data.' };
+      return {
+        formHtml: '',
+        baseUrl: undefined,
+        parseError: 'Missing payment data.',
+      };
     }
 
     try {
       const fields = JSON.parse(params.formData) as EsewaFormFields;
+      // Use eSewa's own origin as the document base URL. When the inline
+      // form POSTs to eSewa, the request Origin becomes eSewa's domain
+      // instead of "null" (about:blank). A "null" Origin frequently trips
+      // Cloudflare/reCAPTCHA bot checks on eSewa's payment page.
+      let origin: string | undefined;
+      try {
+        origin = new URL(fields.form_action_url).origin;
+      } catch {
+        origin = undefined;
+      }
       return {
-        formFields: fields,
         formHtml: buildEsewaForm(fields),
+        baseUrl: origin,
         parseError: null,
       };
     } catch {
-      return { formFields: null, formHtml: '', parseError: 'Invalid payment data received.' };
+      return {
+        formHtml: '',
+        baseUrl: undefined,
+        parseError: 'Invalid payment data received.',
+      };
     }
   }, [params.formData]);
 
@@ -154,18 +169,16 @@ export default function EsewaWebViewScreen() {
               <X size={20} color="#FFFFFF" strokeWidth={2.5} />
             </View>
           </View>
-          <Text className="mt-4 text-center font-sans text-[16px] font-semibold text-ink">
+          <Text className="mt-4 text-center font-sans font-semibold text-[16px] text-ink">
             Unable to start payment
           </Text>
-          <Text className="mt-2 text-center font-sans text-[14px] text-ink2">
-            {error}
-          </Text>
+          <Text className="mt-2 text-center font-sans text-[14px] text-ink2">{error}</Text>
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Go back"
             onPress={handleCancel}
             className="mt-6 h-[48px] items-center justify-center rounded-pill bg-brand px-8">
-            <Text className="font-sans text-[15px] font-semibold text-white">Go Back</Text>
+            <Text className="font-sans font-semibold text-[15px] text-white">Go Back</Text>
           </Pressable>
         </View>
       </SafeAreaView>
@@ -182,7 +195,7 @@ export default function EsewaWebViewScreen() {
           className="h-10 w-10 items-center justify-center rounded-pill bg-input">
           <ArrowLeft size={18} color="#0A0A0A" strokeWidth={2.2} />
         </Pressable>
-        <Text className="font-sans text-[15px] font-semibold text-ink">eSewa Payment</Text>
+        <Text className="font-sans font-semibold text-[15px] text-ink">eSewa Payment</Text>
         <View className="w-10" />
       </View>
 
@@ -191,15 +204,13 @@ export default function EsewaWebViewScreen() {
       {loading && (
         <View className="absolute inset-0 z-10 items-center justify-center bg-bg/90">
           <ActivityIndicator size="large" color="#1A6B4A" />
-          <Text className="mt-3 font-sans text-[14px] text-ink2">
-            Redirecting to eSewa...
-          </Text>
+          <Text className="mt-3 font-sans text-[14px] text-ink2">Redirecting to eSewa...</Text>
         </View>
       )}
 
       <WebView
         ref={webViewRef}
-        source={{ html: formHtml }}
+        source={{ html: formHtml, baseUrl }}
         style={styles.webview}
         onShouldStartLoadWithRequest={handleShouldStartLoad}
         onNavigationStateChange={handleNavigationStateChange}
@@ -215,6 +226,9 @@ export default function EsewaWebViewScreen() {
         thirdPartyCookiesEnabled
         mixedContentMode="always"
         allowsBackForwardNavigationGestures={false}
+        javaScriptCanOpenWindowsAutomatically
+        setSupportMultipleWindows={false}
+        originWhitelist={['*']}
         userAgent={WEBVIEW_UA}
       />
     </SafeAreaView>
