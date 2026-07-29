@@ -1,12 +1,22 @@
 import { useState, useCallback } from 'react';
-import { View, Text, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, Pressable, ScrollView, StyleSheet, Image, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { ArrowLeft, Camera, Upload } from 'lucide-react-native';
+import { ArrowLeft, Camera, Upload, X, Play, Plus } from 'lucide-react-native';
+import * as ImagePicker from 'expo-image-picker';
 
 import { tokens } from '@/src/theme/tokens';
 
 const { color, space, radius, font, size } = tokens;
+
+const MAX_MEDIA = 12;
+
+type MediaType = 'image' | 'video';
+
+interface MediaItem {
+  uri: string;
+  type: MediaType;
+}
 
 // ─── Screen ──────────────────────────────────────────────────────────────────
 
@@ -14,16 +24,88 @@ export default function NewListingStep3() {
   const router = useRouter();
   const params = useLocalSearchParams<{ propertyType: string; title: string; rent: string; deposit: string; location: string; availableFrom: string; bedrooms: string; bathrooms: string; area: string; floor: string; totalFloors: string; furnishing: string; amenities: string; }>();
 
-  const [photos, setPhotos] = useState<string[]>([]);
+  const [media, setMedia] = useState<MediaItem[]>([]);
 
   const handleGoBack = useCallback(() => router.back(), [router]);
+
+  const addAssets = useCallback((assets: ImagePicker.ImagePickerAsset[]) => {
+    setMedia((prev) => {
+      const next = [...prev];
+      for (const asset of assets) {
+        if (next.length >= MAX_MEDIA) break;
+        if (next.some((m) => m.uri === asset.uri)) continue;
+        next.push({ uri: asset.uri, type: asset.type === 'video' ? 'video' : 'image' });
+      }
+      return next;
+    });
+  }, []);
+
+  const remaining = MAX_MEDIA - media.length;
+
+  const pickFromLibrary = useCallback(async () => {
+    if (remaining <= 0) {
+      Alert.alert('Limit reached', `You can add up to ${MAX_MEDIA} photos and videos.`);
+      return;
+    }
+    const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permission.granted) {
+      Alert.alert(
+        'Permission Required',
+        'Please allow photo library access in your settings to add photos and videos.',
+      );
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images', 'videos'],
+      allowsMultipleSelection: true,
+      selectionLimit: remaining,
+      quality: 1,
+    });
+    if (!result.canceled && result.assets.length > 0) {
+      addAssets(result.assets);
+    }
+  }, [remaining, addAssets]);
+
+  const pickFromCamera = useCallback(async () => {
+    if (remaining <= 0) {
+      Alert.alert('Limit reached', `You can add up to ${MAX_MEDIA} photos and videos.`);
+      return;
+    }
+    const permission = await ImagePicker.requestCameraPermissionsAsync();
+    if (!permission.granted) {
+      Alert.alert(
+        'Permission Required',
+        'Please allow camera access in your settings to capture photos and videos.',
+      );
+      return;
+    }
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ['images', 'videos'],
+      quality: 1,
+    });
+    if (!result.canceled && result.assets.length > 0) {
+      addAssets(result.assets);
+    }
+  }, [remaining, addAssets]);
+
+  const showAddOptions = useCallback(() => {
+    Alert.alert('Add media', 'Choose an option', [
+      { text: 'Take Photo / Video', onPress: pickFromCamera },
+      { text: 'Choose from Gallery', onPress: pickFromLibrary },
+      { text: 'Cancel', style: 'cancel' },
+    ]);
+  }, [pickFromCamera, pickFromLibrary]);
+
+  const removeMedia = useCallback((uri: string) => {
+    setMedia((prev) => prev.filter((m) => m.uri !== uri));
+  }, []);
 
   const handleContinue = useCallback(() => {
     router.push({
       pathname: '/(landlord)/listing/new/step-4',
-      params: { ...params, photos: JSON.stringify(photos) },
+      params: { ...params, photos: JSON.stringify(media) },
     } as any);
-  }, [router, params, photos]);
+  }, [router, params, media]);
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
@@ -50,47 +132,87 @@ export default function NewListingStep3() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}>
         {/* ─── Headline ──────────────────────────────────────────────── */}
-        <Text style={styles.headline}>Add photos</Text>
+        <Text style={styles.headline}>Add photos & videos</Text>
         <Text style={styles.subtext}>
-          {'Listings with 5+ photos get 3\u00D7 more requests.'}
+          {'Listings with 5+ photos get 3× more requests.'}
         </Text>
 
-        {/* ─── Photo Grid ────────────────────────────────────────────── */}
-        <View style={styles.grid}>
-          {/* Slot 1 — Cover */}
-          <Pressable style={styles.photoSlot} accessibilityLabel="Add cover photo">
-            <View style={styles.coverBadge}>
-              <Text style={styles.coverBadgeText}>Cover</Text>
+        {/* ─── Empty state ───────────────────────────────────────────── */}
+        {media.length === 0 ? (
+          <Pressable
+            onPress={showAddOptions}
+            style={styles.uploadZone}
+            accessibilityLabel="Add photos or videos">
+            <View style={styles.uploadIcon}>
+              <Plus size={22} color={color.ink} strokeWidth={2} />
             </View>
-            <Camera size={24} color={color.ink3} strokeWidth={1.5} />
+            <Text style={styles.uploadTitle}>Add photos & videos</Text>
+            <Text style={styles.uploadHint}>Tap to upload from gallery or camera</Text>
           </Pressable>
+        ) : (
+          /* ─── Media Grid ──────────────────────────────────────────── */
+          <View style={styles.grid}>
+            {media.map((item, index) => (
+              <View key={item.uri} style={styles.photoSlot}>
+                <Image source={{ uri: item.uri }} style={styles.thumb} />
 
-          {/* Slot 2 */}
-          <Pressable style={styles.photoSlot} accessibilityLabel="Add photo 2">
-            <Camera size={24} color={color.ink3} strokeWidth={1.5} />
-          </Pressable>
+                {index === 0 && (
+                  <View style={styles.coverBadge}>
+                    <Text style={styles.coverBadgeText}>Cover</Text>
+                  </View>
+                )}
 
-          {/* Slot 3 */}
-          <Pressable style={styles.photoSlot} accessibilityLabel="Add photo 3">
-            <Camera size={24} color={color.ink3} strokeWidth={1.5} />
-          </Pressable>
+                {item.type === 'video' && (
+                  <View style={styles.videoBadge}>
+                    <Play size={12} color={color.bg} strokeWidth={2} fill={color.bg} />
+                  </View>
+                )}
 
-          {/* Slot 4 */}
-          <Pressable style={styles.photoSlot} accessibilityLabel="Add photo 4">
-            <Camera size={24} color={color.ink3} strokeWidth={1.5} />
-          </Pressable>
+                <Pressable
+                  onPress={() => removeMedia(item.uri)}
+                  style={styles.removeButton}
+                  hitSlop={8}
+                  accessibilityLabel={`Remove ${item.type} ${index + 1}`}>
+                  <X size={14} color={color.bg} strokeWidth={2.4} />
+                </Pressable>
+              </View>
+            ))}
 
-          {/* Slot 5 — Add */}
-          <Pressable style={styles.addSlot} accessibilityLabel="Add more photos">
-            <Camera size={24} color={color.ink3} strokeWidth={1.5} />
-            <Text style={styles.addSlotText}>Add</Text>
-          </Pressable>
-        </View>
+            {/* Add tile */}
+            {media.length < MAX_MEDIA && (
+              <Pressable
+                onPress={showAddOptions}
+                style={styles.addTile}
+                accessibilityLabel="Add photo or video">
+                <Plus size={20} color={color.ink2} strokeWidth={2} />
+              </Pressable>
+            )}
+          </View>
+        )}
+
+        {/* ─── Count ──────────────────────────────────────────────────── */}
+        {media.length > 0 && (
+          <Text style={styles.countText}>
+            {`${media.length} of ${MAX_MEDIA} added`}
+          </Text>
+        )}
 
         {/* ─── Upload from gallery ─────────────────────────────────────── */}
-        <Pressable style={styles.galleryButton} accessibilityLabel="Upload from gallery">
+        <Pressable
+          onPress={pickFromLibrary}
+          style={styles.galleryButton}
+          accessibilityLabel="Upload from gallery">
           <Upload size={18} color={color.ink} strokeWidth={1.8} />
           <Text style={styles.galleryButtonText}>Upload from gallery</Text>
+        </Pressable>
+
+        {/* ─── Take photo/video ────────────────────────────────────────── */}
+        <Pressable
+          onPress={pickFromCamera}
+          style={styles.galleryButton}
+          accessibilityLabel="Take photo or video">
+          <Camera size={18} color={color.ink} strokeWidth={1.8} />
+          <Text style={styles.galleryButtonText}>Take photo / video</Text>
         </Pressable>
       </ScrollView>
 
@@ -192,7 +314,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
 
-  // Photo grid
+  // Media grid
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -203,9 +325,12 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: radius.card,
     backgroundColor: color.input,
-    alignItems: 'center',
-    justifyContent: 'center',
+    overflow: 'hidden',
     position: 'relative',
+  },
+  thumb: {
+    width: '100%',
+    height: '100%',
   },
   coverBadge: {
     position: 'absolute',
@@ -221,22 +346,71 @@ const styles = StyleSheet.create({
     fontSize: size.micro,
     color: color.bg,
   },
-  addSlot: {
+  videoBadge: {
+    position: 'absolute',
+    bottom: 6,
+    left: 6,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    backgroundColor: 'rgba(0,0,0,0.55)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  removeButton: {
+    position: 'absolute',
+    top: 6,
+    right: 6,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    backgroundColor: 'rgba(0,0,0,0.55)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addTile: {
     width: '31%',
     aspectRatio: 1,
     borderRadius: radius.card,
-    borderWidth: 2,
-    borderColor: color.line,
-    borderStyle: 'dashed',
+    backgroundColor: color.input,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height:"100",
+  },
+
+  // Empty upload zone
+  uploadZone: {
+    borderRadius: radius.card,
+    backgroundColor: color.input,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 40,
+    gap: 10,
+  },
+  uploadIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     backgroundColor: color.bg,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 4,
   },
-  addSlotText: {
+  uploadTitle: {
+    fontFamily: font.semibold,
+    fontSize: size.body,
+    color: color.ink,
+  },
+  uploadHint: {
     fontFamily: font.sans,
     fontSize: size.caption,
     color: color.ink3,
+  },
+
+  countText: {
+    fontFamily: font.sans,
+    fontSize: size.caption,
+    color: color.ink3,
+    marginTop: 12,
   },
 
   // Gallery button
