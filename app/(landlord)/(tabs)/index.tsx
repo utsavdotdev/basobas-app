@@ -1,6 +1,15 @@
-import { useState, useEffect } from 'react';
-import { ScrollView, View, Text, Pressable, StyleSheet, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import {
+  ScrollView,
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  TouchableOpacity,
+  RefreshControl,
+} from 'react-native';
+import { useRouter, useFocusEffect } from 'expo-router';
+import { useUser } from '@clerk/expo';
 import {
   Home,
   Inbox,
@@ -16,6 +25,11 @@ import type { LucideIcon } from 'lucide-react-native';
 import { ScreenBody, dockBottomReserve } from '@/src/components/layout/ScreenBody';
 import { tokens } from '@/src/theme/tokens';
 import { useAuthStore } from '@/src/store/authStore';
+import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
+import {
+  getLandlordDashboard,
+  type LandlordDashboard as LandlordDashboardData,
+} from '@/src/services/dashboard.service';
 
 // ─── Public Types ───────────────────────────────────────────────────────────
 
@@ -44,6 +58,8 @@ export interface InsightItem {
 }
 
 export interface ActivityItem {
+  /** Visit-request id this row links to, for tap-through navigation. */
+  id?: string;
   /** 1-2 character initials for the avatar circle. */
   initials: string;
   /** Person's display name. */
@@ -116,57 +132,100 @@ function AddNewListingButton({ onPress }: { onPress: () => void }) {
 
 // ─── Default demo data ──────────────────────────────────────────────────────
 
-const DEFAULT_STATS: StatItem[] = [
-  { label: 'Active Listings', value: '3', variant: 'dark', icon: Home },
-  { label: 'Visit Requests', value: '8', variant: 'cream', icon: Inbox },
-  { label: '24 Reviews', value: '4.8', variant: 'mint', icon: Star },
+/** Shown while the first fetch is in flight, and if it fails. */
+const EMPTY_STATS: StatItem[] = [
+  { label: 'Active Listings', value: '—', variant: 'dark', icon: Home },
+  { label: 'Visit Requests', value: '—', variant: 'cream', icon: Inbox },
+  { label: 'No reviews yet', value: '—', variant: 'mint', icon: Star },
 ];
 
-const DEFAULT_INSIGHTS: InsightItem[] = [
-  {
-    icon: Eye,
-    iconBg: '#3B82F6',
-    title: '358 total views',
-    subtitle: 'Across 3 listings · last 30 days',
-  },
-  {
-    icon: Inbox,
-    iconBg: '#F59E0B',
-    title: '12% request rate',
-    subtitle: 'Above average for your area',
-  },
-  {
-    icon: Star,
-    iconBg: '#1A6B4A',
-    title: '2 new reviews',
-    subtitle: 'Both 5-star this week',
-  },
-];
+// ─── Live-data shaping ──────────────────────────────────────────────────────
 
-const DEFAULT_ACTIVITY: ActivityItem[] = [
-  {
-    initials: 'SK',
-    name: 'Sandeep K.',
-    action: 'requested visit',
-    detail: '2BHK Baluwatar',
-    time: '2m ago',
-    badge: 'New',
-  },
-  {
-    initials: 'AG',
-    name: 'Anita G.',
-    action: 'saved your listing',
-    detail: 'Studio Patan',
-    time: '1h ago',
-  },
-  {
-    initials: 'RJ',
-    name: 'Rajan',
-    action: 'left a 5★ review',
-    detail: 'Bhaisepati House',
-    time: 'Yesterday',
-  },
-];
+function buildStats(d: LandlordDashboardData): StatItem[] {
+  return [
+    {
+      label: 'Active Listings',
+      value: String(d.activeListings),
+      variant: 'dark',
+      icon: Home,
+    },
+    {
+      label: 'Visit Requests',
+      value: String(d.pendingRequests),
+      variant: 'cream',
+      icon: Inbox,
+    },
+    {
+      label: d.totalReviews === 1 ? '1 Review' : `${d.totalReviews} Reviews`,
+      value: d.totalReviews > 0 ? d.avgRating.toFixed(1) : '—',
+      variant: 'mint',
+      icon: Star,
+    },
+  ];
+}
+
+function buildInsights(d: LandlordDashboardData): InsightItem[] {
+  return [
+    {
+      icon: Eye,
+      iconBg: '#3B82F6',
+      title: `${d.totalViews} total views`,
+      subtitle: `Across ${d.activeListings} ${
+        d.activeListings === 1 ? 'listing' : 'listings'
+      }`,
+    },
+    {
+      icon: Inbox,
+      iconBg: '#F59E0B',
+      title: `${d.requestRate}% request rate`,
+      subtitle:
+        d.totalViews > 0 ? 'Visit requests per listing view' : 'No views yet',
+    },
+    {
+      icon: Star,
+      iconBg: '#1A6B4A',
+      title: d.totalSaves === 1 ? '1 saved listing' : `${d.totalSaves} saved listings`,
+      subtitle: 'Tenants who bookmarked your properties',
+    },
+  ];
+}
+
+/** "SK" from "Sandeep Khatri"; falls back to a neutral glyph. */
+function initialsOf(name: string | null): string {
+  if (!name) return '··';
+  return name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? '')
+    .join('');
+}
+
+/** Coarse relative time — good enough for a feed, no dependency needed. */
+function relativeTime(iso: string): string {
+  const then = new Date(iso).getTime();
+  if (Number.isNaN(then)) return '';
+  const mins = Math.floor((Date.now() - then) / 60_000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return days === 1 ? 'Yesterday' : `${days}d ago`;
+}
+
+function buildActivity(d: LandlordDashboardData): ActivityItem[] {
+  return d.activity.map((a, idx) => ({
+    id: a.id,
+    initials: initialsOf(a.name),
+    name: a.name ?? 'Someone',
+    action: a.action,
+    detail: a.detail,
+    time: relativeTime(a.at),
+    // Only the newest row gets the "New" pill.
+    badge: idx === 0 ? 'New' : undefined,
+  }));
+}
 
 // ─── Sub-components ─────────────────────────────────────────────────────────
 
@@ -356,9 +415,9 @@ function ActivityRow({
 
 export default function LandlordDashboard({
   landlordName: landlordNameProp,
-  stats = DEFAULT_STATS,
-  insights = DEFAULT_INSIGHTS,
-  activity = DEFAULT_ACTIVITY,
+  stats: statsProp,
+  insights: insightsProp,
+  activity: activityProp,
   onAddListing,
   onInsightPress,
   onActivityPress,
@@ -367,6 +426,53 @@ export default function LandlordDashboard({
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const profile = useAuthStore((st) => st.profile);
+  const { user } = useUser();
+  const supabase = useClerkSupabase();
+  const clerkId = user?.id;
+
+  // ── Live dashboard data ─────────────────────────────────────────────
+  const [data, setData] = useState<LandlordDashboardData | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const load = useCallback(
+    async (mode: 'initial' | 'refresh' = 'initial') => {
+      if (!clerkId) return;
+      if (mode === 'refresh') setRefreshing(true);
+
+      const result = await getLandlordDashboard(clerkId, supabase);
+      if (result.success) setData(result.data);
+      else console.warn('[dashboard] load failed:', result.error);
+
+      setRefreshing(false);
+    },
+    [clerkId, supabase],
+  );
+
+  useEffect(() => {
+    load('initial');
+  }, [load]);
+
+  // Publishing a listing or acting on a request changes these numbers.
+  useFocusEffect(
+    useCallback(() => {
+      load('refresh');
+    }, [load]),
+  );
+
+  // Explicit props win (used by previews/tests), then live data, then a
+  // neutral placeholder — never the old demo numbers.
+  const stats = useMemo(
+    () => statsProp ?? (data ? buildStats(data) : EMPTY_STATS),
+    [statsProp, data],
+  );
+  const insights = useMemo(
+    () => insightsProp ?? (data ? buildInsights(data) : []),
+    [insightsProp, data],
+  );
+  const activity = useMemo(
+    () => activityProp ?? (data ? buildActivity(data) : []),
+    [activityProp, data],
+  );
 
   // ── Reactive greeting — recomputes at each 12:00 / 17:00 boundary ──
   const [greeting, setGreeting] = useState(computeGreeting);
@@ -396,6 +502,28 @@ export default function LandlordDashboard({
     }
   };
 
+  // expo-router renders this screen without props, so the callbacks below are
+  // normally undefined — fall back to real navigation. A row with an `id` opens
+  // that visit request; "See all" jumps to the requests tab.
+  const handleActivityPress = (index: number) => {
+    if (onActivityPress) {
+      onActivityPress(index);
+      return;
+    }
+    const id = activity[index]?.id;
+    if (id) {
+      router.push({ pathname: '/(landlord)/request/[id]', params: { id } } as never);
+    }
+  };
+
+  const handleSeeAllActivity = () => {
+    if (onSeeAllActivity) {
+      onSeeAllActivity();
+    } else {
+      router.push('/(landlord)/(tabs)/requests' as never);
+    }
+  };
+
   return (
     <ScreenBody>
       <ScrollView
@@ -403,6 +531,9 @@ export default function LandlordDashboard({
         contentContainerStyle={{ paddingBottom: dockBottomReserve(insets.bottom) }}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={() => load('refresh')} />
+        }
       >
         {/* ── Header ────────────────────────────────────────── */}
         <View style={s.header}>
@@ -453,32 +584,42 @@ export default function LandlordDashboard({
         {/* ── Insights ──────────────────────────────────────── */}
         <Text style={s.sectionTitle}>INSIGHTS</Text>
         <View style={s.card}>
-          {insights.map((item, idx) => (
-            <InsightRow
-              key={idx}
-              item={item}
-              isLast={idx === insights.length - 1}
-              onPress={() => onInsightPress?.(idx)}
-            />
-          ))}
+          {insights.length === 0 ? (
+            <Text style={s.emptyRow}>
+              Publish a listing to start seeing views and requests.
+            </Text>
+          ) : (
+            insights.map((item, idx) => (
+              <InsightRow
+                key={idx}
+                item={item}
+                isLast={idx === insights.length - 1}
+                onPress={() => onInsightPress?.(idx)}
+              />
+            ))
+          )}
         </View>
 
         {/* ── Recent Activity ───────────────────────────────── */}
         <View style={s.sectionHeader}>
           <Text style={s.sectionTitle}>RECENT ACTIVITY</Text>
-          <Pressable onPress={onSeeAllActivity} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}>
+          <Pressable onPress={handleSeeAllActivity} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}>
             <Text style={s.seeAllText}>See all</Text>
           </Pressable>
         </View>
         <View style={s.card}>
-          {activity.map((item, idx) => (
-            <ActivityRow
-              key={idx}
-              item={item}
-              isLast={idx === activity.length - 1}
-              onPress={() => onActivityPress?.(idx)}
-            />
-          ))}
+          {activity.length === 0 ? (
+            <Text style={s.emptyRow}>No activity yet.</Text>
+          ) : (
+            activity.map((item, idx) => (
+              <ActivityRow
+                key={idx}
+                item={item}
+                isLast={idx === activity.length - 1}
+                onPress={() => handleActivityPress(idx)}
+              />
+            ))
+          )}
         </View>
       </ScrollView>
     </ScreenBody>
@@ -631,6 +772,14 @@ const s = StyleSheet.create({
     borderColor: tokens.color.line,
     backgroundColor: tokens.color.bg,
     overflow: 'hidden',
+  },
+
+  emptyRow: {
+    fontFamily: tokens.font.sans,
+    fontSize: tokens.size.bodySm,
+    color: tokens.color.ink3,
+    paddingHorizontal: 12,
+    paddingVertical: 16,
   },
 
   /* ── Shared row ── */

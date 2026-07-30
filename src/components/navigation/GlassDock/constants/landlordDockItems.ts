@@ -9,7 +9,7 @@ import type { DockItem } from '../types/dock';
  */
 export const LANDLORD_DOCK_ITEMS: readonly DockItem[] = [
   { key: 'index', icon: Home },
-  { key: 'requests', icon: Inbox, badge: 8 },
+  { key: 'requests', icon: Inbox },
   { key: 'notifications', icon: Bell },
   { key: 'profile', icon: User },
 ];
