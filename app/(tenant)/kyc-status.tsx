@@ -11,10 +11,21 @@ import {
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
-import { BadgeCheck, ExternalLink, FileText } from 'lucide-react-native';
+import {
+  BadgeCheck,
+  Calendar,
+  Clock,
+  ExternalLink,
+  FileText,
+  Hash,
+  Layers,
+  RefreshCw,
+  ShieldCheck,
+} from 'lucide-react-native';
 import { useUser } from '@clerk/expo';
 
 import { ScreenHeader } from '@/src/components/layout/ScreenHeader';
+import { SectionLabel } from '@/src/components/layout/SectionLabel';
 import { KYCStatusHero } from '@/src/components/kyc/KYCStatusHero';
 import { KYCStatusTimeline } from '@/src/components/kyc/KYCStatusTimeline';
 import { KYCRejectionNotice } from '@/src/components/kyc/KYCRejectionNotice';
@@ -60,7 +71,6 @@ export default function KYCStatusScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // ── Load (initial + manual refresh) ──────────────────────────────────────
   const load = useCallback(
     async (mode: 'initial' | 'refresh' | 'poll') => {
       if (!clerkId) return;
@@ -84,12 +94,9 @@ export default function KYCStatusScreen() {
     load('initial');
   }, [load]);
 
-  // ── Polling while UNDER_REVIEW ───────────────────────────────────────────
-  // Guard against double-start when status changes mid-cycle.
   const pollHandleRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
-    // Always clear first so we don't double up.
     if (pollHandleRef.current) {
       clearInterval(pollHandleRef.current);
       pollHandleRef.current = null;
@@ -113,7 +120,6 @@ export default function KYCStatusScreen() {
     load('refresh');
   }, [load]);
 
-  // ── Derived UI state ─────────────────────────────────────────────────────
   const uiStatus: KYCStatusUi = submission
     ? toKYCStatusUi(submission.status, true)
     : 'not_submitted';
@@ -146,9 +152,6 @@ export default function KYCStatusScreen() {
     );
   }
 
-  // No submission yet — treat this as "not_submitted" (should rarely happen
-  // since the Profile row routes here only after submit, but covers deep-link
-  // edge cases).
   const showTimeline = submission !== null;
 
   return (
@@ -170,58 +173,73 @@ export default function KYCStatusScreen() {
             colors={[color.brand]}
           />
         }>
-        {/* ── Hero ─────────────────────────────────────────────────────── */}
         <KYCStatusHero status={uiStatus} />
 
-        {/* ── Timeline ────────────────────────────────────────────────── */}
         {showTimeline && submission && (
           <View style={styles.section}>
-            <KYCStatusTimeline
-              status={submission.status as KYCStatus}
-              submittedAt={submission.submittedAt}
-              reviewedAt={submission.reviewedAt}
-            />
+            <SectionLabel label="Progress" className="mb-3 ml-1" />
+            <View style={styles.timelineCard}>
+              <KYCStatusTimeline
+                status={submission.status as KYCStatus}
+                submittedAt={submission.submittedAt}
+                reviewedAt={submission.reviewedAt}
+              />
+            </View>
           </View>
         )}
 
-        {/* ── Submission details ───────────────────────────────────────── */}
         {submission && (
-          <View style={[styles.card, styles.section]}>
-            <Text style={styles.cardHeading}>Submission Details</Text>
-
-            <Row label="Submitted on" value={formatDateTime(submission.submittedAt)} />
-            <Divider />
-            <Row
-              label="Documents submitted"
-              value={`2 of 2 · ${submission.documentType === 'CITIZENSHIP' ? 'Citizenship' : 'NID'}`}
-            />
-            <Divider />
-            <Row
-              label="Reference ID"
-              value={
-                <Text style={styles.mono} selectable>
-                  {submission.id.slice(0, 8).toUpperCase()}
-                </Text>
-              }
-            />
-            {submission.reviewedAt && (
-              <>
-                <Divider />
-                <Row label="Reviewed on" value={formatDateTime(submission.reviewedAt)} />
-              </>
-            )}
-            <Divider />
-            <Row
-              label="Attempt"
-              value={`#${submission.attemptNumber}`}
-            />
+          <View style={styles.section}>
+            <SectionLabel label="Submission Details" className="mb-3 ml-1" />
+            <View style={styles.detailsCard}>
+              <DetailRow
+                icon={Calendar}
+                label="Submitted on"
+                value={formatDateTime(submission.submittedAt)}
+              />
+              <Divider />
+              <DetailRow
+                icon={Layers}
+                label="Documents"
+                value={`2 of 2 · ${submission.documentType === 'CITIZENSHIP' ? 'Citizenship' : 'NID'}`}
+              />
+              <Divider />
+              <DetailRow
+                icon={Hash}
+                label="Reference ID"
+                value={
+                  <Text style={styles.mono} selectable>
+                    {submission.id.slice(0, 8).toUpperCase()}
+                  </Text>
+                }
+              />
+              {submission.reviewedAt && (
+                <>
+                  <Divider />
+                  <DetailRow
+                    icon={Clock}
+                    label="Reviewed on"
+                    value={formatDateTime(submission.reviewedAt)}
+                  />
+                </>
+              )}
+              <Divider />
+              <DetailRow
+                icon={RefreshCw}
+                label="Attempt"
+                value={`#${submission.attemptNumber}`}
+              />
+            </View>
           </View>
         )}
 
-        {/* ── Rejection / verified slot ─────────────────────────────────── */}
         {submission?.status === 'REJECTED' ? (
-          <View style={styles.section}>
+          <View style={styles.rejectionSection}>
             <KYCRejectionNotice rejectionReason={submission.rejectionReason} />
+            <PrimaryButton
+              label="Resubmit Documents"
+              onPress={() => router.push('/(tenant)/kyc-upload?resubmit=true' as any)}
+            />
           </View>
         ) : uiStatus === 'verified' ? (
           <View style={[styles.badgeCard, styles.section]}>
@@ -231,13 +249,12 @@ export default function KYCStatusScreen() {
             <View style={styles.badgeCopy}>
               <Text style={styles.badgeTitle}>Verified Tenant</Text>
               <Text style={styles.badgeSupporting}>
-                This is how your badge appears on your public profile.
+                Your identity is verified. Landlords can trust you when requesting visits.
               </Text>
             </View>
           </View>
         ) : null}
 
-        {/* ── Footer help link ─────────────────────────────────────────── */}
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="Learn more about identity verification"
@@ -248,7 +265,7 @@ export default function KYCStatusScreen() {
               'Your documents are encrypted and reviewed by our team within 1–2 business days.'
             )
           }>
-          <FileText size={14} color={color.ink3} strokeWidth={2} />
+          <ShieldCheck size={14} color={color.ink3} strokeWidth={2} />
           <Text style={styles.helpText}>How verification works</Text>
           <ExternalLink size={12} color={color.ink3} strokeWidth={2} />
         </Pressable>
@@ -259,19 +276,24 @@ export default function KYCStatusScreen() {
 
 KYCStatusScreen.displayName = 'KYCStatusScreen';
 
-// ─── Internal helpers ───────────────────────────────────────────────────────
-
-const Row = ({
+const DetailRow = ({
+  icon: Icon,
   label,
   value,
 }: {
+  icon: typeof Calendar;
   label: string;
   value: React.ReactNode;
 }) => (
-  <View style={styles.row}>
-    <Text style={styles.rowLabel}>{label}</Text>
+  <View style={styles.detailRow}>
+    <View style={styles.detailLeft}>
+      <View style={styles.detailIcon}>
+        <Icon size={14} color={color.ink2} strokeWidth={1.8} />
+      </View>
+      <Text style={styles.detailLabel}>{label}</Text>
+    </View>
     {typeof value === 'string' ? (
-      <Text style={styles.rowValue}>{value}</Text>
+      <Text style={styles.detailValue}>{value}</Text>
     ) : (
       value
     )}
@@ -279,8 +301,6 @@ const Row = ({
 );
 
 const Divider = () => <View style={styles.divider} />;
-
-// ─── Styles ────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
   safe: {
@@ -327,8 +347,20 @@ const styles = StyleSheet.create({
   section: {
     marginTop: space.sectionGap,
   },
+  rejectionSection: {
+    marginTop: space.sectionGap,
+    gap: 12,
+  },
 
-  card: {
+  timelineCard: {
+    backgroundColor: color.bg,
+    borderWidth: 1,
+    borderColor: color.line,
+    borderRadius: radius.card,
+    padding: space.cardPad,
+  },
+
+  detailsCard: {
     backgroundColor: color.bg,
     borderWidth: 1,
     borderColor: color.line,
@@ -336,24 +368,32 @@ const styles = StyleSheet.create({
     paddingHorizontal: space.cardPad,
     paddingVertical: 4,
   },
-  cardHeading: {
-    fontFamily: font.semibold,
-    fontSize: size.bodySm,
-    color: color.ink,
-    paddingVertical: 12,
-  },
-  row: {
+
+  detailRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 10,
+    paddingVertical: 12,
   },
-  rowLabel: {
+  detailLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  detailIcon: {
+    width: 28,
+    height: 28,
+    borderRadius: 8,
+    backgroundColor: color.input,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  detailLabel: {
     fontFamily: font.medium,
     fontSize: size.bodySm,
     color: color.ink2,
   },
-  rowValue: {
+  detailValue: {
     fontFamily: font.sans,
     fontSize: size.bodySm,
     color: color.ink,
@@ -366,6 +406,7 @@ const styles = StyleSheet.create({
   divider: {
     height: 1,
     backgroundColor: color.divider,
+    marginLeft: 36,
   },
 
   badgeCard: {

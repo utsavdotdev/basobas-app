@@ -378,7 +378,13 @@ export default function LandlordProfileTab() {
 
           {/* Verification Status */}
           <Pressable
-            onPress={() => router.push('/(landlord)/verification' as any)}
+            onPress={() => {
+              if (verification === 'REJECTED') {
+                router.push('/(landlord)/kyc-upload?resubmit=true' as any);
+              } else {
+                router.push('/(landlord)/verification' as any);
+              }
+            }}
             style={[styles.menuRow, styles.menuRowBorder]}>
             <View style={styles.menuIcon}>
               <ShieldCheck size={18} color={color.ink} strokeWidth={1.8} />
