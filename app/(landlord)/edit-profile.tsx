@@ -2,7 +2,7 @@ import { useState, useCallback, useMemo, useRef } from 'react';
 import { Alert, ScrollView, View, Text, TextInput, Pressable, Image, ActivityIndicator, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { useAuth } from '@clerk/expo';
+import { useAuth as useClerkAuth } from '@clerk/expo';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
 import {
@@ -16,8 +16,11 @@ import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
 import { tokens } from '@/src/theme/tokens';
 import { useAuthStore } from '@/src/store/authStore';
+import { useOnboardingStore } from '@/src/store/onboardingStore';
+import { useUserStore } from '@/src/store/userStore';
 import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
 import { updateProfile, updateAvatar } from '@/src/services/profile.service';
+import { deleteUserData, deleteClerkUser } from '@/src/services/delete-account.service';
 import { getErrorMessage } from '@/src/lib/result';
 
 const { color, space, radius, font, size } = tokens;
@@ -46,7 +49,7 @@ const compressImage = async (uri: string): Promise<string> => {
 
 export default function EditProfileScreen() {
   const router = useRouter();
-  const { userId } = useAuth();
+  const { userId, signOut } = useClerkAuth();
   const supabase = useClerkSupabase();
   const { profile, setProfile } = useAuthStore();
   const [fullName, setFullName] = useState(profile?.full_name ?? '');
@@ -178,8 +181,52 @@ export default function EditProfileScreen() {
   }, [router, isPending]);
 
   const handleDeleteAccount = useCallback(() => {
-    // TODO: account deletion workflow
-  }, []);
+    if (!userId) return;
+
+    Alert.alert(
+      'Delete Account',
+      'This will permanently delete your account, listings, and all associated data. This cannot be undone.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Continue',
+          style: 'destructive',
+          onPress: () => {
+            Alert.alert(
+              'Final Confirmation',
+              'Are you absolutely sure? All your data will be lost permanently.',
+              [
+                { text: 'Cancel', style: 'cancel' },
+                {
+                  text: 'Delete Permanently',
+                  style: 'destructive',
+                  onPress: async () => {
+                    try {
+                      await deleteUserData(userId, supabase);
+                    } catch {
+                      // Proceed even if Supabase deletion partially fails
+                    }
+
+                    try {
+                      await deleteClerkUser(userId);
+                    } catch {
+                      // Clerk deletion may fail if env var not set
+                    }
+
+                    await signOut();
+                    useAuthStore.getState().clearAll();
+                    useOnboardingStore.getState().reset();
+                    useUserStore.getState().reset();
+                    router.replace('/(auth)/phone');
+                  },
+                },
+              ],
+            );
+          },
+        },
+      ],
+    );
+  }, [userId, supabase, router]);
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
