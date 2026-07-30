@@ -16,16 +16,16 @@ async function deleteStorageFolder(
 
     if (listError || !files || files.length === 0) return;
 
-    const paths = files
-      .filter((f) => !f.id) // skip folders
+    const filePaths = files
+      .filter((f) => f.id) // actual files have an id
       .map((f) => `${prefix}/${f.name}`);
 
-    if (paths.length > 0) {
-      await supabase.storage.from(bucket).remove(paths);
+    if (filePaths.length > 0) {
+      await supabase.storage.from(bucket).remove(filePaths);
     }
 
-    // Also remove any nested subdirectories
-    const subdirs = files.filter((f) => f.id);
+    // Recurse into subdirectories (entries without an id)
+    const subdirs = files.filter((f) => !f.id);
     for (const dir of subdirs) {
       await deleteStorageFolder(supabase, bucket, `${prefix}/${dir.name}`);
     }
