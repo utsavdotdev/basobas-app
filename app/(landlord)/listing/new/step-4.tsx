@@ -1,10 +1,33 @@
-import { useCallback, useMemo } from 'react';
-import { View, Text, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { useCallback, useMemo, useState } from 'react';
+import {
+  View,
+  Text,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Image,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
+import { useUser } from '@clerk/expo';
 import { ArrowLeft, Check, Camera } from 'lucide-react-native';
 
 import { tokens } from '@/src/theme/tokens';
+import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
+import {
+  createPropertyDraft,
+  publishProperty,
+  getLandlordVerificationStatus,
+} from '@/src/services/properties.service';
+import { uploadPropertyPhoto } from '@/src/services/storage.service';
+import {
+  toPropertyType,
+  parseAvailableFrom,
+  parseMoney,
+  parseOptionalInt,
+} from '@/src/types/property.types';
 
 const { color, space, radius, font, size } = tokens;
 
@@ -13,6 +36,21 @@ const { color, space, radius, font, size } = tokens;
 function parseJSON(val: string | undefined): string[] {
   try {
     return JSON.parse(val ?? '[]');
+  } catch {
+    return [];
+  }
+}
+
+/** Step 3 passes `photos` as a JSON array of `{ uri, type }`. */
+interface MediaItem {
+  uri: string;
+  type: 'image' | 'video';
+}
+
+function parseMedia(val: string | undefined): MediaItem[] {
+  try {
+    const parsed = JSON.parse(val ?? '[]');
+    return Array.isArray(parsed) ? (parsed as MediaItem[]) : [];
   } catch {
     return [];
   }
@@ -32,11 +70,52 @@ interface DetailRow {
 
 // ─── Screen ──────────────────────────────────────────────────────────────────
 
+/**
+ * Type-specific wizard fields that don't have their own column. They live in
+ * `properties.extra_details` (jsonb) so a new property type doesn't need a
+ * migration.
+ */
+function collectExtraDetails(
+  p: Record<string, string>,
+  pt: string,
+): Record<string, unknown> {
+  const extras: Record<string, unknown> = {};
+  const put = (key: string, value: string | undefined) => {
+    if (value !== undefined && value !== '') extras[key] = value;
+  };
+
+  if (pt === 'House') {
+    put('parkingSpaces', p.parkingSpaces);
+    put('houseFloors', p.houseFloors);
+    if (p.hasGarden === 'true') extras.hasGarden = true;
+    if (p.hasGated === 'true') extras.hasGated = true;
+  } else if (pt === 'Room') {
+    put('roomBathroom', p.roomBathroom);
+    put('kitchenAccess', p.kitchenAccess);
+    put('tenantPref', p.tenantPref);
+  } else if (pt === 'Studio') {
+    put('kitchenette', p.kitchenette);
+    put('studioBathroom', p.studioBathroom);
+    // Studio maps onto the FLAT enum — keep the original label for display.
+    extras.originalType = 'Studio';
+  }
+
+  return extras;
+}
+
+// ─── Screen ──────────────────────────────────────────────────────────────────
+
 export default function NewListingStep4() {
   const router = useRouter();
   const p = useLocalSearchParams<Record<string, string>>();
+  const { user } = useUser();
+  const supabase = useClerkSupabase();
+
+  const [publishing, setPublishing] = useState(false);
+  const [progressLabel, setProgressLabel] = useState('Publishing…');
 
   const pt = (p.propertyType ?? 'Apartment') as string;
+  const media = useMemo(() => parseMedia(p.photos), [p.photos]);
 
   // ── Build detail rows dynamically by type ───────────────────────────────
   const details = useMemo((): DetailRow[] => {
@@ -90,10 +169,111 @@ export default function NewListingStep4() {
 
   const handleGoBack = useCallback(() => router.back(), [router]);
 
-  const handlePublish = useCallback(() => {
-    // TODO: submit to backend
-    router.replace('/(landlord)/(tabs)/listings' as any);
-  }, [router]);
+  const handlePublish = useCallback(async () => {
+    const clerkId = user?.id;
+    if (!clerkId) {
+      Alert.alert('Not signed in', 'Please sign in again to publish this listing.');
+      return;
+    }
+    if (publishing) return;
+
+    setPublishing(true);
+    try {
+      // 1. Verification gate — an unverified landlord must not create a row.
+      setProgressLabel('Checking verification…');
+      const verification = await getLandlordVerificationStatus(clerkId, supabase);
+      if (!verification.success) {
+        Alert.alert('Could not publish', verification.error);
+        return;
+      }
+      if (verification.data !== 'VERIFIED') {
+        Alert.alert(
+          'Verification required',
+          verification.data === 'UNDER_REVIEW'
+            ? 'Your verification is still under review. You can publish once it is approved.'
+            : 'Verify your identity before publishing a listing.',
+          [
+            { text: 'Not now', style: 'cancel' },
+            {
+              text: 'Verify now',
+              onPress: () => router.push('/(landlord)/verification' as any),
+            },
+          ],
+        );
+        return;
+      }
+
+      // 2. Create the draft row so photos have a property id to nest under.
+      setProgressLabel('Creating listing…');
+      const draft = await createPropertyDraft(
+        {
+          landlordId:    clerkId,
+          title:         p.title ?? `${pt} in ${p.location ?? 'Kathmandu'}`,
+          description:   p.description ?? null,
+          propertyType:  toPropertyType(pt),
+          price:         parseMoney(p.rent),
+          deposit:       parseOptionalInt(p.deposit),
+          furnishing:    p.furnishing ?? null,
+          bedrooms:      parseOptionalInt(p.bedrooms),
+          bathrooms:     parseOptionalInt(p.bathrooms),
+          areaSqft:      parseOptionalInt(p.area ?? p.builtUpArea ?? p.studioArea),
+          floor:         parseOptionalInt(p.floor ?? p.studioFloor),
+          totalFloors:   parseOptionalInt(p.totalFloors ?? p.houseFloors),
+          amenities:     parseJSON(p.amenities),
+          availableFrom: parseAvailableFrom(p.availableFrom),
+          locationArea:  p.location ?? '',
+          extraDetails:  collectExtraDetails(p, pt),
+        },
+        supabase,
+      );
+      if (!draft.success) {
+        Alert.alert('Could not publish', draft.error);
+        return;
+      }
+      const propertyId = draft.data;
+
+      // 3. Upload photos. The bucket is images-only, so videos from step 3 are
+      //    skipped rather than silently failing mid-upload.
+      const images = media.filter((m) => m.type === 'image');
+      const skippedVideos = media.length - images.length;
+      if (skippedVideos > 0) {
+        console.warn(
+          `[publish] skipping ${skippedVideos} video(s) — property-photos accepts images only`,
+        );
+      }
+
+      const photoUrls: string[] = [];
+      for (let i = 0; i < images.length; i++) {
+        setProgressLabel(`Uploading photo ${i + 1} of ${images.length}…`);
+        const upload = await uploadPropertyPhoto(
+          clerkId,
+          propertyId,
+          i,
+          images[i].uri,
+          supabase,
+        );
+        if (!upload.success) {
+          // The draft row survives, so the user can retry without re-entering
+          // the whole wizard.
+          Alert.alert('Photo upload failed', upload.error);
+          return;
+        }
+        photoUrls.push(upload.data.publicUrl);
+      }
+
+      // 4. Attach the photos and take it live.
+      setProgressLabel('Publishing…');
+      const published = await publishProperty(propertyId, photoUrls, supabase);
+      if (!published.success) {
+        Alert.alert('Could not publish', published.error);
+        return;
+      }
+
+      router.replace('/(landlord)/(tabs)/listings' as any);
+    } finally {
+      setPublishing(false);
+    }
+  }, [user?.id, publishing, supabase, p, pt, media, router]);
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
@@ -126,7 +306,11 @@ export default function NewListingStep4() {
         {/* ─── Summary Card ───────────────────────────────────────────── */}
         <View style={styles.summaryCard}>
           <View style={styles.summaryImage}>
-            <Camera size={32} color={color.ink3} strokeWidth={1.5} />
+            {media[0] ? (
+              <Image source={{ uri: media[0].uri }} style={styles.summaryThumb} />
+            ) : (
+              <Camera size={32} color={color.ink3} strokeWidth={1.5} />
+            )}
           </View>
           <View style={styles.summaryContent}>
             <Text style={styles.summaryTitle}>
@@ -164,10 +348,19 @@ export default function NewListingStep4() {
       <View style={styles.bottomArea}>
         <Pressable
           onPress={handlePublish}
-          style={styles.cta}
+          disabled={publishing}
+          style={[styles.cta, publishing && styles.ctaDisabled]}
           accessibilityLabel="Publish Listing"
-          accessibilityRole="button">
-          <Text style={styles.ctaText}>Publish Listing</Text>
+          accessibilityRole="button"
+          accessibilityState={{ disabled: publishing, busy: publishing }}>
+          {publishing ? (
+            <View style={styles.ctaBusy}>
+              <ActivityIndicator size="small" color={color.bg} />
+              <Text style={styles.ctaText}>{progressLabel}</Text>
+            </View>
+          ) : (
+            <Text style={styles.ctaText}>Publish Listing</Text>
+          )}
         </Pressable>
       </View>
     </SafeAreaView>
@@ -205,6 +398,7 @@ const styles = StyleSheet.create({
     backgroundColor: color.bg, overflow: 'hidden',
   },
   summaryImage: { height: 160, backgroundColor: color.input, alignItems: 'center', justifyContent: 'center' },
+  summaryThumb: { width: '100%', height: '100%' },
   summaryContent: { padding: space.cardPad, gap: 4 },
   summaryTitle: { fontFamily: font.semibold, fontSize: size.h3, color: color.ink },
   summaryLocation: { fontFamily: font.sans, fontSize: size.bodySm, color: color.ink2 },
@@ -226,5 +420,7 @@ const styles = StyleSheet.create({
     height: space.buttonH, borderRadius: radius.pill, backgroundColor: color.ink,
     alignItems: 'center', justifyContent: 'center',
   },
+  ctaDisabled: { opacity: 0.6 },
+  ctaBusy: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   ctaText: { fontFamily: font.semibold, fontSize: size.body, color: color.bg },
 });

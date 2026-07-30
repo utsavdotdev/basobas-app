@@ -1,38 +1,33 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import {
   ScrollView,
   View,
   Text,
   TouchableOpacity,
   Pressable,
+  Image,
+  ActivityIndicator,
+  RefreshControl,
+  Alert,
+  type AlertButton,
 } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useFocusEffect } from 'expo-router';
+import { useUser } from '@clerk/expo';
+import { ArrowLeft, MapPin, MoreVertical, Eye, Inbox, ImageIcon } from 'lucide-react-native';
+
+import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
+import { getMyProperties, relistProperty, deleteProperty } from '@/src/services/properties.service';
 import {
-  ArrowLeft,
-  MapPin,
-  MoreVertical,
-  Eye,
-  Inbox,
-} from 'lucide-react-native';
+  formatMonthlyPrice,
+  type LandlordPropertySummary,
+  type PropertyStatusUi,
+} from '@/src/types/property.types';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
-type PropertyStatus = 'active' | 'draft' | 'paused' | 'archived';
-
-interface LandlordProperty {
-  id: string;
-  title: string;
-  location: string;
-  price: number;
-  status: PropertyStatus;
-  views: number;
-  requests: number;
-  rating: number;
-}
-
 interface MyPropertiesScreenProps {
   onBack?: () => void;
-  onPropertyPress?: (property: LandlordProperty) => void;
+  onPropertyPress?: (property: LandlordPropertySummary) => void;
 }
 
 // ─── Constants ──────────────────────────────────────────────────────────────
@@ -40,125 +35,58 @@ interface MyPropertiesScreenProps {
 const TABS = ['All', 'Active', 'Draft', 'Archived'] as const;
 type FilterTab = (typeof TABS)[number];
 
-const STATUS_STYLES: Record<
-  PropertyStatus,
-  { container: string; text: string; label: string }
-> = {
-  active: {
-    container: 'bg-emerald-100/90',
-    text: 'text-emerald-800',
-    label: 'Active',
-  },
-  draft: {
-    container: 'bg-amber-100/90',
-    text: 'text-amber-800',
-    label: 'Draft',
-  },
-  paused: {
-    container: 'bg-gray-100/90',
-    text: 'text-gray-500',
-    label: 'Paused',
-  },
-  archived: {
-    container: 'bg-gray-100/90',
-    text: 'text-gray-500',
-    label: 'Archived',
-  },
-};
-
-const PROPERTIES_DATA: LandlordProperty[] = [
+const STATUS_STYLES: Record<PropertyStatusUi, { container: string; text: string; label: string }> =
   {
-    id: '1',
-    title: '2BHK Apartment in Baluwatar',
-    location: 'Baluwatar, Kathmandu',
-    price: 28000,
-    status: 'active',
-    views: 124,
-    requests: 8,
-    rating: 4.8,
-  },
-  {
-    id: '2',
-    title: 'Studio near Thamel',
-    location: 'Thamel, Kathmandu',
-    price: 18000,
-    status: 'active',
-    views: 89,
-    requests: 5,
-    rating: 4.5,
-  },
-  {
-    id: '3',
-    title: '3BHK Family Home in Budhanilkantha',
-    location: 'Budhanilkantha, Kathmandu',
-    price: 55000,
-    status: 'active',
-    views: 203,
-    requests: 12,
-    rating: 4.9,
-  },
-  {
-    id: '4',
-    title: 'Charming 1BHK in Patan',
-    location: 'Patan, Lalitpur',
-    price: 22000,
-    status: 'draft',
-    views: 0,
-    requests: 0,
-    rating: 4.7,
-  },
-  {
-    id: '5',
-    title: 'Cozy Studio near Boudha',
-    location: 'Boudha, Kathmandu',
-    price: 15000,
-    status: 'draft',
-    views: 0,
-    requests: 0,
-    rating: 4.4,
-  },
-  {
-    id: '6',
-    title: 'Premium 2BHK in Jhamsikhel',
-    location: 'Jhamsikhel, Lalitpur',
-    price: 45000,
-    status: 'archived',
-    views: 56,
-    requests: 2,
-    rating: 4.9,
-  },
-  {
-    id: '7',
-    title: 'Affordable 1BHK in Baneshwor',
-    location: 'Baneshwor, Kathmandu',
-    price: 19500,
-    status: 'archived',
-    views: 310,
-    requests: 18,
-    rating: 4.3,
-  },
-];
+    active: {
+      container: 'bg-emerald-100/90',
+      text: 'text-emerald-800',
+      label: 'Active',
+    },
+    draft: {
+      container: 'bg-amber-100/90',
+      text: 'text-amber-800',
+      label: 'Draft',
+    },
+    paused: {
+      container: 'bg-gray-100/90',
+      text: 'text-gray-500',
+      label: 'Paused',
+    },
+    archived: {
+      container: 'bg-gray-100/90',
+      text: 'text-gray-500',
+      label: 'Archived',
+    },
+  };
 
 const FORMATTER = new Intl.NumberFormat('en-IN');
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
-function formatPrice(price: number): string {
-  return `NPR ${FORMATTER.format(price)}/mo`;
-}
-
-function matchesFilter(property: LandlordProperty, tab: FilterTab): boolean {
-  if (tab === 'All') return true;
-  return property.status === tab.toLowerCase();
+/**
+ * `Active` covers both live and occupied listings — `paused` (OCCUPIED) has no
+ * tab of its own, so it sits alongside active rather than disappearing.
+ */
+function matchesFilter(property: LandlordPropertySummary, tab: FilterTab): boolean {
+  switch (tab) {
+    case 'All':
+      return true;
+    case 'Active':
+      return property.statusUi === 'active' || property.statusUi === 'paused';
+    case 'Draft':
+      return property.statusUi === 'draft';
+    case 'Archived':
+      return property.statusUi === 'archived';
+  }
 }
 
 // ─── Sub-components ─────────────────────────────────────────────────────────
 
-function StatusBadge({ status }: { status: PropertyStatus }) {
+function StatusBadge({ status }: { status: PropertyStatusUi }) {
   const cfg = STATUS_STYLES[status];
   return (
-    <View className={`absolute top-3 left-3 z-10 rounded-full px-3 py-1 ${cfg.container}`}>
-      <Text className={`text-xs font-semibold ${cfg.text}`}>{cfg.label}</Text>
+    <View className={`absolute left-3 top-3 z-10 rounded-full px-3 py-1 ${cfg.container}`}>
+      <Text className={`font-semibold text-xs ${cfg.text}`}>{cfg.label}</Text>
     </View>
   );
 }
@@ -166,55 +94,65 @@ function StatusBadge({ status }: { status: PropertyStatus }) {
 function PropertyCard({
   item,
   onPress,
+  onActionsPress,
 }: {
-  item: LandlordProperty;
+  item: LandlordPropertySummary;
   onPress: () => void;
+  onActionsPress: () => void;
 }) {
+  const cover = item.photoUrls[0];
+
   return (
     <Pressable
       onPress={onPress}
       className="mb-4 overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-sm active:opacity-80"
       accessibilityRole="button"
-      accessibilityLabel={`${item.title}, ${formatPrice(item.price)}`}
-    >
+      accessibilityLabel={`${item.title}, ${formatMonthlyPrice(item.price)}`}>
       <View className="relative h-44 w-full bg-canvas">
-        <StatusBadge status={item.status} />
+        {cover ? (
+          <Image source={{ uri: cover }} className="h-full w-full" resizeMode="cover" />
+        ) : (
+          <View className="h-full w-full items-center justify-center">
+            <ImageIcon size={28} color="#AAAAAA" strokeWidth={1.5} />
+          </View>
+        )}
+        <StatusBadge status={item.statusUi} />
         <TouchableOpacity
-          className="absolute top-3 right-3 z-10 h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-sm"
+          onPress={onActionsPress}
+          className="absolute right-3 top-3 z-10 h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-sm"
           activeOpacity={0.7}
-          accessibilityLabel="Property actions"
-        >
+          accessibilityLabel="Property actions">
           <MoreVertical size={16} color="#1a1a1a" />
         </TouchableOpacity>
       </View>
 
       <View className="gap-1 p-4">
-        <Text className="text-base font-bold text-gray-900" numberOfLines={1}>
+        <Text className="font-bold text-base text-gray-900" numberOfLines={1}>
           {item.title}
         </Text>
 
         <View className="flex-row items-center gap-1">
           <MapPin size={12} color="#707070" />
-          <Text className="flex-1 text-xs font-medium text-gray-500" numberOfLines={1}>
-            {item.location}
+          <Text className="flex-1 font-medium text-xs text-gray-500" numberOfLines={1}>
+            {item.locationArea}
           </Text>
         </View>
 
-        <Text className="my-1 text-sm font-bold text-emerald-800">
-          {formatPrice(item.price)}
+        <Text className="my-1 font-bold text-sm text-emerald-800">
+          {formatMonthlyPrice(item.price)}
         </Text>
 
-        <View className="border-t border-gray-100 pt-3 mt-2 flex-row items-center gap-4">
+        <View className="mt-2 flex-row items-center gap-4 border-t border-gray-100 pt-3">
           <View className="flex-row items-center gap-1">
             <Eye size={13} color="#9CA3AF" />
-            <Text className="text-xs font-semibold text-gray-900">
+            <Text className="font-semibold text-xs text-gray-900">
               {FORMATTER.format(item.views)}
             </Text>
             <Text className="text-xs text-gray-400">views</Text>
           </View>
           <View className="flex-row items-center gap-1">
             <Inbox size={13} color="#9CA3AF" />
-            <Text className="text-xs font-semibold text-gray-900">
+            <Text className="font-semibold text-xs text-gray-900">
               {FORMATTER.format(item.requests)}
             </Text>
             <Text className="text-xs text-gray-400">requests</Text>
@@ -227,50 +165,155 @@ function PropertyCard({
 
 // ─── Main Screen ────────────────────────────────────────────────────────────
 
-export default function MyPropertiesScreen({
-  onBack,
-  onPropertyPress,
-}: MyPropertiesScreenProps) {
+export default function MyPropertiesScreen({ onBack, onPropertyPress }: MyPropertiesScreenProps) {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<FilterTab>('All');
+  const { user } = useUser();
+  const supabase = useClerkSupabase();
+  const clerkId = user?.id;
 
-  const filtered = useMemo(
-    () => PROPERTIES_DATA.filter((p) => matchesFilter(p, activeTab)),
-    [activeTab],
+  const [activeTab, setActiveTab] = useState<FilterTab>('All');
+  const [properties, setProperties] = useState<LandlordPropertySummary[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const load = useCallback(
+    async (mode: 'initial' | 'refresh' = 'initial') => {
+      if (!clerkId) return;
+      if (mode === 'refresh') setRefreshing(true);
+      else setLoading(true);
+
+      const result = await getMyProperties(clerkId, supabase);
+
+      if (result.success) {
+        setProperties(result.data);
+        setErrorMessage(null);
+      } else {
+        setErrorMessage(result.error);
+      }
+
+      setLoading(false);
+      setRefreshing(false);
+    },
+    [clerkId, supabase]
   );
 
-  const count = (tab: FilterTab) => {
-    if (tab === 'All') return PROPERTIES_DATA.length;
-    return PROPERTIES_DATA.filter(
-      (p) => p.status === tab.toLowerCase(),
-    ).length;
-  };
+  useEffect(() => {
+    load('initial');
+  }, [load]);
+
+  // Publishing a listing routes back here, so refresh whenever the tab regains
+  // focus rather than showing the pre-publish snapshot.
+  useFocusEffect(
+    useCallback(() => {
+      load('refresh');
+    }, [load])
+  );
+
+  const filtered = useMemo(
+    () => properties.filter((p) => matchesFilter(p, activeTab)),
+    [properties, activeTab]
+  );
+
+  const count = (tab: FilterTab) => properties.filter((p) => matchesFilter(p, tab)).length;
+
+  const handleRelist = useCallback(
+    async (property: LandlordPropertySummary) => {
+      const result = await relistProperty(property.id, supabase);
+      if (!result.success) {
+        Alert.alert('Could not relist', result.error);
+        return;
+      }
+      load('refresh');
+    },
+    [supabase, load]
+  );
+
+  const handleDelete = useCallback(
+    (property: LandlordPropertySummary) => {
+      Alert.alert(
+        'Delete listing?',
+        `"${property.title}" will be removed from search. Visit history is kept.`,
+        [
+          { text: 'Cancel', style: 'cancel' },
+          {
+            text: 'Delete',
+            style: 'destructive',
+            onPress: async () => {
+              const result = await deleteProperty(property.id, supabase);
+              if (!result.success) {
+                Alert.alert('Could not delete', result.error);
+                return;
+              }
+              load('refresh');
+            },
+          },
+        ]
+      );
+    },
+    [supabase, load]
+  );
+
+  const handleActions = useCallback(
+    (property: LandlordPropertySummary) => {
+      const options: AlertButton[] = [
+        {
+          text: 'Edit listing',
+          onPress: () =>
+            router.push({
+              pathname: '/(landlord)/listing/[id]',
+              params: { id: property.id },
+            } as any),
+        },
+      ];
+
+      // Relist only makes sense for an occupied listing.
+      if (property.status === 'OCCUPIED') {
+        options.push({
+          text: 'Relist as available',
+          onPress: () => handleRelist(property),
+        });
+      }
+
+      if (!property.isDeleted) {
+        options.push({
+          text: 'Delete listing',
+          style: 'destructive',
+          onPress: () => handleDelete(property),
+        });
+      }
+
+      options.push({ text: 'Cancel', style: 'cancel' });
+
+      Alert.alert(property.title, undefined, options);
+    },
+    [router, handleRelist, handleDelete]
+  );
 
   return (
     <View className="flex-1 bg-white pt-14">
       <ScrollView
         className="flex-1"
         showsVerticalScrollIndicator={false}
-      >
-        <View className="flex-row items-center justify-between border-b border-gray-100 bg-white px-4 py-3">          <TouchableOpacity
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={() => load('refresh')} />
+        }>
+        <View className="flex-row items-center justify-between border-b border-gray-100 bg-white px-4 py-3">
+          <TouchableOpacity
             onPress={() => (onBack ? onBack() : router.back())}
             className="h-10 w-10 items-center justify-center rounded-full bg-gray-100"
             activeOpacity={0.6}
-            accessibilityLabel="Go back"
->
+            accessibilityLabel="Go back">
             <ArrowLeft size={20} color="#1a1a1a" strokeWidth={2.2} />
           </TouchableOpacity>
-
-          <Text className="text-lg font-bold text-gray-900">My Properties</Text>
-
+          <Text className="font-bold text-lg text-gray-900">My Properties</Text>
           <View className="h-10 w-10" />
         </View>
 
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          className="flex-row border-b border-gray-100 px-4 py-3"
-        >
+          className="flex-row border-b border-gray-100 px-4 py-3">
           {TABS.map((tab) => {
             const isActive = tab === activeTab;
             return (
@@ -282,25 +325,21 @@ export default function MyPropertiesScreen({
                 }`}
                 activeOpacity={0.7}
                 accessibilityRole="tab"
-                accessibilityState={{ selected: isActive }}
-              >
+                accessibilityState={{ selected: isActive }}>
                 <Text
                   className={`text-xs ${
                     isActive ? 'font-semibold text-white' : 'font-medium text-gray-600'
-                  }`}
-                >
+                  }`}>
                   {tab}
                 </Text>
                 <View
                   className={`min-w-[18px] items-center justify-center rounded-full px-1.5 py-0.5 ${
                     isActive ? 'bg-white/20' : 'bg-gray-200'
-                  }`}
-                >
+                  }`}>
                   <Text
-                    className={`text-[10px] font-semibold ${
+                    className={`font-semibold text-[10px] ${
                       isActive ? 'text-white' : 'text-gray-400'
-                    }`}
-                  >
+                    }`}>
                     {count(tab)}
                   </Text>
                 </View>
@@ -309,13 +348,32 @@ export default function MyPropertiesScreen({
           })}
         </ScrollView>
 
-        <View className="gap-3 px-4 pt-4 pb-8">
-          {filtered.length === 0 ? (
+        <View className="gap-3 px-4 pb-8 pt-4">
+          {loading ? (
+            <View className="items-center pt-16">
+              <ActivityIndicator color="#1A6B4A" />
+            </View>
+          ) : errorMessage ? (
             <View className="items-center px-8 pt-16">
-              <Text className="mb-1.5 text-base font-semibold text-gray-900">
+              <Text className="mb-1.5 font-semibold text-base text-gray-900">
+                Could not load your properties
+              </Text>
+              <Text className="mb-4 text-center font-medium text-sm leading-5 text-gray-500">
+                {errorMessage}
+              </Text>
+              <TouchableOpacity
+                onPress={() => load('initial')}
+                className="h-[42px] items-center justify-center rounded-full bg-black px-6"
+                activeOpacity={0.8}>
+                <Text className="font-semibold text-sm text-white">Try again</Text>
+              </TouchableOpacity>
+            </View>
+          ) : filtered.length === 0 ? (
+            <View className="items-center px-8 pt-16">
+              <Text className="mb-1.5 font-semibold text-base text-gray-900">
                 No {activeTab.toLowerCase()} properties
               </Text>
-              <Text className="text-center text-sm font-medium leading-5 text-gray-500">
+              <Text className="text-center font-medium text-sm leading-5 text-gray-500">
                 {activeTab === 'Active'
                   ? 'Create a new listing to get started'
                   : activeTab === 'Draft'
@@ -328,6 +386,7 @@ export default function MyPropertiesScreen({
               <PropertyCard
                 key={item.id}
                 item={item}
+                onActionsPress={() => handleActions(item)}
                 onPress={() =>
                   onPropertyPress
                     ? onPropertyPress(item)

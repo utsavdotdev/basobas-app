@@ -1,10 +1,21 @@
 import { useState, useCallback } from 'react';
-import { View, Text, Pressable, ScrollView, TextInput, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  ScrollView,
+  TextInput,
+  StyleSheet,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { ArrowLeft, X } from 'lucide-react-native';
 
 import { tokens } from '@/src/theme/tokens';
+import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
+import { rejectVisit } from '@/src/services/visits.service';
 
 const { color, space, radius, font, size } = tokens;
 
@@ -22,19 +33,45 @@ const REASONS = [
 
 export default function DeclineRequestScreen() {
   const router = useRouter();
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const supabase = useClerkSupabase();
+
   const [selectedReason, setSelectedReason] = useState<string>('Already rented out');
   const [message, setMessage] = useState(
     'Thanks for your interest \u2014 wishing you luck finding the right place.',
   );
+  const [submitting, setSubmitting] = useState(false);
 
   const handleGoBack = useCallback(() => {
     router.back();
   }, [router]);
 
-  const handleSendDecline = useCallback(() => {
-    // TODO: submit decline with { selectedReason, message }
-    router.push('/(landlord)/(tabs)/requests' as any);
-  }, [router]);
+  const handleSendDecline = useCallback(async () => {
+    if (!id) {
+      Alert.alert('Missing request', 'Could not tell which request to decline.');
+      return;
+    }
+    if (submitting) return;
+
+    setSubmitting(true);
+    try {
+      // The reason is what the tenant sees, so send the picked reason plus any
+      // message the landlord typed.
+      const reason = message.trim()
+        ? `${selectedReason} \u2014 ${message.trim()}`
+        : selectedReason;
+
+      const result = await rejectVisit(id, reason, supabase);
+      if (!result.success) {
+        Alert.alert('Could not decline', result.error);
+        return;
+      }
+
+      router.replace('/(landlord)/(tabs)/requests' as any);
+    } finally {
+      setSubmitting(false);
+    }
+  }, [id, submitting, message, selectedReason, supabase, router]);
 
   const handleCancel = useCallback(() => {
     router.back();
@@ -116,15 +153,22 @@ export default function DeclineRequestScreen() {
       <View style={styles.bottomArea}>
         <Pressable
           onPress={handleSendDecline}
-          style={styles.destructiveCta}
+          disabled={submitting}
+          style={[styles.destructiveCta, submitting && styles.ctaDisabled]}
           accessibilityLabel="Send decline"
-          accessibilityRole="button">
-          <Text style={styles.destructiveCtaText}>Send decline</Text>
+          accessibilityRole="button"
+          accessibilityState={{ disabled: submitting, busy: submitting }}>
+          {submitting ? (
+            <ActivityIndicator size="small" color={color.bg} />
+          ) : (
+            <Text style={styles.destructiveCtaText}>Send decline</Text>
+          )}
         </Pressable>
 
         <Pressable
           onPress={handleCancel}
-          style={styles.cancelCta}
+          disabled={submitting}
+          style={[styles.cancelCta, submitting && styles.ctaDisabled]}
           accessibilityLabel="Cancel"
           accessibilityRole="button">
           <Text style={styles.cancelCtaText}>Cancel</Text>
@@ -295,6 +339,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#E53935',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  ctaDisabled: {
+    opacity: 0.6,
   },
   destructiveCtaText: {
     fontFamily: font.semibold,

@@ -13,6 +13,11 @@ export interface UploadedKYCDoc {
   path: string   // private storage path — never a public URL
 }
 
+export interface UploadedPropertyPhoto {
+  path:      string
+  publicUrl: string
+}
+
 // ─── Core uploader ───────────────────────────────────────────────────────────
 
 /**
@@ -177,6 +182,55 @@ export async function uploadKYCElectricityBill(
     return ok({ path })
   } catch (e) {
     console.error('[uploadKYCElectricityBill] exception:', e)
+    return err(getErrorMessage(e))
+  }
+}
+
+
+// ─── Property photo upload ────────────────────────────────────────────────────
+
+/**
+ * Upload one listing photo to the public `property-photos` bucket.
+ * Path: property-photos/{clerkId}/{propertyId}/{index}.jpg
+ *
+ * `index` is the photo's position in the listing's gallery, so re-uploading the
+ * same slot replaces it (`upsert: true`) and the caller's URL array stays
+ * order-stable. The bucket is public — RLS keys writes on the first path
+ * segment matching the caller's Clerk id, so `clerkId` must be the signed-in
+ * user or the insert is rejected.
+ */
+export async function uploadPropertyPhoto(
+  clerkId:    string,
+  propertyId: string,
+  index:      number,
+  localUri:   string,
+  supabase:   SupabaseClient<Database>
+): Promise<Result<UploadedPropertyPhoto>> {
+  try {
+    const path = `${clerkId}/${propertyId}/${index}.jpg`
+
+    const { buffer, mimeType } = await localUriToArrayBuffer(localUri)
+
+    const { error } = await supabase.storage
+      .from('property-photos')
+      .upload(path, buffer, {
+        contentType:  mimeType,
+        upsert:       true,
+        cacheControl: '3600',
+      })
+
+    if (error) {
+      console.error(`[uploadPropertyPhoto] photo ${index} upload error:`, error)
+      return err(`Photo ${index + 1} upload failed: ${error.message}`)
+    }
+
+    const { data: { publicUrl } } = supabase.storage
+      .from('property-photos')
+      .getPublicUrl(path)
+
+    return ok({ path, publicUrl })
+  } catch (e) {
+    console.error(`[uploadPropertyPhoto] photo ${index} exception:`, e)
     return err(getErrorMessage(e))
   }
 }

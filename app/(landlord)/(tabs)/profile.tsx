@@ -1,7 +1,16 @@
-import { useState, useCallback, useMemo } from 'react';
-import { ScrollView, View, Text, Pressable, StyleSheet } from 'react-native';
+import { useState, useCallback, useMemo, useEffect } from 'react';
+import {
+  ScrollView,
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  Image,
+  RefreshControl,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
+import { useRouter, useFocusEffect } from 'expo-router';
+import { useUser } from '@clerk/expo';
 import {
   Settings,
   MapPin,
@@ -20,26 +29,60 @@ import {
 import { tokens } from '@/src/theme/tokens';
 import { useAuthStore } from '@/src/store/authStore';
 import { useAuth } from '@/src/hooks/useAuth';
+import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
+import {
+  getMyProperties,
+  getLandlordVerificationStatus,
+  getLandlordRating,
+  type LandlordVerificationStatus,
+} from '@/src/services/properties.service';
+import {
+  formatMonthlyPrice,
+  type LandlordPropertySummary,
+  type PropertyStatusUi,
+} from '@/src/types/property.types';
 
 const { color, space, radius, font, size } = tokens;
 
-// ─── Mock Data ───────────────────────────────────────────────────────────────
+// ─── Verification display ────────────────────────────────────────────────────
 
-interface Listing {
-  id: string;
-  title: string;
-  location: string;
-  price: string;
-  requests: number;
-  available: boolean;
-}
+const VERIFICATION_COPY: Record<
+  LandlordVerificationStatus,
+  { pill: string; badge: string; subtext: string }
+> = {
+  VERIFIED: {
+    pill: 'Verified',
+    badge: 'Identity Verified',
+    subtext: 'Your documents have been approved.',
+  },
+  UNDER_REVIEW: {
+    pill: 'In review',
+    badge: 'Verification in review',
+    subtext: 'We are checking your documents.',
+  },
+  REJECTED: {
+    pill: 'Action needed',
+    badge: 'Verification rejected',
+    subtext: 'Resubmit your documents to publish listings.',
+  },
+  UNVERIFIED: {
+    pill: 'Not verified',
+    badge: 'Not verified',
+    subtext: 'Verify your identity to publish listings.',
+  },
+};
 
-const MOCK_LISTINGS: Listing[] = [
-  { id: '1', title: '2BHK Apartment', location: 'Pulchowk', price: 'NPR 18k/mo', requests: 5, available: true },
-  { id: '2', title: 'Studio Room', location: 'Baluwatar', price: 'NPR 12k/mo', requests: 3, available: true },
-  { id: '3', title: '1BHK Flat', location: 'Jhamsikhel', price: 'NPR 15k/mo', requests: 2, available: false },
-  { id: '4', title: 'Penthouse', location: 'Lalitpur', price: 'NPR 45k/mo', requests: 8, available: true },
-];
+// ─── Status badge styles ─────────────────────────────────────────────────────
+
+const STATUS_BADGE_STYLES: Record<
+  PropertyStatusUi,
+  { label: string; bg: string; text: string }
+> = {
+  active:   { label: 'Active',   bg: '#E8F5EE', text: '#1A6B4A' },
+  draft:    { label: 'Draft',    bg: '#FEF3C7', text: '#92400E' },
+  paused:   { label: 'Paused',   bg: '#F3F4F6', text: '#6B7280' },
+  archived: { label: 'Archived', bg: '#F3F4F6', text: '#6B7280' },
+};
 
 // ─── Screen ──────────────────────────────────────────────────────────────────
 
@@ -54,11 +97,75 @@ export default function LandlordProfileTab() {
   const router = useRouter();
   const { profile } = useAuthStore();
   const { logout } = useAuth();
+  const { user } = useUser();
+  const supabase = useClerkSupabase();
+  const clerkId = user?.id;
+
   const [activeTab, setActiveTab] = useState<'listings' | 'reviews'>('listings');
+  const [properties, setProperties] = useState<LandlordPropertySummary[]>([]);
+  const [verification, setVerification] =
+    useState<LandlordVerificationStatus>('UNVERIFIED');
+  const [avgRating, setAvgRating] = useState(0);
+  const [totalReviews, setTotalReviews] = useState(0);
+  const [refreshing, setRefreshing] = useState(false);
 
   const displayName = profile?.full_name ?? 'Landlord';
   const displayLocation = profile?.city ? `${profile.city}, Nepal` : 'Location not set';
   const initials = useMemo(() => getInitials(profile?.full_name ?? null), [profile?.full_name]);
+
+  const avatarUri = useMemo(() => {
+    if (!profile?.avatar_url) return null;
+    const ts = profile.updated_at ? new Date(profile.updated_at).getTime() : Date.now();
+    return `${profile.avatar_url}?t=${ts}`;
+  }, [profile?.avatar_url, profile?.updated_at]);
+
+  const load = useCallback(
+    async (mode: 'initial' | 'refresh' = 'initial') => {
+      if (!clerkId) return;
+      if (mode === 'refresh') setRefreshing(true);
+
+      const [listings, status, rating] = await Promise.all([
+        getMyProperties(clerkId, supabase),
+        getLandlordVerificationStatus(clerkId, supabase),
+        getLandlordRating(clerkId, supabase),
+      ]);
+
+      if (listings.success) setProperties(listings.data);
+      else console.warn('[profile] listings failed:', listings.error);
+
+      if (status.success) setVerification(status.data);
+      else console.warn('[profile] verification failed:', status.error);
+
+      if (rating.success) {
+        setAvgRating(rating.data.avgRating);
+        setTotalReviews(rating.data.totalReviews);
+      } else {
+        console.warn('[profile] rating failed:', rating.error);
+      }
+
+      setRefreshing(false);
+    },
+    [clerkId, supabase],
+  );
+
+  useEffect(() => {
+    load('initial');
+  }, [load]);
+
+  useFocusEffect(
+    useCallback(() => {
+      load('refresh');
+    }, [load]),
+  );
+
+  // Only published, non-archived listings belong on a public-facing profile.
+  const publishedListings = useMemo(
+    () => properties.filter((p) => !p.isDraft && !p.isDeleted),
+    [properties],
+  );
+
+  const verificationCopy = VERIFICATION_COPY[verification];
+  const isVerified = verification === 'VERIFIED';
 
   const handleSettings = useCallback(() => {
     router.push('/(landlord)/settings' as any);
@@ -82,16 +189,23 @@ export default function LandlordProfileTab() {
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={() => load('refresh')} />
+        }>
         {/* ─── Profile Card ──────────────────────────────────────────── */}
         <View style={styles.profileCard}>
           {/* Avatar + Info */}
           <View style={styles.profileTopSection}>
             {/* Avatar */}
             <View style={styles.avatarContainer}>
-              <View style={styles.avatar}>
-                <Text style={styles.avatarText}>{initials}</Text>
-              </View>
+              {avatarUri ? (
+                <Image source={{ uri: avatarUri }} style={styles.avatarImage} />
+              ) : (
+                <View style={styles.avatar}>
+                  <Text style={styles.avatarText}>{initials}</Text>
+                </View>
+              )}
               <View style={styles.editBadge}>
                 <Pencil size={12} color="#FFFFFF" strokeWidth={2.5} />
               </View>
@@ -106,12 +220,18 @@ export default function LandlordProfileTab() {
                 <Text style={styles.locationText}>{displayLocation}</Text>
               </View>
 
-              <View style={styles.verifiedBadge}>
-                <CheckCircle size={13} color="#1A6B4A" strokeWidth={2} />
-                <Text style={styles.verifiedText}>Identity Verified</Text>
+              <View style={[styles.verifiedBadge, !isVerified && styles.unverifiedBadge]}>
+                <CheckCircle
+                  size={13}
+                  color={isVerified ? '#1A6B4A' : color.ink3}
+                  strokeWidth={2}
+                />
+                <Text style={[styles.verifiedText, !isVerified && styles.unverifiedText]}>
+                  {verificationCopy.badge}
+                </Text>
               </View>
 
-              <Text style={styles.verifiedSubtext}>Citizenship Verified · May 2025</Text>
+              <Text style={styles.verifiedSubtext}>{verificationCopy.subtext}</Text>
             </View>
           </View>
 
@@ -120,20 +240,22 @@ export default function LandlordProfileTab() {
           {/* Stats Row */}
           <View style={styles.statsRow}>
             <View style={styles.statColumn}>
-              <Text style={styles.statNumber}>3</Text>
+              <Text style={styles.statNumber}>{publishedListings.length}</Text>
               <Text style={styles.statLabel}>Listings</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statColumn}>
               <View style={styles.statStarRow}>
                 <Star size={14} color="#F5A623" fill="#F5A623" strokeWidth={1.5} />
-                <Text style={styles.statNumber}>4.8</Text>
+                <Text style={styles.statNumber}>
+                  {totalReviews > 0 ? avgRating.toFixed(1) : '—'}
+                </Text>
               </View>
               <Text style={styles.statLabel}>Rating</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statColumn}>
-              <Text style={styles.statNumber}>24</Text>
+              <Text style={styles.statNumber}>{totalReviews}</Text>
               <Text style={styles.statLabel}>Reviews</Text>
             </View>
           </View>
@@ -167,32 +289,58 @@ export default function LandlordProfileTab() {
         {activeTab === 'listings' && (
           <>
             <View style={styles.listingsGrid}>
-              {MOCK_LISTINGS.map((listing) => (
-                <Pressable
-                  key={listing.id}
-                  style={styles.listingCard}
-                  onPress={() => router.push({ pathname: '/(landlord)/listing/[id]', params: { id: listing.id } } as any)}
-                  accessibilityLabel={`${listing.title} in ${listing.location}`}
-                  accessibilityRole="button">
-                  {/* Image placeholder */}
-                  <View style={styles.listingImage}>
-                    {listing.available && (
-                      <View style={styles.availableBadge}>
-                        <View style={styles.availableDot} />
-                        <Text style={styles.availableText}>Available</Text>
+              {publishedListings.map((listing) => {
+                const cover = listing.photoUrls[0];
+                const st = STATUS_BADGE_STYLES[listing.statusUi];
+                return (
+                  <Pressable
+                    key={listing.id}
+                    style={styles.listingCard}
+                    onPress={() =>
+                      router.push({
+                        pathname: '/(landlord)/listing/[id]',
+                        params: { id: listing.id },
+                      } as any)
+                    }
+                    accessibilityLabel={`${listing.title} in ${listing.locationArea}`}
+                    accessibilityRole="button">
+                    <View style={styles.listingImage}>
+                      {cover ? (
+                        <Image source={{ uri: cover }} style={styles.listingThumb} resizeMode="cover" />
+                      ) : (
+                        <View style={[styles.listingThumb, styles.listingThumbFallback]}>
+                          <Text style={styles.listingThumbFallbackText}>No photo</Text>
+                        </View>
+                      )}
+                      <View style={[styles.statusBadge, { backgroundColor: st.bg }]}>
+                        <Text style={[styles.statusBadgeText, { color: st.text }]}>{st.label}</Text>
                       </View>
-                    )}
-                  </View>
-                  {/* Content */}
-                  <View style={styles.listingContent}>
-                    <Text style={styles.listingTitle}>{listing.title}</Text>
-                    <Text style={styles.listingLocation}>{listing.location}</Text>
-                    <Text style={styles.listingPrice}>{listing.price}</Text>
-                    <Text style={styles.listingRequests}>{listing.requests} requests</Text>
-                  </View>
-                </Pressable>
-              ))}
+                    </View>
+                    <View style={styles.listingContent}>
+                      <Text style={styles.listingTitle} numberOfLines={1}>
+                        {listing.title}
+                      </Text>
+                      <Text style={styles.listingLocation} numberOfLines={1}>
+                        {listing.locationArea}
+                      </Text>
+                      <Text style={styles.listingPrice}>
+                        {formatMonthlyPrice(listing.price)}
+                      </Text>
+                      <Text style={styles.listingRequests}>
+                        {listing.requests}{' '}
+                        {listing.requests === 1 ? 'request' : 'requests'}
+                      </Text>
+                    </View>
+                  </Pressable>
+                );
+              })}
             </View>
+
+            {publishedListings.length === 0 && (
+              <Text style={styles.emptyListings}>
+                You have no published listings yet.
+              </Text>
+            )}
 
             {/* Add New Listing */}
             <Pressable
@@ -230,14 +378,26 @@ export default function LandlordProfileTab() {
 
           {/* Verification Status */}
           <Pressable
-            onPress={() => router.push('/(landlord)/verification' as any)}
+            onPress={() => {
+              if (verification === 'REJECTED') {
+                router.push('/(landlord)/kyc-upload?resubmit=true' as any);
+              } else {
+                router.push('/(landlord)/verification' as any);
+              }
+            }}
             style={[styles.menuRow, styles.menuRowBorder]}>
             <View style={styles.menuIcon}>
               <ShieldCheck size={18} color={color.ink} strokeWidth={1.8} />
             </View>
             <Text style={styles.menuLabel}>Verification Status</Text>
-            <View style={styles.verifiedPill}>
-              <Text style={styles.verifiedPillText}>Verified</Text>
+            <View style={[styles.verifiedPill, !isVerified && styles.unverifiedPill]}>
+              <Text
+                style={[
+                  styles.verifiedPillText,
+                  !isVerified && styles.unverifiedPillText,
+                ]}>
+                {verificationCopy.pill}
+              </Text>
             </View>
           </Pressable>
 
@@ -350,6 +510,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  avatarImage: {
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+  },
   avatarText: {
     fontFamily: font.bold,
     fontSize: size.h3,
@@ -403,6 +568,13 @@ const styles = StyleSheet.create({
     fontFamily: font.medium,
     fontSize: size.caption,
     color: '#1A6B4A',
+  },
+  // Anything other than VERIFIED reads as neutral, not as a green success state.
+  unverifiedBadge: {
+    backgroundColor: color.input,
+  },
+  unverifiedText: {
+    color: color.ink2,
   },
   verifiedSubtext: {
     fontFamily: font.sans,
@@ -503,27 +675,34 @@ const styles = StyleSheet.create({
     backgroundColor: '#E5E7EB',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    padding: 8,
   },
-  availableBadge: {
-    flexDirection: 'row',
+  // Cover photo sits behind the badge, so it's absolute rather than in flow.
+  listingThumb: {
+    ...StyleSheet.absoluteFillObject,
+    width: '100%',
+    height: '100%',
+  },
+  listingThumbFallback: {
+    backgroundColor: '#EBEBEB',
     alignItems: 'center',
-    gap: 4,
-    backgroundColor: '#E8F5EE',
+    justifyContent: 'center',
+  },
+  listingThumbFallbackText: {
+    fontFamily: font.sans,
+    fontSize: size.caption,
+    color: color.ink3,
+  },
+  statusBadge: {
+    position: 'absolute',
+    top: 8,
+    left: 8,
     borderRadius: radius.pill,
     paddingHorizontal: 8,
     paddingVertical: 3,
   },
-  availableDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: '#1A6B4A',
-  },
-  availableText: {
+  statusBadgeText: {
     fontFamily: font.semibold,
     fontSize: size.micro,
-    color: '#1A6B4A',
   },
   listingContent: {
     padding: 10,
@@ -550,6 +729,13 @@ const styles = StyleSheet.create({
     fontFamily: font.sans,
     fontSize: size.caption,
     color: color.ink3,
+  },
+  emptyListings: {
+    fontFamily: font.sans,
+    fontSize: size.bodySm,
+    color: color.ink3,
+    textAlign: 'center',
+    paddingVertical: 24,
   },
 
   // Add listing
@@ -637,6 +823,12 @@ const styles = StyleSheet.create({
     fontFamily: font.semibold,
     fontSize: size.caption,
     color: '#1A6B4A',
+  },
+  unverifiedPill: {
+    backgroundColor: color.input,
+  },
+  unverifiedPillText: {
+    color: color.ink2,
   },
 
   // Logout

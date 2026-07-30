@@ -120,7 +120,8 @@ export async function submitKYC(
     p_document_type:          documentType,
     p_front_image_path:       frontImagePath,
     p_back_image_path:        backImagePath,
-    p_electricity_bill_path:  electricityBillPath,
+    // The RPC's DEFAULT NULL param types as `string | undefined`, not `| null`.
+    p_electricity_bill_path:  electricityBillPath ?? undefined,
   })
 
   if (error) return err(`KYC DB failed: ${error.message}`)

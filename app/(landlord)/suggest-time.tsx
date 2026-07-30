@@ -1,10 +1,22 @@
-import { useState, useCallback } from 'react';
-import { View, Text, Pressable, ScrollView, TextInput, StyleSheet } from 'react-native';
+import { useState, useCallback, useMemo } from 'react';
+import {
+  View,
+  Text,
+  Pressable,
+  ScrollView,
+  TextInput,
+  StyleSheet,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react-native';
 
 import { tokens } from '@/src/theme/tokens';
+import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
+import { rescheduleVisit } from '@/src/services/visits.service';
+import { toTimeSlot } from '@/src/types/property.types';
 
 const { color, space, radius, font, size } = tokens;
 
@@ -12,17 +24,28 @@ const { color, space, radius, font, size } = tokens;
 
 interface DayOption {
   label: string;
+  /** Day of month, shown on the card. */
   date: number;
+  /** ISO `YYYY-MM-DD` — what actually gets written. */
+  iso: string;
 }
 
-const DAYS: DayOption[] = [
-  { label: 'Mon', date: 9 },
-  { label: 'Tue', date: 10 },
-  { label: 'Wed', date: 11 },
-  { label: 'Thu', date: 12 },
-  { label: 'Fri', date: 13 },
-  { label: 'Sat', date: 14 },
-];
+/** The next six days starting tomorrow — a suggested time must be in the future. */
+function buildDays(): DayOption[] {
+  const days: DayOption[] = [];
+  for (let offset = 1; offset <= 6; offset++) {
+    const d = new Date();
+    d.setDate(d.getDate() + offset);
+    days.push({
+      label: d.toLocaleDateString('en-US', { weekday: 'short' }),
+      date: d.getDate(),
+      iso: `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+        d.getDate(),
+      ).padStart(2, '0')}`,
+    });
+  }
+  return days;
+}
 
 // ─── Time slots ──────────────────────────────────────────────────────────────
 
@@ -32,22 +55,54 @@ const TIME_SLOTS = ['10:00 AM', '11:30 AM', '1:00 PM', '2:30 PM', '4:00 PM', '5:
 
 export default function SuggestTimeScreen() {
   const router = useRouter();
-  const [selectedDate, setSelectedDate] = useState<number>(11);
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const supabase = useClerkSupabase();
+
+  const DAYS = useMemo(buildDays, []);
+  const [selectedDate, setSelectedDate] = useState<number>(DAYS[0].date);
   const [selectedTime, setSelectedTime] = useState('4:00 PM');
   const [note, setNote] = useState(
-    'Sorry, I have a conflict at the original time \u2014 does Wed 11 work?',
+    'Sorry, I have a conflict at the original time \u2014 would this work instead?',
   );
+  const [submitting, setSubmitting] = useState(false);
 
   const handleGoBack = useCallback(() => {
     router.back();
   }, [router]);
 
-  const handleSend = useCallback(() => {
-    router.push({
-      pathname: '/(landlord)/suggest-time-confirmation',
-      params: { date: selectedDate.toString(), time: selectedTime },
-    } as any);
-  }, [router, selectedDate, selectedTime]);
+  const handleSend = useCallback(async () => {
+    if (!id) {
+      Alert.alert('Missing request', 'Could not tell which request to reschedule.');
+      return;
+    }
+    if (submitting) return;
+
+    const day = DAYS.find((d) => d.date === selectedDate);
+    if (!day) return;
+
+    setSubmitting(true);
+    try {
+      // The DB stores coarse slots, so the exact time is bucketed here.
+      const result = await rescheduleVisit(
+        id,
+        day.iso,
+        toTimeSlot(selectedTime),
+        note.trim() || null,
+        supabase,
+      );
+      if (!result.success) {
+        Alert.alert('Could not suggest a new time', result.error);
+        return;
+      }
+
+      router.replace({
+        pathname: '/(landlord)/suggest-time-confirmation',
+        params: { date: selectedDate.toString(), time: selectedTime },
+      } as any);
+    } finally {
+      setSubmitting(false);
+    }
+  }, [id, submitting, DAYS, selectedDate, selectedTime, note, supabase, router]);
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
@@ -173,10 +228,16 @@ export default function SuggestTimeScreen() {
         {/* ─── CTA ───────────────────────────────────────────────────── */}
         <Pressable
           onPress={handleSend}
-          style={styles.cta}
+          disabled={submitting}
+          style={[styles.cta, submitting && styles.ctaDisabled]}
           accessibilityLabel="Send new time"
-          accessibilityRole="button">
-          <Text style={styles.ctaText}>Send new time</Text>
+          accessibilityRole="button"
+          accessibilityState={{ disabled: submitting, busy: submitting }}>
+          {submitting ? (
+            <ActivityIndicator size="small" color={color.bg} />
+          ) : (
+            <Text style={styles.ctaText}>Send new time</Text>
+          )}
         </Pressable>
       </ScrollView>
     </SafeAreaView>
@@ -360,6 +421,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 32,
+  },
+  ctaDisabled: {
+    opacity: 0.6,
   },
   ctaText: {
     fontFamily: font.semibold,
