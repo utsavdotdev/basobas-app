@@ -1,10 +1,11 @@
 import { useState, useCallback } from 'react';
 import { View, Text, Pressable, ScrollView, TextInput, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter, useLocalSearchParams } from 'expo-router';
-import { ArrowLeft } from 'lucide-react-native';
+import { useRouter, useLocalSearchParams, useFocusEffect } from 'expo-router';
+import { ArrowLeft, MapPin, Navigation } from 'lucide-react-native';
 
 import { tokens } from '@/src/theme/tokens';
+import { useListingLocationStore } from '@/src/store/listingLocationStore';
 
 const { color, space, radius, font, size } = tokens;
 
@@ -92,6 +93,30 @@ export default function NewListingStep2() {
   const [availableFrom, setAvailableFrom] = useState('Jul 1, 2026');
   const [furnishing, setFurnishing] = useState<string>('Semi-furnished');
 
+  // Map-picker location (lat/lng) — synced from the picker screen via store.
+  const mapLocation = useListingLocationStore((s) => ({ lat: s.lat, lng: s.lng, area: s.area }));
+
+  useFocusEffect(
+    useCallback(() => {
+      if (mapLocation.lat != null && mapLocation.lng != null) {
+        setLocation(mapLocation.area || location);
+      }
+    }, [mapLocation.lat, mapLocation.lng, mapLocation.area, location]),
+  );
+
+  const hasMapPin = mapLocation.lat != null && mapLocation.lng != null;
+
+  const handlePickOnMap = useCallback(() => {
+    router.push({
+      pathname: '/(landlord)/location-picker',
+      params: {
+        lat: hasMapPin ? String(mapLocation.lat) : undefined,
+        lng: hasMapPin ? String(mapLocation.lng) : undefined,
+        area: mapLocation.area,
+      },
+    } as any);
+  }, [router, hasMapPin, mapLocation.lat, mapLocation.lng, mapLocation.area]);
+
   // ── Apartment state ─────────────────────────────────────────────────────
   const [bedrooms, setBedrooms] = useState(2);
   const [bathrooms, setBathrooms] = useState(1);
@@ -140,6 +165,8 @@ export default function NewListingStep2() {
       location,
       availableFrom,
       furnishing,
+      mapLat: hasMapPin ? String(mapLocation.lat) : undefined,
+      mapLng: hasMapPin ? String(mapLocation.lng) : undefined,
     };
 
     let extra: Record<string, string> = {};
@@ -187,6 +214,7 @@ export default function NewListingStep2() {
     } as any);
   }, [
     router, pt, title, rent, deposit, location, availableFrom, furnishing,
+    hasMapPin, mapLocation.lat, mapLocation.lng,
     bedrooms, bathrooms, area, floor, totalFloors, amenities,
     houseBedrooms, houseBathrooms, builtUpArea, houseFloors, parkingSpaces, hasGarden, hasGated, houseAmenities,
     roomBathroom, kitchenAccess, tenantPref, roomAmenities,
@@ -384,7 +412,33 @@ export default function NewListingStep2() {
         </View>
 
         <Text style={styles.fieldLabel}>Location</Text>
-        <TextInput style={styles.input} value={location} onChangeText={setLocation} placeholderTextColor={color.placeholder} />
+        <View style={styles.locationRow}>
+          <TextInput
+            style={[styles.input, styles.locationInput]}
+            value={location}
+            onChangeText={setLocation}
+            placeholderTextColor={color.placeholder}
+          />
+          <Pressable
+            onPress={handlePickOnMap}
+            style={[styles.mapPickButton, hasMapPin && styles.mapPickButtonActive]}
+            accessibilityLabel="Pick location on map"
+            accessibilityRole="button">
+            {hasMapPin ? (
+              <Navigation size={18} color={color.bg} />
+            ) : (
+              <MapPin size={18} color={color.ink} />
+            )}
+            <Text style={[styles.mapPickText, hasMapPin && styles.mapPickTextActive]}>
+              {hasMapPin ? 'Picked' : 'Map'}
+            </Text>
+          </Pressable>
+        </View>
+        {hasMapPin && (
+          <Text style={styles.mapHint}>
+            Pin set at {mapLocation.lat!.toFixed(5)}, {mapLocation.lng!.toFixed(5)}
+          </Text>
+        )}
 
         <Text style={styles.fieldLabel}>Available from</Text>
         <TextInput style={styles.input} value={availableFrom} onChangeText={setAvailableFrom} placeholderTextColor={color.placeholder} />
@@ -525,6 +579,42 @@ const styles = StyleSheet.create({
     fontFamily: font.sans,
     fontSize: size.body,
     color: color.ink,
+  },
+  locationRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  locationInput: {
+    flex: 1,
+  },
+  mapPickButton: {
+    height: 52,
+    paddingHorizontal: 14,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: color.line,
+    backgroundColor: color.bg,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  mapPickButtonActive: {
+    backgroundColor: color.ink,
+    borderColor: color.ink,
+  },
+  mapPickText: {
+    fontFamily: font.semibold,
+    fontSize: size.bodySm,
+    color: color.ink,
+  },
+  mapPickTextActive: {
+    color: color.bg,
+  },
+  mapHint: {
+    fontFamily: font.sans,
+    fontSize: size.caption,
+    color: color.ink3,
+    marginTop: 6,
   },
   row2: {
     flexDirection: 'row',

@@ -117,6 +117,11 @@ export default function NewListingStep4() {
   const pt = (p.propertyType ?? 'Apartment') as string;
   const media = useMemo(() => parseMedia(p.photos), [p.photos]);
 
+  // Map-picker coordinates (optional — landlord can publish without them).
+  const mapLat = parseFloat(p.mapLat ?? '');
+  const mapLng = parseFloat(p.mapLng ?? '');
+  const hasMapPin = !Number.isNaN(mapLat) && !Number.isNaN(mapLng);
+
   // ── Build detail rows dynamically by type ───────────────────────────────
   const details = useMemo((): DetailRow[] => {
     const rows: DetailRow[] = [
@@ -127,6 +132,9 @@ export default function NewListingStep4() {
       { label: 'Available from', value: p.availableFrom ?? 'Jul 1, 2026' },
       { label: 'Furnishing', value: p.furnishing ?? 'Semi-furnished' },
     ];
+    if (hasMapPin) {
+      rows.push({ label: 'Map pin', value: `${mapLat.toFixed(5)}, ${mapLng.toFixed(5)}` });
+    }
 
     if (pt === 'Apartment') {
       rows.push(
@@ -165,7 +173,7 @@ export default function NewListingStep4() {
     }
 
     return rows;
-  }, [pt, p]);
+  }, [pt, p, hasMapPin, mapLat, mapLng]);
 
   const handleGoBack = useCallback(() => router.back(), [router]);
 
@@ -222,6 +230,8 @@ export default function NewListingStep4() {
           amenities:     parseJSON(p.amenities),
           availableFrom: parseAvailableFrom(p.availableFrom),
           locationArea:  p.location ?? '',
+          locationLat:   hasMapPin ? mapLat : null,
+          locationLng:   hasMapPin ? mapLng : null,
           extraDetails:  collectExtraDetails(p, pt),
         },
         supabase,
@@ -273,7 +283,7 @@ export default function NewListingStep4() {
     } finally {
       setPublishing(false);
     }
-  }, [user?.id, publishing, supabase, p, pt, media, router]);
+  }, [user?.id, publishing, supabase, p, pt, media, router, mapLat, mapLng, hasMapPin]);
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>

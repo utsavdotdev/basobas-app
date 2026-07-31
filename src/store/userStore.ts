@@ -118,7 +118,11 @@ export const useUserStore = create<UserState>((set, get) => ({
           avatarUrl: dbRow.avatar_url ?? undefined,
           location: dbRow.city ?? '',
           memberSince: new Date(dbRow.created_at),
-          isVerified: dbRow.onboarding_complete,
+          // `profiles` has no verification column — KYC status lives in
+          // kyc_submissions / landlord_profiles and is read live by the
+          // Profile screens (getUserKYCStatusUi / getLandlordVerificationStatus).
+          // Never derived from onboarding_complete.
+          isVerified: false,
         },
       };
     }),

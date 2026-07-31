@@ -8,6 +8,7 @@ export default function LandlordLayout() {
       <Stack.Screen name="decline-request" />
       <Stack.Screen name="edit-profile" />
       <Stack.Screen name="listing/[id]" />
+      <Stack.Screen name="location-picker" />
       <Stack.Screen name="listing/new/step-1" />
       <Stack.Screen name="listing/new/step-2" />
       <Stack.Screen name="listing/new/step-3" />

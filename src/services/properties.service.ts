@@ -175,6 +175,9 @@ export interface CreatePropertyInput {
   availableFrom:   string
   /** Public tier — free text from the wizard, e.g. "Baluwatar, Kathmandu". */
   locationArea:    string
+  /** Private tier — map pin picked in the location picker (optional). */
+  locationLat?:    number | null
+  locationLng?:    number | null
   /** Type-specific extras that don't warrant a column. */
   extraDetails?:   Record<string, unknown>
 }
@@ -209,6 +212,8 @@ export async function createPropertyDraft(
         amenities:      input.amenities,
         available_from: input.availableFrom,
         location_area:  input.locationArea,
+        location_lat:   input.locationLat ?? null,
+        location_lng:   input.locationLng ?? null,
         // extra_details is jsonb; the column's generated type is `Json`, which
         // a plain object literal doesn't structurally satisfy.
         extra_details:  (input.extraDetails ?? {}) as Json,
