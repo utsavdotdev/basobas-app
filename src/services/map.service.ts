@@ -16,6 +16,7 @@ function toPropertyPin(row: PropertyRow): PropertyPin {
     photoUrl: ((row.photo_urls as string[])?.[0]) ?? undefined,
     locationArea: row.location_area as string,
     propertyType: row.property_type as string,
+    isPaused: (row.is_paused as boolean | undefined) ?? false,
   };
 }
 
@@ -89,6 +90,7 @@ export async function searchProperties(
         photoUrl: ((row.photo_urls as string[])?.[0]) ?? undefined,
         locationArea: row.location_area as string,
         propertyType: row.property_type as string,
+        isPaused: (row.is_paused as boolean | undefined) ?? false,
       })),
     );
   } catch (e) {

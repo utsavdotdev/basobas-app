@@ -1,9 +1,16 @@
 import { Stack } from 'expo-router';
+import { useUser } from '@clerk/expo';
 import { useProfileBootstrap } from '@/src/hooks/useProfileBootstrap';
+import { useVisitRealtime } from '@/src/hooks/useVisitRealtime';
 
 export default function TenantLayout() {
   // Load profile + Pro status early (on mount) so the Profile tab isn't blank.
   useProfileBootstrap();
+
+  // Single realtime channel for the whole tenant area — mounted here so it
+  // outlives individual screens and keeps the visits store live everywhere.
+  const { user: clerkUser } = useUser();
+  useVisitRealtime(clerkUser?.id);
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
@@ -27,11 +34,10 @@ export default function TenantLayout() {
       <Stack.Screen name="reviews/property/[id]" />
       <Stack.Screen name="reviews/write/[visitId]" />
       <Stack.Screen name="saved" />
-      <Stack.Screen name="schedule-visit/[propertyId]" />
-      <Stack.Screen name="search-results" />
       <Stack.Screen name="settings" />
       <Stack.Screen name="visit/[id]" />
       <Stack.Screen name="visit/reschedule" />
+      <Stack.Screen name="visit/follow-up" />
       <Stack.Screen name="_modal/filter" options={{ presentation: 'modal' }} />
       <Stack.Screen name="_modal/notifications-prefs" options={{ presentation: 'modal' }} />
       <Stack.Screen name="_modal/pro-gate" options={{ presentation: 'modal' }} />

@@ -3,9 +3,9 @@ import { create } from 'zustand';
 /**
  * Centralized, typed "current user" source for the tenant app.
  *
- * Per the Profile screen spec §0.2 — if a real backend/auth is wired up later,
- * replace the seeded `profile` and `favoriteIds` defaults with the same shape
- * from the auth/favorites endpoints so every reading screen pulls from one place.
+ * `favoriteIds` is hydrated from the real `saved_properties` table (see
+ * `usePropertyStore.hydrate` / the Profile tab focus sync) — it is never
+ * seeded with placeholder ids.
  */
 
 export interface UserStats {
@@ -94,7 +94,7 @@ const proDaysRemaining = (expiresAt: Date | null): number => {
 
 export const useUserStore = create<UserState>((set, get) => ({
   profile: INITIAL_PROFILE,
-  favoriteIds: ['1', 'thamel', 'patan', 'bhaktapur', 'pokhara'],
+  favoriteIds: [],
 
   setProfile: (patch) =>
     set((s) => ({ profile: { ...s.profile, ...patch } })),

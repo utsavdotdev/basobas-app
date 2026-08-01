@@ -101,6 +101,15 @@ export default function NewListingStep3() {
   }, []);
 
   const handleContinue = useCallback(() => {
+    // Videos are skipped at upload time — a listing must have at least one
+    // photo before it can move to review/publish.
+    if (!media.some((m) => m.type === 'image')) {
+      Alert.alert(
+        'Photo required',
+        'Add at least one photo of the property to continue.',
+      );
+      return;
+    }
     router.push({
       pathname: '/(landlord)/listing/new/step-4',
       params: { ...params, photos: JSON.stringify(media) },
@@ -134,7 +143,7 @@ export default function NewListingStep3() {
         {/* ─── Headline ──────────────────────────────────────────────── */}
         <Text style={styles.headline}>Add photos & videos</Text>
         <Text style={styles.subtext}>
-          {'Listings with 5+ photos get 3× more requests.'}
+          {'Add at least 1 photo to continue. Listings with 5+ photos get 3× more requests.'}
         </Text>
 
         {/* ─── Empty state ───────────────────────────────────────────── */}
@@ -194,6 +203,11 @@ export default function NewListingStep3() {
         {media.length > 0 && (
           <Text style={styles.countText}>
             {`${media.length} of ${MAX_MEDIA} added`}
+          </Text>
+        )}
+        {media.length > 0 && !media.some((m) => m.type === 'image') && (
+          <Text style={styles.photoRequired}>
+            Videos can&apos;t be published alone — add at least one photo.
           </Text>
         )}
 
@@ -410,6 +424,13 @@ const styles = StyleSheet.create({
     fontSize: size.caption,
     color: color.ink3,
     marginTop: 12,
+  },
+
+  photoRequired: {
+    fontFamily: font.sans,
+    fontSize: size.caption,
+    color: color.danger,
+    marginTop: 6,
   },
 
   // Gallery button

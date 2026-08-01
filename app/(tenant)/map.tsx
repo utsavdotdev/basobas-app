@@ -22,6 +22,7 @@ import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
 import { useLocation } from '@/src/hooks/useLocation';
 import { getPropertiesNear, geocodePlace, type GeocodeResult } from '@/src/services/map.service';
 import type { PropertyPin } from '@/src/types/map.types';
+import { PROPERTY_STATUS_COLORS } from '@/src/types/map.types';
 import { tokens } from '@/src/theme/tokens';
 
 const { color, radius } = tokens;
@@ -167,19 +168,43 @@ export default function TenantMapScreen() {
     if (center) fetchNear(center.lat, center.lng, radiusM);
   }, [center, radiusM, fetchNear]);
 
-  // ── Map markers: ONLY the search center (privacy — property pins stay hidden) ──
+  // ── Map markers: ONLY real, rentable properties (OCCUPIED / paused are
+  //    filtered out client-side as a safety net on top of the SQL filter).
+  const availableProperties = useMemo(
+    () => properties.filter((p) => p.status !== 'OCCUPIED' && !p.isPaused),
+    [properties],
+  );
+
   const markers = useMemo((): MapMarkerData[] => {
-    if (!center) return [];
-    return [
-      {
+    const pins: MapMarkerData[] = availableProperties.map((p) => ({
+      id: p.id,
+      latitude: p.latitude,
+      longitude: p.longitude,
+      title: fmtNpr(p.price),
+      color: PROPERTY_STATUS_COLORS[p.status] ?? '#1A6B4A',
+      zIndex: 10,
+    }));
+
+    if (center) {
+      pins.push({
         id: 'center',
         latitude: center.lat,
         longitude: center.lng,
-        title: `${properties.length} ${properties.length === 1 ? 'property' : 'properties'} nearby`,
+        title: 'Search center',
         zIndex: 20,
-      },
-    ];
-  }, [center, properties.length]);
+      });
+    }
+
+    return pins;
+  }, [availableProperties, center]);
+
+  const handleMarkerPress = useCallback(
+    (marker: MapMarkerData) => {
+      if (marker.id === 'center') return;
+      router.push({ pathname: '/(tenant)/property/[id]', params: { id: marker.id } } as any);
+    },
+    [router],
+  );
 
   const circles = useMemo((): MapCircleData[] => {
     if (!center || Platform.OS !== 'android') return [];
@@ -206,6 +231,7 @@ export default function TenantMapScreen() {
           markers={markers}
           circles={circles}
           isMyLocationEnabled={false}
+          onMarkerClick={handleMarkerPress}
         />
         {/* ─── Top bar: back + search ─────────────────────────────── */}
         <View
@@ -343,16 +369,16 @@ export default function TenantMapScreen() {
           <View style={[styles.listPanel, styles.shadow]}>
             <View className="flex-row items-center justify-between border-b border-line px-4 py-3">
               <Text className="font-semibold text-body text-ink">
-                {loading ? 'Loading…' : `${properties.length} ${properties.length === 1 ? 'property' : 'properties'}`}
+                {loading ? 'Loading…' : `${availableProperties.length} ${availableProperties.length === 1 ? 'property' : 'properties'}`}
               </Text>
               <Text className="font-sans text-caption text-ink2">within {fmtKm(radiusM)}</Text>
             </View>
 
-            {loading && properties.length === 0 ? (
+            {loading && availableProperties.length === 0 ? (
               <View className="items-center justify-center py-10">
                 <ActivityIndicator size="small" color={color.brand} />
               </View>
-            ) : properties.length === 0 ? (
+            ) : availableProperties.length === 0 ? (
               <View className="items-center justify-center gap-2 px-8 py-10">
                 <MapPin size={20} color={color.ink3} strokeWidth={1.5} />
                 <Text className="text-center font-sans text-body-sm text-ink2">
@@ -361,7 +387,7 @@ export default function TenantMapScreen() {
               </View>
             ) : (
               <FlatList
-                data={properties}
+                data={availableProperties}
                 keyExtractor={(p) => p.id}
                 keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}

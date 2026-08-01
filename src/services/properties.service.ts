@@ -97,6 +97,155 @@ export async function getMyProperties(
   }
 }
 
+// ─── Read: tenant browsing ───────────────────────────────────────────────────
+
+/**
+ * Every listing a tenant can rent: published, not soft-deleted, not paused
+ * and not occupied. Newest first, capped so browse screens stay snappy.
+ *
+ * This is the single source for the tenant Home / Search tabs — the store
+ * hydrates from here, never from local mock data.
+ */
+export async function getAvailableProperties(
+  supabase: SupabaseClient<Database>
+): Promise<Result<PropertyPublic[]>> {
+  try {
+    const { data, error } = await supabase
+      .from('properties')
+      .select(PUBLIC_COLUMNS)
+      .eq('is_draft', false)
+      .eq('is_deleted', false)
+      .eq('is_paused', false)
+      .neq('status', 'OCCUPIED')
+      .order('created_at', { ascending: false })
+      .limit(200)
+
+    if (error) return err(getErrorMessage(error))
+
+    return ok(((data ?? []) as PublicSelectRow[]).map((row) => toPropertyPublic(asPropertyRow(row))))
+  } catch (e) {
+    return err(getErrorMessage(e))
+  }
+}
+
+/**
+ * A landlord's published, rentable listings — drives the public landlord
+ * profile page (id is the landlord's clerk id). Same availability filter as
+ * `getAvailableProperties`.
+ */
+export async function getPublishedPropertiesByLandlord(
+  clerkId:  string,
+  supabase: SupabaseClient<Database>
+): Promise<Result<PropertyPublic[]>> {
+  try {
+    const { data, error } = await supabase
+      .from('properties')
+      .select(PUBLIC_COLUMNS)
+      .eq('landlord_id', clerkId)
+      .eq('is_draft', false)
+      .eq('is_deleted', false)
+      .eq('is_paused', false)
+      .neq('status', 'OCCUPIED')
+      .order('created_at', { ascending: false })
+
+    if (error) return err(getErrorMessage(error))
+
+    return ok(((data ?? []) as PublicSelectRow[]).map((row) => toPropertyPublic(asPropertyRow(row))))
+  } catch (e) {
+    return err(getErrorMessage(e))
+  }
+}
+
+// ─── Read: tenant saved properties ───────────────────────────────────────────
+
+/**
+ * The current tenant's saved property ids, newest first. RLS scopes the
+ * `saved_properties` rows to the requesting user automatically.
+ */
+export async function getSavedPropertyIdsForTenant(
+  clerkId:  string,
+  supabase: SupabaseClient<Database>
+): Promise<Result<string[]>> {
+  try {
+    const { data, error } = await supabase
+      .from('saved_properties')
+      .select('property_id')
+      .eq('clerk_id', clerkId)
+      .order('created_at', { ascending: false })
+
+    if (error) return err(getErrorMessage(error))
+
+    return ok((data ?? []).map((row) => row.property_id))
+  } catch (e) {
+    return err(getErrorMessage(e))
+  }
+}
+
+/** The tenant's saved properties, joined to the public listing tier. */
+export async function getSavedPropertiesForTenant(
+  clerkId:  string,
+  supabase: SupabaseClient<Database>
+): Promise<Result<PropertyPublic[]>> {
+  try {
+    const { data, error } = await supabase
+      .from('saved_properties')
+      .select(`property:properties!saved_properties_property_id_fkey(${PUBLIC_COLUMNS})`)
+      .eq('clerk_id', clerkId)
+      .order('created_at', { ascending: false })
+
+    if (error) return err(getErrorMessage(error))
+
+    const rows = (data ?? []) as unknown as { property: PublicSelectRow | null }[]
+    return ok(
+      rows
+        .filter((r): r is { property: PublicSelectRow } => r.property != null)
+        .map((r) => toPropertyPublic(asPropertyRow(r.property)))
+    )
+  } catch (e) {
+    return err(getErrorMessage(e))
+  }
+}
+
+// ─── Write: tenant saved properties ──────────────────────────────────────────
+
+/** Bookmark a property (`saved_properties` has a UNIQUE on clerk+property). */
+export async function savePropertyForTenant(
+  clerkId:    string,
+  propertyId: string,
+  supabase:   SupabaseClient<Database>
+): Promise<Result<true>> {
+  try {
+    const { error } = await supabase
+      .from('saved_properties')
+      .upsert({ clerk_id: clerkId, property_id: propertyId }, { onConflict: 'clerk_id,property_id' })
+
+    if (error) return err(getErrorMessage(error))
+    return ok(true)
+  } catch (e) {
+    return err(getErrorMessage(e))
+  }
+}
+
+/** Remove a bookmark. */
+export async function unsavePropertyForTenant(
+  clerkId:    string,
+  propertyId: string,
+  supabase:   SupabaseClient<Database>
+): Promise<Result<true>> {
+  try {
+    const { error } = await supabase
+      .from('saved_properties')
+      .delete()
+      .eq('clerk_id', clerkId)
+      .eq('property_id', propertyId)
+
+    if (error) return err(getErrorMessage(error))
+    return ok(true)
+  } catch (e) {
+    return err(getErrorMessage(e))
+  }
+}
+
 // ─── Read: single property ───────────────────────────────────────────────────
 
 /**

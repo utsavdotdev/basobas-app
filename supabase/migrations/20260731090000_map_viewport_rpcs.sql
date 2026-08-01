@@ -56,6 +56,8 @@ AS $$
   FROM public.properties
   WHERE location_lat IS NOT NULL
     AND location_lng IS NOT NULL
+    AND is_paused = FALSE
+    AND status <> 'OCCUPIED'::public.property_status_enum
     AND location_lat BETWEEN p_sw_lat AND p_ne_lat
     AND location_lng BETWEEN p_sw_lng AND p_ne_lng;
 $$;
@@ -81,6 +83,8 @@ AS $$
   FROM public.properties
   WHERE (title ILIKE '%' || p_query || '%'
       OR location_area ILIKE '%' || p_query || '%')
+    AND is_paused = FALSE
+    AND status <> 'OCCUPIED'::public.property_status_enum
   ORDER BY
     CASE WHEN title ILIKE p_query || '%' THEN 0 ELSE 1 END,
     created_at DESC;

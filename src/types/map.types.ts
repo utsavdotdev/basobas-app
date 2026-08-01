@@ -21,6 +21,8 @@ export interface PropertyPin {
   photoUrl?: string;
   locationArea: string;
   propertyType: string;
+  /** Landlord paused the listing — not rentable, filter before rendering. */
+  isPaused?: boolean;
 }
 
 export interface ClusterFeature {

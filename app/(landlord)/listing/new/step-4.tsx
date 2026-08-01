@@ -117,7 +117,7 @@ export default function NewListingStep4() {
   const pt = (p.propertyType ?? 'Apartment') as string;
   const media = useMemo(() => parseMedia(p.photos), [p.photos]);
 
-  // Map-picker coordinates (optional — landlord can publish without them).
+  // Map-picker coordinates — required: the exact address comes from the map.
   const mapLat = parseFloat(p.mapLat ?? '');
   const mapLng = parseFloat(p.mapLng ?? '');
   const hasMapPin = !Number.isNaN(mapLat) && !Number.isNaN(mapLng);
@@ -126,11 +126,11 @@ export default function NewListingStep4() {
   const details = useMemo((): DetailRow[] => {
     const rows: DetailRow[] = [
       { label: 'Property type', value: pt },
-      { label: 'Monthly rent', value: `NPR ${p.rent ?? '28,000'}` },
-      { label: 'Deposit', value: `NPR ${p.deposit ?? '56,000'}` },
-      { label: 'Location', value: p.location ?? 'Baluwatar, Kathmandu' },
-      { label: 'Available from', value: p.availableFrom ?? 'Jul 1, 2026' },
-      { label: 'Furnishing', value: p.furnishing ?? 'Semi-furnished' },
+      { label: 'Monthly rent', value: `NPR ${p.rent ?? ''}` },
+      { label: 'Deposit', value: `NPR ${p.deposit ?? ''}` },
+      { label: 'Location', value: p.location ?? '' },
+      { label: 'Available from', value: p.availableFrom ?? '' },
+      { label: 'Furnishing', value: p.furnishing ?? '' },
     ];
     if (hasMapPin) {
       rows.push({ label: 'Map pin', value: `${mapLat.toFixed(5)}, ${mapLng.toFixed(5)}` });
@@ -138,36 +138,36 @@ export default function NewListingStep4() {
 
     if (pt === 'Apartment') {
       rows.push(
-        { label: 'Bedrooms', value: p.bedrooms ?? '2' },
-        { label: 'Bathrooms', value: p.bathrooms ?? '1' },
-        { label: 'Area', value: `${p.area ?? '850'} sqft` },
-        { label: 'Floor', value: `${p.floor ?? '3'} / ${p.totalFloors ?? '5'}` },
+        { label: 'Bedrooms', value: p.bedrooms ?? '' },
+        { label: 'Bathrooms', value: p.bathrooms ?? '' },
+        { label: 'Area', value: `${p.area ?? ''} sqft` },
+        { label: 'Floor', value: `${p.floor ?? ''} / ${p.totalFloors ?? ''}` },
         { label: 'Amenities', value: countSelected(p.amenities) },
       );
     } else if (pt === 'House') {
       rows.push(
-        { label: 'Bedrooms', value: p.bedrooms ?? '3' },
-        { label: 'Bathrooms', value: p.bathrooms ?? '2' },
-        { label: 'Built-up area', value: `${p.builtUpArea ?? '1200'} sqft` },
-        { label: 'Floors', value: p.houseFloors ?? '2' },
-        { label: 'Parking spaces', value: p.parkingSpaces ?? '1' },
+        { label: 'Bedrooms', value: p.bedrooms ?? '' },
+        { label: 'Bathrooms', value: p.bathrooms ?? '' },
+        { label: 'Built-up area', value: `${p.builtUpArea ?? ''} sqft` },
+        { label: 'Floors', value: p.houseFloors ?? '' },
+        { label: 'Parking spaces', value: p.parkingSpaces ?? '' },
       );
       if (p.hasGarden === 'true') rows.push({ label: 'Private garden', value: 'Yes' });
       if (p.hasGated === 'true') rows.push({ label: 'Gated compound', value: 'Yes' });
       rows.push({ label: 'Amenities', value: countSelected(p.amenities) });
     } else if (pt === 'Room') {
       rows.push(
-        { label: 'Bathroom', value: p.roomBathroom ?? 'Attached' },
-        { label: 'Kitchen access', value: p.kitchenAccess ?? 'Shared' },
-        { label: 'Tenant preference', value: p.tenantPref ?? 'Any' },
+        { label: 'Bathroom', value: p.roomBathroom ?? '' },
+        { label: 'Kitchen access', value: p.kitchenAccess ?? '' },
+        { label: 'Tenant preference', value: p.tenantPref ?? '' },
         { label: 'Amenities', value: countSelected(p.amenities) },
       );
     } else if (pt === 'Studio') {
       rows.push(
-        { label: 'Area', value: `${p.studioArea ?? '450'} sqft` },
-        { label: 'Floor', value: p.studioFloor ?? '2' },
-        { label: 'Kitchenette', value: p.kitchenette ?? 'Open' },
-        { label: 'Bathroom', value: p.studioBathroom ?? 'Attached' },
+        { label: 'Area', value: `${p.studioArea ?? ''} sqft` },
+        { label: 'Floor', value: p.studioFloor ?? '' },
+        { label: 'Kitchenette', value: p.kitchenette ?? '' },
+        { label: 'Bathroom', value: p.studioBathroom ?? '' },
         { label: 'Amenities', value: countSelected(p.amenities) },
       );
     }
@@ -184,6 +184,18 @@ export default function NewListingStep4() {
       return;
     }
     if (publishing) return;
+
+    // Guards — steps 2/3 already enforce these, but publish must never create
+    // a pinless or photo-less listing.
+    if (!hasMapPin || !(p.location ?? '').trim()) {
+      Alert.alert('Location required', 'Pick the exact address on the map before publishing.');
+      return;
+    }
+    const images = media.filter((m) => m.type === 'image');
+    if (images.length === 0) {
+      Alert.alert('Photo required', 'Add at least one photo before publishing.');
+      return;
+    }
 
     setPublishing(true);
     try {
@@ -216,7 +228,7 @@ export default function NewListingStep4() {
       const draft = await createPropertyDraft(
         {
           landlordId:    clerkId,
-          title:         p.title ?? `${pt} in ${p.location ?? 'Kathmandu'}`,
+          title:         p.title ?? `${pt} listing`,
           description:   p.description ?? null,
           propertyType:  toPropertyType(pt),
           price:         parseMoney(p.rent),
@@ -244,7 +256,6 @@ export default function NewListingStep4() {
 
       // 3. Upload photos. The bucket is images-only, so videos from step 3 are
       //    skipped rather than silently failing mid-upload.
-      const images = media.filter((m) => m.type === 'image');
       const skippedVideos = media.length - images.length;
       if (skippedVideos > 0) {
         console.warn(
@@ -324,13 +335,13 @@ export default function NewListingStep4() {
           </View>
           <View style={styles.summaryContent}>
             <Text style={styles.summaryTitle}>
-              {p.title ?? '2BHK Apartment in Baluwatar'}
+              {p.title ?? ''}
             </Text>
             <Text style={styles.summaryLocation}>
-              {p.location ?? 'Baluwatar, Kathmandu'}
+              {p.location ?? ''}
             </Text>
             <Text style={styles.summaryPrice}>
-              NPR {p.rent ?? '28,000'}/month
+              NPR {p.rent ?? ''}/month
             </Text>
           </View>
         </View>

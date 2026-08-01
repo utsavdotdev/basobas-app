@@ -80,8 +80,10 @@ export default {
       const data = await response.json();
 
       // ── 4. Pick the most usable locality label ───────────────────
-      // Prefer a neighborhood/suburb, fall back through town/city,
-      // then the full display name as a last resort.
+      // `area`    — short locality for the map hint / location_area.
+      // `address` — the exact reverse-geocoded address (display_name)
+      //             that the posting wizard requires for its Location
+      //             input. Both come from the pin on the map.
       const address = data?.address ?? {};
       const area =
         address.suburb ??
@@ -92,11 +94,14 @@ export default {
         address.municipality ??
         (typeof data?.display_name === "string" ? data.display_name : "");
 
-      if (!area) {
-        return Response.json({ area: "" });
+      const fullAddress =
+        typeof data?.display_name === "string" ? data.display_name.trim() : "";
+
+      if (!area && !fullAddress) {
+        return Response.json({ area: "", address: "" });
       }
 
-      return Response.json({ area });
+      return Response.json({ area, address: fullAddress });
     } catch (err) {
       console.error("Reverse geocode failed:", err);
       return Response.json(

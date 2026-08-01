@@ -89,11 +89,10 @@ export default function NotificationPrefsModal() {
   const properties = usePropertyStore((s) => s.properties);
 
   const refreshSavedProperties = () => {
-    // Fetch saved property current statuses
+    // Fetch saved property current statuses from the store (hydrated from DB)
     const saved = properties.filter((p) => savedPropertyIds.includes(p.id));
-    // In production this would call an API endpoint; for now log the result
     console.log('[PropertyStatusAlerts] Refreshed', saved.length, 'saved properties:',
-      saved.map((p) => ({ id: p.id, title: p.title, price: p.priceMonthly })));
+      saved.map((p) => ({ id: p.id, title: p.title, price: p.price })));
   };
 
   return (

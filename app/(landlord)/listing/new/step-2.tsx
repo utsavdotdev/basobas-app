@@ -1,11 +1,12 @@
 import { useState, useCallback } from 'react';
 import { View, Text, Pressable, ScrollView, TextInput, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter, useLocalSearchParams, useFocusEffect } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { ArrowLeft, MapPin, Navigation } from 'lucide-react-native';
 
 import { tokens } from '@/src/theme/tokens';
 import { useListingLocationStore } from '@/src/store/listingLocationStore';
+import { parseMoney, parseOptionalInt } from '@/src/types/property.types';
 
 const { color, space, radius, font, size } = tokens;
 
@@ -80,31 +81,45 @@ function ChipGroup<T extends string>({
 
 // ─── Screen ──────────────────────────────────────────────────────────────────
 
+interface FieldErrors {
+  title?: string;
+  rent?: string;
+  deposit?: string;
+  location?: string;
+  availableFrom?: string;
+  area?: string;
+  floor?: string;
+  totalFloors?: string;
+}
+
 export default function NewListingStep2() {
   const router = useRouter();
   const { propertyType } = useLocalSearchParams<{ propertyType: string }>();
   const pt = (propertyType ?? 'Apartment') as 'Apartment' | 'House' | 'Room' | 'Studio';
 
   // ── Common state ──────────────────────────────────────────────────────────
-  const [title, setTitle] = useState('2BHK Apartment in Baluwatar');
-  const [rent, setRent] = useState('28,000');
-  const [deposit, setDeposit] = useState('56,000');
-  const [location, setLocation] = useState('Baluwatar, Kathmandu');
-  const [availableFrom, setAvailableFrom] = useState('Jul 1, 2026');
+  const [title, setTitle] = useState('');
+  const [rent, setRent] = useState('');
+  const [deposit, setDeposit] = useState('');
+  const [availableFrom, setAvailableFrom] = useState('');
   const [furnishing, setFurnishing] = useState<string>('Semi-furnished');
+  const [errors, setErrors] = useState<FieldErrors>({});
 
-  // Map-picker location (lat/lng) — synced from the picker screen via store.
-  const mapLocation = useListingLocationStore((s) => ({ lat: s.lat, lng: s.lng, area: s.area }));
-
-  useFocusEffect(
-    useCallback(() => {
-      if (mapLocation.lat != null && mapLocation.lng != null) {
-        setLocation(mapLocation.area || location);
-      }
-    }, [mapLocation.lat, mapLocation.lng, mapLocation.area, location]),
-  );
+  // Map-picker location — written by the picker screen via the store.
+  const mapLocation = useListingLocationStore((s) => ({
+    lat: s.lat,
+    lng: s.lng,
+    area: s.area,
+    address: s.address,
+  }));
 
   const hasMapPin = mapLocation.lat != null && mapLocation.lng != null;
+  // Exact address is mandatory and always comes from the map (read-only input).
+  const locationLabel = hasMapPin ? mapLocation.address || mapLocation.area : '';
+
+  const clearError = useCallback((key: keyof FieldErrors) => {
+    setErrors((prev) => (prev[key] ? { ...prev, [key]: undefined } : prev));
+  }, []);
 
   const handlePickOnMap = useCallback(() => {
     router.push({
@@ -113,40 +128,41 @@ export default function NewListingStep2() {
         lat: hasMapPin ? String(mapLocation.lat) : undefined,
         lng: hasMapPin ? String(mapLocation.lng) : undefined,
         area: mapLocation.area,
+        address: mapLocation.address,
       },
     } as any);
-  }, [router, hasMapPin, mapLocation.lat, mapLocation.lng, mapLocation.area]);
+  }, [router, hasMapPin, mapLocation.lat, mapLocation.lng, mapLocation.area, mapLocation.address]);
 
   // ── Apartment state ─────────────────────────────────────────────────────
   const [bedrooms, setBedrooms] = useState(2);
   const [bathrooms, setBathrooms] = useState(1);
-  const [area, setArea] = useState('850');
-  const [floor, setFloor] = useState('3');
-  const [totalFloors, setTotalFloors] = useState('5');
-  const [amenities, setAmenities] = useState<string[]>(['Parking', 'Water Tank', 'Balcony']);
+  const [area, setArea] = useState('');
+  const [floor, setFloor] = useState('');
+  const [totalFloors, setTotalFloors] = useState('');
+  const [amenities, setAmenities] = useState<string[]>([]);
 
   // ── House state ─────────────────────────────────────────────────────────
   const [houseBedrooms, setHouseBedrooms] = useState(3);
   const [houseBathrooms, setHouseBathrooms] = useState(2);
-  const [builtUpArea, setBuiltUpArea] = useState('1200');
-  const [houseFloors, setHouseFloors] = useState('2');
+  const [builtUpArea, setBuiltUpArea] = useState('');
+  const [houseFloors, setHouseFloors] = useState('');
   const [parkingSpaces, setParkingSpaces] = useState(1);
   const [hasGarden, setHasGarden] = useState(false);
   const [hasGated, setHasGated] = useState(false);
-  const [houseAmenities, setHouseAmenities] = useState<string[]>(['Parking', 'Water Tank', 'Rooftop']);
+  const [houseAmenities, setHouseAmenities] = useState<string[]>([]);
 
   // ── Room state ──────────────────────────────────────────────────────────
   const [roomBathroom, setRoomBathroom] = useState<string>('Attached');
   const [kitchenAccess, setKitchenAccess] = useState<string>('Shared');
   const [tenantPref, setTenantPref] = useState<string>('Any');
-  const [roomAmenities, setRoomAmenities] = useState<string[]>(['Wi-Fi', 'Hot Water']);
+  const [roomAmenities, setRoomAmenities] = useState<string[]>([]);
 
   // ── Studio state ────────────────────────────────────────────────────────
-  const [studioArea, setStudioArea] = useState('450');
-  const [studioFloor, setStudioFloor] = useState('2');
+  const [studioArea, setStudioArea] = useState('');
+  const [studioFloor, setStudioFloor] = useState('');
   const [kitchenette, setKitchenette] = useState<string>('Open');
   const [studioBathroom, setStudioBathroom] = useState<string>('Attached');
-  const [studioAmenities, setStudioAmenities] = useState<string[]>(['Water Tank', 'Balcony']);
+  const [studioAmenities, setStudioAmenities] = useState<string[]>([]);
 
   // ── Toggle helpers ───────────────────────────────────────────────────────
   const toggleAmenity = useCallback((a: string, list: string[], set: (v: string[]) => void) => {
@@ -155,14 +171,61 @@ export default function NewListingStep2() {
 
   const handleGoBack = useCallback(() => router.back(), [router]);
 
+  // ── Validate before moving to photos ────────────────────────────────────
+  const validate = useCallback((): FieldErrors => {
+    const e: FieldErrors = {};
+
+    if (title.trim().length < 5) e.title = 'Add a clear title (at least 5 characters).';
+
+    if (rent.trim() === '' || parseMoney(rent) <= 0) {
+      e.rent = 'Enter a monthly rent greater than 0.';
+    }
+    if (deposit.replace(/[^0-9]/g, '') === '') {
+      e.deposit = 'Enter a deposit amount (use 0 if there is none).';
+    }
+
+    if (!hasMapPin || locationLabel.trim() === '') {
+      e.location = 'Pick the exact address on the map.';
+    }
+
+    const parsedDate = new Date(availableFrom);
+    if (availableFrom.trim() === '' || Number.isNaN(parsedDate.getTime())) {
+      e.availableFrom = 'Enter a valid date, e.g. Aug 1, 2026.';
+    }
+
+    const requireNum = (v: string, key: keyof FieldErrors, msg: string, min: number) => {
+      const n = parseOptionalInt(v);
+      if (n === null || n < min) e[key] = msg;
+    };
+
+    if (pt === 'Apartment') {
+      requireNum(area, 'area', 'Enter the area in sqft.', 1);
+      requireNum(totalFloors, 'totalFloors', 'Enter the total number of floors.', 1);
+    } else if (pt === 'House') {
+      requireNum(builtUpArea, 'area', 'Enter the built-up area in sqft.', 1);
+      requireNum(houseFloors, 'totalFloors', 'Enter the number of floors in the house.', 1);
+    } else if (pt === 'Studio') {
+      requireNum(studioArea, 'area', 'Enter the area in sqft.', 1);
+    }
+
+    return e;
+  }, [
+    title, rent, deposit, hasMapPin, locationLabel, availableFrom, pt,
+    area, totalFloors, builtUpArea, houseFloors, studioArea,
+  ]);
+
   // ── Build params for next step ──────────────────────────────────────────
   const handleContinue = useCallback(() => {
+    const nextErrors = validate();
+    setErrors(nextErrors);
+    if (Object.values(nextErrors).some((m) => m !== undefined)) return;
+
     const base = {
       propertyType: pt,
       title,
       rent,
       deposit,
-      location,
+      location: locationLabel,
       availableFrom,
       furnishing,
       mapLat: hasMapPin ? String(mapLocation.lat) : undefined,
@@ -213,8 +276,8 @@ export default function NewListingStep2() {
       params: { ...base, ...extra },
     } as any);
   }, [
-    router, pt, title, rent, deposit, location, availableFrom, furnishing,
-    hasMapPin, mapLocation.lat, mapLocation.lng,
+    router, pt, title, rent, deposit, locationLabel, availableFrom, furnishing,
+    hasMapPin, mapLocation.lat, mapLocation.lng, validate,
     bedrooms, bathrooms, area, floor, totalFloors, amenities,
     houseBedrooms, houseBathrooms, builtUpArea, houseFloors, parkingSpaces, hasGarden, hasGated, houseAmenities,
     roomBathroom, kitchenAccess, tenantPref, roomAmenities,
@@ -234,10 +297,13 @@ export default function NewListingStep2() {
       {/* Area + Floor + Total floors */}
       <Text style={styles.fieldLabel}>Area (sqft), Floor, Total floors</Text>
       <View style={styles.row3}>
-        <TextInput style={[styles.input, { flex: 1 }]} value={area} onChangeText={setArea} keyboardType="numeric" placeholderTextColor={color.placeholder} />
-        <TextInput style={[styles.input, { flex: 1 }]} value={floor} onChangeText={setFloor} keyboardType="numeric" placeholderTextColor={color.placeholder} />
-        <TextInput style={[styles.input, { flex: 1 }]} value={totalFloors} onChangeText={setTotalFloors} keyboardType="numeric" placeholderTextColor={color.placeholder} />
+        <TextInput style={[styles.input, { flex: 1 }, errors.area && styles.inputError]} value={area} onChangeText={(t) => { setArea(t); clearError('area'); }} keyboardType="numeric" placeholderTextColor={color.placeholder} />
+        <TextInput style={[styles.input, { flex: 1 }, errors.floor && styles.inputError]} value={floor} onChangeText={(t) => { setFloor(t); clearError('floor'); }} keyboardType="numeric" placeholderTextColor={color.placeholder} />
+        <TextInput style={[styles.input, { flex: 1 }, errors.totalFloors && styles.inputError]} value={totalFloors} onChangeText={(t) => { setTotalFloors(t); clearError('totalFloors'); }} keyboardType="numeric" placeholderTextColor={color.placeholder} />
       </View>
+      {(errors.area || errors.floor || errors.totalFloors) && (
+        <Text style={styles.errorText}>{errors.area ?? errors.floor ?? errors.totalFloors}</Text>
+      )}
 
       {/* Amenities */}
       <Text style={styles.fieldLabel}>Amenities</Text>
@@ -267,11 +333,13 @@ export default function NewListingStep2() {
       <View style={styles.row2}>
         <View style={styles.halfField}>
           <Text style={styles.fieldLabel}>Built-up area (sqft)</Text>
-          <TextInput style={styles.input} value={builtUpArea} onChangeText={setBuiltUpArea} keyboardType="numeric" placeholderTextColor={color.placeholder} />
+          <TextInput style={[styles.input, errors.area && styles.inputError]} value={builtUpArea} onChangeText={(t) => { setBuiltUpArea(t); clearError('area'); }} keyboardType="numeric" placeholderTextColor={color.placeholder} />
+          {errors.area && <Text style={styles.errorText}>{errors.area}</Text>}
         </View>
         <View style={styles.halfField}>
           <Text style={styles.fieldLabel}>Floors in house</Text>
-          <TextInput style={styles.input} value={houseFloors} onChangeText={setHouseFloors} keyboardType="numeric" placeholderTextColor={color.placeholder} />
+          <TextInput style={[styles.input, errors.totalFloors && styles.inputError]} value={houseFloors} onChangeText={(t) => { setHouseFloors(t); clearError('totalFloors'); }} keyboardType="numeric" placeholderTextColor={color.placeholder} />
+          {errors.totalFloors && <Text style={styles.errorText}>{errors.totalFloors}</Text>}
         </View>
       </View>
 
@@ -337,11 +405,13 @@ export default function NewListingStep2() {
       <View style={styles.row2}>
         <View style={styles.halfField}>
           <Text style={styles.fieldLabel}>Area (sqft)</Text>
-          <TextInput style={styles.input} value={studioArea} onChangeText={setStudioArea} keyboardType="numeric" placeholderTextColor={color.placeholder} />
+          <TextInput style={[styles.input, errors.area && styles.inputError]} value={studioArea} onChangeText={(t) => { setStudioArea(t); clearError('area'); }} keyboardType="numeric" placeholderTextColor={color.placeholder} />
+          {errors.area && <Text style={styles.errorText}>{errors.area}</Text>}
         </View>
         <View style={styles.halfField}>
           <Text style={styles.fieldLabel}>Floor</Text>
-          <TextInput style={styles.input} value={studioFloor} onChangeText={setStudioFloor} keyboardType="numeric" placeholderTextColor={color.placeholder} />
+          <TextInput style={[styles.input, errors.floor && styles.inputError]} value={studioFloor} onChangeText={(t) => { setStudioFloor(t); clearError('floor'); }} keyboardType="numeric" placeholderTextColor={color.placeholder} />
+          {errors.floor && <Text style={styles.errorText}>{errors.floor}</Text>}
         </View>
       </View>
 
@@ -398,25 +468,59 @@ export default function NewListingStep2() {
 
         {/* ─── Common fields ─────────────────────────────────────────── */}
         <Text style={styles.fieldLabel}>Listing title</Text>
-        <TextInput style={styles.input} value={title} onChangeText={setTitle} placeholderTextColor={color.placeholder} />
+        <TextInput
+          style={[styles.input, errors.title && styles.inputError]}
+          value={title}
+          onChangeText={(t) => {
+            setTitle(t);
+            clearError('title');
+          }}
+          placeholder="e.g. 2BHK Apartment in Baluwatar"
+          placeholderTextColor={color.placeholder}
+        />
+        {errors.title && <Text style={styles.errorText}>{errors.title}</Text>}
 
         <View style={styles.row2}>
           <View style={styles.halfField}>
             <Text style={styles.fieldLabel}>Monthly rent (NPR)</Text>
-            <TextInput style={styles.input} value={rent} onChangeText={setRent} keyboardType="numeric" placeholderTextColor={color.placeholder} />
+            <TextInput
+              style={[styles.input, errors.rent && styles.inputError]}
+              value={rent}
+              onChangeText={(t) => {
+                setRent(t);
+                clearError('rent');
+              }}
+              keyboardType="numeric"
+              placeholder="e.g. 28,000"
+              placeholderTextColor={color.placeholder}
+            />
+            {errors.rent && <Text style={styles.errorText}>{errors.rent}</Text>}
           </View>
           <View style={styles.halfField}>
             <Text style={styles.fieldLabel}>Deposit (NPR)</Text>
-            <TextInput style={styles.input} value={deposit} onChangeText={setDeposit} keyboardType="numeric" placeholderTextColor={color.placeholder} />
+            <TextInput
+              style={[styles.input, errors.deposit && styles.inputError]}
+              value={deposit}
+              onChangeText={(t) => {
+                setDeposit(t);
+                clearError('deposit');
+              }}
+              keyboardType="numeric"
+              placeholder="e.g. 56,000"
+              placeholderTextColor={color.placeholder}
+            />
+            {errors.deposit && <Text style={styles.errorText}>{errors.deposit}</Text>}
           </View>
         </View>
 
         <Text style={styles.fieldLabel}>Location</Text>
         <View style={styles.locationRow}>
           <TextInput
-            style={[styles.input, styles.locationInput]}
-            value={location}
-            onChangeText={setLocation}
+            style={[styles.input, styles.locationInput, styles.inputReadonly, errors.location && styles.inputError]}
+            value={locationLabel}
+            onChangeText={() => {}}
+            editable={false}
+            placeholder={hasMapPin ? 'Address is being fetched from the pin…' : 'Pick the exact address on the map'}
             placeholderTextColor={color.placeholder}
           />
           <Pressable
@@ -434,14 +538,28 @@ export default function NewListingStep2() {
             </Text>
           </Pressable>
         </View>
-        {hasMapPin && (
+        {errors.location ? (
+          <Text style={styles.errorText}>{errors.location}</Text>
+        ) : hasMapPin ? (
           <Text style={styles.mapHint}>
-            Pin set at {mapLocation.lat!.toFixed(5)}, {mapLocation.lng!.toFixed(5)}
+            Address auto-filled from the pin at {mapLocation.lat?.toFixed(5)}, {mapLocation.lng?.toFixed(5)}. Tap Map to adjust.
           </Text>
+        ) : (
+          <Text style={styles.mapHint}>Tap Map, drop the pin, and the exact address is filled in here.</Text>
         )}
 
         <Text style={styles.fieldLabel}>Available from</Text>
-        <TextInput style={styles.input} value={availableFrom} onChangeText={setAvailableFrom} placeholderTextColor={color.placeholder} />
+        <TextInput
+          style={[styles.input, errors.availableFrom && styles.inputError]}
+          value={availableFrom}
+          onChangeText={(t) => {
+            setAvailableFrom(t);
+            clearError('availableFrom');
+          }}
+          placeholder="e.g. Aug 1, 2026"
+          placeholderTextColor={color.placeholder}
+        />
+        {errors.availableFrom && <Text style={styles.errorText}>{errors.availableFrom}</Text>}
 
         {/* ─── Type-specific fields ──────────────────────────────────── */}
         {pt === 'Apartment' && renderApartmentFields()}
@@ -579,6 +697,21 @@ const styles = StyleSheet.create({
     fontFamily: font.sans,
     fontSize: size.body,
     color: color.ink,
+  },
+  inputReadonly: {
+    color: color.ink2,
+    opacity: 0.9,
+  },
+  inputError: {
+    borderWidth: 1,
+    borderColor: color.danger,
+    backgroundColor: color.dangerBg,
+  },
+  errorText: {
+    fontFamily: font.sans,
+    fontSize: size.caption,
+    color: color.danger,
+    marginTop: 6,
   },
   locationRow: {
     flexDirection: 'row',

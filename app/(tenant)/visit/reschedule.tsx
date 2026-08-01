@@ -1,10 +1,13 @@
 import { useState, useCallback } from 'react';
-import { View, Text, Pressable, ScrollView, TextInput, StyleSheet } from 'react-native';
+import { View, Text, Pressable, ScrollView, TextInput, StyleSheet, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react-native';
 
 import { tokens } from '@/src/theme/tokens';
+import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
+import { tenantRescheduleVisit } from '@/src/services/visits.service';
+import { toTimeSlot } from '@/src/types/property.types';
 
 const { color, space, radius, font, size } = tokens;
 
@@ -32,20 +35,40 @@ const TIME_SLOTS = ['10:00 AM', '11:30 AM', '1:00 PM', '2:30 PM', '4:00 PM', '5:
 
 export default function RescheduleVisitScreen() {
   const router = useRouter();
+  const supabase = useClerkSupabase();
+  const { visitId } = useLocalSearchParams<{ visitId?: string }>();
   const [selectedDate, setSelectedDate] = useState<number>(11);
   const [selectedTime, setSelectedTime] = useState('4:00 PM');
-  const [note, setNote] = useState(
-    'Sorry, I have a conflict at the original time \u2014 does Wed 11 work?',
-  );
+  const [note, setNote] = useState('');
+  const [sending, setSending] = useState(false);
 
   const handleGoBack = useCallback(() => {
     router.back();
   }, [router]);
 
-  const handleSend = useCallback(() => {
-    // TODO: submit reschedule request
+  const handleSend = useCallback(async () => {
+    if (!visitId) {
+      router.back();
+      return;
+    }
+    setSending(true);
+    // DAYS are fixed day-of-month options in the current month.
+    const now = new Date();
+    const date = new Date(now.getFullYear(), now.getMonth(), selectedDate);
+    const result = await tenantRescheduleVisit(
+      visitId,
+      date.toISOString().slice(0, 10),
+      toTimeSlot(selectedTime),
+      supabase,
+    );
+    setSending(false);
+    if (!result.success) {
+      // TODO: surface a proper error toast when the app has one.
+      console.warn('[Reschedule] failed:', result.error);
+      return;
+    }
     router.back();
-  }, [router]);
+  }, [visitId, selectedDate, selectedTime, supabase, router]);
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
@@ -171,10 +194,15 @@ export default function RescheduleVisitScreen() {
         {/* ─── CTA ───────────────────────────────────────────────────── */}
         <Pressable
           onPress={handleSend}
-          style={styles.cta}
+          disabled={sending}
+          style={[styles.cta, sending && styles.ctaDisabled]}
           accessibilityLabel="Send new time"
           accessibilityRole="button">
-          <Text style={styles.ctaText}>Send new time</Text>
+          {sending ? (
+            <ActivityIndicator size="small" color={color.bg} />
+          ) : (
+            <Text style={styles.ctaText}>Send new time</Text>
+          )}
         </Pressable>
       </ScrollView>
     </SafeAreaView>
@@ -358,6 +386,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 32,
+  },
+  ctaDisabled: {
+    opacity: 0.6,
   },
   ctaText: {
     fontFamily: font.semibold,

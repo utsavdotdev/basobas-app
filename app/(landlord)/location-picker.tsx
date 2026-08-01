@@ -19,7 +19,7 @@ const DEFAULT_LOCATION = {
 
 export default function LandlordLocationPicker() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ lat?: string; lng?: string; area?: string }>();
+  const params = useLocalSearchParams<{ lat?: string; lng?: string; area?: string; address?: string }>();
   const insets = useSafeAreaInsets();
   const supabase = useClerkSupabase();
   const { getCurrentLocation, permissionDenied } = useLocation();
@@ -34,20 +34,32 @@ export default function LandlordLocationPicker() {
     return DEFAULT_LOCATION;
   });
   const [locality, setLocality] = useState(params.area ?? '');
+  const [address, setAddress] = useState(params.address ?? '');
   const [locating, setLocating] = useState(false);
   const [geocoding, setGeocoding] = useState(false);
+  const [geocodeFailed, setGeocodeFailed] = useState(false);
 
   const handleMapClick = useCallback(async (coords: { latitude: number; longitude: number }) => {
     setMarkerCoords({ latitude: coords.latitude, longitude: coords.longitude });
     setGeocoding(true);
+    setGeocodeFailed(false);
     try {
       const { data, error } = await supabase.functions.invoke('reverse-geocode', {
         body: { latitude: coords.latitude, longitude: coords.longitude },
       });
-      if (!error && data?.area) {
-        setLocality(data.area);
+      if (!error && data) {
+        if (data.address) setAddress(data.address);
+        if (data.area) setLocality(data.area);
+        if (data.address || data.area) {
+          setGeocodeFailed(false);
+        } else {
+          setGeocodeFailed(true);
+        }
+      } else {
+        setGeocodeFailed(true);
       }
     } catch {
+      setGeocodeFailed(true);
     }
     setGeocoding(false);
   }, [supabase]);
@@ -68,9 +80,10 @@ export default function LandlordLocationPicker() {
       lat: markerCoords.latitude,
       lng: markerCoords.longitude,
       area: locality,
+      address,
     });
     router.back();
-  }, [markerCoords, locality, setLocationStore, router]);
+  }, [markerCoords, locality, address, setLocationStore, router]);
 
   const markers: MapMarkerData[] = useMemo(
     () => [
@@ -78,13 +91,13 @@ export default function LandlordLocationPicker() {
         id: 'pin',
         latitude: markerCoords.latitude,
         longitude: markerCoords.longitude,
-        draggable: true,
-        title: locality || 'Property location',
+        draggable: false,
+        title: address || locality || 'Property location',
         color: color.brand,
         zIndex: 10,
       },
     ],
-    [markerCoords, locality],
+    [markerCoords, locality, address],
   );
 
   return (
@@ -146,23 +159,29 @@ export default function LandlordLocationPicker() {
           </View>
         </View>
 
-        <Text style={styles.fieldLabel}>Location area</Text>
+        <Text style={styles.fieldLabel}>Exact location address</Text>
         <View style={styles.inputRow}>
           <TextInput
-            style={styles.input}
-            value={locality}
-            onChangeText={setLocality}
-            placeholder="e.g. Baluwatar, Kathmandu"
+            style={[styles.input, styles.inputReadonly]}
+            value={address || locality}
+            onChangeText={() => {}}
+            placeholder={geocoding ? 'Fetching address…' : 'Tap on the map to pick the address'}
             placeholderTextColor={color.placeholder}
-            editable={!geocoding}
+            editable={false}
           />
           {geocoding && (
             <ActivityIndicator size="small" color={color.ink2} style={{ position: 'absolute', right: 14 }} />
           )}
         </View>
 
+        {geocodeFailed && (
+          <Text style={styles.errorText}>
+            Couldn&apos;t fetch the address for this spot. Tap the map again to retry.
+          </Text>
+        )}
+
         <Text style={styles.hint}>
-          Tap on the map to set the pin location. Drag the pin to fine-tune.
+          The exact address is fetched automatically from the map pin. Tap the map to move it.
         </Text>
 
         <Pressable
@@ -246,6 +265,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     fontFamily: font.sans, fontSize: size.body,
     color: color.ink,
+  },
+  inputReadonly: {
+    opacity: 0.85,
+    color: color.ink2,
+  },
+  errorText: {
+    fontFamily: font.sans,
+    fontSize: size.caption,
+    color: color.danger,
+    marginTop: 6,
   },
   hint: {
     fontFamily: font.sans, fontSize: size.caption,

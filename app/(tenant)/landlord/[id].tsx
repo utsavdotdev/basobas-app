@@ -1,5 +1,14 @@
-import { useState, useCallback } from 'react';
-import { ScrollView, View, Text, Pressable, StyleSheet, Share } from 'react-native';
+import { useState, useCallback, useEffect } from 'react';
+import {
+  ScrollView,
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  Share,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import {
@@ -9,35 +18,94 @@ import {
   CheckCircle,
   Star,
   ChevronRight,
+  ShieldAlert,
 } from 'lucide-react-native';
 
 import { tokens } from '@/src/theme/tokens';
+import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
+import { getPublishedPropertiesByLandlord } from '@/src/services/properties.service';
+import { getLandlordVerificationDetail, type LandlordVerificationStatus } from '@/src/services/properties.service';
+import type { PropertyPublic } from '@/src/types/property.types';
 
 const { color, space, radius, font, size } = tokens;
 
-// ─── Mock Data ───────────────────────────────────────────────────────────────
+// ─── Helpers ─────────────────────────────────────────────────────────────────
 
-interface Listing {
-  id: string;
-  title: string;
-  location: string;
-  price: string;
-  available: boolean;
-}
+const fmtNpr = (n: number) => `NPR ${n.toLocaleString('en-US')}`;
 
-const MOCK_LISTINGS: Listing[] = [
-  { id: '1', title: '2BHK Apartment', location: 'Pulchowk', price: 'NPR 18k/mo', available: true },
-  { id: '2', title: 'Studio Room', location: 'Baluwatar', price: 'NPR 12k/mo', available: true },
-  { id: '3', title: '1BHK Flat', location: 'Jhamsikhel', price: 'NPR 15k/mo', available: false },
-  { id: '4', title: 'Penthouse', location: 'Lalitpur', price: 'NPR 45k/mo', available: true },
-];
+const yearOf = (iso: string | null): string => (iso ? new Date(iso).getFullYear().toString() : '');
+
+const verificationLabel = (status: LandlordVerificationStatus | null): string => {
+  switch (status) {
+    case 'VERIFIED':
+      return 'Identity Verified';
+    case 'UNDER_REVIEW':
+      return 'Verification in Review';
+    case 'REJECTED':
+      return 'Verification Rejected';
+    default:
+      return 'Identity Not Verified';
+  }
+};
 
 // ─── Screen ──────────────────────────────────────────────────────────────────
 
 export default function PublicLandlordProfileScreen() {
   const router = useRouter();
+  const supabase = useClerkSupabase();
   const { id } = useLocalSearchParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState<'listings' | 'reviews'>('listings');
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [name, setName] = useState<string | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [memberSince, setMemberSince] = useState<string | null>(null);
+  const [avgRating, setAvgRating] = useState(0);
+  const [totalReviews, setTotalReviews] = useState(0);
+  const [verification, setVerification] = useState<LandlordVerificationStatus | null>(null);
+  const [listings, setListings] = useState<PropertyPublic[]>([]);
+
+  const load = useCallback(async () => {
+    if (!id) return;
+    setLoading(true);
+    setError(null);
+
+    const [profileRes, ratingRes, verifyRes, listingsRes] = await Promise.all([
+      supabase.from('profiles').select('full_name, avatar_url, created_at').eq('clerk_id', id).maybeSingle(),
+      supabase
+        .from('landlord_profiles')
+        .select('avg_rating, total_reviews')
+        .eq('clerk_id', id)
+        .maybeSingle(),
+      getLandlordVerificationDetail(id, supabase),
+      getPublishedPropertiesByLandlord(id, supabase),
+    ]);
+
+    if (profileRes.error) {
+      setError(profileRes.error.message);
+      setLoading(false);
+      return;
+    }
+
+    setName(profileRes.data?.full_name ?? null);
+    setAvatarUrl(profileRes.data?.avatar_url ?? null);
+    setMemberSince(profileRes.data?.created_at ?? null);
+
+    if (!ratingRes.error && ratingRes.data) {
+      setAvgRating(ratingRes.data.avg_rating ?? 0);
+      setTotalReviews(ratingRes.data.total_reviews ?? 0);
+    }
+
+    if (verifyRes.success) setVerification(verifyRes.data.status);
+    if (listingsRes.success) setListings(listingsRes.data);
+
+    setLoading(false);
+  }, [id, supabase]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
 
   const handleGoBack = useCallback(() => {
     router.back();
@@ -46,12 +114,14 @@ export default function PublicLandlordProfileScreen() {
   const handleShare = useCallback(async () => {
     try {
       await Share.share({
-        message: 'Check out Bikash Sharma on BasoBas!',
+        message: `Check out ${name ?? 'this landlord'} on BasoBas!`,
       });
     } catch {
       // user cancelled
     }
-  }, []);
+  }, [name]);
+
+  const isVerified = verification === 'VERIFIED';
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
@@ -75,139 +145,191 @@ export default function PublicLandlordProfileScreen() {
       </View>
       <View style={styles.headerDivider} />
 
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}>
-        {/* ─── Bio Card ──────────────────────────────────────────────── */}
-        <View style={styles.bioCard}>
-          {/* Avatar + Info */}
-          <View style={styles.bioTopSection}>
-            <View style={styles.avatar}>
-              <User size={32} color={color.ink3} strokeWidth={1.5} />
-            </View>
-            <View style={styles.bioInfo}>
-              <Text style={styles.bioName}>Bikash Sharma</Text>
-              <View style={styles.verifiedBadge}>
-                <CheckCircle size={13} color="#1A6B4A" strokeWidth={2} />
-                <Text style={styles.verifiedText}>Identity Verified</Text>
-              </View>
-              <Text style={styles.memberSinceText}>Member since 2023</Text>
-            </View>
-          </View>
-
-          <View style={styles.bioDivider} />
-
-          {/* 4-Column Stats */}
-          <View style={styles.statsRow}>
-            <View style={styles.statColumn}>
-              <View style={styles.statStarRow}>
-                <Star size={14} color="#F5A623" fill="#F5A623" strokeWidth={1.5} />
-                <Text style={styles.statNumber}>4.8</Text>
-              </View>
-              <Text style={styles.statLabel}>Rating</Text>
-            </View>
-            <View style={styles.statDivider} />
-            <View style={styles.statColumn}>
-              <Text style={styles.statNumber}>62</Text>
-              <Text style={styles.statLabel}>Reviews</Text>
-            </View>
-            <View style={styles.statDivider} />
-            <View style={styles.statColumn}>
-              <Text style={styles.statNumber}>3</Text>
-              <Text style={styles.statLabel}>Listings</Text>
-            </View>
-            <View style={styles.statDivider} />
-            <View style={styles.statColumn}>
-              <Text style={styles.statNumber}>2yr</Text>
-              <Text style={styles.statLabel}>Active</Text>
-            </View>
-          </View>
+      {loading ? (
+        <View style={styles.centerWrap}>
+          <ActivityIndicator size="small" color={color.brand} />
         </View>
-
-        {/* ─── Trust Highlights ──────────────────────────────────────── */}
-        <View style={styles.trustCard}>
-          <Text style={styles.trustTitle}>Why tenants trust Bikash</Text>
-
-          <View style={styles.trustRow}>
-            <CheckCircle size={16} color="#1A6B4A" strokeWidth={2.5} />
-            <Text style={styles.trustText}>Identity verified with citizenship</Text>
-          </View>
-          <View style={styles.trustRow}>
-            <CheckCircle size={16} color="#1A6B4A" strokeWidth={2.5} />
-            <Text style={styles.trustText}>Average response time under 2 hours</Text>
-          </View>
-          <View style={styles.trustRow}>
-            <CheckCircle size={16} color="#1A6B4A" strokeWidth={2.5} />
-            <Text style={styles.trustText}>98% visit acceptance rate</Text>
-          </View>
+      ) : error ? (
+        <View style={styles.centerWrap}>
+          <Text style={styles.errorText}>{error}</Text>
         </View>
-
-        {/* ─── Segment Control ───────────────────────────────────────── */}
-        <View style={styles.segmentContainer}>
-          <Pressable
-            onPress={() => setActiveTab('listings')}
-            style={[styles.segmentTab, activeTab === 'listings' && styles.segmentTabActive]}
-            accessibilityLabel="Active Listings"
-            accessibilityRole="tab"
-            accessibilityState={{ selected: activeTab === 'listings' }}>
-            <Text style={[styles.segmentText, activeTab === 'listings' && styles.segmentTextActive]}>
-              Active Listings
-            </Text>
-          </Pressable>
-          <Pressable
-            onPress={() => setActiveTab('reviews')}
-            style={[styles.segmentTab, activeTab === 'reviews' && styles.segmentTabActive]}
-            accessibilityLabel="Reviews"
-            accessibilityRole="tab"
-            accessibilityState={{ selected: activeTab === 'reviews' }}>
-            <Text style={[styles.segmentText, activeTab === 'reviews' && styles.segmentTextActive]}>
-              Reviews
-            </Text>
-          </Pressable>
-        </View>
-
-        {/* ─── Active Listings Grid ──────────────────────────────────── */}
-        {activeTab === 'listings' && (
-          <View style={styles.listingsGrid}>
-            {MOCK_LISTINGS.map((listing) => (
-              <Pressable
-                key={listing.id}
-                style={styles.listingCard}
-                onPress={() => router.push({ pathname: '/(tenant)/schedule-visit/[propertyId]', params: { propertyId: listing.id } } as any)}
-                accessibilityLabel={`${listing.title} in ${listing.location}`}
-                accessibilityRole="button">
-                {/* Image placeholder */}
-                <View style={styles.listingImage}>
-                  {listing.available && (
-                    <View style={styles.availableBadge}>
-                      <View style={styles.availableDot} />
-                      <Text style={styles.availableText}>Available</Text>
-                    </View>
+      ) : (
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}>
+          {/* ─── Bio Card ──────────────────────────────────────────────── */}
+          <View style={styles.bioCard}>
+            {/* Avatar + Info */}
+            <View style={styles.bioTopSection}>
+              {avatarUrl ? (
+                <Image source={{ uri: avatarUrl }} style={styles.avatarImage} />
+              ) : (
+                <View style={styles.avatar}>
+                  <User size={32} color={color.ink3} strokeWidth={1.5} />
+                </View>
+              )}
+              <View style={styles.bioInfo}>
+                <Text style={styles.bioName}>{name ?? 'Landlord'}</Text>
+                <View style={[styles.verifiedBadge, !isVerified && styles.verifiedBadgeMuted]}>
+                  {isVerified ? (
+                    <CheckCircle size={13} color="#1A6B4A" strokeWidth={2} />
+                  ) : (
+                    <ShieldAlert size={13} color={color.ink3} strokeWidth={2} />
                   )}
+                  <Text
+                    style={[
+                      styles.verifiedText,
+                      !isVerified && styles.verifiedTextMuted,
+                    ]}>
+                    {verificationLabel(verification)}
+                  </Text>
                 </View>
-                {/* Content */}
-                <View style={styles.listingContent}>
-                  <Text style={styles.listingTitle}>{listing.title}</Text>
-                  <Text style={styles.listingLocation}>{listing.location}</Text>
-                  <Text style={styles.listingPrice}>{listing.price}</Text>
-                  <View style={styles.requestVisitRow}>
-                    <Text style={styles.requestVisitText}>Request Visit</Text>
-                    <ChevronRight size={14} color="#1A6B4A" strokeWidth={2.5} />
-                  </View>
-                </View>
-              </Pressable>
-            ))}
-          </View>
-        )}
+                <Text style={styles.memberSinceText}>
+                  {memberSince ? `Member since ${yearOf(memberSince)}` : ''}
+                </Text>
+              </View>
+            </View>
 
-        {/* ─── Reviews Tab Placeholder ───────────────────────────────── */}
-        {activeTab === 'reviews' && (
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyStateText}>Reviews coming soon</Text>
+            <View style={styles.bioDivider} />
+
+            {/* 3-Column Stats (real numbers) */}
+            <View style={styles.statsRow}>
+              <View style={styles.statColumn}>
+                <View style={styles.statStarRow}>
+                  <Star size={14} color="#F5A623" fill="#F5A623" strokeWidth={1.5} />
+                  <Text style={styles.statNumber}>
+                    {avgRating > 0 ? avgRating.toFixed(1) : '—'}
+                  </Text>
+                </View>
+                <Text style={styles.statLabel}>Rating</Text>
+              </View>
+              <View style={styles.statDivider} />
+              <View style={styles.statColumn}>
+                <Text style={styles.statNumber}>{totalReviews}</Text>
+                <Text style={styles.statLabel}>Reviews</Text>
+              </View>
+              <View style={styles.statDivider} />
+              <View style={styles.statColumn}>
+                <Text style={styles.statNumber}>{listings.length}</Text>
+                <Text style={styles.statLabel}>Listings</Text>
+              </View>
+            </View>
           </View>
-        )}
-      </ScrollView>
+
+          {/* ─── Trust Highlights (real, derived from verification) ───── */}
+          <View style={styles.trustCard}>
+            <Text style={styles.trustTitle}>Why tenants trust {name?.split(' ')[0] ?? 'this landlord'}</Text>
+
+            <View style={styles.trustRow}>
+              <CheckCircle size={16} color="#1A6B4A" strokeWidth={2.5} />
+              <Text style={styles.trustText}>
+                {isVerified
+                  ? 'Identity verified by the BasoBas team'
+                  : 'Identity verification pending'}
+              </Text>
+            </View>
+            <View style={styles.trustRow}>
+              <CheckCircle size={16} color="#1A6B4A" strokeWidth={2.5} />
+              <Text style={styles.trustText}>
+                {listings.length} active listing{listings.length === 1 ? '' : 's'}
+              </Text>
+            </View>
+            <View style={styles.trustRow}>
+              <CheckCircle size={16} color="#1A6B4A" strokeWidth={2.5} />
+              <Text style={styles.trustText}>
+                {totalReviews > 0
+                  ? `${totalReviews} review${totalReviews === 1 ? '' : 's'} from tenants`
+                  : 'New to BasoBas — be the first to visit'}
+              </Text>
+            </View>
+          </View>
+
+          {/* ─── Segment Control ───────────────────────────────────────── */}
+          <View style={styles.segmentContainer}>
+            <Pressable
+              onPress={() => setActiveTab('listings')}
+              style={[styles.segmentTab, activeTab === 'listings' && styles.segmentTabActive]}
+              accessibilityLabel="Active Listings"
+              accessibilityRole="tab"
+              accessibilityState={{ selected: activeTab === 'listings' }}>
+              <Text style={[styles.segmentText, activeTab === 'listings' && styles.segmentTextActive]}>
+                Active Listings
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={() => setActiveTab('reviews')}
+              style={[styles.segmentTab, activeTab === 'reviews' && styles.segmentTabActive]}
+              accessibilityLabel="Reviews"
+              accessibilityRole="tab"
+              accessibilityState={{ selected: activeTab === 'reviews' }}>
+              <Text style={[styles.segmentText, activeTab === 'reviews' && styles.segmentTextActive]}>
+                Reviews
+              </Text>
+            </Pressable>
+          </View>
+
+          {/* ─── Active Listings Grid (real data) ──────────────────────── */}
+          {activeTab === 'listings' &&
+            (listings.length === 0 ? (
+              <View style={styles.emptyState}>
+                <Text style={styles.emptyStateText}>No active listings right now</Text>
+              </View>
+            ) : (
+              <View style={styles.listingsGrid}>
+                {listings.map((listing) => (
+                  <Pressable
+                    key={listing.id}
+                    style={styles.listingCard}
+                    onPress={() =>
+                      router.push({ pathname: '/(tenant)/property/[id]', params: { id: listing.id } } as any)
+                    }
+                    accessibilityLabel={`${listing.title} in ${listing.locationArea}`}
+                    accessibilityRole="button">
+                    {listing.photoUrls[0] ? (
+                      <Image
+                        source={{ uri: listing.photoUrls[0] }}
+                        style={styles.listingImage}
+                        resizeMode="cover"
+                      />
+                    ) : (
+                      <View style={[styles.listingImage, styles.listingImagePlaceholder]}>
+                        <View style={styles.availableBadge}>
+                          <View style={styles.availableDot} />
+                          <Text style={styles.availableText}>Available</Text>
+                        </View>
+                      </View>
+                    )}
+                    <View style={styles.listingContent}>
+                      <Text style={styles.listingTitle} numberOfLines={1}>
+                        {listing.title}
+                      </Text>
+                      <Text style={styles.listingLocation} numberOfLines={1}>
+                        {listing.locationArea}
+                      </Text>
+                      <Text style={styles.listingPrice}>{fmtNpr(listing.price)}/mo</Text>
+                      <View style={styles.requestVisitRow}>
+                        <Text style={styles.requestVisitText}>Request Visit</Text>
+                        <ChevronRight size={14} color="#1A6B4A" strokeWidth={2.5} />
+                      </View>
+                    </View>
+                  </Pressable>
+                ))}
+              </View>
+            ))}
+
+          {/* ─── Reviews Tab Placeholder ───────────────────────────────── */}
+          {activeTab === 'reviews' && (
+            <View style={styles.emptyState}>
+              <Text style={styles.emptyStateText}>
+                {totalReviews > 0
+                  ? `${totalReviews} review${totalReviews === 1 ? '' : 's'} on file`
+                  : 'No reviews yet'}
+              </Text>
+            </View>
+          )}
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 }
@@ -218,6 +340,19 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: color.bg,
+  },
+
+  centerWrap: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 32,
+  },
+  errorText: {
+    fontFamily: font.sans,
+    fontSize: size.body,
+    color: color.ink2,
+    textAlign: 'center',
   },
 
   // Header
@@ -279,6 +414,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  avatarImage: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: color.input,
+  },
   bioInfo: {
     flex: 1,
     justifyContent: 'center',
@@ -299,10 +440,16 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginTop: 6,
   },
+  verifiedBadgeMuted: {
+    backgroundColor: color.canvas,
+  },
   verifiedText: {
     fontFamily: font.medium,
     fontSize: size.caption,
     color: '#1A6B4A',
+  },
+  verifiedTextMuted: {
+    color: color.ink3,
   },
   memberSinceText: {
     fontFamily: font.sans,
@@ -428,10 +575,13 @@ const styles = StyleSheet.create({
   },
   listingImage: {
     height: 100,
-    backgroundColor: '#EBEBEB',
+    width: '100%',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     padding: 8,
+  },
+  listingImagePlaceholder: {
+    backgroundColor: '#EBEBEB',
   },
   availableBadge: {
     flexDirection: 'row',
