@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { ScrollView, View, Text, Pressable, Dimensions, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { MapPin, Star, Heart, Bed, Bath, Wifi, Car, ChevronRight } from 'lucide-react-native';
+import { MapPin, Star, Heart, Bed, Bath, Wifi, Car, ChevronRight, Building2, TreePine, Shield, CookingPot, Users, Info } from 'lucide-react-native';
 import { useUser } from '@clerk/expo';
 
 import { PropertyHero } from '@/src/components/property/PropertyHero';
@@ -23,7 +23,7 @@ import { tokens } from '@/src/theme/tokens';
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const HERO_HEIGHT = SCREEN_HEIGHT * 0.42;
 
-// ─── Amenity Icon Map ────────────────────────────────────────────────────────
+// ─── Amenity / Extra-Detail helpers ─────────────────────────────────────────
 
 const AMENITY_ICONS: Record<string, React.ComponentType<{ size?: number; color?: string }>> = {
   bed: Bed,
@@ -32,14 +32,102 @@ const AMENITY_ICONS: Record<string, React.ComponentType<{ size?: number; color?:
   car: Car,
 };
 
-const AMENITY_ICON_KEYS: Record<string, string> = {
-  'Wi-Fi': 'wifi',
-  Wifi: 'wifi',
-  Parking: 'car',
-  Balcony: 'bed',
-  Furnished: 'bed',
-  Gym: 'bed',
+const AMENITY_LABELS: Record<string, string> = {
+  bed:     'Bed',
+  bath:    'Bath',
+  wifi:    'Wi-Fi',
+  car:     'Parking',
+  kitchen: 'Kitchen',
+  ac:      'AC',
+  heater:  'Heater',
+  tv:      'TV',
+  laundry: 'Laundry',
+  gym:     'Gym',
+  security: 'Security',
+  garden:  'Garden',
+  lift:    'Lift',
+  power:   'Power Backup',
+  water:   'Water Supply',
 };
+
+const EXTRA_DETAIL_ICONS: Record<string, React.ComponentType<{ size?: number; color?: string }>> = {
+  parkingSpaces:  Car,
+  houseFloors:    Building2,
+  hasGarden:      TreePine,
+  hasGated:       Shield,
+  roomBathroom:   Bath,
+  kitchenAccess:  CookingPot,
+  tenantPref:     Users,
+  kitchenette:    CookingPot,
+  studioBathroom: Bath,
+};
+
+const EXTRA_DETAIL_LABELS: Record<string, string> = {
+  parkingSpaces:  'Parking Spaces',
+  houseFloors:    'Floors',
+  hasGarden:      'Garden',
+  hasGated:       'Gated Community',
+  roomBathroom:   'Bathroom Type',
+  kitchenAccess:  'Kitchen Access',
+  tenantPref:     'Tenant Preference',
+  kitchenette:    'Kitchenette',
+  studioBathroom: 'Bathroom Type',
+};
+
+interface AmenityRow {
+  key: string;
+  label: string;
+  icon: React.ComponentType<{ size?: number; color?: string }> | null;
+}
+
+function toAmenityRows(
+  rawAmenities: string[],
+  bedrooms: number | null,
+  bathrooms: number | null
+): AmenityRow[] {
+  const rows: AmenityRow[] = [];
+  if (bedrooms != null) rows.push({ key: 'bed', label: `${bedrooms} Bed`, icon: Bed });
+  if (bathrooms != null) rows.push({ key: 'bath', label: `${bathrooms} Bath`, icon: Bath });
+  for (const raw of rawAmenities) {
+    const key = raw.toLowerCase();
+    if (key === 'bed' || key === 'bath' || key === 'bedroom' || key === 'bathroom') continue;
+    rows.push({ key, label: AMENITY_LABELS[key] ?? raw, icon: AMENITY_ICONS[key] ?? null });
+  }
+  return rows;
+}
+
+interface ExtraDetailRow {
+  key: string;
+  label: string;
+  value: string;
+  icon: React.ComponentType<{ size?: number; color?: string }>;
+}
+
+function camelToTitle(s: string): string {
+  return s
+    .replace(/([A-Z])/g, ' $1')
+    .replace(/^./, (c) => c.toUpperCase())
+    .trim();
+}
+
+function formatExtraValue(value: unknown): string {
+  if (typeof value === 'boolean') return value ? 'Yes' : 'No';
+  if (value == null) return '';
+  return String(value);
+}
+
+function toExtraDetailRows(extraDetails: Record<string, unknown> | null): ExtraDetailRow[] {
+  if (!extraDetails) return [];
+  return Object.entries(extraDetails)
+    .filter(([k]) => k !== 'originalType')
+    .map(([k, v]) => ({
+      key: k,
+      label: EXTRA_DETAIL_LABELS[k] ?? camelToTitle(k),
+      value: formatExtraValue(v),
+      icon: EXTRA_DETAIL_ICONS[k] ?? Info,
+    }))
+    .filter((r) => r.value !== '');
+}
 
 const fmtNpr = (n: number) => `NPR ${n.toLocaleString('en-US')}`;
 
@@ -59,6 +147,7 @@ export default function PropertyDetailScreen() {
 
   const [property, setProperty] = useState<PropertyPublic | null>(null);
   const [ownerName, setOwnerName] = useState<string | null>(null);
+  const [ownerAvatarUrl, setOwnerAvatarUrl] = useState<string | null>(null);
   const [ownerVerified, setOwnerVerified] = useState(false);
   const [ownerListingsCount, setOwnerListingsCount] = useState(0);
 
@@ -92,7 +181,10 @@ export default function PropertyDetailScreen() {
       getLandlordVerificationStatus(p.landlordId, supabase),
     ]);
 
-    if (ownerRes.success) setOwnerName(ownerRes.data.name);
+    if (ownerRes.success) {
+      setOwnerName(ownerRes.data.name);
+      setOwnerAvatarUrl(ownerRes.data.avatarUrl);
+    }
     if (listingsRes.success) setOwnerListingsCount(listingsRes.data.length);
     if (verifyRes.success) setOwnerVerified(verifyRes.data === 'VERIFIED');
 
@@ -202,7 +294,8 @@ export default function PropertyDetailScreen() {
     .slice(0, 2)
     .toUpperCase();
 
-  const amenityRows = property.amenities.slice(0, 4);
+  const amenityRows = toAmenityRows(property.amenities, property.bedrooms, property.bathrooms).slice(0, 4);
+  const extraDetailRows = toExtraDetailRows(property.extraDetails);
 
   return (
     <View className="flex-1 bg-bg">
@@ -255,15 +348,12 @@ export default function PropertyDetailScreen() {
           {amenityRows.length > 0 && (
             <View className="mt-5 flex-row items-center rounded-card bg-canvas px-4 py-4">
               {amenityRows.map((amenity, i) => {
-                const iconKey =
-                  AMENITY_ICON_KEYS[amenity] ??
-                  Object.keys(AMENITY_ICONS)[i % Object.keys(AMENITY_ICONS).length];
-                const IconComponent = AMENITY_ICONS[iconKey];
+                const IconComponent = amenity.icon;
                 return (
-                  <View key={amenity} className="flex-1 flex-row items-center">
+                  <View key={amenity.key} className="flex-1 flex-row items-center">
                     <View className="flex-1 items-center">
                       {IconComponent && <IconComponent size={20} color="#6B6B6B" />}
-                      <Text className="mt-1.5 font-sans text-caption text-ink2">{amenity}</Text>
+                      <Text className="mt-1.5 font-sans text-caption text-ink2">{amenity.label}</Text>
                     </View>
                     {i < amenityRows.length - 1 && <View className="h-8 w-[1px] bg-line" />}
                   </View>
@@ -272,11 +362,38 @@ export default function PropertyDetailScreen() {
             </View>
           )}
 
+          {/* ═══ Extra Details Card (property-type-specific fields) ═══ */}
+          {extraDetailRows.length > 0 && (
+            <View className="mt-5 rounded-card bg-canvas px-4 py-4">
+              <Text className="mb-3 font-semibold text-body text-ink">Property Details</Text>
+              <View className="gap-y-3">
+                {extraDetailRows.map((detail) => {
+                  const Icon = detail.icon;
+                  return (
+                    <View key={detail.key} className="flex-row items-center">
+                      <View className="h-9 w-9 items-center justify-center rounded-lg bg-bg">
+                        <Icon size={18} color="#1A6B4A" />
+                      </View>
+                      <View className="ml-3 flex-1 flex-row items-center justify-between">
+                        <Text className="font-sans text-body-sm text-ink2">{detail.label}</Text>
+                        <Text className="font-medium text-body-sm text-ink">{detail.value}</Text>
+                      </View>
+                    </View>
+                  );
+                })}
+              </View>
+            </View>
+          )}
+
           {/* ═══ About Section ═══ */}
-          <Text className="mt-6 font-semibold text-h3 text-ink">About</Text>
-          <Text className="mt-2 font-sans text-body leading-relaxed text-ink2">
-            {property.description ?? 'No description provided by the landlord yet.'}
-          </Text>
+          {property.description?.trim() ? (
+            <>
+              <Text className="mt-6 font-semibold text-h3 text-ink">About</Text>
+              <Text className="mt-2 font-sans text-body leading-relaxed text-ink2">
+                {property.description}
+              </Text>
+            </>
+          ) : null}
 
           {/* ═══ Owner Card ═══ */}
           <Pressable
@@ -284,7 +401,7 @@ export default function PropertyDetailScreen() {
             className="mt-5 flex-row items-center rounded-card bg-canvas p-4"
             accessibilityLabel={`View ${ownerName ?? 'landlord'}'s profile`}
             accessibilityRole="button">
-            <Avatar size={48} initials={ownerInitials} />
+            <Avatar size={48} initials={ownerInitials} uri={ownerAvatarUrl ?? undefined} />
             <View className="ml-3 flex-1">
               <Text className="font-semibold text-body text-ink">{ownerName ?? 'Landlord'}</Text>
               <Text className="mt-0.5 font-sans text-body-sm text-ink2">

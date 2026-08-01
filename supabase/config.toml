@@ -415,3 +415,19 @@ enabled = true
 verify_jwt = false
 import_map = "./functions/check-payment-status/deno.json"
 entrypoint = "./functions/check-payment-status/index.ts"
+
+# These verify the Clerk JWT manually inside the function (see
+# functions/_shared/auth.ts), so the platform must not demand a
+# Supabase JWT — otherwise the app's Clerk token is rejected before
+# the function ever runs.
+[functions.geocode]
+enabled = true
+verify_jwt = false
+import_map = "./functions/geocode/deno.json"
+entrypoint = "./functions/geocode/index.ts"
+
+[functions.reverse-geocode]
+enabled = true
+verify_jwt = false
+import_map = "./functions/reverse-geocode/deno.json"
+entrypoint = "./functions/reverse-geocode/index.ts"

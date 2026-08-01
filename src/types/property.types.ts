@@ -449,15 +449,57 @@ export const formatVisitDate = (isoDate: string): string => {
   });
 };
 
+const MONTH_INDEX: Record<string, number> = {
+  jan: 0, january: 0, feb: 1, february: 1, mar: 2, march: 2,
+  apr: 3, april: 3, may: 4, jun: 5, june: 5, jul: 6, july: 6,
+  aug: 7, august: 7, sep: 8, september: 8, oct: 9, october: 9,
+  nov: 10, november: 10, dec: 11, december: 11,
+};
+
+/**
+ * Parse a user-entered date label ("Aug 5, 2026", "5 Aug 2026" or ISO
+ * "2026-08-05") into a Date, or null when it is empty / not a real date.
+ *
+ * Hermes (React Native) only parses ISO 8601 natively, so month-name
+ * labels like "Aug 5, 2026" would otherwise be Invalid Date. They are
+ * parsed manually and strictly validated (known month, day range,
+ * rollovers like Feb 30 rejected) so every JS engine behaves the same.
+ */
+export const parseDateLabel = (label: string): Date | null => {
+  const text = label.trim();
+  if (!text) return null;
+
+  const monthFirst = /^([A-Za-z]{3,9})[ ,]+(\d{1,2}),?[ ,]+(\d{4})$/.exec(text);
+  const dayFirst = /^(\d{1,2})[ ,]+([A-Za-z]{3,9}),?[ ,]+(\d{4})$/.exec(text);
+  const match = monthFirst ?? dayFirst;
+  if (match) {
+    const isMonthFirst = monthFirst !== null;
+    const month = MONTH_INDEX[(isMonthFirst ? match[1] : match[2]).toLowerCase()];
+    const day = Number(isMonthFirst ? match[2] : match[1]);
+    const year = Number(match[3]);
+    if (month === undefined || day < 1 || day > 31 || year < 1900 || year > 2200) {
+      return null;
+    }
+    const date = new Date(year, month, day);
+    // Reject rollovers like Feb 30 by comparing the components back.
+    return date.getMonth() === month && date.getDate() === day ? date : null;
+  }
+
+  const native = new Date(text);
+  return Number.isNaN(native.getTime()) ? null : native;
+};
+
 /**
  * Parse the wizard's `availableFrom` display string (`"Jul 1, 2026"`) into an
  * ISO date for the `available_from DATE NOT NULL` column. Falls back to today
  * so publish never fails on an unparseable label.
  */
 export const parseAvailableFrom = (label: string | undefined): string => {
-  const parsed = label ? new Date(label) : new Date();
-  const date = Number.isNaN(parsed.getTime()) ? new Date() : parsed;
-  return date.toISOString().slice(0, 10);
+  const date = label ? parseDateLabel(label) : null;
+  const d = date ?? new Date();
+  const pad = (n: number) => String(n).padStart(2, '0');
+  // Built from local components so the day never shifts via UTC conversion.
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 };
 
 /** Wizard money strings arrive comma-formatted (`"28,000"`). */

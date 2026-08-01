@@ -60,6 +60,7 @@ export default function TenantMapScreen() {
   const [suggestions, setSuggestions] = useState<GeocodeResult[]>([]);
   const [suggestionsOpen, setSuggestionsOpen] = useState(false);
   const [searching, setSearching] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
   const [debouncedQuery] = useDebounce(query.trim(), 500);
 
   // ── Radius state ───────────────────────────────────────────────────
@@ -113,19 +114,23 @@ export default function TenantMapScreen() {
       setSuggestions([]);
       setSuggestionsOpen(false);
       setSearching(false);
+      setSearchError(null);
       return;
     }
     let cancelled = false;
     setSearching(true);
+    setSearchError(null);
     (async () => {
       const result = await geocodePlace(debouncedQuery, supabase);
       if (cancelled) return;
       if (result.success && result.data.length > 0) {
         setSuggestions(result.data);
+        setSearchError(null);
         setSuggestionsOpen(true);
       } else {
         setSuggestions([]);
-        setSuggestionsOpen(false);
+        setSearchError(result.success ? null : result.error);
+        setSuggestionsOpen(true);
       }
       setSearching(false);
     })();
@@ -257,6 +262,7 @@ export default function TenantMapScreen() {
                   value={query}
                   onChangeText={(t) => {
                     setQuery(t);
+                    setSearchError(null);
                     if (t.trim().length < 2) setSuggestionsOpen(false);
                   }}
                   returnKeyType="search"
@@ -273,26 +279,40 @@ export default function TenantMapScreen() {
               </View>
 
               {/* ── Suggestions dropdown ────────────────────────────── */}
-              {suggestionsOpen && suggestions.length > 0 && (
+              {suggestionsOpen && (suggestions.length > 0 || searchError || !searching) && (
                 <View className="mt-2 overflow-hidden rounded-card bg-bg" style={styles.shadow}>
-                  {suggestions.map((s, i) => (
-                    <Pressable
-                      key={`${s.lat}-${s.lng}-${i}`}
-                      onPress={() => handleSelectSuggestion(s)}
-                      className="flex-row items-center gap-3 px-4 py-3"
-                      style={i < suggestions.length - 1 ? styles.suggestionDivider : undefined}
-                      accessibilityRole="button">
-                      <MapPin size={15} color={color.brand} strokeWidth={2} />
-                      <View className="flex-1">
-                        <Text numberOfLines={1} className="font-sans text-body-sm text-ink">
-                          {s.area || s.name}
-                        </Text>
-                        <Text numberOfLines={1} className="mt-0.5 font-sans text-caption text-ink3">
-                          {s.name}
-                        </Text>
-                      </View>
-                    </Pressable>
-                  ))}
+                  {searchError ? (
+                    <View className="flex-row items-center gap-2 px-4 py-3">
+                      <Text numberOfLines={2} className="flex-1 font-sans text-caption text-danger">
+                        {searchError}
+                      </Text>
+                    </View>
+                  ) : suggestions.length === 0 && !searching ? (
+                    <View className="px-4 py-3">
+                      <Text numberOfLines={1} className="font-sans text-body-sm text-ink3">
+                        No places found for &ldquo;{debouncedQuery}&rdquo;.
+                      </Text>
+                    </View>
+                  ) : (
+                    suggestions.map((s, i) => (
+                      <Pressable
+                        key={`${s.lat}-${s.lng}-${i}`}
+                        onPress={() => handleSelectSuggestion(s)}
+                        className="flex-row items-center gap-3 px-4 py-3"
+                        style={i < suggestions.length - 1 ? styles.suggestionDivider : undefined}
+                        accessibilityRole="button">
+                        <MapPin size={15} color={color.brand} strokeWidth={2} />
+                        <View className="flex-1">
+                          <Text numberOfLines={1} className="font-sans text-body-sm text-ink">
+                            {s.area || s.name}
+                          </Text>
+                          <Text numberOfLines={1} className="mt-0.5 font-sans text-caption text-ink3">
+                            {s.name}
+                          </Text>
+                        </View>
+                      </Pressable>
+                    ))
+                  )}
                 </View>
               )}
             </View>

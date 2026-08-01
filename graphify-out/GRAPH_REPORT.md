@@ -1,16 +1,16 @@
-# Graph Report - basobas-app  (2026-07-31)
+# Graph Report - basobas-app  (2026-08-01)
 
 ## Corpus Check
-- 215 files · ~131,987 words
+- 216 files · ~134,274 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1227 nodes · 2197 edges · 89 communities (77 shown, 12 thin omitted)
+- 1243 nodes · 2232 edges · 95 communities (83 shown, 12 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 18 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `56ae5882`
+- Built from commit: `e115f93d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -90,12 +90,18 @@
 - [[_COMMUNITY_Community 86|Community 86]]
 - [[_COMMUNITY_Community 87|Community 87]]
 - [[_COMMUNITY_Community 88|Community 88]]
+- [[_COMMUNITY_Community 89|Community 89]]
+- [[_COMMUNITY_Community 90|Community 90]]
+- [[_COMMUNITY_Community 91|Community 91]]
+- [[_COMMUNITY_Community 92|Community 92]]
+- [[_COMMUNITY_Community 93|Community 93]]
+- [[_COMMUNITY_Community 96|Community 96]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `useClerkSupabase()` - 75 edges
-2. `ok()` - 64 edges
-3. `err()` - 64 edges
-4. `getErrorMessage()` - 62 edges
+2. `ok()` - 65 edges
+3. `err()` - 65 edges
+4. `getErrorMessage()` - 63 edges
 5. `ScreenHeader()` - 23 edges
 6. `useUserStore` - 21 edges
 7. `Database` - 19 edges
@@ -104,45 +110,45 @@
 10. `expo` - 15 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `LandlordTabsLayout()` --calls--> `useClerkSupabase()`  [INFERRED]
+  app/(landlord)/(tabs)/_layout.tsx → src/hooks/useClerkSupabase.ts
 - `AuthGate()` --calls--> `useAuth()`  [INFERRED]
   app/_layout.tsx → src/hooks/useAuth.ts
 - `LoadingScreen()` --calls--> `useAuth()`  [INFERRED]
   app/(auth)/loading.tsx → src/hooks/useAuth.ts
 - `PhoneEntryScreen()` --calls--> `useAuth()`  [INFERRED]
   app/(auth)/phone.tsx → src/hooks/useAuth.ts
-- `LandlordTabsLayout()` --calls--> `useClerkSupabase()`  [INFERRED]
-  app/(landlord)/(tabs)/_layout.tsx → src/hooks/useClerkSupabase.ts
 - `LandlordDashboard()` --calls--> `useClerkSupabase()`  [INFERRED]
   app/(landlord)/(tabs)/index.tsx → src/hooks/useClerkSupabase.ts
 
 ## Import Cycles
 - 1-file cycle: `metro.config.js -> metro.config.js`
 
-## Communities (89 total, 12 thin omitted)
+## Communities (95 total, 12 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.06
-Nodes (43): ConfirmationScreen(), DetailRowProps, styles, SummaryCardProps, DocTypeChipProps, DocumentUploadZoneProps, KYCLandlordScreen(), styles (+35 more)
+Cohesion: 0.05
+Nodes (49): ConfirmationScreen(), DetailRowProps, styles, SummaryCardProps, DocTypeChipProps, DocumentUploadZoneProps, KYCLandlordScreen(), styles (+41 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.06
-Nodes (39): useProfileBootstrap(), ProGateState, useProGate(), useProGateStore, EsewaFormFields, PlanId, PurchasePlanState, usePurchasePlan() (+31 more)
+Cohesion: 0.17
+Nodes (15): useClerkSupabase(), DeclineRequestScreen(), REASONS, styles, ShareDetailsScreen(), LandlordVisitsScreen(), RequestDetailScreen(), TAB_LABELS (+7 more)
 
 ### Community 2 - "Community 2"
 Cohesion: 0.04
 Nodes (50): dependencies, @clerk/expo, expo, expo-blur, expo-camera, expo-constants, expo-crypto, expo-document-picker (+42 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.25
-Nodes (7): useAuth(), LandlordProfileTab(), STATUS_BADGE_STYLES, styles, VERIFICATION_COPY, SettingsScreen(), PropertyStatusUi
+Cohesion: 0.23
+Nodes (8): useAuth(), EditProfileScreen(), LandlordProfileTab(), STATUS_BADGE_STYLES, styles, VERIFICATION_COPY, SettingsScreen(), PropertyStatusUi
 
 ### Community 4 - "Community 4"
-Cohesion: 0.10
-Nodes (21): countSelected(), DetailRow, MediaItem, parseJSON(), styles, asRecord(), asStringArray(), parseAvailableFrom() (+13 more)
+Cohesion: 0.25
+Nodes (8): scripts, android, format, ios, lint, prebuild, start, web
 
 ### Community 5 - "Community 5"
-Cohesion: 0.05
-Nodes (30): AMENITIES, Amenity, FilterDrawer(), PROPERTY_TYPES, SortOption, SORTS, NotificationPrefsModal(), NotifRowProps (+22 more)
+Cohesion: 0.15
+Nodes (4): NotificationPrefsModal(), NotifRowProps, styles, ToggleProps
 
 ### Community 6 - "Community 6"
 Cohesion: 0.09
@@ -153,8 +159,8 @@ Cohesion: 0.05
 Nodes (39): 1. Property Discovery, 1. Receive Request, 2. Request Creation, 2. Take Action on Request, 3. Awaiting Response, 3. Post-Visit Follow-Up, 48-Hour Reminder, 4. Managing Multiple Applicants (+31 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.05
-Nodes (33): AMENITY_ICONS, AMENITY_LABELS, AmenityRow, EXTRA_DETAIL_ICONS, EXTRA_DETAIL_LABELS, ExtraDetailRow, FORMATTER, { height: SCREEN_HEIGHT } (+25 more)
+Cohesion: 0.11
+Nodes (13): AMENITY_ICONS, AMENITY_LABELS, AmenityRow, EXTRA_DETAIL_ICONS, EXTRA_DETAIL_LABELS, ExtraDetailRow, FORMATTER, { height: SCREEN_HEIGHT } (+5 more)
 
 ### Community 9 - "Community 9"
 Cohesion: 0.20
@@ -162,7 +168,7 @@ Nodes (10): HERO_BY_STATUS, HeroConfig, KYCStatusHero(), Props, styles, Props, S
 
 ### Community 10 - "Community 10"
 Cohesion: 0.13
-Nodes (14): DocumentTypeSelector(), DocumentTypeSelectorProps, KYCDocumentType, Option, OPTIONS, styles, DocumentUploadCardStatus, Benefit (+6 more)
+Nodes (16): DocumentTypeSelector(), DocumentTypeSelectorProps, KYCDocumentType, Option, OPTIONS, styles, DocumentUploadCardStatus, LandlordKYCUploadScreen() (+8 more)
 
 ### Community 11 - "Community 11"
 Cohesion: 0.07
@@ -181,16 +187,16 @@ Cohesion: 0.11
 Nodes (16): FeatureSlide, s, SLIDES, MapIllustration(), styles, NextButton, NextButtonProps, OnboardingLayoutProps (+8 more)
 
 ### Community 15 - "Community 15"
-Cohesion: 0.08
-Nodes (24): devDependencies, @babel/core, babel-preset-expo, eslint, eslint-config-expo, eslint-config-prettier, prettier, prettier-plugin-tailwindcss (+16 more)
+Cohesion: 0.17
+Nodes (12): devDependencies, @babel/core, babel-preset-expo, eslint, eslint-config-expo, eslint-config-prettier, prettier, prettier-plugin-tailwindcss (+4 more)
 
 ### Community 16 - "Community 16"
-Cohesion: 0.19
-Nodes (11): DockTab, DockTabProps, styles, LANDLORD_DOCK_ITEMS, TENANT_DOCK_ITEMS, GlassDock(), styles, FloatingDock (+3 more)
+Cohesion: 0.17
+Nodes (12): DockTab, DockTabProps, styles, LANDLORD_DOCK_ITEMS, TENANT_DOCK_ITEMS, GlassDock(), styles, FloatingDock (+4 more)
 
 ### Community 17 - "Community 17"
-Cohesion: 0.17
-Nodes (12): getJwks(), getJwksUrl(), verifyClerkJwt(), arrayBufferToBase64(), checkEsewaTransactionStatus(), generateSignature(), getEsewaConfig(), grantUserPass() (+4 more)
+Cohesion: 0.15
+Nodes (15): getJwks(), getJwksUrl(), verifyClerkJwt(), arrayBufferToBase64(), checkEsewaTransactionStatus(), generateSignature(), getEsewaConfig(), grantUserPass() (+7 more)
 
 ### Community 18 - "Community 18"
 Cohesion: 0.11
@@ -198,31 +204,31 @@ Nodes (18): BasoBas — Authentication & Onboarding Flow, Every Step, Every Rule
 
 ### Community 19 - "Community 19"
 Cohesion: 0.06
-Nodes (95): NEPAL_CITIES, styles, err(), getErrorMessage(), ok(), Result, DashboardActivity, getLandlordDashboard() (+87 more)
+Nodes (101): NEPAL_CITIES, styles, err(), getErrorMessage(), ok(), Result, DashboardActivity, getLandlordDashboard() (+93 more)
 
 ### Community 20 - "Community 20"
 Cohesion: 0.11
 Nodes (17): 1. Privacy First — The Address Rule, 2. No Broker, No Commission, 3. Verification Builds Trust, 4. Phone Number Is Identity, 5. Broker Replacement, Not Broker Supplement, BasoBas — Product Vision, Core Principles, Dual Role Users (+9 more)
 
 ### Community 21 - "Community 21"
-Cohesion: 0.08
-Nodes (12): dockBottomReserve(), ScreenBody(), ScreenBodyProps, ScreenBodyWithActionProps, LandlordDashboard, ActivityItem, EMPTY_STATS, InsightItem (+4 more)
+Cohesion: 0.10
+Nodes (7): LandlordDashboard, ActivityItem, EMPTY_STATS, InsightItem, LandlordDashboardProps, s, StatItem
 
 ### Community 22 - "Community 22"
 Cohesion: 0.12
 Nodes (15): BasoBas Design System, Border Radius, Buttons, Cards, Colors, Components, Do's and Don'ts, Elevation (+7 more)
 
 ### Community 23 - "Community 23"
-Cohesion: 0.12
-Nodes (14): AMENITIES_APARTMENT, AMENITIES_HOUSE, AMENITIES_ROOM, AMENITIES_STUDIO, BATHROOM_OPTIONS, FieldErrors, FURNISHING, KITCHEN_OPTIONS (+6 more)
+Cohesion: 0.09
+Nodes (25): useLocation(), UseLocationResult, DEFAULT_LOCATION, LandlordLocationPicker(), styles, AndroidMap, AppMapViewHandle, AppMapViewProps (+17 more)
 
 ### Community 24 - "Community 24"
-Cohesion: 0.21
-Nodes (7): MenuCard(), Props, MenuRow(), Props, initialsOf(), monthYear(), ProfileTab()
+Cohesion: 0.40
+Nodes (4): Benefit, BENEFITS, KYCBenefitsList(), styles
 
 ### Community 25 - "Community 25"
-Cohesion: 0.16
-Nodes (11): ListingDetailScreen(), PropertyPreviewSheet(), FilterTab, FORMATTER, MyPropertiesScreen(), MyPropertiesScreenProps, PropertyCard(), STATUS_STYLES (+3 more)
+Cohesion: 0.40
+Nodes (4): main, name, private, version
 
 ### Community 26 - "Community 26"
 Cohesion: 0.15
@@ -233,8 +239,8 @@ Cohesion: 0.15
 Nodes (7): FOLLOW_UP_RESPONSE_LABELS, DetailCardProps, formatTimestamp(), HERO_STYLES, STATUS_COPY, styles, VisitDetailScreen()
 
 ### Community 28 - "Community 28"
-Cohesion: 0.19
-Nodes (9): { width: SCREEN_WIDTH, height: SCREEN_HEIGHT }, GeoJsonFeature, PropertyPreviewSheetProps, sheetStyles, CameraPosition, ClusterFeature, MapBounds, PROPERTY_STATUS_COLORS (+1 more)
+Cohesion: 0.09
+Nodes (20): { width: SCREEN_WIDTH, height: SCREEN_HEIGHT }, GeoJsonFeature, ListingDetailScreen(), PropertyPreviewSheet(), PropertyPreviewSheetProps, sheetStyles, FilterTab, FORMATTER (+12 more)
 
 ### Community 29 - "Community 29"
 Cohesion: 0.22
@@ -253,8 +259,8 @@ Cohesion: 0.29
 Nodes (5): BG_MAP, ChipColor, ChipVariant, Props, TEXT_MAP
 
 ### Community 33 - "Community 33"
-Cohesion: 0.18
-Nodes (11): ShareDetailsScreen(), LandlordVisitsScreen(), RequestDetailScreen(), TAB_LABELS, TabKey, VisitRequestsScreen(), formatVisitDate(), LandlordVisitRequest (+3 more)
+Cohesion: 0.14
+Nodes (15): asRecord(), asStringArray(), MONTH_INDEX, parseAvailableFrom(), parseDateLabel(), PRICE_FORMATTER, PropertyPrivateLocation, PropertyRow (+7 more)
 
 ### Community 34 - "Community 34"
 Cohesion: 0.29
@@ -265,12 +271,12 @@ Cohesion: 0.33
 Nodes (5): OTPCell, OTPCellProps, OTPInput, OTPInputProps, styles
 
 ### Community 36 - "Community 36"
-Cohesion: 0.11
-Nodes (18): useClerkSupabase(), DeclineRequestScreen(), REASONS, styles, LandlordKYCUploadScreen(), DayOption, styles, SuggestTimeScreen() (+10 more)
+Cohesion: 0.15
+Nodes (10): DayOption, styles, SuggestTimeScreen(), TIME_SLOTS, toTimeSlot(), DayOption, DAYS, RescheduleVisitScreen() (+2 more)
 
 ### Community 37 - "Community 37"
-Cohesion: 0.15
-Nodes (11): AppMapViewHandle, AppMapViewProps, MapAnnotationData, MapCameraPosition, MapCircleData, GeocodeResult, fmtKm(), INITIAL_CAMERA (+3 more)
+Cohesion: 0.08
+Nodes (21): AMENITIES_APARTMENT, AMENITIES_HOUSE, AMENITIES_ROOM, AMENITIES_STUDIO, BATHROOM_OPTIONS, FieldErrors, FURNISHING, KITCHEN_OPTIONS (+13 more)
 
 ### Community 38 - "Community 38"
 Cohesion: 0.33
@@ -321,44 +327,44 @@ Cohesion: 0.50
 Nodes (3): imports, @supabase/functions-js, @supabase/server
 
 ### Community 65 - "Community 65"
-Cohesion: 0.32
-Nodes (6): useLocation(), UseLocationResult, DEFAULT_LOCATION, LandlordLocationPicker(), styles, MapMarkerData
+Cohesion: 0.15
+Nodes (13): AMENITY_ICONS, AMENITY_LABELS, AmenityRow, EXTRA_DETAIL_ICONS, EXTRA_DETAIL_LABELS, ExtraDetailRow, fmtNpr(), { height: SCREEN_HEIGHT } (+5 more)
 
 ### Community 68 - "Community 68"
-Cohesion: 0.18
-Nodes (9): deriveStatusUi(), Patch, Supabase, VisitsState, isPastDate(), TenantVisitRequest, toTenantVisitStatusUi(), VisitStatus (+1 more)
+Cohesion: 0.12
+Nodes (17): deriveStatusUi(), Patch, Supabase, useVisitsStore, VisitsState, FollowUpResponse, isPastDate(), TenantVisitRequest (+9 more)
 
 ### Community 76 - "Community 76"
 Cohesion: 0.24
 Nodes (10): COL_WIDTH, formatTime(), KYCStatusTimeline(), Props, resolveActiveStep(), Step, StepKey, STEPS (+2 more)
 
 ### Community 77 - "Community 77"
-Cohesion: 0.13
-Nodes (16): KYCRejectionNotice(), Props, styles, formatDateTime(), LandlordVerificationScreen(), styles, Props, SectionLabel() (+8 more)
+Cohesion: 0.17
+Nodes (10): formatDateTime(), LandlordVerificationScreen(), styles, Props, SectionLabel(), LandlordVerificationDetail, formatDateTime(), KYCStatusScreen() (+2 more)
 
 ### Community 78 - "Community 78"
 Cohesion: 0.25
 Nodes (5): DocumentUploadCard(), DocumentUploadCardProps, styles, styles, UploadPlaceholder()
 
 ### Community 79 - "Community 79"
-Cohesion: 0.22
-Nodes (9): LoadingScreen(), styles, maskPhone(), OTPVerificationScreen(), s, EditProfileScreen(), AuthStore, Profile (+1 more)
+Cohesion: 0.24
+Nodes (8): LoadingScreen(), styles, maskPhone(), OTPVerificationScreen(), s, AuthStore, Profile, useAuthStore
 
 ### Community 80 - "Community 80"
 Cohesion: 0.18
 Nodes (10): EMPTY_COPY, OPEN_UI, subtitleFor(), TabKey, TABS, VisitsTab(), Props, STATUS_STYLES (+2 more)
 
 ### Community 81 - "Community 81"
-Cohesion: 0.23
-Nodes (8): styles, getLatestKYCSubmission(), getUserKYCStatusUi(), KYCInput, KYCResult, KYCDocumentSlot, KYCSubmission, KYCSubmissionRow
+Cohesion: 0.18
+Nodes (10): DEFAULT_TIME_SLOTS, formatDateLong(), isPastDate(), MONTH_NAMES, MonthGridDay, ScheduleSelection, ScheduleVisitDrawer(), ScheduleVisitDrawerProps (+2 more)
 
 ### Community 83 - "Community 83"
-Cohesion: 0.29
-Nodes (8): useVisitsStore, FollowUpResponse, OPTIONS, PostVisitFollowUpScreen(), styles, FollowUpOptionCard(), FollowUpOptionCardProps, styles
+Cohesion: 0.22
+Nodes (6): CityFilter, INITIAL_FILTERS, PropertyFilters, PropertyStore, SavedScreen(), PropertyPublic
 
 ### Community 84 - "Community 84"
-Cohesion: 0.40
-Nodes (3): createClerkSupabaseClient(), supabasePublic, VisitRequestRow
+Cohesion: 0.27
+Nodes (6): useProfileBootstrap(), useVisitRealtime(), createClerkSupabaseClient(), supabasePublic, TenantLayout(), VisitRequestRow
 
 ### Community 85 - "Community 85"
 Cohesion: 0.50
@@ -369,28 +375,52 @@ Cohesion: 0.50
 Nodes (3): imports, @supabase/functions-js, @supabase/server
 
 ### Community 88 - "Community 88"
+Cohesion: 0.25
+Nodes (6): AMENITIES, Amenity, FilterDrawer(), PROPERTY_TYPES, SortOption, SORTS
+
+### Community 89 - "Community 89"
+Cohesion: 0.29
+Nodes (5): AMENITIES, FilterDrawerProps, PROPERTY_TYPES, SORT_OPTIONS, BhkFilter
+
+### Community 90 - "Community 90"
+Cohesion: 0.38
+Nodes (5): FilterDrawer(), usePropertyStore, BHK_FILTERS, BhkFilter, SearchResults()
+
+### Community 91 - "Community 91"
+Cohesion: 0.05
+Nodes (43): ProGateState, useProGate(), useProGateStore, EsewaFormFields, PlanId, PurchasePlanState, usePurchasePlan(), ProGateModal() (+35 more)
+
+### Community 92 - "Community 92"
 Cohesion: 0.50
-Nodes (4): getRadiusCircleSizeForKm(), RadiusMapView(), RadiusMapViewProps, RING_COLORS
+Nodes (4): CITIES, City, fmtNpr(), HomeTab()
+
+### Community 93 - "Community 93"
+Cohesion: 0.50
+Nodes (3): PropertyHero(), Props, { width: SCREEN_WIDTH }
+
+### Community 96 - "Community 96"
+Cohesion: 0.29
+Nodes (5): dockBottomReserve(), ScreenBody(), ScreenBodyProps, ScreenBodyWithActionProps, LandlordDashboard()
 
 ## Knowledge Gaps
-- **548 isolated node(s):** `name`, `slug`, `version`, `scheme`, `favicon` (+543 more)
+- **556 isolated node(s):** `name`, `slug`, `version`, `scheme`, `favicon` (+551 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **12 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `useClerkSupabase()` connect `Community 36` to `Community 0`, `Community 1`, `Community 3`, `Community 4`, `Community 5`, `Community 8`, `Community 10`, `Community 19`, `Community 21`, `Community 24`, `Community 25`, `Community 27`, `Community 33`, `Community 37`, `Community 40`, `Community 65`, `Community 77`, `Community 79`, `Community 80`, `Community 81`, `Community 83`?**
-  _High betweenness centrality (0.111) - this node is a cross-community bridge._
-- **Why does `ScreenHeader()` connect `Community 6` to `Community 1`, `Community 33`, `Community 3`, `Community 5`, `Community 10`, `Community 77`, `Community 81`, `Community 19`?**
-  _High betweenness centrality (0.011) - this node is a cross-community bridge._
-- **Why does `getErrorMessage()` connect `Community 19` to `Community 81`?**
-  _High betweenness centrality (0.011) - this node is a cross-community bridge._
+- **Why does `useClerkSupabase()` connect `Community 1` to `Community 0`, `Community 3`, `Community 8`, `Community 10`, `Community 16`, `Community 19`, `Community 21`, `Community 23`, `Community 27`, `Community 28`, `Community 36`, `Community 37`, `Community 40`, `Community 65`, `Community 68`, `Community 77`, `Community 79`, `Community 80`, `Community 83`, `Community 84`, `Community 90`, `Community 91`, `Community 92`, `Community 96`?**
+  _High betweenness centrality (0.097) - this node is a cross-community bridge._
 - **Are the 6 inferred relationships involving `useClerkSupabase()` (e.g. with `PropertyDetailScreen()` and `HomeTab()`) actually correct?**
   _`useClerkSupabase()` has 6 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `name`, `slug`, `version` to the rest of the system?**
-  _548 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _556 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.05721153846153846 - nodes in this community are weakly interconnected._
-- **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.05878084179970972 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05213089802130898 - nodes in this community are weakly interconnected._
+- **Should `Community 2` be split into smaller, more focused modules?**
+  _Cohesion score 0.04 - nodes in this community are weakly interconnected._
+- **Should `Community 6` be split into smaller, more focused modules?**
+  _Cohesion score 0.09425287356321839 - nodes in this community are weakly interconnected._
+- **Should `Community 7` be split into smaller, more focused modules?**
+  _Cohesion score 0.05 - nodes in this community are weakly interconnected._

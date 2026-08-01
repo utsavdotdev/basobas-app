@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { Platform, type ViewStyle } from 'react-native';
 import { GoogleMaps, AppleMaps } from 'expo-maps';
 
@@ -55,14 +55,25 @@ export interface AppMapViewProps {
   onCameraMove?: (event: { latitude: number; longitude: number; zoom: number }) => void;
 }
 
-const iosRender = (
-  props: AppMapViewProps,
-  ref: React.Ref<unknown> | null,
-) => {
+const IosMap = forwardRef<AppMapViewHandle, AppMapViewProps>((props, ref) => {
   const {
     style, cameraPosition, markers = [], annotations = [],
     isMyLocationEnabled, onMapClick, onMarkerClick, onCameraMove,
   } = props;
+  const nativeRef = useRef<any>(null);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      setCameraPosition: (config) => {
+        nativeRef.current?.setCameraPosition({
+          coordinates: { latitude: config.latitude, longitude: config.longitude },
+          zoom: config.zoom,
+        });
+      },
+    }),
+    []
+  );
 
   const cameraPos = cameraPosition
     ? {
@@ -73,7 +84,7 @@ const iosRender = (
 
   return (
     <AppleMaps.View
-      ref={ref as any}
+      ref={nativeRef}
       style={style as any}
       cameraPosition={cameraPos}
       markers={markers.map((m) => ({
@@ -100,16 +111,29 @@ const iosRender = (
       onCameraMove={(e) => onCameraMove?.({ latitude: e.coordinates.latitude ?? 0, longitude: e.coordinates.longitude ?? 0, zoom: e.zoom ?? 10 })}
     />
   );
-};
+});
+IosMap.displayName = 'IosMap';
 
-const androidRender = (
-  props: AppMapViewProps,
-  ref: React.Ref<unknown> | null,
-) => {
+const AndroidMap = forwardRef<AppMapViewHandle, AppMapViewProps>((props, ref) => {
   const {
     style, cameraPosition, markers = [], circles = [],
     isMyLocationEnabled, onMapClick, onMarkerClick, onCameraMove,
   } = props;
+  const nativeRef = useRef<any>(null);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      setCameraPosition: (config) => {
+        nativeRef.current?.setCameraPosition({
+          coordinates: { latitude: config.latitude, longitude: config.longitude },
+          zoom: config.zoom,
+          duration: config.duration,
+        });
+      },
+    }),
+    []
+  );
 
   const cameraPos = cameraPosition
     ? {
@@ -120,7 +144,7 @@ const androidRender = (
 
   return (
     <GoogleMaps.View
-      ref={ref as any}
+      ref={nativeRef}
       style={style as any}
       cameraPosition={cameraPos}
       markers={markers.map((m) => ({
@@ -147,9 +171,7 @@ const androidRender = (
       onCameraMove={(e) => onCameraMove?.({ latitude: e.coordinates.latitude ?? 0, longitude: e.coordinates.longitude ?? 0, zoom: e.zoom ?? 10 })}
     />
   );
-};
+});
+AndroidMap.displayName = 'AndroidMap';
 
-export const AppMapView: React.FC<AppMapViewProps & { ref?: React.Ref<unknown> }>
-  = Platform.OS === 'ios'
-    ? forwardRef(iosRender)
-    : forwardRef(androidRender);
+export const AppMapView = Platform.OS === 'ios' ? IosMap : AndroidMap;

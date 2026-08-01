@@ -6,7 +6,7 @@ import { ArrowLeft, MapPin, Navigation } from 'lucide-react-native';
 
 import { tokens } from '@/src/theme/tokens';
 import { useListingLocationStore } from '@/src/store/listingLocationStore';
-import { parseMoney, parseOptionalInt } from '@/src/types/property.types';
+import { parseDateLabel, parseMoney, parseOptionalInt } from '@/src/types/property.types';
 
 const { color, space, radius, font, size } = tokens;
 
@@ -188,8 +188,8 @@ export default function NewListingStep2() {
       e.location = 'Pick the exact address on the map.';
     }
 
-    const parsedDate = new Date(availableFrom);
-    if (availableFrom.trim() === '' || Number.isNaN(parsedDate.getTime())) {
+    const parsedDate = parseDateLabel(availableFrom);
+    if (availableFrom.trim() === '' || parsedDate === null) {
       e.availableFrom = 'Enter a valid date, e.g. Aug 1, 2026.';
     }
 
@@ -542,10 +542,10 @@ export default function NewListingStep2() {
           <Text style={styles.errorText}>{errors.location}</Text>
         ) : hasMapPin ? (
           <Text style={styles.mapHint}>
-            Address auto-filled from the pin at {mapLocation.lat?.toFixed(5)}, {mapLocation.lng?.toFixed(5)}. Tap Map to adjust.
+            Pin at {mapLocation.lat?.toFixed(5)}, {mapLocation.lng?.toFixed(5)}. Tap Map to search, move, or refine the address.
           </Text>
         ) : (
-          <Text style={styles.mapHint}>Tap Map, drop the pin, and the exact address is filled in here.</Text>
+          <Text style={styles.mapHint}>Tap Map, search for a place or move the map — the exact address is filled in automatically.</Text>
         )}
 
         <Text style={styles.fieldLabel}>Available from</Text>

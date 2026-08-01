@@ -13,7 +13,7 @@ function toPropertyPin(row: PropertyRow): PropertyPin {
     price: row.price as number,
     status: (row.status as PropertyPin['status']) ?? 'AVAILABLE',
     title: row.title as string,
-    photoUrl: ((row.photo_urls as string[])?.[0]) ?? undefined,
+    photoUrl: (row.photo_urls as string[])?.[0] ?? undefined,
     locationArea: row.location_area as string,
     propertyType: row.property_type as string,
     isPaused: (row.is_paused as boolean | undefined) ?? false,
@@ -22,7 +22,7 @@ function toPropertyPin(row: PropertyRow): PropertyPin {
 
 export async function getPropertiesInBounds(
   bounds: MapBounds,
-  supabase: SupabaseClient<Database>,
+  supabase: SupabaseClient<Database>
 ): Promise<Result<PropertyPin[]>> {
   try {
     const { data, error } = await supabase.rpc('get_properties_in_bounds' as any, {
@@ -49,7 +49,7 @@ export async function getPropertiesNear(
   lat: number,
   lng: number,
   radiusM: number,
-  supabase: SupabaseClient<Database>,
+  supabase: SupabaseClient<Database>
 ): Promise<Result<PropertyPin[]>> {
   try {
     const { data, error } = await supabase.rpc('get_properties_near' as any, {
@@ -69,7 +69,7 @@ export async function getPropertiesNear(
 
 export async function searchProperties(
   query: string,
-  supabase: SupabaseClient<Database>,
+  supabase: SupabaseClient<Database>
 ): Promise<Result<PropertyPin[]>> {
   try {
     const { data, error } = await supabase.rpc('search_properties' as any, {
@@ -87,11 +87,11 @@ export async function searchProperties(
         price: row.price as number,
         status: (row.status as PropertyPin['status']) ?? 'AVAILABLE',
         title: row.title as string,
-        photoUrl: ((row.photo_urls as string[])?.[0]) ?? undefined,
+        photoUrl: (row.photo_urls as string[])?.[0] ?? undefined,
         locationArea: row.location_area as string,
         propertyType: row.property_type as string,
         isPaused: (row.is_paused as boolean | undefined) ?? false,
-      })),
+      }))
     );
   } catch (e) {
     return err(getErrorMessage(e));
@@ -99,26 +99,29 @@ export async function searchProperties(
 }
 
 export interface GeocodeResult {
-  /** Human-readable place label (Nominatim display_name). */
+  /** Full formatted address, e.g. "Baluwatar, Kathmandu 44600, Nepal". */
   name: string;
-  /** Short locality for the map header, e.g. "Baluwatar". */
+  /** Short locality, e.g. "Baluwatar". */
   area: string;
   lat: number;
   lng: number;
+  /** Google place id for the result, when available. */
+  placeId?: string;
 }
 
 /**
  * Forward-geocode a free-text place query ("Baluwatar", "Thamel,
- * Kathmandu") via the `geocode` edge function (Nominatim). Returns up
- * to 5 candidate locations to center the radius circle on.
+ * Kathmandu") via the `geocode` edge function (Google Places Text
+ * Search). Returns up to 5 candidate locations to center the map on.
  */
 export async function geocodePlace(
   query: string,
-  supabase: SupabaseClient<Database>,
+  supabase: SupabaseClient<Database>
 ): Promise<Result<GeocodeResult[]>> {
   try {
     const { data, error } = await supabase.functions.invoke('geocode', {
       body: { query },
+      timeout: 12000,
     });
 
     if (error) {
@@ -139,6 +142,54 @@ export async function geocodePlace(
 
     const results = ((data as { results?: unknown[] } | null)?.results ?? []) as GeocodeResult[];
     return ok(results);
+  } catch (e) {
+    return err(getErrorMessage(e));
+  }
+}
+
+export interface ReverseGeocodeResult {
+  /** Full formatted address, e.g. "Jhamsikhel Marg, Jhamsikhel, Lalitpur 44600, Nepal". */
+  address: string;
+  /** Short locality, e.g. "Jhamsikhel". */
+  area: string;
+  /** Google place id for the resolved point. */
+  placeId?: string;
+  /** Coordinates Google resolved for the point (may be null). */
+  lat?: number | null;
+  lng?: number | null;
+}
+
+/**
+ * Reverse-geocode coordinates into a precise, human-readable address
+ * via the `reverse-geocode` edge function (Google Geocoding API).
+ * Powers the landlord location picker's real-time address preview.
+ */
+export async function reverseGeocodePlace(
+  lat: number,
+  lng: number,
+  supabase: SupabaseClient<Database>
+): Promise<Result<ReverseGeocodeResult>> {
+  try {
+    const { data, error } = await supabase.functions.invoke('reverse-geocode', {
+      body: { latitude: lat, longitude: lng },
+      timeout: 12000,
+    });
+
+    if (error) {
+      let message = getErrorMessage(error);
+      try {
+        const ctx = (error as any)?.context;
+        if (ctx && typeof ctx.json === 'function') {
+          const body = await ctx.json();
+          message = (body as { error?: string })?.error ?? message;
+        }
+      } catch {
+        // fall through with the generic message
+      }
+      return err(message);
+    }
+
+    return ok((data ?? {}) as ReverseGeocodeResult);
   } catch (e) {
     return err(getErrorMessage(e));
   }

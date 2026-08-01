@@ -940,7 +940,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_landlord_tabs_layout_tsx_tabs_layout",
-      "community": 36,
+      "community": 16,
       "norm_label": "_layout.tsx"
     },
     {
@@ -950,7 +950,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "tabs_layout_landlordtabslayout",
-      "community": 36,
+      "community": 16,
       "norm_label": "landlordtabslayout()"
     },
     {
@@ -1140,7 +1140,7 @@
       "source_location": "L416",
       "_origin": "ast",
       "id": "tabs_index_landlorddashboard",
-      "community": 21,
+      "community": 96,
       "norm_label": "landlorddashboard()"
     },
     {
@@ -1160,7 +1160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tabs_listings",
-      "community": 25,
+      "community": 28,
       "norm_label": "listings.tsx"
     },
     {
@@ -1170,7 +1170,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "tabs_listings_mypropertiesscreenprops",
-      "community": 25,
+      "community": 28,
       "norm_label": "mypropertiesscreenprops"
     },
     {
@@ -1180,7 +1180,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "tabs_listings_tabs",
-      "community": 25,
+      "community": 28,
       "norm_label": "tabs"
     },
     {
@@ -1190,7 +1190,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "tabs_listings_filtertab",
-      "community": 25,
+      "community": 28,
       "norm_label": "filtertab"
     },
     {
@@ -1200,7 +1200,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "tabs_listings_status_styles",
-      "community": 25,
+      "community": 28,
       "norm_label": "status_styles"
     },
     {
@@ -1210,7 +1210,7 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "tabs_listings_formatter",
-      "community": 25,
+      "community": 28,
       "norm_label": "formatter"
     },
     {
@@ -1220,7 +1220,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "tabs_listings_matchesfilter",
-      "community": 25,
+      "community": 28,
       "norm_label": "matchesfilter()"
     },
     {
@@ -1230,7 +1230,7 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "tabs_listings_statusbadge",
-      "community": 25,
+      "community": 28,
       "norm_label": "statusbadge()"
     },
     {
@@ -1240,7 +1240,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "tabs_listings_propertycard",
-      "community": 25,
+      "community": 28,
       "norm_label": "propertycard()"
     },
     {
@@ -1250,7 +1250,7 @@
       "source_location": "L168",
       "_origin": "ast",
       "id": "tabs_listings_mypropertiesscreen",
-      "community": 25,
+      "community": 28,
       "norm_label": "mypropertiesscreen()"
     },
     {
@@ -1340,7 +1340,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tabs_requests",
-      "community": 33,
+      "community": 1,
       "norm_label": "requests.tsx"
     },
     {
@@ -1350,7 +1350,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "tabs_requests_tabkey",
-      "community": 33,
+      "community": 1,
       "norm_label": "tabkey"
     },
     {
@@ -1360,7 +1360,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "tabs_requests_tab_labels",
-      "community": 33,
+      "community": 1,
       "norm_label": "tab_labels"
     },
     {
@@ -1370,7 +1370,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "tabs_requests_visitrequestsscreen",
-      "community": 33,
+      "community": 1,
       "norm_label": "visitrequestsscreen()"
     },
     {
@@ -1420,7 +1420,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "landlord_decline_request",
-      "community": 36,
+      "community": 1,
       "norm_label": "decline-request.tsx"
     },
     {
@@ -1430,7 +1430,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "landlord_decline_request_reasons",
-      "community": 36,
+      "community": 1,
       "norm_label": "reasons"
     },
     {
@@ -1440,7 +1440,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "landlord_decline_request_declinerequestscreen",
-      "community": 36,
+      "community": 1,
       "norm_label": "declinerequestscreen()"
     },
     {
@@ -1450,7 +1450,7 @@
       "source_location": "L183",
       "_origin": "ast",
       "id": "landlord_decline_request_styles",
-      "community": 36,
+      "community": 1,
       "norm_label": "styles"
     },
     {
@@ -1490,7 +1490,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "landlord_edit_profile_editprofilescreen",
-      "community": 79,
+      "community": 3,
       "norm_label": "editprofilescreen()"
     },
     {
@@ -1510,7 +1510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "landlord_kyc_upload",
-      "community": 81,
+      "community": 10,
       "norm_label": "kyc-upload.tsx"
     },
     {
@@ -1530,7 +1530,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "landlord_kyc_upload_emptyslot",
-      "community": 81,
+      "community": 10,
       "norm_label": "emptyslot()"
     },
     {
@@ -1540,7 +1540,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "landlord_kyc_upload_uploadedfromserver",
-      "community": 81,
+      "community": 10,
       "norm_label": "uploadedfromserver()"
     },
     {
@@ -1550,7 +1550,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "landlord_kyc_upload_landlordkycuploadscreen",
-      "community": 36,
+      "community": 10,
       "norm_label": "landlordkycuploadscreen()"
     },
     {
@@ -1560,7 +1560,7 @@
       "source_location": "L326",
       "_origin": "ast",
       "id": "landlord_kyc_upload_styles",
-      "community": 81,
+      "community": 10,
       "norm_label": "styles"
     },
     {
@@ -1720,7 +1720,7 @@
       "source_location": "L199",
       "_origin": "ast",
       "id": "listing_id_listingdetailscreen",
-      "community": 25,
+      "community": 28,
       "norm_label": "listingdetailscreen()"
     },
     {
@@ -1780,7 +1780,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "new_step_2",
-      "community": 23,
+      "community": 37,
       "norm_label": "step-2.tsx"
     },
     {
@@ -1790,7 +1790,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "new_step_2_furnishing",
-      "community": 23,
+      "community": 37,
       "norm_label": "furnishing"
     },
     {
@@ -1800,7 +1800,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "new_step_2_amenities_apartment",
-      "community": 23,
+      "community": 37,
       "norm_label": "amenities_apartment"
     },
     {
@@ -1810,7 +1810,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "new_step_2_amenities_house",
-      "community": 23,
+      "community": 37,
       "norm_label": "amenities_house"
     },
     {
@@ -1820,7 +1820,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "new_step_2_amenities_room",
-      "community": 23,
+      "community": 37,
       "norm_label": "amenities_room"
     },
     {
@@ -1830,7 +1830,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "new_step_2_amenities_studio",
-      "community": 23,
+      "community": 37,
       "norm_label": "amenities_studio"
     },
     {
@@ -1840,7 +1840,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "new_step_2_bathroom_options",
-      "community": 23,
+      "community": 37,
       "norm_label": "bathroom_options"
     },
     {
@@ -1850,7 +1850,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "new_step_2_kitchen_options",
-      "community": 23,
+      "community": 37,
       "norm_label": "kitchen_options"
     },
     {
@@ -1860,7 +1860,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "new_step_2_tenant_options",
-      "community": 23,
+      "community": 37,
       "norm_label": "tenant_options"
     },
     {
@@ -1870,7 +1870,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "new_step_2_kitchenette_options",
-      "community": 23,
+      "community": 37,
       "norm_label": "kitchenette_options"
     },
     {
@@ -1880,7 +1880,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "new_step_2_toggle",
-      "community": 23,
+      "community": 37,
       "norm_label": "toggle()"
     },
     {
@@ -1890,7 +1890,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "new_step_2_chipgroup",
-      "community": 23,
+      "community": 37,
       "norm_label": "chipgroup()"
     },
     {
@@ -1900,7 +1900,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "new_step_2_fielderrors",
-      "community": 23,
+      "community": 37,
       "norm_label": "fielderrors"
     },
     {
@@ -1910,7 +1910,7 @@
       "source_location": "L95",
       "_origin": "ast",
       "id": "new_step_2_newlistingstep2",
-      "community": 23,
+      "community": 37,
       "norm_label": "newlistingstep2()"
     },
     {
@@ -1920,7 +1920,7 @@
       "source_location": "L587",
       "_origin": "ast",
       "id": "new_step_2_stepperfield",
-      "community": 23,
+      "community": 37,
       "norm_label": "stepperfield()"
     },
     {
@@ -1930,7 +1930,7 @@
       "source_location": "L614",
       "_origin": "ast",
       "id": "new_step_2_styles",
-      "community": 23,
+      "community": 37,
       "norm_label": "styles"
     },
     {
@@ -1990,7 +1990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "new_step_4",
-      "community": 4,
+      "community": 37,
       "norm_label": "step-4.tsx"
     },
     {
@@ -2000,7 +2000,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "new_step_4_parsejson",
-      "community": 4,
+      "community": 37,
       "norm_label": "parsejson()"
     },
     {
@@ -2010,7 +2010,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "new_step_4_mediaitem",
-      "community": 4,
+      "community": 37,
       "norm_label": "mediaitem"
     },
     {
@@ -2020,7 +2020,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "new_step_4_parsemedia",
-      "community": 4,
+      "community": 37,
       "norm_label": "parsemedia()"
     },
     {
@@ -2030,7 +2030,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "new_step_4_countselected",
-      "community": 4,
+      "community": 37,
       "norm_label": "countselected()"
     },
     {
@@ -2040,7 +2040,7 @@
       "source_location": "L66",
       "_origin": "ast",
       "id": "new_step_4_detailrow",
-      "community": 4,
+      "community": 37,
       "norm_label": "detailrow"
     },
     {
@@ -2050,7 +2050,7 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "new_step_4_collectextradetails",
-      "community": 4,
+      "community": 37,
       "norm_label": "collectextradetails()"
     },
     {
@@ -2060,7 +2060,7 @@
       "source_location": "L108",
       "_origin": "ast",
       "id": "new_step_4_newlistingstep4",
-      "community": 36,
+      "community": 37,
       "norm_label": "newlistingstep4()"
     },
     {
@@ -2070,7 +2070,7 @@
       "source_location": "L393",
       "_origin": "ast",
       "id": "new_step_4_styles",
-      "community": 4,
+      "community": 37,
       "norm_label": "styles"
     },
     {
@@ -2080,37 +2080,37 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "landlord_location_picker",
-      "community": 65,
+      "community": 23,
       "norm_label": "location-picker.tsx"
     },
     {
       "label": "DEFAULT_LOCATION",
       "file_type": "code",
       "source_file": "app/(landlord)/location-picker.tsx",
-      "source_location": "L15",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "landlord_location_picker_default_location",
-      "community": 65,
+      "community": 23,
       "norm_label": "default_location"
     },
     {
       "label": "LandlordLocationPicker()",
       "file_type": "code",
       "source_file": "app/(landlord)/location-picker.tsx",
-      "source_location": "L20",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "landlord_location_picker_landlordlocationpicker",
-      "community": 65,
+      "community": 23,
       "norm_label": "landlordlocationpicker()"
     },
     {
       "label": "styles",
       "file_type": "code",
       "source_file": "app/(landlord)/location-picker.tsx",
-      "source_location": "L199",
+      "source_location": "L443",
       "_origin": "ast",
       "id": "landlord_location_picker_styles",
-      "community": 65,
+      "community": 23,
       "norm_label": "styles"
     },
     {
@@ -2140,7 +2140,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "request_id",
-      "community": 33,
+      "community": 1,
       "norm_label": "[id].tsx"
     },
     {
@@ -2150,7 +2150,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "request_id_requestdetailscreen",
-      "community": 33,
+      "community": 1,
       "norm_label": "requestdetailscreen()"
     },
     {
@@ -2270,7 +2270,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "landlord_share_details",
-      "community": 33,
+      "community": 1,
       "norm_label": "share-details.tsx"
     },
     {
@@ -2280,7 +2280,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "landlord_share_details_sharedetailsscreen",
-      "community": 33,
+      "community": 1,
       "norm_label": "sharedetailsscreen()"
     },
     {
@@ -2470,7 +2470,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "landlord_visits",
-      "community": 33,
+      "community": 1,
       "norm_label": "visits.tsx"
     },
     {
@@ -2480,7 +2480,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "landlord_visits_landlordvisitsscreen",
-      "community": 33,
+      "community": 1,
       "norm_label": "landlordvisitsscreen()"
     },
     {
@@ -2510,7 +2510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_tenant_tabs_index_tsx_tabs_index",
-      "community": 5,
+      "community": 92,
       "norm_label": "index.tsx"
     },
     {
@@ -2520,7 +2520,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "tabs_index_cities",
-      "community": 5,
+      "community": 92,
       "norm_label": "cities"
     },
     {
@@ -2530,7 +2530,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "tabs_index_city",
-      "community": 5,
+      "community": 92,
       "norm_label": "city"
     },
     {
@@ -2540,7 +2540,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "tabs_index_fmtnpr",
-      "community": 5,
+      "community": 92,
       "norm_label": "fmtnpr()"
     },
     {
@@ -2550,7 +2550,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "tabs_index_hometab",
-      "community": 5,
+      "community": 92,
       "norm_label": "hometab()"
     },
     {
@@ -2560,7 +2560,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_tenant_tabs_profile_tsx_tabs_profile",
-      "community": 24,
+      "community": 91,
       "norm_label": "profile.tsx"
     },
     {
@@ -2570,7 +2570,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "tabs_profile_monthyear",
-      "community": 24,
+      "community": 91,
       "norm_label": "monthyear()"
     },
     {
@@ -2580,7 +2580,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "tabs_profile_initialsof",
-      "community": 24,
+      "community": 91,
       "norm_label": "initialsof()"
     },
     {
@@ -2590,7 +2590,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "tabs_profile_compressimage",
-      "community": 24,
+      "community": 91,
       "norm_label": "compressimage()"
     },
     {
@@ -2600,7 +2600,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "tabs_profile_profiletab",
-      "community": 24,
+      "community": 91,
       "norm_label": "profiletab()"
     },
     {
@@ -2610,7 +2610,7 @@
       "source_location": "L556",
       "_origin": "ast",
       "id": "tabs_profile_statcolumn",
-      "community": 24,
+      "community": 91,
       "norm_label": "statcolumn()"
     },
     {
@@ -2620,7 +2620,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tabs_search",
-      "community": 5,
+      "community": 90,
       "norm_label": "search.tsx"
     },
     {
@@ -2630,7 +2630,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "tabs_search_bhk_filters",
-      "community": 5,
+      "community": 90,
       "norm_label": "bhk_filters"
     },
     {
@@ -2640,7 +2640,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "tabs_search_bhkfilter",
-      "community": 5,
+      "community": 90,
       "norm_label": "bhkfilter"
     },
     {
@@ -2650,7 +2650,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "tabs_search_fmtnpr",
-      "community": 5,
+      "community": 90,
       "norm_label": "fmtnpr()"
     },
     {
@@ -2660,7 +2660,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "tabs_search_searchresults",
-      "community": 5,
+      "community": 90,
       "norm_label": "searchresults()"
     },
     {
@@ -2760,7 +2760,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tenant_layout",
-      "community": 1,
+      "community": 84,
       "norm_label": "_layout.tsx"
     },
     {
@@ -2770,7 +2770,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "tenant_layout_tenantlayout",
-      "community": 1,
+      "community": 84,
       "norm_label": "tenantlayout()"
     },
     {
@@ -2780,7 +2780,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "modal_filter",
-      "community": 5,
+      "community": 88,
       "norm_label": "filter.tsx"
     },
     {
@@ -2790,7 +2790,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "modal_filter_property_types",
-      "community": 5,
+      "community": 88,
       "norm_label": "property_types"
     },
     {
@@ -2800,7 +2800,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "modal_filter_amenities",
-      "community": 5,
+      "community": 88,
       "norm_label": "amenities"
     },
     {
@@ -2810,7 +2810,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "modal_filter_amenity",
-      "community": 5,
+      "community": 88,
       "norm_label": "amenity"
     },
     {
@@ -2820,7 +2820,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "modal_filter_sorts",
-      "community": 5,
+      "community": 88,
       "norm_label": "sorts"
     },
     {
@@ -2830,7 +2830,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "modal_filter_sortoption",
-      "community": 5,
+      "community": 88,
       "norm_label": "sortoption"
     },
     {
@@ -2840,7 +2840,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "modal_filter_matchestype",
-      "community": 5,
+      "community": 88,
       "norm_label": "matchestype()"
     },
     {
@@ -2850,7 +2850,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "modal_filter_filterdrawer",
-      "community": 5,
+      "community": 88,
       "norm_label": "filterdrawer()"
     },
     {
@@ -2990,7 +2990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "modal_pro_gate",
-      "community": 1,
+      "community": 91,
       "norm_label": "pro-gate.tsx"
     },
     {
@@ -3000,7 +3000,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "modal_pro_gate_progatemodal",
-      "community": 1,
+      "community": 91,
       "norm_label": "progatemodal()"
     },
     {
@@ -3010,7 +3010,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tenant_ai_preferences",
-      "community": 1,
+      "community": 91,
       "norm_label": "ai-preferences.tsx"
     },
     {
@@ -3020,7 +3020,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "tenant_ai_preferences_aipreferencesscreen",
-      "community": 1,
+      "community": 91,
       "norm_label": "aipreferencesscreen()"
     },
     {
@@ -3060,7 +3060,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "tenant_edit_profile_editprofilescreen",
-      "community": 1,
+      "community": 91,
       "norm_label": "editprofilescreen()"
     },
     {
@@ -3080,7 +3080,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tenant_esewa_webview",
-      "community": 1,
+      "community": 91,
       "norm_label": "esewa-webview.tsx"
     },
     {
@@ -3090,7 +3090,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "tenant_esewa_webview_webview_ua",
-      "community": 1,
+      "community": 91,
       "norm_label": "webview_ua"
     },
     {
@@ -3100,7 +3100,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "tenant_esewa_webview_parsequery",
-      "community": 1,
+      "community": 91,
       "norm_label": "parsequery()"
     },
     {
@@ -3110,7 +3110,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "tenant_esewa_webview_esewawebviewscreen",
-      "community": 1,
+      "community": 91,
       "norm_label": "esewawebviewscreen()"
     },
     {
@@ -3120,7 +3120,7 @@
       "source_location": "L240",
       "_origin": "ast",
       "id": "tenant_esewa_webview_buildesewaform",
-      "community": 1,
+      "community": 91,
       "norm_label": "buildesewaform()"
     },
     {
@@ -3130,7 +3130,7 @@
       "source_location": "L308",
       "_origin": "ast",
       "id": "tenant_esewa_webview_styles",
-      "community": 1,
+      "community": 91,
       "norm_label": "styles"
     },
     {
@@ -3240,7 +3240,7 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "tenant_kyc_upload_kycuploadscreen",
-      "community": 36,
+      "community": 10,
       "norm_label": "kycuploadscreen()"
     },
     {
@@ -3340,7 +3340,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tenant_map",
-      "community": 37,
+      "community": 23,
       "norm_label": "map.tsx"
     },
     {
@@ -3350,7 +3350,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "tenant_map_initial_camera",
-      "community": 37,
+      "community": 23,
       "norm_label": "initial_camera"
     },
     {
@@ -3360,7 +3360,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "tenant_map_fmtkm",
-      "community": 37,
+      "community": 23,
       "norm_label": "fmtkm()"
     },
     {
@@ -3370,7 +3370,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "tenant_map_fmtnpr",
-      "community": 37,
+      "community": 23,
       "norm_label": "fmtnpr()"
     },
     {
@@ -3380,7 +3380,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "tenant_map_mapcenter",
-      "community": 37,
+      "community": 23,
       "norm_label": "mapcenter"
     },
     {
@@ -3390,17 +3390,17 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "tenant_map_tenantmapscreen",
-      "community": 37,
+      "community": 23,
       "norm_label": "tenantmapscreen()"
     },
     {
       "label": "styles",
       "file_type": "code",
       "source_file": "app/(tenant)/map.tsx",
-      "source_location": "L443",
+      "source_location": "L463",
       "_origin": "ast",
       "id": "tenant_map_styles",
-      "community": 37,
+      "community": 23,
       "norm_label": "styles"
     },
     {
@@ -3470,7 +3470,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tenant_payment_success",
-      "community": 1,
+      "community": 91,
       "norm_label": "payment-success.tsx"
     },
     {
@@ -3480,7 +3480,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "tenant_payment_success_status",
-      "community": 1,
+      "community": 91,
       "norm_label": "status"
     },
     {
@@ -3490,7 +3490,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "tenant_payment_success_feature",
-      "community": 1,
+      "community": 91,
       "norm_label": "feature"
     },
     {
@@ -3500,7 +3500,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "tenant_payment_success_unlocked",
-      "community": 1,
+      "community": 91,
       "norm_label": "unlocked"
     },
     {
@@ -3510,7 +3510,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "tenant_payment_success_paymentsuccessscreen",
-      "community": 1,
+      "community": 91,
       "norm_label": "paymentsuccessscreen()"
     },
     {
@@ -3540,7 +3540,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tenant_pro_plan",
-      "community": 1,
+      "community": 91,
       "norm_label": "pro-plan.tsx"
     },
     {
@@ -3550,7 +3550,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "tenant_pro_plan_planid",
-      "community": 1,
+      "community": 91,
       "norm_label": "planid"
     },
     {
@@ -3560,7 +3560,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "tenant_pro_plan_plan",
-      "community": 1,
+      "community": 91,
       "norm_label": "plan"
     },
     {
@@ -3570,7 +3570,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "tenant_pro_plan_plans",
-      "community": 1,
+      "community": 91,
       "norm_label": "plans"
     },
     {
@@ -3580,7 +3580,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "tenant_pro_plan_feature",
-      "community": 1,
+      "community": 91,
       "norm_label": "feature"
     },
     {
@@ -3590,7 +3590,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "tenant_pro_plan_features",
-      "community": 1,
+      "community": 91,
       "norm_label": "features"
     },
     {
@@ -3600,7 +3600,7 @@
       "source_location": "L89",
       "_origin": "ast",
       "id": "tenant_pro_plan_proplanscreen",
-      "community": 1,
+      "community": 91,
       "norm_label": "proplanscreen()"
     },
     {
@@ -3610,7 +3610,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_tenant_property_id_tsx_property_id",
-      "community": 8,
+      "community": 65,
       "norm_label": "[id].tsx"
     },
     {
@@ -3620,7 +3620,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "property_id_height_screen_height",
-      "community": 8,
+      "community": 65,
       "norm_label": "{ height: screen_height }"
     },
     {
@@ -3630,37 +3630,117 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "property_id_amenity_icons",
-      "community": 8,
+      "community": 65,
       "norm_label": "amenity_icons"
     },
     {
-      "label": "AMENITY_ICON_KEYS",
+      "label": "AMENITY_LABELS",
       "file_type": "code",
       "source_file": "app/(tenant)/property/[id].tsx",
       "source_location": "L35",
       "_origin": "ast",
-      "id": "property_id_amenity_icon_keys",
-      "community": 8,
-      "norm_label": "amenity_icon_keys"
+      "id": "property_id_amenity_labels",
+      "community": 65,
+      "norm_label": "amenity_labels"
+    },
+    {
+      "label": "EXTRA_DETAIL_ICONS",
+      "file_type": "code",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L53",
+      "_origin": "ast",
+      "id": "property_id_extra_detail_icons",
+      "community": 65,
+      "norm_label": "extra_detail_icons"
+    },
+    {
+      "label": "EXTRA_DETAIL_LABELS",
+      "file_type": "code",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L65",
+      "_origin": "ast",
+      "id": "property_id_extra_detail_labels",
+      "community": 65,
+      "norm_label": "extra_detail_labels"
+    },
+    {
+      "label": "AmenityRow",
+      "file_type": "code",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L77",
+      "_origin": "ast",
+      "id": "property_id_amenityrow",
+      "community": 65,
+      "norm_label": "amenityrow"
+    },
+    {
+      "label": "toAmenityRows()",
+      "file_type": "code",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L83",
+      "_origin": "ast",
+      "id": "property_id_toamenityrows",
+      "community": 65,
+      "norm_label": "toamenityrows()"
+    },
+    {
+      "label": "ExtraDetailRow",
+      "file_type": "code",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L99",
+      "_origin": "ast",
+      "id": "property_id_extradetailrow",
+      "community": 65,
+      "norm_label": "extradetailrow"
+    },
+    {
+      "label": "camelToTitle()",
+      "file_type": "code",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L106",
+      "_origin": "ast",
+      "id": "property_id_cameltotitle",
+      "community": 65,
+      "norm_label": "cameltotitle()"
+    },
+    {
+      "label": "formatExtraValue()",
+      "file_type": "code",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L113",
+      "_origin": "ast",
+      "id": "property_id_formatextravalue",
+      "community": 65,
+      "norm_label": "formatextravalue()"
+    },
+    {
+      "label": "toExtraDetailRows()",
+      "file_type": "code",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L119",
+      "_origin": "ast",
+      "id": "property_id_toextradetailrows",
+      "community": 65,
+      "norm_label": "toextradetailrows()"
     },
     {
       "label": "fmtNpr()",
       "file_type": "code",
       "source_file": "app/(tenant)/property/[id].tsx",
-      "source_location": "L44",
+      "source_location": "L132",
       "_origin": "ast",
       "id": "property_id_fmtnpr",
-      "community": 8,
+      "community": 65,
       "norm_label": "fmtnpr()"
     },
     {
       "label": "PropertyDetailScreen()",
       "file_type": "code",
       "source_file": "app/(tenant)/property/[id].tsx",
-      "source_location": "L48",
+      "source_location": "L136",
       "_origin": "ast",
       "id": "property_id_propertydetailscreen",
-      "community": 8,
+      "community": 65,
       "norm_label": "propertydetailscreen()"
     },
     {
@@ -3770,7 +3850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tenant_saved",
-      "community": 5,
+      "community": 83,
       "norm_label": "saved.tsx"
     },
     {
@@ -3780,7 +3860,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "tenant_saved_fmtnpr",
-      "community": 5,
+      "community": 83,
       "norm_label": "fmtnpr()"
     },
     {
@@ -3790,7 +3870,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "tenant_saved_savedscreen",
-      "community": 5,
+      "community": 83,
       "norm_label": "savedscreen()"
     },
     {
@@ -3950,7 +4030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "visit_follow_up",
-      "community": 83,
+      "community": 68,
       "norm_label": "follow-up.tsx"
     },
     {
@@ -3960,7 +4040,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "visit_follow_up_options",
-      "community": 83,
+      "community": 68,
       "norm_label": "options"
     },
     {
@@ -3970,7 +4050,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "visit_follow_up_postvisitfollowupscreen",
-      "community": 83,
+      "community": 68,
       "norm_label": "postvisitfollowupscreen()"
     },
     {
@@ -3980,7 +4060,7 @@
       "source_location": "L210",
       "_origin": "ast",
       "id": "visit_follow_up_styles",
-      "community": 83,
+      "community": 68,
       "norm_label": "styles"
     },
     {
@@ -4190,7 +4270,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "package",
-      "community": 15,
+      "community": 25,
       "norm_label": "package.json"
     },
     {
@@ -4200,7 +4280,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "package_name",
-      "community": 15,
+      "community": 25,
       "norm_label": "name"
     },
     {
@@ -4210,7 +4290,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "package_version",
-      "community": 15,
+      "community": 25,
       "norm_label": "version"
     },
     {
@@ -4220,7 +4300,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "package_scripts",
-      "community": 15,
+      "community": 4,
       "norm_label": "scripts"
     },
     {
@@ -4230,7 +4310,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "package_scripts_android",
-      "community": 15,
+      "community": 4,
       "norm_label": "android"
     },
     {
@@ -4240,7 +4320,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "package_scripts_ios",
-      "community": 15,
+      "community": 4,
       "norm_label": "ios"
     },
     {
@@ -4250,7 +4330,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "package_scripts_start",
-      "community": 15,
+      "community": 4,
       "norm_label": "start"
     },
     {
@@ -4260,7 +4340,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "package_scripts_prebuild",
-      "community": 15,
+      "community": 4,
       "norm_label": "prebuild"
     },
     {
@@ -4270,7 +4350,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "package_scripts_lint",
-      "community": 15,
+      "community": 4,
       "norm_label": "lint"
     },
     {
@@ -4280,7 +4360,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "package_scripts_format",
-      "community": 15,
+      "community": 4,
       "norm_label": "format"
     },
     {
@@ -4290,7 +4370,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "package_scripts_web",
-      "community": 15,
+      "community": 4,
       "norm_label": "web"
     },
     {
@@ -4920,7 +5000,7 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "package_main",
-      "community": 15,
+      "community": 25,
       "norm_label": "main"
     },
     {
@@ -4930,7 +5010,7 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "package_private",
-      "community": 15,
+      "community": 25,
       "norm_label": "private"
     },
     {
@@ -5280,7 +5360,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "kyc_kycbenefitslist",
-      "community": 10,
+      "community": 24,
       "norm_label": "kycbenefitslist.tsx"
     },
     {
@@ -5290,7 +5370,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "kyc_kycbenefitslist_benefit",
-      "community": 10,
+      "community": 24,
       "norm_label": "benefit"
     },
     {
@@ -5300,7 +5380,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "kyc_kycbenefitslist_benefits",
-      "community": 10,
+      "community": 24,
       "norm_label": "benefits"
     },
     {
@@ -5310,7 +5390,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "kyc_kycbenefitslist_kycbenefitslist",
-      "community": 10,
+      "community": 24,
       "norm_label": "kycbenefitslist()"
     },
     {
@@ -5320,7 +5400,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "kyc_kycbenefitslist_styles",
-      "community": 10,
+      "community": 24,
       "norm_label": "styles"
     },
     {
@@ -5330,7 +5410,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "kyc_kycrejectionnotice",
-      "community": 77,
+      "community": 0,
       "norm_label": "kycrejectionnotice.tsx"
     },
     {
@@ -5340,7 +5420,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "kyc_kycrejectionnotice_props",
-      "community": 77,
+      "community": 0,
       "norm_label": "props"
     },
     {
@@ -5350,7 +5430,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "kyc_kycrejectionnotice_kycrejectionnotice",
-      "community": 77,
+      "community": 0,
       "norm_label": "kycrejectionnotice()"
     },
     {
@@ -5360,7 +5440,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "kyc_kycrejectionnotice_styles",
-      "community": 77,
+      "community": 0,
       "norm_label": "styles"
     },
     {
@@ -5560,7 +5640,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "layout_screenbody",
-      "community": 21,
+      "community": 96,
       "norm_label": "screenbody.tsx"
     },
     {
@@ -5570,7 +5650,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "layout_screenbody_dockbottomreserve",
-      "community": 21,
+      "community": 96,
       "norm_label": "dockbottomreserve()"
     },
     {
@@ -5580,7 +5660,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "layout_screenbody_screenbodyprops",
-      "community": 21,
+      "community": 96,
       "norm_label": "screenbodyprops"
     },
     {
@@ -5590,7 +5670,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "layout_screenbody_screenbody",
-      "community": 21,
+      "community": 96,
       "norm_label": "screenbody()"
     },
     {
@@ -5600,7 +5680,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "layout_screenbody_screenbodywithactionprops",
-      "community": 21,
+      "community": 96,
       "norm_label": "screenbodywithactionprops"
     },
     {
@@ -5610,7 +5690,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "layout_screenbody_screenbodywithaction",
-      "community": 21,
+      "community": 96,
       "norm_label": "screenbodywithaction()"
     },
     {
@@ -5710,7 +5790,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "map_appmap",
-      "community": 37,
+      "community": 23,
       "norm_label": "appmap.tsx"
     },
     {
@@ -5720,7 +5800,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "map_appmap_mapcameraposition",
-      "community": 37,
+      "community": 23,
       "norm_label": "mapcameraposition"
     },
     {
@@ -5730,7 +5810,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "map_appmap_mapmarkerdata",
-      "community": 65,
+      "community": 23,
       "norm_label": "mapmarkerdata"
     },
     {
@@ -5740,7 +5820,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "map_appmap_mapannotationdata",
-      "community": 37,
+      "community": 23,
       "norm_label": "mapannotationdata"
     },
     {
@@ -5750,7 +5830,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "map_appmap_mapcircledata",
-      "community": 37,
+      "community": 23,
       "norm_label": "mapcircledata"
     },
     {
@@ -5760,7 +5840,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "map_appmap_appmapviewhandle",
-      "community": 37,
+      "community": 23,
       "norm_label": "appmapviewhandle"
     },
     {
@@ -5770,28 +5850,28 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "map_appmap_appmapviewprops",
-      "community": 37,
+      "community": 23,
       "norm_label": "appmapviewprops"
     },
     {
-      "label": "iosRender()",
+      "label": "IosMap",
       "file_type": "code",
       "source_file": "src/components/map/AppMap.tsx",
       "source_location": "L58",
       "_origin": "ast",
-      "id": "map_appmap_iosrender",
-      "community": 37,
-      "norm_label": "iosrender()"
+      "id": "map_appmap_iosmap",
+      "community": 23,
+      "norm_label": "iosmap"
     },
     {
-      "label": "androidRender()",
+      "label": "AndroidMap",
       "file_type": "code",
       "source_file": "src/components/map/AppMap.tsx",
-      "source_location": "L105",
+      "source_location": "L117",
       "_origin": "ast",
-      "id": "map_appmap_androidrender",
-      "community": 37,
-      "norm_label": "androidrender()"
+      "id": "map_appmap_androidmap",
+      "community": 23,
+      "norm_label": "androidmap"
     },
     {
       "label": "PropertyPreviewSheet.tsx",
@@ -5820,7 +5900,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "map_propertypreviewsheet_propertypreviewsheet",
-      "community": 25,
+      "community": 28,
       "norm_label": "propertypreviewsheet()"
     },
     {
@@ -6410,7 +6490,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "property_filterdrawer",
-      "community": 5,
+      "community": 89,
       "norm_label": "filterdrawer.tsx"
     },
     {
@@ -6420,7 +6500,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "property_filterdrawer_filterdrawerprops",
-      "community": 5,
+      "community": 89,
       "norm_label": "filterdrawerprops"
     },
     {
@@ -6430,7 +6510,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "property_filterdrawer_property_types",
-      "community": 5,
+      "community": 89,
       "norm_label": "property_types"
     },
     {
@@ -6440,7 +6520,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "property_filterdrawer_amenities",
-      "community": 5,
+      "community": 89,
       "norm_label": "amenities"
     },
     {
@@ -6450,7 +6530,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "property_filterdrawer_sort_options",
-      "community": 5,
+      "community": 89,
       "norm_label": "sort_options"
     },
     {
@@ -6460,7 +6540,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "property_filterdrawer_matchestype",
-      "community": 5,
+      "community": 89,
       "norm_label": "matchestype()"
     },
     {
@@ -6470,7 +6550,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "property_filterdrawer_filterdrawer",
-      "community": 5,
+      "community": 90,
       "norm_label": "filterdrawer()"
     },
     {
@@ -6540,7 +6620,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "property_propertyhero",
-      "community": 8,
+      "community": 93,
       "norm_label": "propertyhero.tsx"
     },
     {
@@ -6550,7 +6630,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "property_propertyhero_width_screen_width",
-      "community": 8,
+      "community": 93,
       "norm_label": "{ width: screen_width }"
     },
     {
@@ -6560,7 +6640,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "property_propertyhero_props",
-      "community": 8,
+      "community": 93,
       "norm_label": "props"
     },
     {
@@ -6570,7 +6650,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "property_propertyhero_propertyhero",
-      "community": 8,
+      "community": 93,
       "norm_label": "propertyhero()"
     },
     {
@@ -6610,7 +6690,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "property_radiusmapview",
-      "community": 88,
+      "community": 23,
       "norm_label": "radiusmapview.tsx"
     },
     {
@@ -6620,7 +6700,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "property_radiusmapview_radiusmapviewprops",
-      "community": 88,
+      "community": 23,
       "norm_label": "radiusmapviewprops"
     },
     {
@@ -6630,7 +6710,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "property_radiusmapview_getradiuscirclesizeforkm",
-      "community": 88,
+      "community": 23,
       "norm_label": "getradiuscirclesizeforkm()"
     },
     {
@@ -6640,7 +6720,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "property_radiusmapview_ring_colors",
-      "community": 88,
+      "community": 23,
       "norm_label": "ring_colors"
     },
     {
@@ -6650,7 +6730,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "property_radiusmapview_radiusmapview",
-      "community": 88,
+      "community": 23,
       "norm_label": "radiusmapview()"
     },
     {
@@ -6690,7 +6770,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "property_schedulevisitdrawer",
-      "community": 8,
+      "community": 81,
       "norm_label": "schedulevisitdrawer.tsx"
     },
     {
@@ -6700,7 +6780,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "property_schedulevisitdrawer_scheduleselection",
-      "community": 8,
+      "community": 81,
       "norm_label": "scheduleselection"
     },
     {
@@ -6710,7 +6790,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "property_schedulevisitdrawer_schedulevisitdrawerprops",
-      "community": 8,
+      "community": 81,
       "norm_label": "schedulevisitdrawerprops"
     },
     {
@@ -6720,7 +6800,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "property_schedulevisitdrawer_weekdays",
-      "community": 8,
+      "community": 81,
       "norm_label": "weekdays"
     },
     {
@@ -6730,7 +6810,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "property_schedulevisitdrawer_default_time_slots",
-      "community": 8,
+      "community": 81,
       "norm_label": "default_time_slots"
     },
     {
@@ -6740,7 +6820,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "property_schedulevisitdrawer_monthgridday",
-      "community": 8,
+      "community": 81,
       "norm_label": "monthgridday"
     },
     {
@@ -6750,7 +6830,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "property_schedulevisitdrawer_buildmonthgrid",
-      "community": 8,
+      "community": 81,
       "norm_label": "buildmonthgrid()"
     },
     {
@@ -6760,7 +6840,7 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "property_schedulevisitdrawer_month_names",
-      "community": 8,
+      "community": 81,
       "norm_label": "month_names"
     },
     {
@@ -6770,7 +6850,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "property_schedulevisitdrawer_formatdatelong",
-      "community": 8,
+      "community": 81,
       "norm_label": "formatdatelong()"
     },
     {
@@ -6780,7 +6860,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "property_schedulevisitdrawer_ispastdate",
-      "community": 8,
+      "community": 81,
       "norm_label": "ispastdate()"
     },
     {
@@ -6790,7 +6870,7 @@
       "source_location": "L90",
       "_origin": "ast",
       "id": "property_schedulevisitdrawer_istoday",
-      "community": 8,
+      "community": 81,
       "norm_label": "istoday()"
     },
     {
@@ -6800,7 +6880,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "property_schedulevisitdrawer_schedulevisitdrawer",
-      "community": 8,
+      "community": 81,
       "norm_label": "schedulevisitdrawer()"
     },
     {
@@ -6810,7 +6890,7 @@
       "source_location": "L427",
       "_origin": "ast",
       "id": "property_schedulevisitdrawer_sheetstyles",
-      "community": 8,
+      "community": 81,
       "norm_label": "sheetstyles"
     },
     {
@@ -6850,7 +6930,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "shared_menucard",
-      "community": 24,
+      "community": 91,
       "norm_label": "menucard.tsx"
     },
     {
@@ -6860,7 +6940,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "shared_menucard_props",
-      "community": 24,
+      "community": 91,
       "norm_label": "props"
     },
     {
@@ -6870,7 +6950,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "shared_menucard_menucard",
-      "community": 24,
+      "community": 91,
       "norm_label": "menucard()"
     },
     {
@@ -6880,7 +6960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "shared_menurow",
-      "community": 24,
+      "community": 91,
       "norm_label": "menurow.tsx"
     },
     {
@@ -6890,7 +6970,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "shared_menurow_props",
-      "community": 24,
+      "community": 91,
       "norm_label": "props"
     },
     {
@@ -6900,7 +6980,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "shared_menurow_menurow",
-      "community": 24,
+      "community": 91,
       "norm_label": "menurow()"
     },
     {
@@ -6910,7 +6990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "shared_primarybutton",
-      "community": 77,
+      "community": 0,
       "norm_label": "primarybutton.tsx"
     },
     {
@@ -6920,7 +7000,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "shared_primarybutton_props",
-      "community": 77,
+      "community": 0,
       "norm_label": "props"
     },
     {
@@ -6930,7 +7010,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "shared_primarybutton_primarybutton",
-      "community": 77,
+      "community": 0,
       "norm_label": "primarybutton()"
     },
     {
@@ -6940,7 +7020,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "shared_primarybutton_styles",
-      "community": 77,
+      "community": 0,
       "norm_label": "styles"
     },
     {
@@ -6950,7 +7030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "shared_propill",
-      "community": 1,
+      "community": 91,
       "norm_label": "propill.tsx"
     },
     {
@@ -6960,7 +7040,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "shared_propill_variant",
-      "community": 1,
+      "community": 91,
       "norm_label": "variant"
     },
     {
@@ -6970,7 +7050,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "shared_propill_size",
-      "community": 1,
+      "community": 91,
       "norm_label": "size"
     },
     {
@@ -6980,7 +7060,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "shared_propill_iconcomponent",
-      "community": 1,
+      "community": 91,
       "norm_label": "iconcomponent"
     },
     {
@@ -6990,7 +7070,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "shared_propill_props",
-      "community": 1,
+      "community": 91,
       "norm_label": "props"
     },
     {
@@ -7000,7 +7080,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "shared_propill_propill",
-      "community": 1,
+      "community": 91,
       "norm_label": "propill()"
     },
     {
@@ -7060,7 +7140,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "user_avatar",
-      "community": 8,
+      "community": 65,
       "norm_label": "avatar.tsx"
     },
     {
@@ -7070,7 +7150,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "user_avatar_props",
-      "community": 8,
+      "community": 65,
       "norm_label": "props"
     },
     {
@@ -7080,7 +7160,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "user_avatar_avatar",
-      "community": 8,
+      "community": 65,
       "norm_label": "avatar()"
     },
     {
@@ -7140,7 +7220,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "visits_followupoptioncard",
-      "community": 83,
+      "community": 68,
       "norm_label": "followupoptioncard.tsx"
     },
     {
@@ -7150,7 +7230,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "visits_followupoptioncard_followupoptioncardprops",
-      "community": 83,
+      "community": 68,
       "norm_label": "followupoptioncardprops"
     },
     {
@@ -7160,7 +7240,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "visits_followupoptioncard_followupoptioncard",
-      "community": 83,
+      "community": 68,
       "norm_label": "followupoptioncard()"
     },
     {
@@ -7170,7 +7250,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "visits_followupoptioncard_styles",
-      "community": 83,
+      "community": 68,
       "norm_label": "styles"
     },
     {
@@ -7390,7 +7470,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_useclerksupabase",
-      "community": 24,
+      "community": 84,
       "norm_label": "useclerksupabase.ts"
     },
     {
@@ -7400,7 +7480,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "hooks_useclerksupabase_useclerksupabase",
-      "community": 36,
+      "community": 1,
       "norm_label": "useclerksupabase()"
     },
     {
@@ -7410,7 +7490,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_uselocation",
-      "community": 65,
+      "community": 23,
       "norm_label": "uselocation.ts"
     },
     {
@@ -7420,7 +7500,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "hooks_uselocation_uselocationresult",
-      "community": 65,
+      "community": 23,
       "norm_label": "uselocationresult"
     },
     {
@@ -7430,7 +7510,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "hooks_uselocation_uselocation",
-      "community": 65,
+      "community": 23,
       "norm_label": "uselocation()"
     },
     {
@@ -7470,7 +7550,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_useprogate",
-      "community": 1,
+      "community": 91,
       "norm_label": "useprogate.ts"
     },
     {
@@ -7480,7 +7560,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "hooks_useprogate_progatestate",
-      "community": 1,
+      "community": 91,
       "norm_label": "progatestate"
     },
     {
@@ -7490,7 +7570,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "hooks_useprogate_useprogatestore",
-      "community": 1,
+      "community": 91,
       "norm_label": "useprogatestore"
     },
     {
@@ -7500,7 +7580,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "hooks_useprogate_useprogate",
-      "community": 1,
+      "community": 91,
       "norm_label": "useprogate()"
     },
     {
@@ -7510,7 +7590,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_useprofilebootstrap",
-      "community": 1,
+      "community": 84,
       "norm_label": "useprofilebootstrap.ts"
     },
     {
@@ -7520,7 +7600,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "hooks_useprofilebootstrap_useprofilebootstrap",
-      "community": 1,
+      "community": 84,
       "norm_label": "useprofilebootstrap()"
     },
     {
@@ -7530,7 +7610,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_usepurchaseplan",
-      "community": 1,
+      "community": 91,
       "norm_label": "usepurchaseplan.ts"
     },
     {
@@ -7540,7 +7620,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "hooks_usepurchaseplan_planid",
-      "community": 1,
+      "community": 91,
       "norm_label": "planid"
     },
     {
@@ -7550,7 +7630,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "hooks_usepurchaseplan_esewaformfields",
-      "community": 1,
+      "community": 91,
       "norm_label": "esewaformfields"
     },
     {
@@ -7560,7 +7640,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "hooks_usepurchaseplan_purchaseplanstate",
-      "community": 1,
+      "community": 91,
       "norm_label": "purchaseplanstate"
     },
     {
@@ -7570,7 +7650,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "hooks_usepurchaseplan_usepurchaseplan",
-      "community": 1,
+      "community": 91,
       "norm_label": "usepurchaseplan()"
     },
     {
@@ -7590,7 +7670,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "hooks_usevisitrealtime_usevisitrealtime",
-      "community": 1,
+      "community": 84,
       "norm_label": "usevisitrealtime()"
     },
     {
@@ -7790,7 +7870,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "services_kyc_service",
-      "community": 81,
+      "community": 19,
       "norm_label": "kyc.service.ts"
     },
     {
@@ -7800,7 +7880,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "services_kyc_service_kycinput",
-      "community": 81,
+      "community": 19,
       "norm_label": "kycinput"
     },
     {
@@ -7810,7 +7890,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "services_kyc_service_kycresult",
-      "community": 81,
+      "community": 19,
       "norm_label": "kycresult"
     },
     {
@@ -7830,7 +7910,7 @@
       "source_location": "L142",
       "_origin": "ast",
       "id": "services_kyc_service_getlatestkycsubmission",
-      "community": 81,
+      "community": 19,
       "norm_label": "getlatestkycsubmission()"
     },
     {
@@ -7840,7 +7920,7 @@
       "source_location": "L186",
       "_origin": "ast",
       "id": "services_kyc_service_getuserkycstatusui",
-      "community": 81,
+      "community": 19,
       "norm_label": "getuserkycstatusui()"
     },
     {
@@ -7910,18 +7990,38 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "services_map_service_geocoderesult",
-      "community": 37,
+      "community": 23,
       "norm_label": "geocoderesult"
     },
     {
       "label": "geocodePlace()",
       "file_type": "code",
       "source_file": "src/services/map.service.ts",
-      "source_location": "L115",
+      "source_location": "L117",
       "_origin": "ast",
       "id": "services_map_service_geocodeplace",
       "community": 19,
       "norm_label": "geocodeplace()"
+    },
+    {
+      "label": "ReverseGeocodeResult",
+      "file_type": "code",
+      "source_file": "src/services/map.service.ts",
+      "source_location": "L150",
+      "_origin": "ast",
+      "id": "services_map_service_reversegeocoderesult",
+      "community": 19,
+      "norm_label": "reversegeocoderesult"
+    },
+    {
+      "label": "reverseGeocodePlace()",
+      "file_type": "code",
+      "source_file": "src/services/map.service.ts",
+      "source_location": "L167",
+      "_origin": "ast",
+      "id": "services_map_service_reversegeocodeplace",
+      "community": 19,
+      "norm_label": "reversegeocodeplace()"
     },
     {
       "label": "onboarding.service.ts",
@@ -8657,7 +8757,7 @@
       "label": "useListingLocationStore",
       "file_type": "code",
       "source_file": "src/store/listingLocationStore.ts",
-      "source_location": "L20",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "store_listinglocationstore_uselistinglocationstore",
       "community": 23,
@@ -8720,7 +8820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "store_propertystore",
-      "community": 5,
+      "community": 83,
       "norm_label": "propertystore.ts"
     },
     {
@@ -8730,7 +8830,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "store_propertystore_bhkfilter",
-      "community": 5,
+      "community": 89,
       "norm_label": "bhkfilter"
     },
     {
@@ -8740,7 +8840,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "store_propertystore_cityfilter",
-      "community": 5,
+      "community": 83,
       "norm_label": "cityfilter"
     },
     {
@@ -8750,7 +8850,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "store_propertystore_propertyfilters",
-      "community": 5,
+      "community": 83,
       "norm_label": "propertyfilters"
     },
     {
@@ -8760,7 +8860,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "store_propertystore_propertystore",
-      "community": 5,
+      "community": 83,
       "norm_label": "propertystore"
     },
     {
@@ -8770,7 +8870,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "store_propertystore_initial_filters",
-      "community": 5,
+      "community": 83,
       "norm_label": "initial_filters"
     },
     {
@@ -8780,7 +8880,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "store_propertystore_matchestype",
-      "community": 5,
+      "community": 83,
       "norm_label": "matchestype()"
     },
     {
@@ -8790,7 +8890,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "store_propertystore_matchescity",
-      "community": 5,
+      "community": 83,
       "norm_label": "matchescity()"
     },
     {
@@ -8800,7 +8900,7 @@
       "source_location": "L88",
       "_origin": "ast",
       "id": "store_propertystore_usepropertystore",
-      "community": 5,
+      "community": 90,
       "norm_label": "usepropertystore"
     },
     {
@@ -8810,7 +8910,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "store_userstore",
-      "community": 1,
+      "community": 91,
       "norm_label": "userstore.ts"
     },
     {
@@ -8820,7 +8920,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "store_userstore_userstats",
-      "community": 1,
+      "community": 91,
       "norm_label": "userstats"
     },
     {
@@ -8830,7 +8930,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "store_userstore_prosubscription",
-      "community": 1,
+      "community": 91,
       "norm_label": "prosubscription"
     },
     {
@@ -8840,7 +8940,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "store_userstore_userprofile",
-      "community": 1,
+      "community": 91,
       "norm_label": "userprofile"
     },
     {
@@ -8850,7 +8950,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "store_userstore_profilerow",
-      "community": 1,
+      "community": 91,
       "norm_label": "profilerow"
     },
     {
@@ -8860,7 +8960,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "store_userstore_userstate",
-      "community": 1,
+      "community": 91,
       "norm_label": "userstate"
     },
     {
@@ -8870,7 +8970,7 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "store_userstore_initial_profile",
-      "community": 1,
+      "community": 91,
       "norm_label": "initial_profile"
     },
     {
@@ -8880,7 +8980,7 @@
       "source_location": "L89",
       "_origin": "ast",
       "id": "store_userstore_prodaysremaining",
-      "community": 1,
+      "community": 91,
       "norm_label": "prodaysremaining()"
     },
     {
@@ -8890,7 +8990,7 @@
       "source_location": "L95",
       "_origin": "ast",
       "id": "store_userstore_useuserstore",
-      "community": 1,
+      "community": 91,
       "norm_label": "useuserstore"
     },
     {
@@ -8900,7 +9000,7 @@
       "source_location": "L168",
       "_origin": "ast",
       "id": "store_userstore_useprodaysremaining",
-      "community": 1,
+      "community": 91,
       "norm_label": "useprodaysremaining()"
     },
     {
@@ -8960,7 +9060,7 @@
       "source_location": "L86",
       "_origin": "ast",
       "id": "store_visitsstore_usevisitsstore",
-      "community": 83,
+      "community": 68,
       "norm_label": "usevisitsstore"
     },
     {
@@ -9120,7 +9220,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "types_kyc_types",
-      "community": 81,
+      "community": 10,
       "norm_label": "kyc.types.ts"
     },
     {
@@ -9150,7 +9250,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "types_kyc_types_kycdocumentslot",
-      "community": 81,
+      "community": 10,
       "norm_label": "kycdocumentslot"
     },
     {
@@ -9160,7 +9260,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "types_kyc_types_kycsubmission",
-      "community": 81,
+      "community": 10,
       "norm_label": "kycsubmission"
     },
     {
@@ -9180,7 +9280,7 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "types_kyc_types_kycsubmissionrow",
-      "community": 81,
+      "community": 10,
       "norm_label": "kycsubmissionrow"
     },
     {
@@ -9320,7 +9420,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "types_property_types",
-      "community": 4,
+      "community": 33,
       "norm_label": "property.types.ts"
     },
     {
@@ -9330,7 +9430,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "types_property_types_propertyrow",
-      "community": 4,
+      "community": 33,
       "norm_label": "propertyrow"
     },
     {
@@ -9350,7 +9450,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "types_property_types_savedpropertyrow",
-      "community": 4,
+      "community": 33,
       "norm_label": "savedpropertyrow"
     },
     {
@@ -9410,7 +9510,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "types_property_types_requeststatusui",
-      "community": 33,
+      "community": 1,
       "norm_label": "requeststatusui"
     },
     {
@@ -9420,7 +9520,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "types_property_types_visitstatuslabel",
-      "community": 4,
+      "community": 33,
       "norm_label": "visitstatuslabel"
     },
     {
@@ -9440,7 +9540,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "types_property_types_followupresponse",
-      "community": 83,
+      "community": 68,
       "norm_label": "followupresponse"
     },
     {
@@ -9450,7 +9550,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "types_property_types_landlordpropertysummary",
-      "community": 25,
+      "community": 28,
       "norm_label": "landlordpropertysummary"
     },
     {
@@ -9460,7 +9560,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "types_property_types_propertypublic",
-      "community": 5,
+      "community": 83,
       "norm_label": "propertypublic"
     },
     {
@@ -9470,7 +9570,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "types_property_types_propertyprivatelocation",
-      "community": 4,
+      "community": 33,
       "norm_label": "propertyprivatelocation"
     },
     {
@@ -9480,7 +9580,7 @@
       "source_location": "L108",
       "_origin": "ast",
       "id": "types_property_types_propertyunlocked",
-      "community": 33,
+      "community": 1,
       "norm_label": "propertyunlocked"
     },
     {
@@ -9490,7 +9590,7 @@
       "source_location": "L111",
       "_origin": "ast",
       "id": "types_property_types_landlordvisitrequest",
-      "community": 33,
+      "community": 1,
       "norm_label": "landlordvisitrequest"
     },
     {
@@ -9510,7 +9610,7 @@
       "source_location": "L167",
       "_origin": "ast",
       "id": "types_property_types_topropertystatusui",
-      "community": 4,
+      "community": 33,
       "norm_label": "topropertystatusui()"
     },
     {
@@ -9520,7 +9620,7 @@
       "source_location": "L184",
       "_origin": "ast",
       "id": "types_property_types_torequeststatusui",
-      "community": 4,
+      "community": 33,
       "norm_label": "torequeststatusui()"
     },
     {
@@ -9530,7 +9630,7 @@
       "source_location": "L188",
       "_origin": "ast",
       "id": "types_property_types_tovisitstatuslabel",
-      "community": 4,
+      "community": 33,
       "norm_label": "tovisitstatuslabel()"
     },
     {
@@ -9550,7 +9650,7 @@
       "source_location": "L216",
       "_origin": "ast",
       "id": "types_property_types_time_slot_labels",
-      "community": 33,
+      "community": 1,
       "norm_label": "time_slot_labels"
     },
     {
@@ -9570,7 +9670,7 @@
       "source_location": "L236",
       "_origin": "ast",
       "id": "types_property_types_topropertytype",
-      "community": 4,
+      "community": 37,
       "norm_label": "topropertytype()"
     },
     {
@@ -9590,7 +9690,7 @@
       "source_location": "L266",
       "_origin": "ast",
       "id": "types_property_types_asstringarray",
-      "community": 4,
+      "community": 33,
       "norm_label": "asstringarray()"
     },
     {
@@ -9600,7 +9700,7 @@
       "source_location": "L269",
       "_origin": "ast",
       "id": "types_property_types_asrecord",
-      "community": 4,
+      "community": 33,
       "norm_label": "asrecord()"
     },
     {
@@ -9610,7 +9710,7 @@
       "source_location": "L274",
       "_origin": "ast",
       "id": "types_property_types_tolandlordpropertysummary",
-      "community": 4,
+      "community": 33,
       "norm_label": "tolandlordpropertysummary()"
     },
     {
@@ -9640,7 +9740,7 @@
       "source_location": "L332",
       "_origin": "ast",
       "id": "types_property_types_visitrequestjoins",
-      "community": 4,
+      "community": 33,
       "norm_label": "visitrequestjoins"
     },
     {
@@ -9700,7 +9800,7 @@
       "source_location": "L435",
       "_origin": "ast",
       "id": "types_property_types_price_formatter",
-      "community": 4,
+      "community": 33,
       "norm_label": "price_formatter"
     },
     {
@@ -9710,7 +9810,7 @@
       "source_location": "L438",
       "_origin": "ast",
       "id": "types_property_types_formatmonthlyprice",
-      "community": 25,
+      "community": 28,
       "norm_label": "formatmonthlyprice()"
     },
     {
@@ -9720,37 +9820,57 @@
       "source_location": "L442",
       "_origin": "ast",
       "id": "types_property_types_formatvisitdate",
-      "community": 33,
+      "community": 1,
       "norm_label": "formatvisitdate()"
+    },
+    {
+      "label": "MONTH_INDEX",
+      "file_type": "code",
+      "source_file": "src/types/property.types.ts",
+      "source_location": "L452",
+      "_origin": "ast",
+      "id": "types_property_types_month_index",
+      "community": 33,
+      "norm_label": "month_index"
+    },
+    {
+      "label": "parseDateLabel()",
+      "file_type": "code",
+      "source_file": "src/types/property.types.ts",
+      "source_location": "L468",
+      "_origin": "ast",
+      "id": "types_property_types_parsedatelabel",
+      "community": 33,
+      "norm_label": "parsedatelabel()"
     },
     {
       "label": "parseAvailableFrom()",
       "file_type": "code",
       "source_file": "src/types/property.types.ts",
-      "source_location": "L457",
+      "source_location": "L497",
       "_origin": "ast",
       "id": "types_property_types_parseavailablefrom",
-      "community": 4,
+      "community": 33,
       "norm_label": "parseavailablefrom()"
     },
     {
       "label": "parseMoney()",
       "file_type": "code",
       "source_file": "src/types/property.types.ts",
-      "source_location": "L464",
+      "source_location": "L506",
       "_origin": "ast",
       "id": "types_property_types_parsemoney",
-      "community": 4,
+      "community": 37,
       "norm_label": "parsemoney()"
     },
     {
       "label": "parseOptionalInt()",
       "file_type": "code",
       "source_file": "src/types/property.types.ts",
-      "source_location": "L470",
+      "source_location": "L512",
       "_origin": "ast",
       "id": "types_property_types_parseoptionalint",
-      "community": 4,
+      "community": 37,
       "norm_label": "parseoptionalint()"
     },
     {
@@ -9912,6 +10032,46 @@
       "id": "shared_esewa_arraybuffertobase64",
       "community": 17,
       "norm_label": "arraybuffertobase64()"
+    },
+    {
+      "label": "geocode.ts",
+      "file_type": "code",
+      "source_file": "supabase/functions/_shared/geocode.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "shared_geocode",
+      "community": 17,
+      "norm_label": "geocode.ts"
+    },
+    {
+      "label": "AddressComponent",
+      "file_type": "code",
+      "source_file": "supabase/functions/_shared/geocode.ts",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "shared_geocode_addresscomponent",
+      "community": 17,
+      "norm_label": "addresscomponent"
+    },
+    {
+      "label": "googleApiKey()",
+      "file_type": "code",
+      "source_file": "supabase/functions/_shared/geocode.ts",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "shared_geocode_googleapikey",
+      "community": 17,
+      "norm_label": "googleapikey()"
+    },
+    {
+      "label": "pickArea()",
+      "file_type": "code",
+      "source_file": "supabase/functions/_shared/geocode.ts",
+      "source_location": "L31",
+      "_origin": "ast",
+      "id": "shared_geocode_pickarea",
+      "community": 17,
+      "norm_label": "pickarea()"
     },
     {
       "label": "deno.json",
@@ -16681,6 +16841,17 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "new_step_2",
+      "target": "types_property_types_parsedatelabel"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(landlord)/listing/new/step-2.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "new_step_2",
       "target": "types_property_types_parsemoney"
     },
     {
@@ -17080,11 +17251,66 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "app/(landlord)/location-picker.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "landlord_location_picker",
+      "target": "map_appmap_appmapviewhandle"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(landlord)/location-picker.tsx",
       "source_location": "L7",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "landlord_location_picker",
       "target": "map_appmap_mapmarkerdata"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(landlord)/location-picker.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "landlord_location_picker",
+      "target": "services_map_service"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(landlord)/location-picker.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "landlord_location_picker",
+      "target": "services_map_service_geocodeplace"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(landlord)/location-picker.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "landlord_location_picker",
+      "target": "services_map_service_geocoderesult"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(landlord)/location-picker.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "landlord_location_picker",
+      "target": "services_map_service_reversegeocodeplace"
     },
     {
       "relation": "imports_from",
@@ -19010,9 +19236,9 @@
       "source_file": "app/(tenant)/(tabs)/visits.tsx",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tabs_visits",
-      "target": "store_visitsstore",
-      "confidence_score": 1.0
+      "target": "store_visitsstore"
     },
     {
       "relation": "imports",
@@ -19021,9 +19247,9 @@
       "source_file": "app/(tenant)/(tabs)/visits.tsx",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tabs_visits",
-      "target": "store_visitsstore_usevisitsstore",
-      "confidence_score": 1.0
+      "target": "store_visitsstore_usevisitsstore"
     },
     {
       "relation": "contains",
@@ -19051,9 +19277,9 @@
       "source_file": "app/(tenant)/(tabs)/visits.tsx",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tabs_visits",
-      "target": "tabs_visits_open_ui",
-      "confidence_score": 1.0
+      "target": "tabs_visits_open_ui"
     },
     {
       "relation": "contains",
@@ -19145,9 +19371,9 @@
       "source_file": "app/(tenant)/(tabs)/visits.tsx",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tabs_visits",
-      "target": "types_property_types_tenantvisitrequest",
-      "confidence_score": 1.0
+      "target": "types_property_types_tenantvisitrequest"
     },
     {
       "relation": "imports",
@@ -19156,9 +19382,9 @@
       "source_file": "app/(tenant)/(tabs)/visits.tsx",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tabs_visits",
-      "target": "types_property_types_tenantvisitstatusui",
-      "confidence_score": 1.0
+      "target": "types_property_types_tenantvisitstatusui"
     },
     {
       "relation": "imports",
@@ -19222,9 +19448,9 @@
       "source_file": "app/(tenant)/(tabs)/visits.tsx",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tabs_visits",
-      "target": "visits_visitlistcard",
-      "confidence_score": 1.0
+      "target": "visits_visitlistcard"
     },
     {
       "relation": "imports",
@@ -19233,9 +19459,9 @@
       "source_file": "app/(tenant)/(tabs)/visits.tsx",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tabs_visits",
-      "target": "visits_visitlistcard_visitlistcard",
-      "confidence_score": 1.0
+      "target": "visits_visitlistcard_visitlistcard"
     },
     {
       "relation": "calls",
@@ -19299,9 +19525,9 @@
       "source_file": "app/(tenant)/_layout.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tenant_layout",
-      "target": "hooks_usevisitrealtime",
-      "confidence_score": 1.0
+      "target": "hooks_usevisitrealtime"
     },
     {
       "relation": "imports",
@@ -19310,9 +19536,9 @@
       "source_file": "app/(tenant)/_layout.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tenant_layout",
-      "target": "hooks_usevisitrealtime_usevisitrealtime",
-      "confidence_score": 1.0
+      "target": "hooks_usevisitrealtime_usevisitrealtime"
     },
     {
       "relation": "contains",
@@ -21604,16 +21830,6 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app/(tenant)/property/[id].tsx",
-      "source_location": "L35",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app_tenant_property_id_tsx_property_id",
-      "target": "property_id_amenity_icon_keys"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "app/(tenant)/property/[id].tsx",
       "source_location": "L79",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -21624,11 +21840,81 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "app_tenant_property_id_tsx_property_id",
+      "target": "property_id_amenity_labels",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "app_tenant_property_id_tsx_property_id",
+      "target": "property_id_amenityrow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L106",
+      "weight": 1.0,
+      "source": "app_tenant_property_id_tsx_property_id",
+      "target": "property_id_cameltotitle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "app_tenant_property_id_tsx_property_id",
+      "target": "property_id_extra_detail_icons",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "app_tenant_property_id_tsx_property_id",
+      "target": "property_id_extra_detail_labels",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L99",
+      "weight": 1.0,
+      "source": "app_tenant_property_id_tsx_property_id",
+      "target": "property_id_extradetailrow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/property/[id].tsx",
       "source_location": "L44",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_tenant_property_id_tsx_property_id",
       "target": "property_id_fmtnpr"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L113",
+      "weight": 1.0,
+      "source": "app_tenant_property_id_tsx_property_id",
+      "target": "property_id_formatextravalue",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21649,6 +21935,26 @@
       "confidence_score": 1.0,
       "source": "app_tenant_property_id_tsx_property_id",
       "target": "property_id_propertydetailscreen"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L83",
+      "weight": 1.0,
+      "source": "app_tenant_property_id_tsx_property_id",
+      "target": "property_id_toamenityrows",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L119",
+      "weight": 1.0,
+      "source": "app_tenant_property_id_tsx_property_id",
+      "target": "property_id_toextradetailrows",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -21847,6 +22153,28 @@
       "confidence_score": 1.0,
       "source": "app_tenant_property_id_tsx_property_id",
       "target": "user_avatar_avatar"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L297",
+      "weight": 1.0,
+      "source": "property_id_propertydetailscreen",
+      "target": "property_id_toamenityrows",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(tenant)/property/[id].tsx",
+      "source_location": "L298",
+      "weight": 1.0,
+      "source": "property_id_propertydetailscreen",
+      "target": "property_id_toextradetailrows",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -22265,9 +22593,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "map_appmap",
-      "confidence_score": 1.0
+      "target": "map_appmap"
     },
     {
       "relation": "imports_from",
@@ -22276,9 +22604,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "services_properties_service",
-      "confidence_score": 1.0
+      "target": "services_properties_service"
     },
     {
       "relation": "imports",
@@ -22287,9 +22615,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "services_properties_service_getpropertywithunlockedlocation",
-      "confidence_score": 1.0
+      "target": "services_properties_service_getpropertywithunlockedlocation"
     },
     {
       "relation": "imports_from",
@@ -22320,9 +22648,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L35",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "services_visits_service_getvisitrequestfortenant",
-      "confidence_score": 1.0
+      "target": "services_visits_service_getvisitrequestfortenant"
     },
     {
       "relation": "imports_from",
@@ -22331,9 +22659,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L31",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "shared_primarybutton",
-      "confidence_score": 1.0
+      "target": "shared_primarybutton"
     },
     {
       "relation": "imports",
@@ -22342,9 +22670,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L31",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "shared_primarybutton_primarybutton",
-      "confidence_score": 1.0
+      "target": "shared_primarybutton_primarybutton"
     },
     {
       "relation": "imports_from",
@@ -22353,9 +22681,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "store_visitsstore",
-      "confidence_score": 1.0
+      "target": "store_visitsstore"
     },
     {
       "relation": "imports",
@@ -22364,9 +22692,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "store_visitsstore_usevisitsstore",
-      "confidence_score": 1.0
+      "target": "store_visitsstore_usevisitsstore"
     },
     {
       "relation": "imports_from",
@@ -22386,9 +22714,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "types_property_types_follow_up_response_labels",
-      "confidence_score": 1.0
+      "target": "types_property_types_follow_up_response_labels"
     },
     {
       "relation": "imports",
@@ -22419,9 +22747,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "types_property_types_propertyunlocked",
-      "confidence_score": 1.0
+      "target": "types_property_types_propertyunlocked"
     },
     {
       "relation": "imports",
@@ -22430,9 +22758,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "types_property_types_tenantvisitstatusui",
-      "confidence_score": 1.0
+      "target": "types_property_types_tenantvisitstatusui"
     },
     {
       "relation": "imports",
@@ -22462,9 +22790,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L142",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "visit_id_confirmdestructive",
-      "confidence_score": 1.0
+      "target": "visit_id_confirmdestructive"
     },
     {
       "relation": "contains",
@@ -22472,9 +22800,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L111",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "visit_id_detailcard",
-      "confidence_score": 1.0
+      "target": "visit_id_detailcard"
     },
     {
       "relation": "contains",
@@ -22482,9 +22810,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L104",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "visit_id_detailcardprops",
-      "confidence_score": 1.0
+      "target": "visit_id_detailcardprops"
     },
     {
       "relation": "contains",
@@ -22502,9 +22830,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L600",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "visit_id_formattimestamp",
-      "confidence_score": 1.0
+      "target": "visit_id_formattimestamp"
     },
     {
       "relation": "contains",
@@ -22512,9 +22840,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L79",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "visit_id_hero_styles",
-      "confidence_score": 1.0
+      "target": "visit_id_hero_styles"
     },
     {
       "relation": "contains",
@@ -22522,9 +22850,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L91",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "visit_id_heroicon",
-      "confidence_score": 1.0
+      "target": "visit_id_heroicon"
     },
     {
       "relation": "contains",
@@ -22532,9 +22860,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L154",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "visit_id_mapsurl",
-      "confidence_score": 1.0
+      "target": "visit_id_mapsurl"
     },
     {
       "relation": "contains",
@@ -22542,9 +22870,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L138",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "visit_id_sectiondivider",
-      "confidence_score": 1.0
+      "target": "visit_id_sectiondivider"
     },
     {
       "relation": "contains",
@@ -22552,9 +22880,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L50",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "visit_id_status_copy",
-      "confidence_score": 1.0
+      "target": "visit_id_status_copy"
     },
     {
       "relation": "contains",
@@ -22583,9 +22911,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L32",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "visits_visitstatuschip",
-      "confidence_score": 1.0
+      "target": "visits_visitstatuschip"
     },
     {
       "relation": "imports",
@@ -22594,9 +22922,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L32",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id",
-      "target": "visits_visitstatuschip_visitstatuschip",
-      "confidence_score": 1.0
+      "target": "visits_visitstatuschip_visitstatuschip"
     },
     {
       "relation": "calls",
@@ -22638,9 +22966,9 @@
       "source_file": "app/(tenant)/visit/[id].tsx",
       "source_location": "L558",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_id_visitdetailscreen",
-      "target": "visit_id_formattimestamp",
-      "confidence_score": 1.0
+      "target": "visit_id_formattimestamp"
     },
     {
       "relation": "imports_from",
@@ -22649,9 +22977,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "hooks_useclerksupabase",
-      "confidence_score": 1.0
+      "target": "hooks_useclerksupabase"
     },
     {
       "relation": "imports",
@@ -22660,9 +22988,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "hooks_useclerksupabase_useclerksupabase",
-      "confidence_score": 1.0
+      "target": "hooks_useclerksupabase_useclerksupabase"
     },
     {
       "relation": "imports_from",
@@ -22671,9 +22999,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "services_visits_service",
-      "confidence_score": 1.0
+      "target": "services_visits_service"
     },
     {
       "relation": "imports",
@@ -22682,9 +23010,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "services_visits_service_getvisitrequestfortenant",
-      "confidence_score": 1.0
+      "target": "services_visits_service_getvisitrequestfortenant"
     },
     {
       "relation": "imports_from",
@@ -22693,9 +23021,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "shared_primarybutton",
-      "confidence_score": 1.0
+      "target": "shared_primarybutton"
     },
     {
       "relation": "imports",
@@ -22704,9 +23032,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "shared_primarybutton_primarybutton",
-      "confidence_score": 1.0
+      "target": "shared_primarybutton_primarybutton"
     },
     {
       "relation": "imports_from",
@@ -22715,9 +23043,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "store_visitsstore",
-      "confidence_score": 1.0
+      "target": "store_visitsstore"
     },
     {
       "relation": "imports",
@@ -22726,9 +23054,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "store_visitsstore_usevisitsstore",
-      "confidence_score": 1.0
+      "target": "store_visitsstore_usevisitsstore"
     },
     {
       "relation": "imports_from",
@@ -22737,9 +23065,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "types_property_types",
-      "confidence_score": 1.0
+      "target": "types_property_types"
     },
     {
       "relation": "imports",
@@ -22748,9 +23076,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "types_property_types_followupresponse",
-      "confidence_score": 1.0
+      "target": "types_property_types_followupresponse"
     },
     {
       "relation": "imports",
@@ -22759,9 +23087,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "types_property_types_formatvisitdate",
-      "confidence_score": 1.0
+      "target": "types_property_types_formatvisitdate"
     },
     {
       "relation": "contains",
@@ -22769,9 +23097,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "visit_follow_up_options",
-      "confidence_score": 1.0
+      "target": "visit_follow_up_options"
     },
     {
       "relation": "contains",
@@ -22779,9 +23107,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L63",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "visit_follow_up_postvisitfollowupscreen",
-      "confidence_score": 1.0
+      "target": "visit_follow_up_postvisitfollowupscreen"
     },
     {
       "relation": "contains",
@@ -22789,9 +23117,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L210",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "visit_follow_up_styles",
-      "confidence_score": 1.0
+      "target": "visit_follow_up_styles"
     },
     {
       "relation": "imports_from",
@@ -22800,9 +23128,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "visits_followupoptioncard",
-      "confidence_score": 1.0
+      "target": "visits_followupoptioncard"
     },
     {
       "relation": "imports",
@@ -22811,9 +23139,9 @@
       "source_file": "app/(tenant)/visit/follow-up.tsx",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visit_follow_up",
-      "target": "visits_followupoptioncard_followupoptioncard",
-      "confidence_score": 1.0
+      "target": "visits_followupoptioncard_followupoptioncard"
     },
     {
       "relation": "calls",
@@ -24629,11 +24957,11 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/map/AppMap.tsx",
-      "source_location": "L105",
+      "source_location": "L117",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "map_appmap",
-      "target": "map_appmap_androidrender"
+      "target": "map_appmap_androidmap"
     },
     {
       "relation": "contains",
@@ -24663,7 +24991,7 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "map_appmap",
-      "target": "map_appmap_iosrender"
+      "target": "map_appmap_iosmap"
     },
     {
       "relation": "contains",
@@ -26131,9 +26459,9 @@
       "source_file": "src/components/visits/FollowUpOptionCard.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_followupoptioncard",
-      "target": "types_property_types",
-      "confidence_score": 1.0
+      "target": "types_property_types"
     },
     {
       "relation": "imports",
@@ -26142,9 +26470,9 @@
       "source_file": "src/components/visits/FollowUpOptionCard.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_followupoptioncard",
-      "target": "types_property_types_followupresponse",
-      "confidence_score": 1.0
+      "target": "types_property_types_followupresponse"
     },
     {
       "relation": "contains",
@@ -26152,9 +26480,9 @@
       "source_file": "src/components/visits/FollowUpOptionCard.tsx",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_followupoptioncard",
-      "target": "visits_followupoptioncard_followupoptioncard",
-      "confidence_score": 1.0
+      "target": "visits_followupoptioncard_followupoptioncard"
     },
     {
       "relation": "contains",
@@ -26162,9 +26490,9 @@
       "source_file": "src/components/visits/FollowUpOptionCard.tsx",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_followupoptioncard",
-      "target": "visits_followupoptioncard_followupoptioncardprops",
-      "confidence_score": 1.0
+      "target": "visits_followupoptioncard_followupoptioncardprops"
     },
     {
       "relation": "contains",
@@ -26172,9 +26500,9 @@
       "source_file": "src/components/visits/FollowUpOptionCard.tsx",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_followupoptioncard",
-      "target": "visits_followupoptioncard_styles",
-      "confidence_score": 1.0
+      "target": "visits_followupoptioncard_styles"
     },
     {
       "relation": "references",
@@ -26183,9 +26511,9 @@
       "source_file": "src/components/visits/FollowUpOptionCard.tsx",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_followupoptioncard_followupoptioncardprops",
-      "target": "types_property_types_followupresponse",
-      "confidence_score": 1.0
+      "target": "types_property_types_followupresponse"
     },
     {
       "relation": "imports_from",
@@ -26194,9 +26522,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard",
-      "target": "types_property_types",
-      "confidence_score": 1.0
+      "target": "types_property_types"
     },
     {
       "relation": "imports",
@@ -26205,9 +26533,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard",
-      "target": "types_property_types_tenantvisitrequest",
-      "confidence_score": 1.0
+      "target": "types_property_types_tenantvisitrequest"
     },
     {
       "relation": "imports",
@@ -26216,9 +26544,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard",
-      "target": "types_property_types_time_slot_labels",
-      "confidence_score": 1.0
+      "target": "types_property_types_time_slot_labels"
     },
     {
       "relation": "contains",
@@ -26226,9 +26554,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard",
-      "target": "visits_visitlistcard_formatdate",
-      "confidence_score": 1.0
+      "target": "visits_visitlistcard_formatdate"
     },
     {
       "relation": "contains",
@@ -26236,9 +26564,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard",
-      "target": "visits_visitlistcard_issameday",
-      "confidence_score": 1.0
+      "target": "visits_visitlistcard_issameday"
     },
     {
       "relation": "contains",
@@ -26246,9 +26574,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard",
-      "target": "visits_visitlistcard_parsevisitdate",
-      "confidence_score": 1.0
+      "target": "visits_visitlistcard_parsevisitdate"
     },
     {
       "relation": "contains",
@@ -26256,9 +26584,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L134",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard",
-      "target": "visits_visitlistcard_styles",
-      "confidence_score": 1.0
+      "target": "visits_visitlistcard_styles"
     },
     {
       "relation": "contains",
@@ -26266,9 +26594,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard",
-      "target": "visits_visitlistcard_visitlistcard",
-      "confidence_score": 1.0
+      "target": "visits_visitlistcard_visitlistcard"
     },
     {
       "relation": "contains",
@@ -26276,9 +26604,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard",
-      "target": "visits_visitlistcard_visitlistcardprops",
-      "confidence_score": 1.0
+      "target": "visits_visitlistcard_visitlistcardprops"
     },
     {
       "relation": "imports_from",
@@ -26287,9 +26615,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard",
-      "target": "visits_visitstatuschip",
-      "confidence_score": 1.0
+      "target": "visits_visitstatuschip"
     },
     {
       "relation": "imports",
@@ -26298,9 +26626,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard",
-      "target": "visits_visitstatuschip_followuppendingbadge",
-      "confidence_score": 1.0
+      "target": "visits_visitstatuschip_followuppendingbadge"
     },
     {
       "relation": "imports",
@@ -26309,9 +26637,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard",
-      "target": "visits_visitstatuschip_visit_chip_styles",
-      "confidence_score": 1.0
+      "target": "visits_visitstatuschip_visit_chip_styles"
     },
     {
       "relation": "imports",
@@ -26320,9 +26648,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard",
-      "target": "visits_visitstatuschip_visitstatuschip",
-      "confidence_score": 1.0
+      "target": "visits_visitstatuschip_visitstatuschip"
     },
     {
       "relation": "calls",
@@ -26331,9 +26659,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L72",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard_visitlistcard",
-      "target": "visits_visitlistcard_issameday",
-      "confidence_score": 1.0
+      "target": "visits_visitlistcard_issameday"
     },
     {
       "relation": "calls",
@@ -26342,9 +26670,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L111",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard_visitlistcard",
-      "target": "visits_visitlistcard_formatdate",
-      "confidence_score": 1.0
+      "target": "visits_visitlistcard_formatdate"
     },
     {
       "relation": "references",
@@ -26353,9 +26681,9 @@
       "source_file": "src/components/visits/VisitListCard.tsx",
       "source_location": "L34",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitlistcard_visitlistcardprops",
-      "target": "types_property_types_tenantvisitrequest",
-      "confidence_score": 1.0
+      "target": "types_property_types_tenantvisitrequest"
     },
     {
       "relation": "imports_from",
@@ -26364,9 +26692,9 @@
       "source_file": "src/components/visits/VisitStatusChip.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitstatuschip",
-      "target": "types_property_types",
-      "confidence_score": 1.0
+      "target": "types_property_types"
     },
     {
       "relation": "imports",
@@ -26375,9 +26703,9 @@
       "source_file": "src/components/visits/VisitStatusChip.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitstatuschip",
-      "target": "types_property_types_tenantvisitstatusui",
-      "confidence_score": 1.0
+      "target": "types_property_types_tenantvisitstatusui"
     },
     {
       "relation": "contains",
@@ -26385,9 +26713,9 @@
       "source_file": "src/components/visits/VisitStatusChip.tsx",
       "source_location": "L64",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitstatuschip",
-      "target": "visits_visitstatuschip_followuppendingbadge",
-      "confidence_score": 1.0
+      "target": "visits_visitstatuschip_followuppendingbadge"
     },
     {
       "relation": "contains",
@@ -26395,9 +26723,9 @@
       "source_file": "src/components/visits/VisitStatusChip.tsx",
       "source_location": "L71",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitstatuschip",
-      "target": "visits_visitstatuschip_styles",
-      "confidence_score": 1.0
+      "target": "visits_visitstatuschip_styles"
     },
     {
       "relation": "contains",
@@ -26405,9 +26733,9 @@
       "source_file": "src/components/visits/VisitStatusChip.tsx",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitstatuschip",
-      "target": "visits_visitstatuschip_visit_chip_labels",
-      "confidence_score": 1.0
+      "target": "visits_visitstatuschip_visit_chip_labels"
     },
     {
       "relation": "contains",
@@ -26415,9 +26743,9 @@
       "source_file": "src/components/visits/VisitStatusChip.tsx",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitstatuschip",
-      "target": "visits_visitstatuschip_visit_chip_styles",
-      "confidence_score": 1.0
+      "target": "visits_visitstatuschip_visit_chip_styles"
     },
     {
       "relation": "contains",
@@ -26425,9 +26753,9 @@
       "source_file": "src/components/visits/VisitStatusChip.tsx",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitstatuschip",
-      "target": "visits_visitstatuschip_visitchipstyle",
-      "confidence_score": 1.0
+      "target": "visits_visitstatuschip_visitchipstyle"
     },
     {
       "relation": "contains",
@@ -26435,9 +26763,9 @@
       "source_file": "src/components/visits/VisitStatusChip.tsx",
       "source_location": "L48",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitstatuschip",
-      "target": "visits_visitstatuschip_visitstatuschip",
-      "confidence_score": 1.0
+      "target": "visits_visitstatuschip_visitstatuschip"
     },
     {
       "relation": "contains",
@@ -26445,9 +26773,9 @@
       "source_file": "src/components/visits/VisitStatusChip.tsx",
       "source_location": "L42",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitstatuschip",
-      "target": "visits_visitstatuschip_visitstatuschipprops",
-      "confidence_score": 1.0
+      "target": "visits_visitstatuschip_visitstatuschipprops"
     },
     {
       "relation": "references",
@@ -26456,9 +26784,9 @@
       "source_file": "src/components/visits/VisitStatusChip.tsx",
       "source_location": "L43",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visits_visitstatuschip_visitstatuschipprops",
-      "target": "types_property_types_tenantvisitstatusui",
-      "confidence_score": 1.0
+      "target": "types_property_types_tenantvisitstatusui"
     },
     {
       "relation": "contains",
@@ -26999,9 +27327,9 @@
       "source_file": "src/hooks/useVisitRealtime.ts",
       "source_location": "L105",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usevisitrealtime",
-      "target": "hooks_usevisitrealtime_rowtovisitpartial",
-      "confidence_score": 1.0
+      "target": "hooks_usevisitrealtime_rowtovisitpartial"
     },
     {
       "relation": "contains",
@@ -27009,9 +27337,9 @@
       "source_file": "src/hooks/useVisitRealtime.ts",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usevisitrealtime",
-      "target": "hooks_usevisitrealtime_usevisitrealtime",
-      "confidence_score": 1.0
+      "target": "hooks_usevisitrealtime_usevisitrealtime"
     },
     {
       "relation": "imports_from",
@@ -27020,9 +27348,9 @@
       "source_file": "src/hooks/useVisitRealtime.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usevisitrealtime",
-      "target": "lib_supabase",
-      "confidence_score": 1.0
+      "target": "lib_supabase"
     },
     {
       "relation": "imports",
@@ -27031,9 +27359,9 @@
       "source_file": "src/hooks/useVisitRealtime.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usevisitrealtime",
-      "target": "lib_supabase_createclerksupabaseclient",
-      "confidence_score": 1.0
+      "target": "lib_supabase_createclerksupabaseclient"
     },
     {
       "relation": "imports_from",
@@ -27042,9 +27370,9 @@
       "source_file": "src/hooks/useVisitRealtime.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usevisitrealtime",
-      "target": "store_visitsstore",
-      "confidence_score": 1.0
+      "target": "store_visitsstore"
     },
     {
       "relation": "imports",
@@ -27053,9 +27381,9 @@
       "source_file": "src/hooks/useVisitRealtime.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usevisitrealtime",
-      "target": "store_visitsstore_usevisitsstore",
-      "confidence_score": 1.0
+      "target": "store_visitsstore_usevisitsstore"
     },
     {
       "relation": "imports_from",
@@ -27064,9 +27392,9 @@
       "source_file": "src/hooks/useVisitRealtime.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usevisitrealtime",
-      "target": "types_property_types",
-      "confidence_score": 1.0
+      "target": "types_property_types"
     },
     {
       "relation": "imports",
@@ -27075,9 +27403,9 @@
       "source_file": "src/hooks/useVisitRealtime.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usevisitrealtime",
-      "target": "types_property_types_tenantvisitrequest",
-      "confidence_score": 1.0
+      "target": "types_property_types_tenantvisitrequest"
     },
     {
       "relation": "imports",
@@ -27086,9 +27414,9 @@
       "source_file": "src/hooks/useVisitRealtime.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hooks_usevisitrealtime",
-      "target": "types_property_types_visitrequestrow",
-      "confidence_score": 1.0
+      "target": "types_property_types_visitrequestrow"
     },
     {
       "relation": "calls",
@@ -27490,6 +27818,17 @@
       "source_location": "L63",
       "weight": 1.0,
       "source": "services_map_service_getpropertiesnear",
+      "target": "lib_result_ok"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/services/map.service.ts",
+      "source_location": "L190",
+      "weight": 1.0,
+      "source": "services_map_service_reversegeocodeplace",
       "target": "lib_result_ok"
     },
     {
@@ -28191,6 +28530,17 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/services/map.service.ts",
+      "source_location": "L187",
+      "weight": 1.0,
+      "source": "services_map_service_reversegeocodeplace",
+      "target": "lib_result_err"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/services/map.service.ts",
       "source_location": "L78",
       "weight": 1.0,
       "source": "services_map_service_searchproperties",
@@ -28854,6 +29204,17 @@
       "source_location": "L60",
       "weight": 1.0,
       "source": "services_map_service_getpropertiesnear",
+      "target": "lib_result_geterrormessage"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/services/map.service.ts",
+      "source_location": "L177",
+      "weight": 1.0,
+      "source": "services_map_service_reversegeocodeplace",
       "target": "lib_result_geterrormessage"
     },
     {
@@ -29865,6 +30226,26 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/services/map.service.ts",
+      "source_location": "L166",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_map_service",
+      "target": "services_map_service_reversegeocodeplace"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/map.service.ts",
+      "source_location": "L149",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_map_service",
+      "target": "services_map_service_reversegeocoderesult"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/map.service.ts",
       "source_location": "L69",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -30844,9 +31225,9 @@
       "source_file": "src/services/visits.service.ts",
       "source_location": "L262",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_visits_service",
-      "target": "services_visits_service_acceptreschedule",
-      "confidence_score": 1.0
+      "target": "services_visits_service_acceptreschedule"
     },
     {
       "relation": "contains",
@@ -30864,9 +31245,9 @@
       "source_file": "src/services/visits.service.ts",
       "source_location": "L236",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_visits_service",
-      "target": "services_visits_service_cancelvisitrequest",
-      "confidence_score": 1.0
+      "target": "services_visits_service_cancelvisitrequest"
     },
     {
       "relation": "contains",
@@ -30894,9 +31275,9 @@
       "source_file": "src/services/visits.service.ts",
       "source_location": "L288",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_visits_service",
-      "target": "services_visits_service_declinereschedule",
-      "confidence_score": 1.0
+      "target": "services_visits_service_declinereschedule"
     },
     {
       "relation": "contains",
@@ -30934,9 +31315,9 @@
       "source_file": "src/services/visits.service.ts",
       "source_location": "L138",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_visits_service",
-      "target": "services_visits_service_getvisitrequestfortenant",
-      "confidence_score": 1.0
+      "target": "services_visits_service_getvisitrequestfortenant"
     },
     {
       "relation": "contains",
@@ -30984,9 +31365,9 @@
       "source_file": "src/services/visits.service.ts",
       "source_location": "L310",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_visits_service",
-      "target": "services_visits_service_submitfollowup",
-      "confidence_score": 1.0
+      "target": "services_visits_service_submitfollowup"
     },
     {
       "relation": "contains",
@@ -31058,9 +31439,9 @@
       "source_file": "src/services/visits.service.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_visits_service",
-      "target": "types_property_types_followupresponse",
-      "confidence_score": 1.0
+      "target": "types_property_types_followupresponse"
     },
     {
       "relation": "imports",
@@ -31080,9 +31461,9 @@
       "source_file": "src/services/visits.service.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_visits_service",
-      "target": "types_property_types_tenantvisitrequest",
-      "confidence_score": 1.0
+      "target": "types_property_types_tenantvisitrequest"
     },
     {
       "relation": "imports",
@@ -31113,9 +31494,9 @@
       "source_file": "src/services/visits.service.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_visits_service",
-      "target": "types_property_types_totenantvisitrequest",
-      "confidence_score": 1.0
+      "target": "types_property_types_totenantvisitrequest"
     },
     {
       "relation": "imports",
@@ -31157,9 +31538,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "services_visits_service",
-      "confidence_score": 1.0
+      "target": "services_visits_service"
     },
     {
       "relation": "calls",
@@ -31179,9 +31560,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "services_visits_service_getvisitrequestsfortenant",
-      "confidence_score": 1.0
+      "target": "services_visits_service_getvisitrequestsfortenant"
     },
     {
       "relation": "calls",
@@ -31234,9 +31615,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "services_visits_service_cancelvisitrequest",
-      "confidence_score": 1.0
+      "target": "services_visits_service_cancelvisitrequest"
     },
     {
       "relation": "calls",
@@ -31256,9 +31637,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "services_visits_service_acceptreschedule",
-      "confidence_score": 1.0
+      "target": "services_visits_service_acceptreschedule"
     },
     {
       "relation": "calls",
@@ -31278,9 +31659,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "services_visits_service_declinereschedule",
-      "confidence_score": 1.0
+      "target": "services_visits_service_declinereschedule"
     },
     {
       "relation": "calls",
@@ -31300,9 +31681,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "services_visits_service_submitfollowup",
-      "confidence_score": 1.0
+      "target": "services_visits_service_submitfollowup"
     },
     {
       "relation": "calls",
@@ -31834,9 +32215,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L64",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "store_visitsstore_derivestatusui",
-      "confidence_score": 1.0
+      "target": "store_visitsstore_derivestatusui"
     },
     {
       "relation": "contains",
@@ -31844,9 +32225,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L76",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "store_visitsstore_markstatuschange",
-      "confidence_score": 1.0
+      "target": "store_visitsstore_markstatuschange"
     },
     {
       "relation": "contains",
@@ -31854,9 +32235,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L209",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "store_visitsstore_mergedfollowup",
-      "confidence_score": 1.0
+      "target": "store_visitsstore_mergedfollowup"
     },
     {
       "relation": "contains",
@@ -31864,9 +32245,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L214",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "store_visitsstore_patch",
-      "confidence_score": 1.0
+      "target": "store_visitsstore_patch"
     },
     {
       "relation": "contains",
@@ -31874,9 +32255,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L227",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "store_visitsstore_patchoptimistic",
-      "confidence_score": 1.0
+      "target": "store_visitsstore_patchoptimistic"
     },
     {
       "relation": "contains",
@@ -31884,9 +32265,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L248",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "store_visitsstore_reconcile",
-      "confidence_score": 1.0
+      "target": "store_visitsstore_reconcile"
     },
     {
       "relation": "contains",
@@ -31894,9 +32275,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "store_visitsstore_supabase",
-      "confidence_score": 1.0
+      "target": "store_visitsstore_supabase"
     },
     {
       "relation": "contains",
@@ -31904,9 +32285,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L86",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "store_visitsstore_usevisitsstore",
-      "confidence_score": 1.0
+      "target": "store_visitsstore_usevisitsstore"
     },
     {
       "relation": "contains",
@@ -31914,9 +32295,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L31",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "store_visitsstore_visitsstate",
-      "confidence_score": 1.0
+      "target": "store_visitsstore_visitsstate"
     },
     {
       "relation": "imports_from",
@@ -31925,9 +32306,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "types_database_types",
-      "confidence_score": 1.0
+      "target": "types_database_types"
     },
     {
       "relation": "imports",
@@ -31936,9 +32317,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "types_database_types_database",
-      "confidence_score": 1.0
+      "target": "types_database_types_database"
     },
     {
       "relation": "imports_from",
@@ -31947,9 +32328,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "types_property_types",
-      "confidence_score": 1.0
+      "target": "types_property_types"
     },
     {
       "relation": "imports",
@@ -31958,9 +32339,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "types_property_types_followupresponse",
-      "confidence_score": 1.0
+      "target": "types_property_types_followupresponse"
     },
     {
       "relation": "imports",
@@ -31969,9 +32350,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "types_property_types_tenantvisitrequest",
-      "confidence_score": 1.0
+      "target": "types_property_types_tenantvisitrequest"
     },
     {
       "relation": "imports",
@@ -31980,9 +32361,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "types_property_types_totenantvisitstatusui",
-      "confidence_score": 1.0
+      "target": "types_property_types_totenantvisitstatusui"
     },
     {
       "relation": "imports",
@@ -31991,9 +32372,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore",
-      "target": "types_property_types_visitstatus",
-      "confidence_score": 1.0
+      "target": "types_property_types_visitstatus"
     },
     {
       "relation": "references",
@@ -32002,9 +32383,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore_visitsstate",
-      "target": "types_property_types_followupresponse",
-      "confidence_score": 1.0
+      "target": "types_property_types_followupresponse"
     },
     {
       "relation": "references",
@@ -32013,9 +32394,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L43",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore_visitsstate",
-      "target": "types_property_types_tenantvisitrequest",
-      "confidence_score": 1.0
+      "target": "types_property_types_tenantvisitrequest"
     },
     {
       "relation": "references",
@@ -32024,9 +32405,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L43",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore_visitsstate",
-      "target": "types_property_types_visitstatus",
-      "confidence_score": 1.0
+      "target": "types_property_types_visitstatus"
     },
     {
       "relation": "calls",
@@ -32035,9 +32416,9 @@
       "source_file": "src/store/visitsStore.ts",
       "source_location": "L71",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_visitsstore_derivestatusui",
-      "target": "types_property_types_totenantvisitstatusui",
-      "confidence_score": 1.0
+      "target": "types_property_types_totenantvisitstatusui"
     },
     {
       "relation": "contains",
@@ -32401,9 +32782,9 @@
       "source_file": "src/types/property.types.ts",
       "source_location": "L426",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "types_property_types",
-      "target": "types_property_types_follow_up_response_labels",
-      "confidence_score": 1.0
+      "target": "types_property_types_follow_up_response_labels"
     },
     {
       "relation": "contains",
@@ -32411,9 +32792,9 @@
       "source_file": "src/types/property.types.ts",
       "source_location": "L48",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "types_property_types",
-      "target": "types_property_types_followupresponse",
-      "confidence_score": 1.0
+      "target": "types_property_types_followupresponse"
     },
     {
       "relation": "contains",
@@ -32441,9 +32822,9 @@
       "source_file": "src/types/property.types.ts",
       "source_location": "L370",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "types_property_types",
-      "target": "types_property_types_ispastdate",
-      "confidence_score": 1.0
+      "target": "types_property_types_ispastdate"
     },
     {
       "relation": "contains",
@@ -32469,6 +32850,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/types/property.types.ts",
+      "source_location": "L452",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_property_types",
+      "target": "types_property_types_month_index"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/property.types.ts",
       "source_location": "L171",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -32484,6 +32875,16 @@
       "confidence_score": 1.0,
       "source": "types_property_types",
       "target": "types_property_types_parseavailablefrom"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/property.types.ts",
+      "source_location": "L468",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_property_types",
+      "target": "types_property_types_parsedatelabel"
     },
     {
       "relation": "contains",
@@ -32621,9 +33022,9 @@
       "source_file": "src/types/property.types.ts",
       "source_location": "L150",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "types_property_types",
-      "target": "types_property_types_tenantvisitrequest",
-      "confidence_score": 1.0
+      "target": "types_property_types_tenantvisitrequest"
     },
     {
       "relation": "contains",
@@ -32631,9 +33032,9 @@
       "source_file": "src/types/property.types.ts",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "types_property_types",
-      "target": "types_property_types_tenantvisitstatusui",
-      "confidence_score": 1.0
+      "target": "types_property_types_tenantvisitstatusui"
     },
     {
       "relation": "contains",
@@ -32731,9 +33132,9 @@
       "source_file": "src/types/property.types.ts",
       "source_location": "L412",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "types_property_types",
-      "target": "types_property_types_totenantvisitrequest",
-      "confidence_score": 1.0
+      "target": "types_property_types_totenantvisitrequest"
     },
     {
       "relation": "contains",
@@ -32741,9 +33142,9 @@
       "source_file": "src/types/property.types.ts",
       "source_location": "L386",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "types_property_types",
-      "target": "types_property_types_totenantvisitstatusui",
-      "confidence_score": 1.0
+      "target": "types_property_types_totenantvisitstatusui"
     },
     {
       "relation": "contains",
@@ -32878,9 +33279,9 @@
       "source_file": "src/types/property.types.ts",
       "source_location": "L416",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "types_property_types_totenantvisitrequest",
-      "target": "types_property_types_tolandlordvisitrequest",
-      "confidence_score": 1.0
+      "target": "types_property_types_tolandlordvisitrequest"
     },
     {
       "relation": "calls",
@@ -32889,9 +33290,9 @@
       "source_file": "src/types/property.types.ts",
       "source_location": "L396",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "types_property_types_totenantvisitstatusui",
-      "target": "types_property_types_ispastdate",
-      "confidence_score": 1.0
+      "target": "types_property_types_ispastdate"
     },
     {
       "relation": "calls",
@@ -32900,9 +33301,20 @@
       "source_file": "src/types/property.types.ts",
       "source_location": "L417",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "types_property_types_totenantvisitrequest",
-      "target": "types_property_types_totenantvisitstatusui",
-      "confidence_score": 1.0
+      "target": "types_property_types_totenantvisitstatusui"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/property.types.ts",
+      "source_location": "L498",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_property_types_parseavailablefrom",
+      "target": "types_property_types_parsedatelabel"
     },
     {
       "relation": "contains",
@@ -33341,6 +33753,124 @@
       "confidence_score": 1.0,
       "source": "verify_esewa_payment_index",
       "target": "shared_esewa_grantuserpass"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "supabase/functions/geocode/index.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "geocode_index",
+      "target": "shared_geocode"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "supabase/functions/reverse-geocode/index.ts",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "reverse_geocode_index",
+      "target": "shared_geocode"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "supabase/functions/_shared/geocode.ts",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "shared_geocode",
+      "target": "shared_geocode_addresscomponent"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "supabase/functions/_shared/geocode.ts",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "shared_geocode",
+      "target": "shared_geocode_googleapikey"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "supabase/functions/_shared/geocode.ts",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "shared_geocode",
+      "target": "shared_geocode_pickarea"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "supabase/functions/geocode/index.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "geocode_index",
+      "target": "shared_geocode_addresscomponent"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "supabase/functions/reverse-geocode/index.ts",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "reverse_geocode_index",
+      "target": "shared_geocode_addresscomponent"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "supabase/functions/geocode/index.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "geocode_index",
+      "target": "shared_geocode_googleapikey"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "supabase/functions/reverse-geocode/index.ts",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "reverse_geocode_index",
+      "target": "shared_geocode_googleapikey"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "supabase/functions/geocode/index.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "geocode_index",
+      "target": "shared_geocode_pickarea"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "supabase/functions/reverse-geocode/index.ts",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "reverse_geocode_index",
+      "target": "shared_geocode_pickarea"
     },
     {
       "relation": "contains",
@@ -35414,5 +35944,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "56ae5882b1ba8cc6173518a91124c3e7d415f66a"
+  "built_at_commit": "e115f93de7fa2513eb1e5f5dd6ba510e81546a4c"
 }
