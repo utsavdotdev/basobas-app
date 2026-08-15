@@ -21,7 +21,7 @@ import type { Database } from '@/src/types/database.types';
 const VISIT_SELECT = `
   *,
   tenant:profiles!visit_requests_tenant_id_fkey(full_name, avatar_url),
-  landlord:profiles!visit_requests_landlord_id_fkey(full_name, avatar_url),
+  landlord:profiles!visit_requests_landlord_id_fkey(full_name, avatar_url, phone),
   property:properties!visit_requests_property_id_fkey(title, location_area, price, photo_urls)
 ` as const;
 

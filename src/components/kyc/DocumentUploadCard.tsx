@@ -1,12 +1,5 @@
 import React, { useCallback } from 'react';
-import {
-  Alert,
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Alert, Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Check, UploadCloud, X, AlertCircle, FileText } from 'lucide-react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
@@ -22,12 +15,7 @@ const { color, radius, font, size } = tokens;
  * tenant KYC Upload screen. The card is intentionally state-driven (not
  * self-managing) so the parent screen owns progress / error semantics.
  */
-export type DocumentUploadCardStatus =
-  | 'empty'
-  | 'selected'
-  | 'uploading'
-  | 'uploaded'
-  | 'error';
+export type DocumentUploadCardStatus = 'empty' | 'selected' | 'uploading' | 'uploaded' | 'error';
 
 export interface DocumentUploadCardProps {
   label: string;
@@ -50,11 +38,10 @@ export interface DocumentUploadCardProps {
  * as the onboarding KYC and avatar pickers, so visual fidelity is consistent.
  */
 const compressImage = async (uri: string): Promise<string> => {
-  const result = await ImageManipulator.manipulateAsync(
-    uri,
-    [{ resize: { width: 1200 } }],
-    { compress: 0.85, format: ImageManipulator.SaveFormat.JPEG }
-  );
+  const result = await ImageManipulator.manipulateAsync(uri, [{ resize: { width: 1200 } }], {
+    compress: 0.85,
+    format: ImageManipulator.SaveFormat.JPEG,
+  });
   return result.uri;
 };
 
@@ -70,10 +57,7 @@ const pickFromOptions = async (): Promise<string | null> => {
         onPress: async () => {
           const perm = await ImagePicker.requestCameraPermissionsAsync();
           if (!perm.granted) {
-            Alert.alert(
-              'Camera access needed',
-              'Please allow camera access in your settings.'
-            );
+            Alert.alert('Camera access needed', 'Please allow camera access in your settings.');
             resolve(null);
             return;
           }
@@ -154,15 +138,12 @@ export const DocumentUploadCard: React.FC<DocumentUploadCardProps> = ({
   // ── Render: empty ────────────────────────────────────────────────────────
   if (status === 'empty') {
     return (
-      <Pressable
+      <TouchableOpacity
         accessibilityRole="button"
         accessibilityLabel={`${label} — tap to upload`}
         onPress={handlePress}
-        style={({ pressed }) => [
-          styles.card,
-          styles.empty,
-          pressed && styles.pressed,
-        ]}>
+        activeOpacity={0.85}
+        style={[styles.card, styles.empty]}>
         <View style={styles.emptyInner}>
           <View style={styles.emptyIlloWrap}>
             <UploadPlaceholder />
@@ -181,37 +162,28 @@ export const DocumentUploadCard: React.FC<DocumentUploadCardProps> = ({
             )}
             <View style={styles.emptyCtaRow}>
               <UploadCloud size={12} color={color.brand} strokeWidth={2.2} />
-              <Text style={styles.emptyCta}>
-                Tap to upload · JPG, PNG up to 5MB
-              </Text>
+              <Text style={styles.emptyCta}>Tap to upload · JPG, PNG up to 5MB</Text>
             </View>
           </View>
         </View>
-      </Pressable>
+      </TouchableOpacity>
     );
   }
 
   // ── Render: uploaded / prefill ───────────────────────────────────────────
   if (status === 'uploaded') {
     return (
-      <Pressable
+      <TouchableOpacity
         accessibilityRole="button"
         accessibilityLabel={`${label} — tap to replace`}
         onPress={handlePress}
-        style={({ pressed }) => [
-          styles.card,
-          styles.uploaded,
-          pressed && styles.pressed,
-        ]}>
+        activeOpacity={0.85}
+        style={[styles.card, styles.uploaded]}>
         <View style={styles.uploadedRow}>
           {/* Thumbnail (or placeholder square for pre-fill with no previewUri). */}
           <View style={styles.thumb}>
             {previewUri ? (
-              <Image
-                source={{ uri: previewUri }}
-                style={styles.thumbImage}
-                resizeMode="cover"
-              />
+              <Image source={{ uri: previewUri }} style={styles.thumbImage} resizeMode="cover" />
             ) : (
               <View style={styles.thumbPlaceholder}>
                 <Check size={20} color={color.brand} strokeWidth={2.2} />
@@ -260,7 +232,7 @@ export const DocumentUploadCard: React.FC<DocumentUploadCardProps> = ({
             </View>
           </View>
         </View>
-      </Pressable>
+      </TouchableOpacity>
     );
   }
 
@@ -272,11 +244,7 @@ export const DocumentUploadCard: React.FC<DocumentUploadCardProps> = ({
         <View style={styles.uploadedRow}>
           <View style={styles.thumb}>
             {previewUri ? (
-              <Image
-                source={{ uri: previewUri }}
-                style={styles.thumbImage}
-                resizeMode="cover"
-              />
+              <Image source={{ uri: previewUri }} style={styles.thumbImage} resizeMode="cover" />
             ) : (
               <View style={styles.thumbPlaceholder} />
             )}
@@ -286,18 +254,11 @@ export const DocumentUploadCard: React.FC<DocumentUploadCardProps> = ({
               {label}
             </Text>
             <Text style={styles.metaText} numberOfLines={1}>
-              {status === 'uploading'
-                ? `Uploading… ${Math.round(pct * 100)}%`
-                : 'Ready to upload'}
+              {status === 'uploading' ? `Uploading… ${Math.round(pct * 100)}%` : 'Ready to upload'}
             </Text>
             {/* Progress bar */}
             <View style={styles.progressTrack}>
-              <View
-                style={[
-                  styles.progressFill,
-                  { width: `${pct * 100}%` },
-                ]}
-              />
+              <View style={[styles.progressFill, { width: `${pct * 100}%` }]} />
             </View>
           </View>
           {status === 'selected' && (
@@ -321,11 +282,7 @@ export const DocumentUploadCard: React.FC<DocumentUploadCardProps> = ({
       <View style={styles.uploadedRow}>
         <View style={[styles.thumb, styles.thumbError]}>
           {previewUri ? (
-            <Image
-              source={{ uri: previewUri }}
-              style={styles.thumbImage}
-              resizeMode="cover"
-            />
+            <Image source={{ uri: previewUri }} style={styles.thumbImage} resizeMode="cover" />
           ) : (
             <AlertCircle size={20} color={color.danger} strokeWidth={2.2} />
           )}
