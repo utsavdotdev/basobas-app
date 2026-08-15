@@ -15,13 +15,13 @@
     "semantic_hash": ""
   },
   "app.json": {
-    "mtime": 1785557129.593282,
-    "ast_hash": "f2e3335a1cc81bd3a13bd9dc92b421c9",
+    "mtime": 1786799451.8572743,
+    "ast_hash": "8e110fdc29ab1876b1e96f3918a3f187",
     "semantic_hash": ""
   },
   "app/(auth)/_layout.tsx": {
-    "mtime": 1783477768.4042647,
-    "ast_hash": "e6c7e6701313b697c5e14e302f6240c4",
+    "mtime": 1786799599.9985414,
+    "ast_hash": "2219778eae7ea61b52097bbbed8303ef",
     "semantic_hash": ""
   },
   "app/(auth)/confirmation.tsx": {
@@ -37,11 +37,6 @@
   "app/(auth)/kyc-tenant.tsx": {
     "mtime": 1783477768.404932,
     "ast_hash": "9ab202f8963f6dccf8ce5b8fd495c2fa",
-    "semantic_hash": ""
-  },
-  "app/(auth)/loading.tsx": {
-    "mtime": 1783477768.4051414,
-    "ast_hash": "73a0d81d2a828caf457593d5ffab761b",
     "semantic_hash": ""
   },
   "app/(auth)/onboarding.tsx": {
@@ -355,13 +350,13 @@
     "semantic_hash": ""
   },
   "app/_layout.tsx": {
-    "mtime": 1786690016.5044403,
-    "ast_hash": "7b7edfe3e6eb8192ced0040ff55522e2",
+    "mtime": 1786799744.7167797,
+    "ast_hash": "cfeeb0639bba0ce70682596b3a0f29ce",
     "semantic_hash": ""
   },
   "app/index.tsx": {
-    "mtime": 1786429170.9707024,
-    "ast_hash": "a185d26c4f02cc4ec44fd1c2e2dd811a",
+    "mtime": 1786799770.2328632,
+    "ast_hash": "c05af217b1d751222280fe9c3d6115c7",
     "semantic_hash": ""
   },
   "babel.config.js": {
@@ -1202,6 +1197,11 @@
   "src/components/visit/LandlordUI.tsx": {
     "mtime": 1786798292.0219073,
     "ast_hash": "026167d62195a48858c495948b272e84",
+    "semantic_hash": ""
+  },
+  "src/store/appReadyStore.ts": {
+    "mtime": 1786799396.990816,
+    "ast_hash": "c73ecfbd87703221a818d9bfef95219d",
     "semantic_hash": ""
   }
 }

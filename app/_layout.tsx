@@ -5,7 +5,6 @@ import { Stack } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import { View, ActivityIndicator } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { ClerkProvider, ClerkLoaded, useAuth } from '@clerk/expo';
@@ -18,6 +17,7 @@ import {
 import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display';
 import { clerkTokenCache } from '../src/lib/clerkTokenCache';
 import { useVisitsStore } from '../src/store/visitsStore';
+import { useAppReadyStore } from '../src/store/appReadyStore';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,6 +33,9 @@ function AuthGate({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!clerkLoaded) return;
+    // Tell the splash the session is ready — it hands off once fonts + Clerk
+    // are both done, so the loader never outruns the app.
+    useAppReadyStore.getState().setClerkReady(true);
     SplashScreen.hideAsync();
   }, [clerkLoaded]);
 
@@ -41,13 +44,22 @@ function AuthGate({ children }: { children: React.ReactNode }) {
 
 // ─── Root layout ─────────────────────────────────────────────────────────────
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({
+  const [fontsLoaded, fontError] = useFonts({
     DMSans_400Regular,
     DMSans_500Medium,
     DMSans_600SemiBold,
     DMSans_700Bold,
     DMSerifDisplay_400Regular,
   });
+
+  // Fonts are the first readiness signal for the splash loader. The animated
+  // splash renders immediately (no intermediate loader) and simply holds its
+  // wordmark/loader until the fonts land — or, on a font failure, proceeds
+  // so the app can never hang on the splash.
+  useEffect(() => {
+    if (!fontsLoaded && !fontError) return;
+    useAppReadyStore.getState().setFontsReady(true);
+  }, [fontsLoaded, fontError]);
 
   // Seed the visit store once (dev only, when empty) so the redesigned
   // visit flow can be reviewed end-to-end without a backend. Both roles'
@@ -56,24 +68,6 @@ export default function RootLayout() {
     if (!__DEV__) return;
     useVisitsStore.getState().seedMockVisits();
   }, []);
-
-  if (!fontsLoaded) {
-    return (
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <SafeAreaProvider>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#FFFFFF',
-            }}>
-            <ActivityIndicator size="large" color="#1A6B4A" />
-          </View>
-        </SafeAreaProvider>
-      </GestureHandlerRootView>
-    );
-  }
 
   return (
     <ClerkProvider publishableKey={CLERK_KEY} tokenCache={clerkTokenCache}>

@@ -3,8 +3,13 @@ import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { useRouter } from 'expo-router';
+import { useAuth, useUser } from '@clerk/expo';
 import Svg, { Defs, G, LinearGradient, Path, Rect, Stop } from 'react-native-svg';
 import { interpolate } from 'flubber';
+import { useAppReadyStore } from '@/src/store/appReadyStore';
+import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
+import { useAuthStore } from '@/src/store/authStore';
+import { getProfile } from '@/src/services/profile.service';
 
 /**
  * BasoBas animated splash.
@@ -13,8 +18,9 @@ import { interpolate } from 'flubber';
  * (path interpolation via flubber, not a cross-fade) from a house silhouette
  * into the BasoBas keyhole and back, on a calm 5.8s loop. Below it the
  * wordmark splits in as two halves meeting in the middle, followed by a
- * minimal indeterminate loading bar. After the splash has played it hands
- * off to `/(auth)/loading`, which owns the auth routing.
+ * minimal indeterminate loading bar. Once it has played (and the app is
+ * ready) it resolves the session + profile and routes straight to the
+ * destination — home, onboarding, or the sign-in flow.
  */
 export default function SplashScreen() {
   const router = useRouter();
@@ -34,6 +40,9 @@ export default function SplashScreen() {
     doorRef.current?.setNativeProps({ opacity: 1 });
 
     // ── Morph loop: house → keyhole → house, forever ────────────────────
+    // The mark is pure SVG, so it can run from the very first frame — no
+    // fonts needed. This is the ONLY loading UI; there is no intermediate
+    // spinner.
     const start = Date.now();
     const loop = () => {
       const phase = ((Date.now() - start) / 1000) % CYCLE;
@@ -51,7 +60,21 @@ export default function SplashScreen() {
     };
     rafRef.current = requestAnimationFrame(loop);
 
-    // ── Wordmark: both halves converge in the centre ────────────────────
+    return () => {
+      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  // ── Wordmark + loader: start once the fonts land. The splash mounts
+  //    immediately, but the text/bar wait so they never flash in a fallback
+  //    font — and the handoff below waits for the same readiness signal.
+  const fontsReady = useAppReadyStore((s) => s.fontsReady);
+  const clerkReady = useAppReadyStore((s) => s.clerkReady);
+
+  useEffect(() => {
+    if (!fontsReady) return;
+
+    // Wordmark: both halves converge in the centre.
     const wordmarkAnim = Animated.timing(wordmark, {
       toValue: 1,
       duration: WORDMARK_DURATION,
@@ -60,7 +83,7 @@ export default function SplashScreen() {
       useNativeDriver: true,
     });
 
-    // ── Loader: track fades in, segment loops forever ───────────────────
+    // Loader: track fades in, segment loops forever.
     const barFadeAnim = Animated.timing(barFade, {
       toValue: 1,
       duration: BAR_DURATION,
@@ -74,25 +97,51 @@ export default function SplashScreen() {
         duration: SEGMENT_DURATION,
         easing: Easing.bezier(0.4, 0, 0.2, 1),
         useNativeDriver: true,
-      }),
+      })
     );
 
     Animated.parallel([wordmarkAnim, barFadeAnim]).start();
     // sequence → the first pass waits BAR_DELAY before the loop starts.
     Animated.sequence([Animated.delay(BAR_DELAY), segmentLoop]).start();
 
-    // ── Hand off to the auth flow once the splash has played ────────────
-    const timer = setTimeout(() => {
-      router.replace('/(auth)/loading' as any);
-    }, SPLASH_MS);
-
     return () => {
-      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
-      clearTimeout(timer);
+      wordmarkAnim.stop();
+      barFadeAnim.stop();
       segmentLoop.stop();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router]);
+  }, [fontsReady, wordmark, barFade, segment]);
+  const { isLoaded, isSignedIn } = useAuth();
+  const { user } = useUser();
+  const supabase = useClerkSupabase();
+  const setProfile = useAuthStore((s) => s.setProfile);
+
+  useEffect(() => {
+    if (!(fontsReady && clerkReady)) return;
+    let cancelled = false;
+    const timer = setTimeout(async () => {
+      // Resolve the session + profile, then route straight to the target.
+      let target: string = '/(auth)/onboarding';
+      if (isLoaded && isSignedIn && user) {
+        try {
+          const profileResult = await getProfile(user.id, supabase);
+          if (profileResult.success && profileResult.data.onboarding_complete) {
+            setProfile(profileResult.data as any);
+            const role = profileResult.data.active_role ?? 'tenant';
+            target = role === 'landlord' ? '/(landlord)/(tabs)' : '/(tenant)/(tabs)';
+          } else {
+            target = '/(auth)/phone';
+          }
+        } catch {
+          target = '/(auth)/phone';
+        }
+      }
+      if (!cancelled) router.replace(target as any);
+    }, SPLASH_MS);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [fontsReady, clerkReady, isLoaded, isSignedIn, user, supabase, router, setProfile]);
 
   const leftX = wordmark.interpolate({ inputRange: [0, 1], outputRange: [-22, 0] });
   const rightX = wordmark.interpolate({ inputRange: [0, 1], outputRange: [22, 0] });
@@ -157,10 +206,7 @@ export default function SplashScreen() {
         {/* Minimal indeterminate loader */}
         <Animated.View style={[styles.track, { opacity: barFade }]}>
           <Animated.View
-            style={[
-              styles.segment,
-              { width: SEGMENT_W, transform: [{ translateX: segmentX }] },
-            ]}
+            style={[styles.segment, { width: SEGMENT_W, transform: [{ translateX: segmentX }] }]}
           />
         </Animated.View>
       </View>
@@ -192,8 +238,7 @@ const HOUSE =
   'M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272l16 0 0 176c0 35.3 28.7 64 64 64l288 0c35.3 0 64-28.7 64-64l0-176 16 0c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1l-224-208z';
 
 /** Arched doorway, overlaid with the squircle colour so it reads as a hole. */
-const DOOR =
-  'M240 320l32 0c26.5 0 48 21.5 48 48l0 96-128 0 0-96c0-26.5 21.5-48 48-48z';
+const DOOR = 'M240 320l32 0c26.5 0 48 21.5 48 48l0 96-128 0 0-96c0-26.5 21.5-48 48-48z';
 
 /** Keyhole — round head + tapered stem, finely sampled so the morph stays smooth. */
 const KEYHOLE = (() => {
@@ -222,8 +267,7 @@ const morph = interpolate(HOUSE, KEYHOLE, { maxSegmentLength: 3 });
 const HOLD = 1.6; // seconds
 const MORPH = 1.3; // seconds
 const CYCLE = HOLD + MORPH + HOLD + MORPH; // 5.8s
-const easeInOut = (t: number) =>
-  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 // ─── Entrance / hand-off timing (ms) ─────────────────────────────────────────
 
