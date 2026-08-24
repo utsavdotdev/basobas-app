@@ -107,6 +107,7 @@ export type Database = {
           face_match_score: number | null;
           face_match_status: string | null;
           front_image_path: string;
+          home_tour_video_path: string | null;
           id: string;
           id_bill_match_score: number | null;
           overall_score: number | null;
@@ -161,6 +162,7 @@ export type Database = {
           face_match_score?: number | null;
           face_match_status?: string | null;
           front_image_path: string;
+          home_tour_video_path?: string | null;
           id?: string;
           id_bill_match_score?: number | null;
           overall_score?: number | null;
@@ -215,6 +217,7 @@ export type Database = {
           face_match_score?: number | null;
           face_match_status?: string | null;
           front_image_path?: string;
+          home_tour_video_path?: string | null;
           id?: string;
           id_bill_match_score?: number | null;
           overall_score?: number | null;
@@ -374,21 +377,21 @@ export type Database = {
       products: {
         Row: {
           active: boolean;
-          duration_months: number;
+          duration_days: number;
           id: string;
           name: string;
           price: number;
         };
         Insert: {
           active?: boolean;
-          duration_months: number;
+          duration_days: number;
           id: string;
           name: string;
           price: number;
         };
         Update: {
           active?: boolean;
-          duration_months?: number;
+          duration_days?: number;
           id?: string;
           name?: string;
           price?: number;
@@ -969,6 +972,7 @@ export type Database = {
           p_document_type: string;
           p_electricity_bill_path?: string;
           p_front_image_path: string;
+          p_home_tour_video_path?: string | null;
         };
         Returns: {
           address_consistency_score: number | null;
@@ -999,6 +1003,7 @@ export type Database = {
           face_match_score: number | null;
           face_match_status: string | null;
           front_image_path: string;
+          home_tour_video_path: string | null;
           id: string;
           id_bill_match_score: number | null;
           overall_score: number | null;
