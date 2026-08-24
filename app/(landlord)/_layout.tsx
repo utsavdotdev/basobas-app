@@ -21,7 +21,6 @@ export default function LandlordLayout() {
       <Stack.Screen name="share-confirmation" />
       <Stack.Screen name="suggest-time" />
       <Stack.Screen name="suggest-time-confirmation" />
-      <Stack.Screen name="settings" />
       <Stack.Screen name="tenant/[id]" />
       <Stack.Screen name="verification" />
       <Stack.Screen name="visits" />

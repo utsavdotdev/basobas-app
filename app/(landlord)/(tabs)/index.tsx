@@ -46,6 +46,8 @@ export interface InsightItem {
   title: string;
   /** Secondary subtitle (muted). */
   subtitle: string;
+  /** Route pushed when the row is tapped. Omit for inert rows. */
+  route?: string;
 }
 
 export interface ActivityItem {
@@ -162,18 +164,22 @@ function buildInsights(d: LandlordDashboardData): InsightItem[] {
       iconBg: '#3B82F6',
       title: `${d.totalViews} total views`,
       subtitle: `Across ${d.activeListings} ${d.activeListings === 1 ? 'listing' : 'listings'}`,
+      // Per-listing view counts live on the listings tab.
+      route: '/(landlord)/(tabs)/listings',
     },
     {
       icon: Inbox,
       iconBg: '#F59E0B',
       title: `${d.requestRate}% request rate`,
       subtitle: d.totalViews > 0 ? 'Visit requests per listing view' : 'No views yet',
+      route: '/(landlord)/(tabs)/requests',
     },
     {
       icon: Star,
       iconBg: '#1A6B4A',
       title: d.totalSaves === 1 ? '1 saved listing' : `${d.totalSaves} saved listings`,
       subtitle: 'Tenants who bookmarked your properties',
+      route: '/(landlord)/(tabs)/listings',
     },
   ];
 }
@@ -482,6 +488,19 @@ export default function LandlordDashboard({
     }
   };
 
+  // Same pattern for insights: each row carries its destination route
+  // (views → listings, request rate → requests, saves → listings).
+  const handleInsightPress = (index: number) => {
+    if (onInsightPress) {
+      onInsightPress(index);
+      return;
+    }
+    const route = insights[index]?.route;
+    if (route) {
+      router.push(route as never);
+    }
+  };
+
   const handleSeeAllActivity = () => {
     if (onSeeAllActivity) {
       onSeeAllActivity();
@@ -555,7 +574,7 @@ export default function LandlordDashboard({
                 key={idx}
                 item={item}
                 isLast={idx === insights.length - 1}
-                onPress={() => onInsightPress?.(idx)}
+                onPress={() => handleInsightPress(idx)}
               />
             ))
           )}

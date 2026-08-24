@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { ScrollView, View, Text, Pressable, Dimensions, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
@@ -191,6 +191,9 @@ export default function PropertyDetailScreen() {
   const toggleSaved = usePropertyStore((s) => s.toggleSaved);
   const saved = property != null && savedPropertyIds.includes(property.id);
 
+  /** One view per property per mount — guards StrictMode double-effects. */
+  const viewRecordedRef = useRef<string | null>(null);
+
   const load = useCallback(async () => {
     if (!id) return;
     setLoading(true);
@@ -206,6 +209,14 @@ export default function PropertyDetailScreen() {
       setError('This property is no longer available.');
       setLoading(false);
       return;
+    }
+
+    // Fire-and-forget view count — the landlord dashboard reads it.
+    if (viewRecordedRef.current !== id) {
+      viewRecordedRef.current = id;
+      supabase
+        .rpc('record_property_view', { p_property_id: id })
+        .then(null, () => {});
     }
 
     const p = result.data;

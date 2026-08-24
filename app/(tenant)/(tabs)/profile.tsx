@@ -18,7 +18,6 @@ import {
   Edit,
   LogOut,
   MapPin,
-  Settings,
   ShieldCheck,
   SlidersHorizontal,
   Sparkles,
@@ -285,13 +284,6 @@ export default function ProfileTab() {
         {/* ── 1. Header row ─────────────────────────────────────────────────── */}
         <View className="flex-row items-center justify-between px-6 pb-4 pt-2">
           <Text className="font-display text-[22px] leading-tight text-ink">Profile</Text>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Open settings"
-            onPress={() => go('/(tenant)/settings')}
-            className="h-10 w-10 items-center justify-center rounded-pill bg-input">
-            <Settings size={18} color="#0A0A0A" />
-          </Pressable>
         </View>
         <View className="h-px w-full bg-line" />
 
@@ -444,7 +436,7 @@ export default function ProfileTab() {
                 <Pressable
                   accessibilityRole="button"
                   accessibilityLabel="Manage subscription"
-                  onPress={() => go('/(tenant)/settings')}>
+                  onPress={() => go('/(tenant)/pro-plan')}>
                   <Text className="font-sans text-[11px] font-semibold text-brand">
                     Manage →
                   </Text>

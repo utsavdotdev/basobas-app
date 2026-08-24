@@ -1160,6 +1160,7 @@ export type Database = {
       };
       mark_all_notifications_read: { Args: never; Returns: number };
       mark_notification_read: { Args: { p_notification_id: string }; Returns: number };
+      record_property_view: { Args: { p_property_id: string }; Returns: undefined };
       show_limit: { Args: never; Returns: number };
       show_trgm: { Args: { '': string }; Returns: string[] };
     };

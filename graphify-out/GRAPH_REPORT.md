@@ -1,16 +1,16 @@
-# Graph Report - basobas-app  (2026-08-24)
+# Graph Report - basobas-app  (2026-08-25)
 
 ## Corpus Check
-- 259 files · ~156,686 words
+- 259 files · ~156,310 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1532 nodes · 2942 edges · 107 communities (96 shown, 11 thin omitted)
+- 1520 nodes · 2940 edges · 105 communities (93 shown, 12 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 31 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c155cb13`
+- Built from commit: `0631f610`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -53,16 +53,14 @@
 - [[_COMMUNITY_Core Database Schema|Core Database Schema]]
 - [[_COMMUNITY_Listing Step 4 Details|Listing Step 4 Details]]
 - [[_COMMUNITY_Follow-up Responses|Follow-up Responses]]
-- [[_COMMUNITY_Visit Realtime Hooks|Visit Realtime Hooks]]
 - [[_COMMUNITY_Landlord Visits & Requests|Landlord Visits & Requests]]
 - [[_COMMUNITY_Property Store Filters|Property Store Filters]]
-- [[_COMMUNITY_Onboarding Flow Migrations|Onboarding Flow Migrations]]
 - [[_COMMUNITY_Clerk Auth Migrations|Clerk Auth Migrations]]
 - [[_COMMUNITY_Onboarding Store State|Onboarding Store State]]
 - [[_COMMUNITY_Role Selection|Role Selection]]
-- [[_COMMUNITY_Settings Menus|Settings Menus]]
 - [[_COMMUNITY_Visits Empty States|Visits Empty States]]
 - [[_COMMUNITY_Filter Modal|Filter Modal]]
+- [[_COMMUNITY_Community 49|Community 49]]
 - [[_COMMUNITY_Filter Chips|Filter Chips]]
 - [[_COMMUNITY_TypeScript Config|TypeScript Config]]
 - [[_COMMUNITY_eSewa Payment Flow|eSewa Payment Flow]]
@@ -71,6 +69,7 @@
 - [[_COMMUNITY_Notifications Schema|Notifications Schema]]
 - [[_COMMUNITY_Property Card|Property Card]]
 - [[_COMMUNITY_KYC Benefits List|KYC Benefits List]]
+- [[_COMMUNITY_Community 58|Community 58]]
 - [[_COMMUNITY_Tenant Visit Workflow|Tenant Visit Workflow]]
 - [[_COMMUNITY_Listing Step 1 Types|Listing Step 1 Types]]
 - [[_COMMUNITY_Listing Step 3 Media|Listing Step 3 Media]]
@@ -108,10 +107,9 @@
 - [[_COMMUNITY_Community 108|Community 108]]
 - [[_COMMUNITY_Community 110|Community 110]]
 - [[_COMMUNITY_Community 112|Community 112]]
-- [[_COMMUNITY_Community 113|Community 113]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `useClerkSupabase()` - 82 edges
+1. `useClerkSupabase()` - 84 edges
 2. `ok()` - 72 edges
 3. `err()` - 72 edges
 4. `getErrorMessage()` - 70 edges
@@ -119,20 +117,20 @@
 6. `font` - 25 edges
 7. `useVisitsStore` - 23 edges
 8. `Database` - 22 edges
-9. `ScreenHeader()` - 21 edges
-10. `useUserStore` - 21 edges
+9. `useUserStore` - 21 edges
+10. `radius` - 21 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `AuthGate()` --calls--> `useAuth()`  [INFERRED]
   app/_layout.tsx → src/hooks/useAuth.ts
 - `PhoneEntryScreen()` --calls--> `useAuth()`  [INFERRED]
   app/(auth)/phone.tsx → src/hooks/useAuth.ts
+- `LandlordTabsLayout()` --calls--> `useClerkSupabase()`  [INFERRED]
+  app/(landlord)/(tabs)/_layout.tsx → src/hooks/useClerkSupabase.ts
 - `LandlordDashboard()` --calls--> `useClerkSupabase()`  [INFERRED]
   app/(landlord)/(tabs)/index.tsx → src/hooks/useClerkSupabase.ts
 - `LandlordDashboard()` --calls--> `useAuthStore`  [INFERRED]
   app/(landlord)/(tabs)/index.tsx → src/store/authStore.ts
-- `PropertyCard()` --calls--> `formatMonthlyPrice()`  [EXTRACTED]
-  app/(landlord)/(tabs)/listings.tsx → src/types/property.types.ts
 
 ## Import Cycles
 - 1-file cycle: `metro.config.js -> metro.config.js`
@@ -142,15 +140,15 @@
 - **Visit workflow visual concepts** — onboarding_visitillustration_visitillustration, onboarding_verifiedillustration_verifiedillustration, concept_visit_status_lifecycle, concept_post_visit_followup, concept_location_unlock_rule, app_vision_visit_request_workflow [INFERRED 0.85]
 - **Landlord Listing Detail Data Flow** — previous_context_listing_detail_rewire, previous_context_owner_profile, previous_context_property_stats, previous_context_property_pause [INFERRED 0.85]
 
-## Communities (107 total, 11 thin omitted)
+## Communities (105 total, 12 thin omitted)
 
 ### Community 0 - "Edit Profile & Share Details"
-Cohesion: 0.11
-Nodes (49): err(), getErrorMessage(), ok(), getLatestKYCSubmission(), getUserKYCStatusUi(), geocodePlace(), getPropertiesInBounds(), getPropertiesNear() (+41 more)
+Cohesion: 0.12
+Nodes (37): err(), ok(), geocodePlace(), getPropertiesInBounds(), getPropertiesNear(), PropertyRow, reverseGeocodePlace(), ReverseGeocodeResult (+29 more)
 
 ### Community 1 - "Pro Gate & Plans"
-Cohesion: 0.11
-Nodes (22): usePurchasePlan(), INITIAL_PROFILE, proDaysRemaining(), ProfileRow, ProSubscription, useProDaysRemaining(), UserProfile, UserState (+14 more)
+Cohesion: 0.06
+Nodes (36): ProGateState, useProGate(), useProGateStore, EsewaFormFields, PlanId, PurchasePlanState, usePurchasePlan(), ProGateModal() (+28 more)
 
 ### Community 2 - "Dependency Ecosystem"
 Cohesion: 0.04
@@ -158,19 +156,19 @@ Nodes (51): dependencies, @clerk/expo, expo, expo-blur, expo-camera, expo-consta
 
 ### Community 3 - "Map Camera & Location"
 Cohesion: 0.07
-Nodes (32): { width: SCREEN_WIDTH, height: SCREEN_HEIGHT }, useLocation(), UseLocationResult, GeoJsonFeature, DEFAULT_LOCATION, LandlordLocationPicker(), styles, AndroidMap (+24 more)
+Nodes (32): { width: SCREEN_WIDTH, height: SCREEN_HEIGHT }, useLocation(), UseLocationResult, GeoJsonFeature, DEFAULT_LOCATION, LandlordLocationPicker(), styles, ListingDetailScreen() (+24 more)
 
 ### Community 4 - "Auth & Root Layout"
-Cohesion: 0.20
-Nodes (8): FilterTab, FORMATTER, MyPropertiesScreen(), MyPropertiesScreenProps, PropertyCard(), STATUS_STYLES, TABS, LandlordPropertySummary
+Cohesion: 0.22
+Nodes (7): FilterTab, FORMATTER, MyPropertiesScreen(), MyPropertiesScreenProps, STATUS_STYLES, TABS, LandlordPropertySummary
 
 ### Community 5 - "Notifications Inbox"
-Cohesion: 0.11
-Nodes (17): LANDLORD_TABS, NotificationsEmptyState(), initialsOf(), NotificationRow(), NotificationRowProps, NotificationSectionProps, NotificationsList(), NotificationsListProps (+9 more)
+Cohesion: 0.06
+Nodes (37): useLandlordPendingCount(), useNotificationsRealtime(), useProfileBootstrap(), useVisitRealtime(), LANDLORD_TABS, createClerkSupabaseClient(), supabasePublic, NotificationsEmptyState() (+29 more)
 
 ### Community 6 - "KYC Document Selector"
-Cohesion: 0.11
-Nodes (17): DocumentTypeSelector(), DocumentTypeSelectorProps, KYCDocumentType, Option, OPTIONS, styles, DocumentUploadCardStatus, formatDuration() (+9 more)
+Cohesion: 0.13
+Nodes (13): DocumentUploadCardStatus, formatDuration(), styles, VideoUploadCard(), VideoUploadCardProps, VideoUploadCardStatus, SlotState, styles (+5 more)
 
 ### Community 7 - "App Configuration"
 Cohesion: 0.06
@@ -189,24 +187,24 @@ Cohesion: 0.11
 Nodes (16): FeatureSlide, s, SLIDES, MapIllustration(), styles, NextButton, NextButtonProps, OnboardingLayoutProps (+8 more)
 
 ### Community 11 - "Build Tooling"
-Cohesion: 0.06
-Nodes (31): devDependencies, @babel/core, babel-preset-expo, eslint, eslint-config-expo, eslint-config-prettier, jest, patch-package (+23 more)
+Cohesion: 0.12
+Nodes (17): devDependencies, @babel/core, babel-preset-expo, eslint, eslint-config-expo, eslint-config-prettier, jest, patch-package (+9 more)
 
 ### Community 12 - "Project Documentation"
 Cohesion: 0.05
 Nodes (51): Authentication & Onboarding Flow, Features List, Landlord Experience, Project Documentation Index, Product Vision, Tenant Experience, Visit Request Workflow, Address Privacy Rule (+43 more)
 
 ### Community 13 - "Landlord Dashboard"
-Cohesion: 0.10
-Nodes (7): LandlordDashboard, ActivityItem, EMPTY_STATS, InsightItem, LandlordDashboardProps, s, StatItem
+Cohesion: 0.08
+Nodes (12): dockBottomReserve(), ScreenBody(), ScreenBodyProps, ScreenBodyWithActionProps, LandlordDashboard, ActivityItem, EMPTY_STATS, InsightItem (+4 more)
 
 ### Community 14 - "Listing Detail Amenities"
 Cohesion: 0.10
-Nodes (16): AMENITY_ICONS, AMENITY_LABELS, AmenityRow, EXTRA_DETAIL_ICONS, EXTRA_DETAIL_LABELS, ExtraDetailRow, FORMATTER, { height: SCREEN_HEIGHT } (+8 more)
+Nodes (15): AMENITY_ICONS, AMENITY_LABELS, AmenityRow, EXTRA_DETAIL_ICONS, EXTRA_DETAIL_LABELS, ExtraDetailRow, FORMATTER, { height: SCREEN_HEIGHT } (+7 more)
 
 ### Community 15 - "KYC Rejection Notice"
-Cohesion: 0.20
-Nodes (10): HERO_BY_STATUS, HeroConfig, KYCStatusHero(), Props, styles, Props, Status, STATUS_STYLES (+2 more)
+Cohesion: 0.12
+Nodes (16): KYCRejectionNotice(), Props, styles, HERO_BY_STATUS, HeroConfig, KYCStatusHero(), Props, styles (+8 more)
 
 ### Community 16 - "Glass Dock Navigation"
 Cohesion: 0.19
@@ -217,24 +215,24 @@ Cohesion: 0.13
 Nodes (15): AMENITY_ICONS, AMENITY_LABELS, AmenityRow, EXTRA_DETAIL_ICONS, EXTRA_DETAIL_LABELS, ExtraDetailRow, fmtNpr(), { height: SCREEN_HEIGHT } (+7 more)
 
 ### Community 18 - "Listing Wizard Amenities"
-Cohesion: 0.13
-Nodes (16): ProGateState, useProGate(), useProGateStore, ProGateModal(), MenuCard(), Props, MenuRow(), Props (+8 more)
+Cohesion: 0.18
+Nodes (9): Props, SectionLabel(), MenuCard(), Props, MenuRow(), Props, initialsOf(), monthYear() (+1 more)
 
 ### Community 19 - "Property Type Mappers"
-Cohesion: 0.13
-Nodes (19): asRecord(), asStringArray(), FOLLOW_UP_RESPONSE_LABELS, isPastDate(), LandlordRequestUi, MONTH_INDEX, PRICE_FORMATTER, PropertyPrivateLocation (+11 more)
+Cohesion: 0.12
+Nodes (19): asRecord(), asStringArray(), FOLLOW_UP_RESPONSE_LABELS, isPastDate(), LandlordRequestUi, MONTH_INDEX, parseAvailableFrom(), parseDateLabel() (+11 more)
 
 ### Community 20 - "Screen Body Layout"
-Cohesion: 0.29
-Nodes (5): dockBottomReserve(), ScreenBody(), ScreenBodyProps, ScreenBodyWithActionProps, LandlordDashboard()
+Cohesion: 0.50
+Nodes (4): CITIES, City, fmtNpr(), HomeTab()
 
 ### Community 21 - "Auth Loading Screens"
-Cohesion: 0.31
-Nodes (7): maskPhone(), OTPVerificationScreen(), s, EditProfileScreen(), AuthStore, Profile, useAuthStore
+Cohesion: 0.14
+Nodes (24): AllApplicantsScreen(), useClerkSupabase(), DeclineRequestScreen(), REASONS, styles, LandlordKYCUploadScreen(), DetailsSharedScreen(), ShareDetailsScreen() (+16 more)
 
 ### Community 22 - "Visit Status & Dates"
-Cohesion: 0.09
-Nodes (29): LABEL_TO_CHIP, LandlordVisitsScreen(), formatMonthlyPrice(), initialsOf(), LandlordVisitRequest, TenantVisitRequest, TenantVisitStatusUi, TIME_SLOT_LABELS (+21 more)
+Cohesion: 0.10
+Nodes (25): LABEL_TO_CHIP, LandlordVisitsScreen(), initialsOf(), TenantVisitRequest, TenantVisitStatusUi, VisitStatusLabel, StatusChip(), StatusChipProps (+17 more)
 
 ### Community 23 - "Filter Drawer"
 Cohesion: 0.19
@@ -242,15 +240,15 @@ Nodes (10): AMENITIES, FilterDrawer(), FilterDrawerProps, PROPERTY_TYPES, SORT_O
 
 ### Community 24 - "Visits Store State"
 Cohesion: 0.12
-Nodes (30): acceptReschedule(), acceptVisit(), cancelVisitRequest(), CreateVisitRequestInput, declineReschedule(), finalizeRental(), getTenantVisitForProperty(), getVisitRequest() (+22 more)
+Nodes (34): getErrorMessage(), acceptReschedule(), acceptVisit(), cancelVisitRequest(), createVisitRequest(), CreateVisitRequestInput, declineReschedule(), finalizeRental() (+26 more)
 
 ### Community 25 - "Profile Setup Form"
-Cohesion: 0.07
-Nodes (40): ConfirmationScreen(), DocTypeChipProps, DocumentUploadZoneProps, KYCLandlordScreen(), styles, DocTypeChipProps, DocumentUploadZoneProps, KYCTenantScreen() (+32 more)
+Cohesion: 0.06
+Nodes (43): ConfirmationScreen(), DetailRowProps, styles, SummaryCardProps, DocTypeChipProps, DocumentUploadZoneProps, KYCLandlordScreen(), styles (+35 more)
 
 ### Community 26 - "Suggest Time Picker"
-Cohesion: 0.10
-Nodes (25): c, font, t, Button(), ButtonProps, LABEL_COLORS, styles, Variant (+17 more)
+Cohesion: 0.08
+Nodes (30): sp, Button(), ButtonProps, LABEL_COLORS, styles, Variant, Card(), CardProps (+22 more)
 
 ### Community 27 - "Notification Prefs Icons"
 Cohesion: 0.15
@@ -261,12 +259,12 @@ Cohesion: 0.18
 Nodes (10): DEFAULT_TIME_SLOTS, formatDateLong(), isPastDate(), MONTH_NAMES, MonthGridDay, ScheduleSelection, ScheduleVisitDrawer(), ScheduleVisitDrawerProps (+2 more)
 
 ### Community 29 - "Tenant Root Layout"
-Cohesion: 0.16
-Nodes (16): useClerkSupabase(), useLandlordPendingCount(), useNotificationsRealtime(), useProfileBootstrap(), useVisitRealtime(), createClerkSupabaseClient(), supabasePublic, useNotificationsStore (+8 more)
+Cohesion: 0.14
+Nodes (13): EMPTY_COPY, OPEN_UI, TabKey, TABS, VisitEmptyState(), Skeleton(), SkeletonBlock(), SkeletonBlockProps (+5 more)
 
 ### Community 30 - "KYC Confirmation Screen"
-Cohesion: 0.18
-Nodes (6): DetailRowProps, styles, SummaryCardProps, PrimaryButton(), Props, styles
+Cohesion: 0.22
+Nodes (8): getNotifications(), getUnreadCount(), markAllRead(), markNotificationRead(), NOTIFICATION_SELECT, NotificationRoute, NotificationSelectRow, Supabase
 
 ### Community 31 - "Landlord KYC Upload"
 Cohesion: 0.06
@@ -280,61 +278,49 @@ Nodes (31): 1. Unit Test Cases, 2. Integration Test Cases, 3. System Test Cases 
 Cohesion: 0.08
 Nodes (25): UI & Figma Implementation Rules, BasoBas Design System, Border Radius, Button Styles (Primary/Secondary/Ghost), Buttons, Cards, Colors, Components (+17 more)
 
-### Community 34 - "KYC Status Hero"
-Cohesion: 0.20
-Nodes (10): GetNotificationsOpts, NotificationsState, Patch, Supabase, Notification, NotificationDateGroups, NotificationJoins, NotificationRow (+2 more)
-
 ### Community 35 - "Core Database Schema"
 Cohesion: 0.07
 Nodes (29): Add New Listing Flow (4 Steps), Add New Listing Prompt (Bottom of List), All Applicants Screen, BasoBas — Landlord Experience, Everything the Landlord Sees and Does, Filter Tab Bar, Header, Landlord Bottom Navigation Dock (+21 more)
 
 ### Community 36 - "Listing Step 4 Details"
-Cohesion: 0.13
-Nodes (11): AMENITIES_APARTMENT, AMENITIES_HOUSE, AMENITIES_ROOM, AMENITIES_STUDIO, BATHROOM_OPTIONS, FieldErrors, FURNISHING, KITCHEN_OPTIONS (+3 more)
+Cohesion: 0.12
+Nodes (14): AMENITIES_APARTMENT, AMENITIES_HOUSE, AMENITIES_ROOM, AMENITIES_STUDIO, BATHROOM_OPTIONS, FieldErrors, FURNISHING, KITCHEN_OPTIONS (+6 more)
 
 ### Community 37 - "Follow-up Responses"
 Cohesion: 0.07
 Nodes (27): BasoBas — Tenant Experience, Category Chips (Horizontal Scroll), Content Area (Scrollable), Content Sections (Top to Bottom), Everything the Tenant Sees and Does, Filter Options, Gallery Header, Header (Fixed, Always Visible) (+19 more)
 
-### Community 38 - "Visit Realtime Hooks"
-Cohesion: 0.22
-Nodes (5): EsewaFormFields, PlanId, PurchasePlanState, styles, WEBVIEW_UA
-
 ### Community 40 - "Landlord Visits & Requests"
-Cohesion: 0.07
-Nodes (48): AllApplicantsScreen(), ChipKey, CHIPS, styles, UI_TO_PILL, styles, DetailsSharedScreen(), SLOT_START (+40 more)
+Cohesion: 0.10
+Nodes (31): ChipKey, CHIPS, styles, UI_TO_PILL, styles, styles, compactPrice(), FOLLOW_UP_ROWS (+23 more)
 
 ### Community 41 - "Property Store Filters"
 Cohesion: 0.22
 Nodes (6): CityFilter, INITIAL_FILTERS, PropertyFilters, PropertyStore, SavedScreen(), PropertyPublic
 
-### Community 42 - "Onboarding Flow Migrations"
-Cohesion: 0.17
-Nodes (11): DeclineRequestScreen(), REASONS, styles, radius, status, StatusKey, OutlineButtonProps, styles (+3 more)
-
 ### Community 43 - "Clerk Auth Migrations"
-Cohesion: 0.13
-Nodes (18): buildDays(), compactVisit(), DayOption, LandlordRescheduleScreen(), MONTHS, SLOT_START, styles, TIMES (+10 more)
+Cohesion: 0.12
+Nodes (17): buildDays(), compactVisit(), DayOption, LandlordRescheduleScreen(), MONTHS, SLOT_START, styles, TIMES (+9 more)
 
 ### Community 44 - "Onboarding Store State"
-Cohesion: 0.23
-Nodes (16): Result, KYCInput, KYCResult, submitKYC(), completeOnboarding(), OnboardingInput, localUriToArrayBuffer(), uploadAvatar() (+8 more)
+Cohesion: 0.27
+Nodes (11): submitKYC(), completeOnboarding(), localUriToArrayBuffer(), uploadAvatar(), UploadedAvatar, UploadedKYCDoc, UploadedPropertyPhoto, uploadKYCDocument() (+3 more)
 
 ### Community 45 - "Role Selection"
-Cohesion: 0.16
-Nodes (13): NEPAL_CITIES, styles, deleteClerkUser(), deleteStorageFolder(), deleteUserData(), getProfile(), getUserRoles(), ProfileRow (+5 more)
-
-### Community 46 - "Settings Menus"
-Cohesion: 0.22
-Nodes (4): MenuRowProps, MenuRowWithSubtextProps, styles, ToggleProps
+Cohesion: 0.15
+Nodes (16): NEPAL_CITIES, styles, Result, deleteClerkUser(), deleteStorageFolder(), deleteUserData(), OnboardingInput, getProfile() (+8 more)
 
 ### Community 47 - "Visits Empty States"
-Cohesion: 0.11
-Nodes (18): EMPTY_COPY, OPEN_UI, TabKey, TABS, sp, EmptyStateProps, styles, VisitEmptyState() (+10 more)
+Cohesion: 0.10
+Nodes (23): styles, c, font, radius, status, StatusKey, t, DateTimeRow() (+15 more)
 
 ### Community 48 - "Filter Modal"
 Cohesion: 0.25
 Nodes (6): AMENITIES, Amenity, FilterDrawer(), PROPERTY_TYPES, SortOption, SORTS
+
+### Community 49 - "Community 49"
+Cohesion: 0.20
+Nodes (10): scripts, android, format, ios, lint, postinstall, prebuild, start (+2 more)
 
 ### Community 50 - "Filter Chips"
 Cohesion: 0.29
@@ -365,8 +351,12 @@ Cohesion: 0.33
 Nodes (4): PropertyCardVariant, Props, STATUS_BADGES, StatusOverlay
 
 ### Community 57 - "KYC Benefits List"
-Cohesion: 0.18
-Nodes (9): Benefit, BENEFITS, KYCBenefitsList(), styles, KYCUploadScreen(), styles, KYCDocumentSlot, KYCSubmission (+1 more)
+Cohesion: 0.15
+Nodes (11): DocumentTypeSelector(), DocumentTypeSelectorProps, KYCDocumentType, Option, OPTIONS, styles, Benefit, BENEFITS (+3 more)
+
+### Community 58 - "Community 58"
+Cohesion: 0.40
+Nodes (4): main, name, private, version
 
 ### Community 59 - "Tenant Visit Workflow"
 Cohesion: 0.15
@@ -421,8 +411,8 @@ Cohesion: 0.50
 Nodes (3): imports, @supabase/functions-js, @supabase/server
 
 ### Community 80 - "KYC Electricity Bill Migration"
-Cohesion: 0.25
-Nodes (7): useAuth(), LandlordProfileTab(), STATUS_BADGE_STYLES, styles, VERIFICATION_COPY, SettingsScreen(), PropertyStatusUi
+Cohesion: 0.21
+Nodes (8): useAuth(), AuthStore, Profile, LandlordProfileTab(), STATUS_BADGE_STYLES, styles, VERIFICATION_COPY, PropertyStatusUi
 
 ### Community 81 - "KYC Fix Migration"
 Cohesion: 0.22
@@ -433,16 +423,16 @@ Cohesion: 0.38
 Nodes (5): PublicLandlordProfileScreen(), styles, verificationLabel(), yearOf(), LandlordVerificationStatus
 
 ### Community 87 - "Home Index"
-Cohesion: 0.19
-Nodes (8): KEYHOLE, morph, SplashScreen(), styles, AuthGate(), clerkTokenCache, AppReadyState, useAppReadyStore
+Cohesion: 0.18
+Nodes (11): KEYHOLE, morph, SplashScreen(), styles, maskPhone(), OTPVerificationScreen(), s, EditProfileScreen() (+3 more)
 
 ### Community 91 - "Share Confirmation"
 Cohesion: 0.47
 Nodes (4): calculateRiskScore(), clamp(), RISK_SCORE_WEIGHTS, RiskScoreInput
 
 ### Community 92 - "Community 92"
-Cohesion: 0.14
-Nodes (13): KYCRejectionNotice(), Props, styles, formatDateTime(), LandlordVerificationScreen(), styles, Props, SectionLabel() (+5 more)
+Cohesion: 0.19
+Nodes (12): formatDateTime(), LandlordVerificationScreen(), styles, getLatestKYCSubmission(), getUserKYCStatusUi(), KYCInput, KYCResult, LandlordVerificationDetail (+4 more)
 
 ### Community 93 - "Map Radius RPC"
 Cohesion: 0.50
@@ -457,8 +447,8 @@ Cohesion: 0.60
 Nodes (3): normalizeNepalPhone(), PhoneNormalizationResult, stripDialingNoise()
 
 ### Community 104 - "Community 104"
-Cohesion: 0.15
-Nodes (11): countSelected(), DetailRow, MediaItem, NewListingStep4(), parseJSON(), styles, parseAvailableFrom(), parseDateLabel() (+3 more)
+Cohesion: 0.18
+Nodes (9): countSelected(), DetailRow, MediaItem, NewListingStep4(), parseJSON(), styles, parseMoney(), parseOptionalInt() (+1 more)
 
 ### Community 108 - "Community 108"
 Cohesion: 0.24
@@ -472,29 +462,25 @@ Nodes (5): DocumentUploadCard(), DocumentUploadCardProps, styles, styles, Upload
 Cohesion: 0.50
 Nodes (4): FollowUpResponse, FollowUpOptionCard(), FollowUpOptionCardProps, styles
 
-### Community 113 - "Community 113"
-Cohesion: 0.15
-Nodes (12): Card(), CardProps, styles, DateTimeRow(), Divider(), DividerProps, styles, HELPER (+4 more)
-
 ## Knowledge Gaps
-- **674 isolated node(s):** `name`, `slug`, `version`, `scheme`, `favicon` (+669 more)
+- **669 isolated node(s):** `name`, `slug`, `version`, `scheme`, `favicon` (+664 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **11 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **12 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `useClerkSupabase()` connect `Tenant Root Layout` to `Pro Gate & Plans`, `Map Camera & Location`, `Auth & Root Layout`, `Notifications Inbox`, `KYC Document Selector`, `Landlord Dashboard`, `Listing Detail Amenities`, `Property Detail Screen`, `Listing Wizard Amenities`, `Screen Body Layout`, `Auth Loading Screens`, `Visit Status & Dates`, `Filter Drawer`, `Profile Setup Form`, `Suggest Time Picker`, `KYC Confirmation Screen`, `Visit Realtime Hooks`, `Landlord Visits & Requests`, `Property Store Filters`, `Onboarding Flow Migrations`, `Clerk Auth Migrations`, `Role Selection`, `Visits Empty States`, `KYC Benefits List`, `KYC Electricity Bill Migration`, `Landlord Verification Sync`, `Home Index`, `Community 92`, `Community 104`, `Community 113`?**
+- **Why does `useClerkSupabase()` connect `Auth Loading Screens` to `Pro Gate & Plans`, `Map Camera & Location`, `Auth & Root Layout`, `Notifications Inbox`, `KYC Document Selector`, `Landlord Dashboard`, `Listing Detail Amenities`, `KYC Rejection Notice`, `Property Detail Screen`, `Listing Wizard Amenities`, `Screen Body Layout`, `Visit Status & Dates`, `Filter Drawer`, `Profile Setup Form`, `Suggest Time Picker`, `Tenant Root Layout`, `Landlord Visits & Requests`, `Property Store Filters`, `Clerk Auth Migrations`, `Role Selection`, `KYC Benefits List`, `KYC Electricity Bill Migration`, `Landlord Verification Sync`, `Home Index`, `Community 92`, `Community 104`?**
   _High betweenness centrality (0.083) - this node is a cross-community bridge._
-- **Why does `ScreenHeader()` connect `AI Preferences Screen` to `Pro Gate & Plans`, `Notifications Inbox`, `KYC Document Selector`, `Landlord Visits & Requests`, `Property Store Filters`, `KYC Electricity Bill Migration`, `Visit Status & Dates`, `KYC Benefits List`, `Community 92`?**
+- **Why does `ScreenHeader()` connect `AI Preferences Screen` to `Pro Gate & Plans`, `Notifications Inbox`, `KYC Document Selector`, `Landlord Visits & Requests`, `Property Store Filters`, `KYC Rejection Notice`, `Visit Status & Dates`, `KYC Benefits List`, `Community 92`?**
+  _High betweenness centrality (0.010) - this node is a cross-community bridge._
+- **Why does `Database` connect `Role Selection` to `Edit Profile & Share Details`, `Notifications Inbox`, `Property Store Filters`, `Onboarding Store State`, `Property Type Mappers`, `Notifications Schema`, `Visits Store State`, `Community 92`, `KYC Confirmation Screen`?**
   _High betweenness centrality (0.009) - this node is a cross-community bridge._
-- **Why does `Database` connect `Onboarding Store State` to `Edit Profile & Share Details`, `KYC Status Hero`, `Property Store Filters`, `Role Selection`, `Property Type Mappers`, `Notifications Schema`, `Visits Store State`, `KYC Benefits List`, `Tenant Root Layout`?**
-  _High betweenness centrality (0.008) - this node is a cross-community bridge._
 - **Are the 6 inferred relationships involving `useClerkSupabase()` (e.g. with `PropertyDetailScreen()` and `HomeTab()`) actually correct?**
   _`useClerkSupabase()` has 6 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `name`, `slug`, `version` to the rest of the system?**
-  _676 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _671 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Edit Profile & Share Details` be split into smaller, more focused modules?**
-  _Cohesion score 0.11103047895500726 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.12307692307692308 - nodes in this community are weakly interconnected._
 - **Should `Pro Gate & Plans` be split into smaller, more focused modules?**
-  _Cohesion score 0.1076923076923077 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06294326241134751 - nodes in this community are weakly interconnected._
