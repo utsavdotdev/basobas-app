@@ -1,6 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { ok, err, getErrorMessage, type Result } from '@/src/lib/result';
 import {
+  OPEN_VISIT_STATUSES,
   toLandlordVisitRequest,
   toTenantVisitRequest,
   type FollowUpResponse,
@@ -150,6 +151,41 @@ export async function getVisitRequestForTenant(
     if (!data) return ok(null);
 
     return ok(toTenantVisitRequest(data as unknown as VisitSelectRow));
+  } catch (e) {
+    return err(getErrorMessage(e));
+  }
+}
+
+/**
+ * The tenant's open (non-terminal) visit request for a property, if any.
+ * Property Detail uses this to prevent duplicate requests: when a request is
+ * already open, the schedule CTA becomes "view your request" instead of
+ * opening the sheet again. A request whose date has already passed maps to
+ * `completed` client-side, so only genuinely active requests are returned.
+ */
+export async function getTenantVisitForProperty(
+  propertyId: string,
+  tenantId: string,
+  supabase: SupabaseClient<Database>
+): Promise<Result<TenantVisitRequest | null>> {
+  try {
+    // `.limit(1)` (not `.maybeSingle()`) on purpose: if stale duplicates exist,
+    // `maybeSingle` would ERROR on the second row and the guard would silently
+    // no-op. With limit we always take the newest open request.
+    const { data, error } = await supabase
+      .from('visit_requests')
+      .select(VISIT_SELECT)
+      .eq('property_id', propertyId)
+      .eq('tenant_id', tenantId)
+      .in('status', OPEN_VISIT_STATUSES)
+      .order('created_at', { ascending: false })
+      .limit(1);
+
+    if (error) return err(getErrorMessage(error));
+    const row = data?.[0];
+    if (!row) return ok(null);
+
+    return ok(toTenantVisitRequest(row as unknown as VisitSelectRow));
   } catch (e) {
     return err(getErrorMessage(e));
   }

@@ -36,6 +36,7 @@ export function useVisitRealtime(clerkId: string | undefined) {
 
   const upsertTenantPartial = useVisitsStore((s) => s.upsertTenantPartial);
   const removeTenantVisit = useVisitsStore((s) => s.removeTenantVisit);
+  const fetchTenantVisits = useVisitsStore((s) => s.fetchTenantVisits);
 
   useEffect(() => {
     if (!clerkId || !session) return;
@@ -57,6 +58,12 @@ export function useVisitRealtime(clerkId: string | undefined) {
         return;
       }
       if (!payload.new) return;
+      if (payload.eventType === 'INSERT') {
+        // A brand-new row has no property/landlord joins in the payload —
+        // refetch the full list so real display details land immediately.
+        fetchTenantVisits(supabase, clerkId);
+        return;
+      }
       upsertTenantPartial(rowToVisitPartial(payload.new));
     };
 
@@ -94,7 +101,7 @@ export function useVisitRealtime(clerkId: string | undefined) {
       channel?.unsubscribe();
       channel = null;
     };
-  }, [clerkId, session, supabase, upsertTenantPartial, removeTenantVisit]);
+  }, [clerkId, session, supabase, upsertTenantPartial, removeTenantVisit, fetchTenantVisits]);
 }
 
 /**

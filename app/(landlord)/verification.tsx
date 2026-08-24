@@ -111,7 +111,11 @@ export default function LandlordVerificationScreen() {
       pollHandleRef.current = null;
     }
 
-    if (submission?.status === 'UNDER_REVIEW') {
+    if (
+      submission?.status === 'UNDER_REVIEW' ||
+      submission?.status === 'PENDING' ||
+      submission?.status === 'FLAGGED'
+    ) {
       pollHandleRef.current = setInterval(() => {
         load('poll');
       }, POLL_INTERVAL_MS);

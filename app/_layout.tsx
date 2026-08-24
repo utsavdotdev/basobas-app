@@ -16,7 +16,6 @@ import {
 } from '@expo-google-fonts/dm-sans';
 import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display';
 import { clerkTokenCache } from '../src/lib/clerkTokenCache';
-import { useVisitsStore } from '../src/store/visitsStore';
 import { useAppReadyStore } from '../src/store/appReadyStore';
 
 SplashScreen.preventAutoHideAsync();
@@ -60,14 +59,6 @@ export default function RootLayout() {
     if (!fontsLoaded && !fontError) return;
     useAppReadyStore.getState().setFontsReady(true);
   }, [fontsLoaded, fontError]);
-
-  // Seed the visit store once (dev only, when empty) so the redesigned
-  // visit flow can be reviewed end-to-end without a backend. Both roles'
-  // lists get every status — see visitsStore.seedMockVisits.
-  useEffect(() => {
-    if (!__DEV__) return;
-    useVisitsStore.getState().seedMockVisits();
-  }, []);
 
   return (
     <ClerkProvider publishableKey={CLERK_KEY} tokenCache={clerkTokenCache}>

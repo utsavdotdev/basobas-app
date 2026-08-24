@@ -32,7 +32,9 @@ const resolveActiveStep = (status: KYCStatus): StepKey => {
   switch (status) {
     case 'UNVERIFIED':
       return 'submitted';
+    case 'PENDING':
     case 'UNDER_REVIEW':
+    case 'FLAGGED':
       return 'review';
     case 'VERIFIED':
     case 'REJECTED':

@@ -1,8 +1,24 @@
 import { useState, useCallback, useEffect } from 'react';
 import { ScrollView, View, Text, Pressable, Dimensions, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { MapPin, Star, Heart, Bed, Bath, Wifi, Car, ChevronRight, Building2, TreePine, Shield, CookingPot, Users, Info } from 'lucide-react-native';
+import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
+import {
+  MapPin,
+  Star,
+  Heart,
+  Bed,
+  Bath,
+  Wifi,
+  Car,
+  ChevronRight,
+  Building2,
+  TreePine,
+  Shield,
+  CookingPot,
+  Users,
+  Info,
+  Check,
+} from 'lucide-react-native';
 import { useUser } from '@clerk/expo';
 
 import { PropertyHero } from '@/src/components/property/PropertyHero';
@@ -15,9 +31,14 @@ import {
   getLandlordOwnerProfile,
   getLandlordVerificationStatus,
 } from '@/src/services/properties.service';
-import { createVisitRequest } from '@/src/services/visits.service';
+import { createVisitRequest, getTenantVisitForProperty } from '@/src/services/visits.service';
 import { usePropertyStore } from '@/src/store/propertyStore';
-import { toTimeSlot, type PropertyPublic } from '@/src/types/property.types';
+import {
+  toTimeSlot,
+  type PropertyPublic,
+  type TenantVisitRequest,
+  type TenantVisitStatusUi,
+} from '@/src/types/property.types';
 import { tokens } from '@/src/theme/tokens';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -33,44 +54,44 @@ const AMENITY_ICONS: Record<string, React.ComponentType<{ size?: number; color?:
 };
 
 const AMENITY_LABELS: Record<string, string> = {
-  bed:     'Bed',
-  bath:    'Bath',
-  wifi:    'Wi-Fi',
-  car:     'Parking',
+  bed: 'Bed',
+  bath: 'Bath',
+  wifi: 'Wi-Fi',
+  car: 'Parking',
   kitchen: 'Kitchen',
-  ac:      'AC',
-  heater:  'Heater',
-  tv:      'TV',
+  ac: 'AC',
+  heater: 'Heater',
+  tv: 'TV',
   laundry: 'Laundry',
-  gym:     'Gym',
+  gym: 'Gym',
   security: 'Security',
-  garden:  'Garden',
-  lift:    'Lift',
-  power:   'Power Backup',
-  water:   'Water Supply',
+  garden: 'Garden',
+  lift: 'Lift',
+  power: 'Power Backup',
+  water: 'Water Supply',
 };
 
 const EXTRA_DETAIL_ICONS: Record<string, React.ComponentType<{ size?: number; color?: string }>> = {
-  parkingSpaces:  Car,
-  houseFloors:    Building2,
-  hasGarden:      TreePine,
-  hasGated:       Shield,
-  roomBathroom:   Bath,
-  kitchenAccess:  CookingPot,
-  tenantPref:     Users,
-  kitchenette:    CookingPot,
+  parkingSpaces: Car,
+  houseFloors: Building2,
+  hasGarden: TreePine,
+  hasGated: Shield,
+  roomBathroom: Bath,
+  kitchenAccess: CookingPot,
+  tenantPref: Users,
+  kitchenette: CookingPot,
   studioBathroom: Bath,
 };
 
 const EXTRA_DETAIL_LABELS: Record<string, string> = {
-  parkingSpaces:  'Parking Spaces',
-  houseFloors:    'Floors',
-  hasGarden:      'Garden',
-  hasGated:       'Gated Community',
-  roomBathroom:   'Bathroom Type',
-  kitchenAccess:  'Kitchen Access',
-  tenantPref:     'Tenant Preference',
-  kitchenette:    'Kitchenette',
+  parkingSpaces: 'Parking Spaces',
+  houseFloors: 'Floors',
+  hasGarden: 'Garden',
+  hasGated: 'Gated Community',
+  roomBathroom: 'Bathroom Type',
+  kitchenAccess: 'Kitchen Access',
+  tenantPref: 'Tenant Preference',
+  kitchenette: 'Kitchenette',
   studioBathroom: 'Bathroom Type',
 };
 
@@ -131,6 +152,18 @@ function toExtraDetailRows(extraDetails: Record<string, unknown> | null): ExtraD
 
 const fmtNpr = (n: number) => `NPR ${n.toLocaleString('en-US')}`;
 
+/** CTA label while the tenant already has an open request for this property. */
+const VISIT_REQUEST_BUTTON_LABEL: Record<TenantVisitStatusUi, string> = {
+  pending: 'Visit Requested',
+  accepted: 'Visit Scheduled',
+  rescheduled: 'New Time Proposed',
+  discussion: 'Visit Under Discussion',
+  completed: 'Visit Completed',
+  rejected: 'Visit Declined',
+  cancelled: 'Visit Cancelled',
+  finalized: 'Rental Finalized',
+};
+
 // ─── Screen ──────────────────────────────────────────────────────────────────
 
 export default function PropertyDetailScreen() {
@@ -150,6 +183,9 @@ export default function PropertyDetailScreen() {
   const [ownerAvatarUrl, setOwnerAvatarUrl] = useState<string | null>(null);
   const [ownerVerified, setOwnerVerified] = useState(false);
   const [ownerListingsCount, setOwnerListingsCount] = useState(0);
+
+  /** The tenant's open visit request for this property, if any. */
+  const [existingVisit, setExistingVisit] = useState<TenantVisitRequest | null>(null);
 
   const savedPropertyIds = usePropertyStore((s) => s.savedPropertyIds);
   const toggleSaved = usePropertyStore((s) => s.toggleSaved);
@@ -195,6 +231,27 @@ export default function PropertyDetailScreen() {
     load();
   }, [load]);
 
+  // Duplicate-request guard: whenever this screen regains focus, check whether
+  // the tenant already has an open (non-terminal, date-not-passed) request for
+  // the property. If so, the CTA routes back to it instead of re-scheduling.
+  useFocusEffect(
+    useCallback(() => {
+      if (!property || !clerkUser?.id) return;
+      let cancelled = false;
+      (async () => {
+        const result = await getTenantVisitForProperty(property.id, clerkUser.id, supabase);
+        if (cancelled || !result.success) return;
+        // A request whose date has passed reads as `completed` — the visit
+        // happened, so allow booking a fresh one.
+        const active = result.data && result.data.statusUi !== 'completed' ? result.data : null;
+        setExistingVisit(active);
+      })();
+      return () => {
+        cancelled = true;
+      };
+    }, [property, clerkUser?.id, supabase])
+  );
+
   const handleViewLandlord = useCallback(() => {
     if (!property) return;
     router.push({
@@ -230,8 +287,16 @@ export default function PropertyDetailScreen() {
   }, [property, clerkUser?.id, supabase, toggleSaved]);
 
   const handleScheduleVisit = useCallback(() => {
+    if (existingVisit) {
+      // Already have an open request — go track it, never open the sheet.
+      router.push({
+        pathname: '/(tenant)/visit/[id]',
+        params: { id: existingVisit.id },
+      } as any);
+      return;
+    }
     setShowScheduleDrawer(true);
-  }, []);
+  }, [existingVisit, router]);
 
   const handleScheduleClose = useCallback(() => {
     setShowScheduleDrawer(false);
@@ -254,6 +319,11 @@ export default function PropertyDetailScreen() {
       );
 
       if (!result.success) throw new Error(result.error);
+
+      // Flip the CTA to "Visit Requested" immediately — re-fetch the open
+      // request so the button reflects it without waiting for next focus.
+      const open = await getTenantVisitForProperty(property.id, clerkUser.id, supabase);
+      if (open.success && open.data) setExistingVisit(open.data);
 
       // Take the tenant to their request so they can track it.
       setTimeout(() => {
@@ -294,7 +364,11 @@ export default function PropertyDetailScreen() {
     .slice(0, 2)
     .toUpperCase();
 
-  const amenityRows = toAmenityRows(property.amenities, property.bedrooms, property.bathrooms).slice(0, 4);
+  const amenityRows = toAmenityRows(
+    property.amenities,
+    property.bedrooms,
+    property.bathrooms
+  ).slice(0, 4);
   const extraDetailRows = toExtraDetailRows(property.extraDetails);
 
   return (
@@ -353,7 +427,9 @@ export default function PropertyDetailScreen() {
                   <View key={amenity.key} className="flex-1 flex-row items-center">
                     <View className="flex-1 items-center">
                       {IconComponent && <IconComponent size={20} color="#6B6B6B" />}
-                      <Text className="mt-1.5 font-sans text-caption text-ink2">{amenity.label}</Text>
+                      <Text className="mt-1.5 font-sans text-caption text-ink2">
+                        {amenity.label}
+                      </Text>
                     </View>
                     {i < amenityRows.length - 1 && <View className="h-8 w-[1px] bg-line" />}
                   </View>
@@ -430,13 +506,22 @@ export default function PropertyDetailScreen() {
           />
         </Pressable>
 
-        {/* Schedule a Visit */}
+        {/* Schedule a Visit — or view the existing open request */}
         <Pressable
           onPress={handleScheduleVisit}
           className="h-[48px] flex-1 items-center justify-center rounded-pill bg-ink"
           accessibilityRole="button"
-          accessibilityLabel="Schedule a Visit">
-          <Text className="font-semibold text-body text-white">Schedule a Visit</Text>
+          accessibilityLabel={existingVisit ? 'View your visit request' : 'Schedule a Visit'}>
+          {existingVisit ? (
+            <View className="flex-row items-center">
+              <Check size={18} color="#FFFFFF" strokeWidth={2.5} />
+              <Text className="ml-2 font-semibold text-body text-white">
+                {VISIT_REQUEST_BUTTON_LABEL[existingVisit.statusUi]}
+              </Text>
+            </View>
+          ) : (
+            <Text className="font-semibold text-body text-white">Schedule a Visit</Text>
+          )}
         </Pressable>
       </View>
 

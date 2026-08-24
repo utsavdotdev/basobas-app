@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Image,
   Modal,
   StyleSheet,
   Text,
@@ -195,15 +196,27 @@ export default function RequestDetailScreen() {
       <LdSectionLabel label="Property" />
       <View style={styles.propertyPanel}>
         <View style={styles.propertyThumb}>
-          <Text style={styles.propertyThumbText}>{row.propertyTitle?.[0] ?? 'P'}</Text>
+          {row.propertyPhotoUrl ? (
+            <Image
+              source={{ uri: row.propertyPhotoUrl }}
+              style={styles.propertyThumbImg}
+              resizeMode="cover"
+            />
+          ) : (
+            <Text style={styles.propertyThumbText}>{row.propertyTitle?.[0] ?? 'P'}</Text>
+          )}
         </View>
         <View style={styles.propertyCopy}>
           <Text numberOfLines={1} style={styles.propertyTitle}>
             {row.propertyTitle ?? 'Your listing'}
           </Text>
-          <View style={styles.propertyAreaRow}>
-            <Text style={styles.propertyArea}>Baluwatar, Kathmandu</Text>
-          </View>
+          {row.propertyArea ? (
+            <View style={styles.propertyAreaRow}>
+              <Text numberOfLines={1} style={styles.propertyArea}>
+                {row.propertyArea}
+              </Text>
+            </View>
+          ) : null}
         </View>
         {price ? (
           <View style={styles.propertyPriceWrap}>
@@ -431,8 +444,13 @@ const styles = StyleSheet.create({
     height: 56,
     borderRadius: 12,
     backgroundColor: '#D4DDD0',
+    overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  propertyThumbImg: {
+    width: '100%',
+    height: '100%',
   },
   propertyThumbText: {
     fontFamily: font.sansSemi,

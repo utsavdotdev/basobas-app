@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
-import { FlatList, View, ActivityIndicator } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useCallback, useMemo, useState } from 'react';
+import { FlatList, View } from 'react-native';
+import { useFocusEffect, useRouter } from 'expo-router';
+import { useUser } from '@clerk/expo';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenBody } from '@/src/components/layout/ScreenBody';
@@ -8,8 +9,10 @@ import { PageHeader } from '@/src/components/visit/PageHeader';
 import { UnderlineTabs } from '@/src/components/visit/UnderlineTabs';
 import { VisitCard } from '@/src/components/visit/VisitCard';
 import { VisitEmptyState } from '@/src/components/visit/EmptyState';
+import { Skeleton, SkeletonBlock } from '@/src/components/visit/Skeleton';
 import { useVisitsStore } from '@/src/store/visitsStore';
-import { sp } from '@/src/theme/visitTokens';
+import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
+import { c, radius, sp } from '@/src/theme/visitTokens';
 import type { TenantVisitRequest, TimeSlot } from '@/src/types/property.types';
 
 // ─── Tabs ────────────────────────────────────────────────────────────────────
@@ -35,8 +38,21 @@ const EMPTY_COPY: Record<TabKey, { title: string; body: string }> = {
 export default function VisitsTab() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { user } = useUser();
+  const supabase = useClerkSupabase();
+  const clerkId = user?.id;
   const visits = useVisitsStore((s) => s.tenantVisits);
   const isLoading = useVisitsStore((s) => s.isLoading);
+  const fetchTenantVisits = useVisitsStore((s) => s.fetchTenantVisits);
+
+  // Fetch the real joined rows (property + landlord details) on focus — the
+  // store is otherwise only fed by realtime, which carries no joins.
+  useFocusEffect(
+    useCallback(() => {
+      if (!clerkId) return;
+      fetchTenantVisits(supabase, clerkId);
+    }, [clerkId, supabase, fetchTenantVisits])
+  );
 
   const [activeTab, setActiveTab] = useState<TabKey>('upcoming');
 
@@ -129,9 +145,10 @@ export default function VisitsTab() {
         ItemSeparatorComponent={() => <View style={{ height: sp.base }} />}
         ListEmptyComponent={
           isLoading && visits.length === 0 ? (
-            <View style={{ alignItems: 'center', paddingVertical: 80 }}>
-              <ActivityIndicator size="small" color="#1A6B4A" />
-            </View>
+            <Skeleton style={{ paddingHorizontal: sp.lg }}>
+              <VisitCardSkeleton />
+              <VisitCardSkeleton />
+            </Skeleton>
           ) : (
             <VisitEmptyState title={empty.title} body={empty.body} />
           )
@@ -145,3 +162,25 @@ export default function VisitsTab() {
     </ScreenBody>
   );
 }
+
+// ─── Loading skeleton ────────────────────────────────────────────────────────
+
+/** Mimics the VisitCard layout: thumbnail + title/meta + date/time row. */
+const VisitCardSkeleton = () => (
+  <View style={{ backgroundColor: c.cardBg, borderRadius: radius.card, padding: sp.base }}>
+    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+      <SkeletonBlock width={46} height={46} radius={radius.thumb} />
+      <View style={{ flex: 1, marginLeft: sp.base }}>
+        <SkeletonBlock width="60%" height={16} />
+        <SkeletonBlock width="40%" height={12} style={{ marginTop: 8 }} />
+        <SkeletonBlock width="30%" height={12} style={{ marginTop: 8 }} />
+      </View>
+    </View>
+    <SkeletonBlock height={1} style={{ marginTop: sp.base }} />
+    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: sp.base }}>
+      <SkeletonBlock width={90} height={12} />
+      <SkeletonBlock width={70} height={12} style={{ marginLeft: sp.base }} />
+      <SkeletonBlock width={64} height={20} radius={radius.chip} style={{ marginLeft: 'auto' }} />
+    </View>
+  </View>
+);

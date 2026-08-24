@@ -1,6 +1,6 @@
 import { randomUUID } from 'expo-crypto'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { uploadKYCDocument, uploadKYCElectricityBill } from './storage.service'
+import { uploadKYCDocument, uploadKYCElectricityBill, uploadKYCHomeTourVideo } from './storage.service'
 import { ok, err, getErrorMessage, type Result } from '@/src/lib/result'
 import { toKYCStatusUi, type KYCSubmission, type KYCStatus, type KYCStatusUi } from '@/src/types/kyc.types'
 import type { Database } from '@/src/types/database.types'
@@ -21,6 +21,10 @@ export interface KYCInput {
   /** Path of a previously-uploaded back doc (resubmit flow). */
   existingBackPath?:  string | null
   electricityBillLocalUri?: string  // Landlord-only: electricity bill image
+  /** Landlord-only optional 1–2 min home-tour video for extra verification. */
+  homeTourVideoLocalUri?: string
+  /** Session token getter — required when homeTourVideoLocalUri is provided. */
+  getToken?:             () => Promise<string | null>
   supabase:         SupabaseClient<Database>
   /**
    * Optional per-side progress callback. Called repeatedly while each
@@ -51,6 +55,8 @@ export async function submitKYC(
     existingFrontPath,
     existingBackPath,
     electricityBillLocalUri,
+    homeTourVideoLocalUri,
+    getToken,
     supabase,
     onProgress,
   } = input
@@ -114,6 +120,19 @@ export async function submitKYC(
     }
   }
 
+  // Upload home-tour video (mandatory for landlord submissions).
+  let homeTourVideoPath: string | null = null
+  if (homeTourVideoLocalUri && getToken) {
+    const videoResult = await uploadKYCHomeTourVideo(clerkId, submissionId, homeTourVideoLocalUri, {
+      supabaseUrl: process.env.EXPO_PUBLIC_SUPABASE_URL!,
+      getToken,
+    })
+    if (!videoResult.success) {
+      return err(videoResult.error)
+    }
+    homeTourVideoPath = videoResult.data.path
+  }
+
   // Insert DB record via SECURITY DEFINER RPC
   const { data, error } = await supabase.rpc('insert_kyc_submission', {
     p_clerk_id:               clerkId,
@@ -122,6 +141,7 @@ export async function submitKYC(
     p_back_image_path:        backImagePath,
     // The RPC's DEFAULT NULL param types as `string | undefined`, not `| null`.
     p_electricity_bill_path:  electricityBillPath ?? undefined,
+    p_home_tour_video_path:   homeTourVideoPath ?? undefined,
   })
 
   if (error) return err(`KYC DB failed: ${error.message}`)
@@ -131,7 +151,6 @@ export async function submitKYC(
 }
 
 // ─── Read-side helpers ────────────────────────────────────────────────────────
-
 /**
  * Fetch the most-recent KYC submission for a user.
  * Returns `ok(null)` if the user has never submitted.
@@ -167,6 +186,7 @@ export async function getLatestKYCSubmission(
       attemptNumber:     row.attempt_number,
       frontImagePath:    row.front_image_path,
       backImagePath:     row.back_image_path,
+      homeTourVideoPath: row.home_tour_video_path,
     })
   } catch (e) {
     return err(getErrorMessage(e))

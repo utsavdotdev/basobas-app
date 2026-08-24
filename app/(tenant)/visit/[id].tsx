@@ -16,6 +16,7 @@ import { ArrowDown, MapPin, MoreHorizontal, Navigation, Phone, User } from 'luci
 
 import { c, font, radius, sp, t } from '@/src/theme/visitTokens';
 import { DetailHeader } from '@/src/components/visit/DetailHeader';
+import { VisitDetailSkeleton } from '@/src/components/visit/Skeleton';
 import { DateTimeRow } from '@/src/components/visit/DateTimeRow';
 import { VStack } from '@/src/components/visit/VStack';
 import { SectionLabel } from '@/src/components/visit/SectionLabel';
@@ -34,6 +35,7 @@ import {
 } from '@/src/types/property.types';
 import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
 import { getPropertyWithUnlockedLocation } from '@/src/services/properties.service';
+import { getVisitRequestForTenant } from '@/src/services/visits.service';
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -72,13 +74,41 @@ export default function VisitDetailScreen() {
   const router = useRouter();
   const supabase = useClerkSupabase();
 
-  const visit = useVisitsStore((s) => s.tenantVisits.find((v) => v.id === id));
+  const storeVisit = useVisitsStore((s) => s.tenantVisits.find((v) => v.id === id));
   const cancelVisit = useVisitsStore((s) => s.cancelVisit);
   const acceptReschedule = useVisitsStore((s) => s.acceptReschedule);
   const declineReschedule = useVisitsStore((s) => s.declineReschedule);
 
   const [busy, setBusy] = useState(false);
   const [unlocked, setUnlocked] = useState<PropertyUnlocked | null>(null);
+  const [freshVisit, setFreshVisit] = useState<TenantVisitRequest | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Always fetch the single visit with its real property + landlord joins, so
+  // the screen shows real details even when the store row arrived via
+  // realtime (which carries no joined display fields).
+  useEffect(() => {
+    if (!id) {
+      setLoading(false);
+      return;
+    }
+    let cancelled = false;
+    getVisitRequestForTenant(id, supabase)
+      .then((r) => {
+        if (!cancelled && r.success && r.data) setFreshVisit(r.data);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [id, supabase]);
+
+  // Prefer the store row (live updates win) when it carries the joined
+  // display fields; otherwise fill from the fetched single-visit row.
+  const hasRealDetails = storeVisit?.propertyTitle != null || storeVisit?.landlordName != null;
+  const visit = hasRealDetails ? storeVisit : (freshVisit ?? storeVisit);
 
   // Pull the unlocked location once the visit is accepted.
   useEffect(() => {
@@ -146,6 +176,16 @@ export default function VisitDetailScreen() {
     if (!visit?.landlordPhone) return;
     Linking.openURL(`tel:${visit.landlordPhone}`).catch(() => {});
   }, [visit]);
+
+  // Skeleton while the real joined row loads — never flash dummy text.
+  if (loading && !hasRealDetails) {
+    return (
+      <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
+        <DetailHeader title="Visit Details" />
+        <VisitDetailSkeleton />
+      </SafeAreaView>
+    );
+  }
 
   if (!visit) {
     return (
@@ -220,7 +260,7 @@ export default function VisitDetailScreen() {
                 </VStack>
               ) : null}
 
-              <HostRow name={hostName} />
+              <HostRow name={hostName} avatarUrl={v.landlordAvatarUrl} />
 
               <View style={styles.actions}>
                 <Button
@@ -289,6 +329,7 @@ export default function VisitDetailScreen() {
 
               <HostRow
                 name={hostName}
+                avatarUrl={v.landlordAvatarUrl}
                 phone={v.landlordPhone}
                 onCall={v.landlordPhone ? handleCallHost : undefined}
               />
@@ -389,10 +430,12 @@ export default function VisitDetailScreen() {
 
 const HostRow = ({
   name,
+  avatarUrl,
   phone,
   onCall,
 }: {
   name: string;
+  avatarUrl?: string | null;
   phone?: string | null;
   onCall?: () => void;
 }) => (
@@ -400,7 +443,11 @@ const HostRow = ({
     <SectionLabel label="Host" />
     <View style={styles.hostRow}>
       <View style={styles.avatar}>
-        <User size={14} color={c.icon} strokeWidth={1.75} />
+        {avatarUrl ? (
+          <Image source={{ uri: avatarUrl }} style={styles.avatarImg} resizeMode="cover" />
+        ) : (
+          <User size={14} color={c.icon} strokeWidth={1.75} />
+        )}
       </View>
       <View style={styles.hostBody}>
         <Text style={styles.hostName}>{name}</Text>
@@ -481,8 +528,13 @@ const styles = StyleSheet.create({
     height: 34,
     borderRadius: radius.pill,
     backgroundColor: c.cardBg,
+    overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  avatarImg: {
+    width: '100%',
+    height: '100%',
   },
   hostBody: { flex: 1, marginLeft: sp.base },
   hostName: {
