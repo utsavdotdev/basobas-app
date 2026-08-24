@@ -1,32 +1,65 @@
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Calendar, CheckCircle2, MapPin, Phone, X } from 'lucide-react-native';
 
 import { Avatar, ScreenShell, StatusPill } from '@/src/components/visit/LandlordUI';
 import { useVisitsStore } from '@/src/store/visitsStore';
+import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
+import { useAuthStore } from '@/src/store/authStore';
+import { getVisitRequest } from '@/src/services/visits.service';
+import { getPropertyWithUnlockedLocation } from '@/src/services/properties.service';
 import { c, font, radius, shadow } from '@/src/theme/visitTokens';
-import { dayLabel, type TimeSlot } from '@/src/types/property.types';
-
-const ADDRESS = 'Baluwatar Heights, Block B';
-const PHONE = '+977 98XX-XX1234';
-
-const SLOT_START: Record<TimeSlot, string> = {
-  MORNING: '9:00 AM',
-  AFTERNOON: '12:00 PM',
-  EVENING: '4:00 PM',
-};
+import {
+  dayLabel,
+  TIME_SLOT_LABELS,
+  type LandlordVisitRequest,
+  type PropertyUnlocked,
+} from '@/src/types/property.types';
 
 export default function DetailsSharedScreen() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
+  const supabase = useClerkSupabase();
+  const profile = useAuthStore((st) => st.profile);
 
-  const row = useVisitsStore((s) => s.landlordVisits.find((v) => v.id === id));
+  const storeRow = useVisitsStore((s) => s.landlordVisits.find((v) => v.id === id));
 
-  const name = row?.tenantName ?? 'the tenant';
+  // Store row paints instantly when navigated from share-details; the direct
+  // fetch covers cold deep-links where the store is empty.
+  const [visit, setVisit] = useState<LandlordVisitRequest | null>(storeRow ?? null);
+  const [property, setProperty] = useState<PropertyUnlocked | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    if (!id) return;
+    getVisitRequest(id, supabase).then((r) => {
+      if (!cancelled && r.success && r.data) setVisit(r.data);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [id, supabase]);
+
+  useEffect(() => {
+    let cancelled = false;
+    if (!visit?.propertyId) return;
+    getPropertyWithUnlockedLocation(visit.propertyId, supabase).then((detail) => {
+      if (!cancelled && detail.success) setProperty(detail.data);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [visit?.propertyId, supabase]);
+
+  const name = visit?.tenantName ?? 'the tenant';
   const firstName = name.split(' ')[0] ?? name;
-  const visitLine = row
-    ? `${dayLabel(row.requestedDate)} · ${SLOT_START[row.timeSlot]}`
-    : 'Tomorrow · 4:00 PM';
+  const visitLine = visit
+    ? `${dayLabel(visit.requestedDate)} · ${TIME_SLOT_LABELS[visit.timeSlot]}`
+    : '—';
+  const sharedAddress =
+    property?.locationAddress ?? property?.title ?? 'Your listing pin';
+  const phone = profile?.phone ?? 'No number on file';
 
   return (
     <ScreenShell title="Visit Accepted" showBack paddingBottom={48}>
@@ -41,19 +74,19 @@ export default function DetailsSharedScreen() {
         </View>
         <Text style={styles.headline}>Details sent to {firstName}</Text>
         <Text style={styles.subcopy}>
-          He&apos;ll get a notification with your pin location and contact number.
+          They&apos;ll get a notification with your pin location and contact number.
         </Text>
       </View>
 
-      {/* Summary card */}
+      {/* Tenant details card — same grammar as the Share Details screen */}
       <View style={styles.summaryCard}>
         <View style={styles.summaryHeader}>
-          <Avatar name={name} size={44} />
+          <Avatar name={name} size={48} />
           <View style={styles.summaryNameWrap}>
             <Text numberOfLines={1} style={styles.summaryName}>
               {name}
             </Text>
-            <Text style={styles.summaryVerified}>Verified Tenant</Text>
+            <Text style={styles.summarySub}>Requesting tenant</Text>
           </View>
           <StatusPill status="Accepted" />
         </View>
@@ -61,7 +94,7 @@ export default function DetailsSharedScreen() {
         <View style={styles.row}>
           <Calendar size={15} color={c.meta} strokeWidth={2} />
           <View style={styles.rowCopy}>
-            <Text style={styles.rowLabel}>Date &amp; Time</Text>
+            <Text style={styles.rowLabel}>Requested</Text>
             <Text style={styles.rowValue}>{visitLine}</Text>
           </View>
         </View>
@@ -71,11 +104,11 @@ export default function DetailsSharedScreen() {
           <View style={styles.rowCopy}>
             <Text style={styles.rowLabel}>Location</Text>
             <Text numberOfLines={1} style={styles.rowValue}>
-              {ADDRESS}
+              {sharedAddress}
             </Text>
           </View>
           <View style={styles.onBadge}>
-            <Text style={styles.onText}>ON</Text>
+            <Text style={styles.onText}>SHARED</Text>
           </View>
         </View>
 
@@ -83,10 +116,10 @@ export default function DetailsSharedScreen() {
           <Phone size={15} color={c.meta} strokeWidth={2} />
           <View style={styles.rowCopy}>
             <Text style={styles.rowLabel}>Contact</Text>
-            <Text style={styles.rowValue}>{PHONE}</Text>
+            <Text style={styles.rowValue}>{phone}</Text>
           </View>
           <View style={styles.onBadge}>
-            <Text style={styles.onText}>ON</Text>
+            <Text style={styles.onText}>SHARED</Text>
           </View>
         </View>
       </View>
@@ -145,6 +178,7 @@ const styles = StyleSheet.create({
   },
   subcopy: {
     marginTop: 8,
+    marginBottom: 24,
     fontFamily: font.sans,
     fontSize: 12,
     lineHeight: 18,
@@ -159,6 +193,8 @@ const styles = StyleSheet.create({
   summaryCard: {
     borderRadius: 20,
     backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: c.hairlineSoft,
     overflow: 'hidden',
     ...shadow.card,
   },
@@ -177,14 +213,14 @@ const styles = StyleSheet.create({
   },
   summaryName: {
     fontFamily: font.sansSemi,
-    fontSize: 13,
+    fontSize: 17,
     color: c.ink,
   },
-  summaryVerified: {
+  summarySub: {
     marginTop: 2,
     fontFamily: font.sans,
     fontSize: 11,
-    color: c.accent,
+    color: c.faint,
   },
   row: {
     flexDirection: 'row',

@@ -972,7 +972,7 @@ export type Database = {
           p_document_type: string;
           p_electricity_bill_path?: string;
           p_front_image_path: string;
-          p_home_tour_video_path?: string;
+          p_home_tour_video_path?: string | null;
         };
         Returns: {
           address_consistency_score: number | null;

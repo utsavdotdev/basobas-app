@@ -133,15 +133,17 @@ export async function submitKYC(
     homeTourVideoPath = videoResult.data.path
   }
 
-  // Insert DB record via SECURITY DEFINER RPC
+  // Insert DB record via SECURITY DEFINER RPC.
+  // `p_home_tour_video_path` is always sent — even as null. Omitting it
+  // (undefined) makes PostgREST unable to pick between overloads when an
+  // older signature lingers, failing the whole submission with PGRST203.
   const { data, error } = await supabase.rpc('insert_kyc_submission', {
     p_clerk_id:               clerkId,
     p_document_type:          documentType,
     p_front_image_path:       frontImagePath,
     p_back_image_path:        backImagePath,
-    // The RPC's DEFAULT NULL param types as `string | undefined`, not `| null`.
     p_electricity_bill_path:  electricityBillPath ?? undefined,
-    p_home_tour_video_path:   homeTourVideoPath ?? undefined,
+    p_home_tour_video_path:   homeTourVideoPath ?? null,
   })
 
   if (error) return err(`KYC DB failed: ${error.message}`)

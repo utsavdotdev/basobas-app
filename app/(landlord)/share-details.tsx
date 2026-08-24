@@ -1,21 +1,31 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ArrowRight, CheckCircle2, Copy, MapPin, Phone, ShieldCheck } from 'lucide-react-native';
+import {
+  ArrowRight,
+  Calendar,
+  Clock,
+  Copy,
+  MapPin,
+  Phone,
+} from 'lucide-react-native';
 
 import { AppMapView } from '@/src/components/map/AppMap';
-import { Avatar, ScreenShell, Toggle } from '@/src/components/visit/LandlordUI';
+import { Avatar, ScreenShell, StatusPill, Toggle } from '@/src/components/visit/LandlordUI';
 import { useVisitsStore } from '@/src/store/visitsStore';
 import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
 import { useAuthStore } from '@/src/store/authStore';
+import { getVisitRequest } from '@/src/services/visits.service';
 import { getPropertyWithUnlockedLocation } from '@/src/services/properties.service';
-import { c, font, radius, shadow } from '@/src/theme/visitTokens';
+import { c, font, shadow } from '@/src/theme/visitTokens';
 import {
   dayLabel,
   TIME_SLOT_LABELS,
+  type LandlordVisitRequest,
   type PropertyUnlocked,
-  type TimeSlot,
 } from '@/src/types/property.types';
+
+// ─── Screen ──────────────────────────────────────────────────────────────────
 
 export default function ShareDetailsScreen() {
   const router = useRouter();
@@ -23,31 +33,51 @@ export default function ShareDetailsScreen() {
   const supabase = useClerkSupabase();
   const profile = useAuthStore((st) => st.profile);
 
-  const row = useVisitsStore((s) => s.landlordVisits.find((v) => v.id === id));
+  const storeRow = useVisitsStore((s) => s.landlordVisits.find((v) => v.id === id));
 
   const [shareLocation, setShareLocation] = useState(true);
   const [shareContact, setShareContact] = useState(true);
+  // Store row gives an instant paint when navigated from the request screen;
+  // the direct fetch covers cold deep-links where the store is empty.
+  const [visit, setVisit] = useState<LandlordVisitRequest | null>(storeRow ?? null);
   const [property, setProperty] = useState<PropertyUnlocked | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    if (!id) return;
+
+    getVisitRequest(id, supabase).then((r) => {
+      if (!cancelled) {
+        if (r.success && r.data) setVisit(r.data);
+        else if (!r.success && !visit) setVisit(null);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, supabase]);
 
   // The landlord owns this property, so the private location tier is theirs
   // to see and choose to share.
   useEffect(() => {
     let cancelled = false;
-    if (!row?.propertyId) return;
-    getPropertyWithUnlockedLocation(row.propertyId, supabase).then((detail) => {
+    if (!visit?.propertyId) return;
+    getPropertyWithUnlockedLocation(visit.propertyId, supabase).then((detail) => {
       if (!cancelled && detail.success) setProperty(detail.data);
     });
     return () => {
       cancelled = true;
     };
-  }, [row?.propertyId, supabase]);
+  }, [visit?.propertyId, supabase]);
 
-  const name = row?.tenantName ?? 'the tenant';
+  const name = visit?.tenantName ?? 'this tenant';
   const firstName = name.split(' ')[0] ?? name;
-  const visitLine = row
-    ? `${dayLabel(row.requestedDate)} · ${TIME_SLOT_LABELS[row.timeSlot]}`
-    : '';
+  const visitDate = visit ? dayLabel(visit.requestedDate) : '—';
+  const visitSlot = visit ? TIME_SLOT_LABELS[visit.timeSlot] : '—';
   const phone = profile?.phone ?? null;
+  const hasPin = property?.locationLat != null && property?.locationLng != null;
 
   const canSend = shareLocation || shareContact;
 
@@ -55,135 +85,138 @@ export default function ShareDetailsScreen() {
     if (!canSend) return;
     router.push({
       pathname: '/(landlord)/share-confirmation',
-      params: { id: row?.id ?? '' },
+      params: { id: visit?.id ?? '' },
     } as any);
   };
 
   return (
     <ScreenShell title="Share Details" showBack paddingBottom={32}>
-      {/* Accepted banner */}
-      <View style={styles.banner}>
-        <View style={styles.bannerIcon}>
-          <CheckCircle2 size={18} color="#FFFFFF" strokeWidth={2.2} />
-        </View>
-        <View style={styles.bannerCopy}>
-          <Text style={styles.bannerTitle}>Visit accepted</Text>
-          {visitLine ? (
-            <Text style={styles.bannerMeta}>
-              {name} · {visitLine}
+      {/* ── Tenant hero ──────────────────────────────────────────────── */}
+      <View style={styles.heroCard}>
+        <View style={styles.heroTop}>
+          <Avatar name={name} size={48} />
+          <View style={styles.heroCopy}>
+            <Text numberOfLines={1} style={styles.heroName}>
+              {name}
             </Text>
-          ) : null}
+            <Text style={styles.heroSub}>Requesting tenant</Text>
+          </View>
+          <StatusPill status="Accepted" />
         </View>
+
+        {/* Bento tiles — date & slot */}
+        <View style={styles.tileRow}>
+          <View style={[styles.tile, styles.tileGap]}>
+            <Calendar size={15} color={c.meta} strokeWidth={2} />
+            <Text style={styles.tileLabel}>DATE</Text>
+            <Text numberOfLines={1} style={styles.tileValue}>
+              {visitDate}
+            </Text>
+          </View>
+          <View style={styles.tile}>
+            <Clock size={15} color={c.meta} strokeWidth={2} />
+            <Text style={styles.tileLabel}>TIME</Text>
+            <Text numberOfLines={1} style={styles.tileValue}>
+              {visitSlot}
+            </Text>
+          </View>
+        </View>
+
+        {visit?.note ? (
+          <View style={styles.noteBubble}>
+            <Text style={styles.noteText}>{visit.note}</Text>
+          </View>
+        ) : null}
       </View>
 
-      {/* Headline block — tight pair, spaced by the shell stack */}
-      <View>
-        <Text style={styles.headline}>Share with {firstName}</Text>
-        <Text style={styles.subcopy}>
-          Choose what to send so {firstName} can find the place and reach you.
-        </Text>
-      </View>
-
-      {/* Location card */}
+      {/* ── Location bento card ──────────────────────────────────────── */}
       <View style={styles.card}>
         <View style={styles.cardHeader}>
-          <View style={styles.cardIcon}>
-            <MapPin size={16} color={c.accent} strokeWidth={2} />
+          <View style={styles.iconChip}>
+            <MapPin size={15} color={c.ink} strokeWidth={2} />
           </View>
           <View style={styles.cardHeaderCopy}>
             <Text style={styles.cardTitle}>Pin location</Text>
-            <Text style={styles.cardDesc}>Exact GPS pin to the building entrance.</Text>
+            <Text style={styles.cardDesc}>Exact pin to the entrance.</Text>
           </View>
           <Toggle on={shareLocation} onToggle={() => setShareLocation((v) => !v)} />
         </View>
 
         {shareLocation ? (
-          <View style={styles.mapBlock}>
-            {property?.locationLat != null && property?.locationLng != null ? (
-              <View style={styles.mapPreview}>
+          <View style={styles.cardBody}>
+            {hasPin ? (
+              <View style={styles.mapWrap}>
                 <AppMapView
-                  style={{ height: 130, width: '100%' }}
+                  style={{ height: 120, width: '100%' }}
                   cameraPosition={{
-                    latitude: property.locationLat,
-                    longitude: property.locationLng,
+                    latitude: property!.locationLat!,
+                    longitude: property!.locationLng!,
                     zoom: 15,
                   }}
                   markers={[
                     {
                       id: 'property',
-                      latitude: property.locationLat,
-                      longitude: property.locationLng,
-                      title: property.title ?? undefined,
+                      latitude: property!.locationLat!,
+                      longitude: property!.locationLng!,
+                      title: property!.title ?? undefined,
                     },
                   ]}
                 />
               </View>
             ) : (
-              <View style={[styles.mapPreview, styles.mapPreviewEmpty]}>
-                <MapPin size={20} color={c.faint} strokeWidth={2} />
+              <View style={[styles.mapWrap, styles.mapEmpty]}>
+                <MapPin size={18} color={c.faint} strokeWidth={2} />
                 <Text style={styles.mapEmptyText}>No map pin set yet</Text>
               </View>
             )}
-            <Text style={styles.addressTitle}>
+            <Text numberOfLines={1} style={styles.addressMain}>
               {property?.locationAddress ?? property?.title ?? 'Address not set'}
             </Text>
             <Text style={styles.addressSub}>
               {property?.locationAddress
                 ? property.locationArea
-                : 'Add an exact address to your listing to share a precise pin.'}
+                : 'Add an exact address to your listing for a precise pin.'}
             </Text>
           </View>
         ) : null}
       </View>
 
-      {/* Contact card */}
+      {/* ── Contact bento card ───────────────────────────────────────── */}
       <View style={styles.card}>
         <View style={styles.cardHeader}>
-          <View style={styles.cardIcon}>
-            <Phone size={16} color={c.accent} strokeWidth={2} />
+          <View style={styles.iconChip}>
+            <Phone size={15} color={c.ink} strokeWidth={2} />
           </View>
           <View style={styles.cardHeaderCopy}>
             <Text style={styles.cardTitle}>Contact number</Text>
-            <Text style={styles.cardDesc}>Tenant can call you to coordinate.</Text>
+            <Text style={styles.cardDesc}>So they can call to coordinate.</Text>
           </View>
           <Toggle on={shareContact} onToggle={() => setShareContact((v) => !v)} />
         </View>
 
         {shareContact ? (
-          <View style={styles.phonePanel}>
-            <View style={styles.phoneCopy}>
-              <Text style={styles.phoneLabel}>Primary number</Text>
+          <View style={styles.cardBody}>
+            <View style={styles.phonePanel}>
               <Text style={styles.phoneValue}>{phone ?? 'No number on file'}</Text>
+              <TouchableOpacity
+                onPress={() => {}}
+                activeOpacity={0.7}
+                accessibilityRole="button"
+                accessibilityLabel="Copy phone number"
+                style={styles.copyBtn}>
+                <Copy size={13} color={c.meta} strokeWidth={2} />
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              onPress={() => {}}
-              activeOpacity={0.7}
-              accessibilityRole="button"
-              accessibilityLabel="Copy phone number"
-              style={styles.copyBtn}>
-              <Copy size={13} color={c.ink} strokeWidth={2} />
-            </TouchableOpacity>
           </View>
         ) : null}
       </View>
 
-      {/* Sharing with */}
-      <View style={styles.sharingPanel}>
-        <Avatar name={name} size={36} />
-        <Text style={styles.sharingText}>
-          Sharing with <Text style={styles.sharingName}>{name}</Text>
-        </Text>
-      </View>
+      {/* ── Privacy microcopy ────────────────────────────────────────── */}
+      <Text style={styles.privacyText}>
+        Details stay private to this tenant for the visit window · revoke anytime.
+      </Text>
 
-      {/* Privacy note */}
-      <View style={styles.privacyRow}>
-        <ShieldCheck size={12} color={c.accent} strokeWidth={2.2} />
-        <Text style={styles.privacyText}>
-          Details stay private to this tenant for the visit window. You can revoke anytime.
-        </Text>
-      </View>
-
-      {/* Send */}
+      {/* ── Send ─────────────────────────────────────────────────────── */}
       <TouchableOpacity
         onPress={handleSend}
         disabled={!canSend}
@@ -192,59 +225,90 @@ export default function ShareDetailsScreen() {
         accessibilityLabel={`Send to ${firstName}`}
         style={[styles.sendBtn, !canSend && styles.sendDisabled]}>
         <Text style={styles.sendText}>Send to {firstName}</Text>
-        <ArrowRight size={16} color="#FFFFFF" strokeWidth={2} />
+        <ArrowRight size={15} color="#FFFFFF" strokeWidth={2.2} />
       </TouchableOpacity>
     </ScreenShell>
   );
 }
 
+// ─── Styles ──────────────────────────────────────────────────────────────────
+
 const styles = StyleSheet.create({
-  banner: {
+  heroCard: {
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: c.hairlineSoft,
+    padding: 16,
+    ...shadow.card,
+  },
+  heroTop: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 18,
-    backgroundColor: c.greenBg,
-    padding: 14,
   },
-  bannerIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: c.accent,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  bannerCopy: {
+  heroCopy: {
     flex: 1,
     minWidth: 0,
     marginLeft: 12,
+    marginRight: 10,
   },
-  bannerTitle: {
+  heroName: {
+    fontFamily: font.sansSemi,
+    fontSize: 17,
+    color: c.ink,
+  },
+  heroSub: {
+    marginTop: 2,
+    fontFamily: font.sans,
+    fontSize: 11,
+    color: c.faint,
+  },
+  tileRow: {
+    flexDirection: 'row',
+    marginTop: 14,
+  },
+  tile: {
+    flex: 1,
+    borderRadius: 14,
+    backgroundColor: c.surfaceGrey,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+  },
+  tileGap: {
+    marginRight: 10,
+  },
+  tileLabel: {
+    marginTop: 8,
+    fontFamily: font.sansSemi,
+    fontSize: 9,
+    letterSpacing: 0.8,
+    color: c.faint,
+  },
+  tileValue: {
+    marginTop: 3,
     fontFamily: font.sansSemi,
     fontSize: 13,
     color: c.ink,
   },
-  bannerMeta: {
-    marginTop: 2,
-    fontFamily: font.sans,
-    fontSize: 11,
-    color: c.accent,
+  noteBubble: {
+    marginTop: 12,
+    borderRadius: 14,
+    backgroundColor: c.surfaceAlt,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
   },
-  headline: {
-    fontFamily: font.serif,
-    fontSize: 22,
-    color: c.ink,
-  },
-  subcopy: {
-    marginTop: 6,
+  noteText: {
     fontFamily: font.sans,
     fontSize: 12,
     lineHeight: 18,
-    color: c.meta,
+    color: c.inkSub,
   },
   card: {
+    marginTop: 12,
     borderRadius: 20,
     backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: c.hairlineSoft,
     padding: 16,
     ...shadow.card,
   },
@@ -252,11 +316,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  cardIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: c.greenBg,
+  iconChip: {
+    width: 36,
+    height: 36,
+    borderRadius: 12,
+    backgroundColor: c.surfaceGrey,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -264,7 +328,7 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
     marginLeft: 12,
-    marginRight: 12,
+    marginRight: 10,
   },
   cardTitle: {
     fontFamily: font.sansSemi,
@@ -277,16 +341,16 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: c.meta,
   },
-  mapBlock: {
-    marginTop: 16,
+  cardBody: {
+    marginTop: 14,
   },
-  mapPreview: {
-    height: 130,
+  mapWrap: {
+    height: 120,
     borderRadius: 14,
     overflow: 'hidden',
   },
-  mapPreviewEmpty: {
-    backgroundColor: '#E0E6DC',
+  mapEmpty: {
+    backgroundColor: c.surfaceGrey,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -296,40 +360,33 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: c.faint,
   },
-  addressTitle: {
+  addressMain: {
     marginTop: 12,
     fontFamily: font.sansSemi,
-    fontSize: 11,
+    fontSize: 13,
     color: c.ink,
   },
   addressSub: {
     marginTop: 2,
     fontFamily: font.sans,
     fontSize: 11,
+    lineHeight: 16,
     color: c.meta,
   },
   phonePanel: {
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 14,
-    backgroundColor: c.surfaceAlt,
-    padding: 12,
-    marginTop: 16,
-  },
-  phoneCopy: {
-    flex: 1,
-    minWidth: 0,
-  },
-  phoneLabel: {
-    fontFamily: font.sans,
-    fontSize: 10,
-    color: c.faint,
+    backgroundColor: c.surfaceGrey,
+    paddingLeft: 14,
+    paddingRight: 8,
+    paddingVertical: 8,
   },
   phoneValue: {
-    marginTop: 3,
+    flex: 1,
     fontFamily: font.sansSemi,
     fontSize: 15,
-    letterSpacing: 0.5,
+    letterSpacing: 0.4,
     color: c.ink,
   },
   copyBtn: {
@@ -341,41 +398,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     ...shadow.card,
   },
-  sharingPanel: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 18,
-    backgroundColor: c.surfaceAlt,
-    padding: 12,
-  },
-  sharingText: {
-    flex: 1,
-    minWidth: 0,
-    marginLeft: 12,
-    fontFamily: font.sans,
-    fontSize: 12,
-    color: c.meta,
-  },
-  sharingName: {
-    fontFamily: font.sansSemi,
-    color: c.ink,
-  },
-  privacyRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    paddingHorizontal: 4,
-  },
   privacyText: {
-    flex: 1,
-    marginLeft: 8,
+    alignSelf: 'center',
+    textAlign: 'center',
+    marginTop: 14,
+    marginHorizontal: 8,
     fontFamily: font.sans,
     fontSize: 10,
     lineHeight: 15,
-    color: '#888888',
+    color: '#9A9A9A',
   },
   sendBtn: {
-    height: 48,
-    borderRadius: radius.pill,
+    marginTop: 14,
+    height: 50,
+    borderRadius: 999,
     backgroundColor: c.ink,
     flexDirection: 'row',
     alignItems: 'center',

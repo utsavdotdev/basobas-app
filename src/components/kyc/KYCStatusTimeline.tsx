@@ -26,6 +26,8 @@ interface Props {
   status: KYCStatus;
   submittedAt: string;
   reviewedAt?: string | null;
+  /** When the final decision landed — rendered under the Decision node. */
+  decidedAt?: string | null;
 }
 
 const resolveActiveStep = (status: KYCStatus): StepKey => {
@@ -64,12 +66,14 @@ export const KYCStatusTimeline: React.FC<Props> = ({
   status,
   submittedAt,
   reviewedAt,
+  decidedAt,
 }) => {
   const active = resolveActiveStep(status);
   const isRejected = status === 'REJECTED';
 
   const submittedLabel = formatTime(submittedAt);
   const reviewedLabel = formatTime(reviewedAt ?? null);
+  const decidedLabel = formatTime(decidedAt ?? null);
 
   const completedSet = new Set<StepKey>();
   if (active === 'review') {
@@ -138,6 +142,9 @@ export const KYCStatusTimeline: React.FC<Props> = ({
               <Text style={styles.timestamp}>
                 {step.key === 'submitted' && submittedLabel ? submittedLabel : ' '}
                 {step.key === 'review' && reviewedLabel ? reviewedLabel : ' '}
+                {step.key === 'decision' && (active === 'decision' || isRejected)
+                  ? `${isRejected ? 'Rejected' : 'Approved'}${decidedLabel ? ` · ${decidedLabel}` : ''}`
+                  : ' '}
               </Text>
             </View>
           </React.Fragment>

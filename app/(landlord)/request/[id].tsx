@@ -31,6 +31,7 @@ import {
 } from '@/src/components/visit/LandlordUI';
 import { useVisitsStore } from '@/src/store/visitsStore';
 import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
+import { getUserKYCStatusUi } from '@/src/services/kyc.service';
 import { c, font, radius, shadow } from '@/src/theme/visitTokens';
 import { TIME_SLOT_LABELS, dayLabel, formatVisitDate } from '@/src/types/property.types';
 import type { LandlordFollowUpOutcome, LandlordRequestUi } from '@/src/types/property.types';
@@ -90,6 +91,7 @@ export default function RequestDetailScreen() {
 
   const [busy, setBusy] = useState(false);
   const [confirmFinalize, setConfirmFinalize] = useState(false);
+  const [tenantVerified, setTenantVerified] = useState(false);
 
   useEffect(() => {
     if (id && landlordVisits.length === 0 && user?.id) {
@@ -97,6 +99,20 @@ export default function RequestDetailScreen() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, user?.id]);
+
+  // The verified badge is earned, not decorative — resolve the requesting
+  // tenant's KYC state so it only renders for actually-verified tenants.
+  useEffect(() => {
+    let cancelled = false;
+    setTenantVerified(false);
+    if (!row?.tenantId) return;
+    getUserKYCStatusUi(row.tenantId, supabase).then((r) => {
+      if (!cancelled && r.success) setTenantVerified(r.data === 'verified');
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [row?.tenantId, supabase]);
 
   const handleAccept = useCallback(async () => {
     if (!row || busy) return;
@@ -181,7 +197,7 @@ export default function RequestDetailScreen() {
             <Text numberOfLines={1} style={styles.applicantName}>
               {row.tenantName ?? 'A tenant'}
             </Text>
-            <BadgeCheck size={16} color={c.accent} strokeWidth={2} />
+            {tenantVerified && <BadgeCheck size={16} color={c.accent} strokeWidth={2} />}
           </View>
           <Text style={styles.applicantMeta}>
             {row.propertyTitle ? `${row.propertyTitle} · ` : ''}Requested{' '}
@@ -308,7 +324,7 @@ export default function RequestDetailScreen() {
         </View>
       ) : null}
 
-      {/* Actions — accept/decline on new requests; suggest-time also on accepted */}
+      {/* Actions — stacked full-width: accept / suggest time / decline */}
       {isPending || canSuggestTime ? (
         <View style={styles.actions}>
           {isPending ? (
@@ -327,32 +343,31 @@ export default function RequestDetailScreen() {
             </TouchableOpacity>
           ) : null}
 
-          <View style={[styles.actionRow, !isPending && styles.soloActionRow]}>
-            {canSuggestTime ? (
-              <TouchableOpacity
-                onPress={handleReschedule}
-                disabled={busy}
-                activeOpacity={0.8}
-                accessibilityRole="button"
-                accessibilityLabel="Suggest a different time"
-                style={[styles.secondaryBtn, styles.rescheduleBtn]}>
-                <RefreshCw size={14} color={c.ink} strokeWidth={2} />
-                <Text style={styles.secondaryBtnText}>Suggest Different Time</Text>
-              </TouchableOpacity>
-            ) : null}
-            {isPending ? (
-              <TouchableOpacity
-                onPress={handleDecline}
-                disabled={busy}
-                activeOpacity={0.8}
-                accessibilityRole="button"
-                accessibilityLabel="Decline request"
-                style={[styles.secondaryBtn, styles.declineBtn]}>
-                <X size={15} color="#C0392B" strokeWidth={2.2} />
-                <Text style={styles.declineBtnText}>Decline</Text>
-              </TouchableOpacity>
-            ) : null}
-          </View>
+          {canSuggestTime ? (
+            <TouchableOpacity
+              onPress={handleReschedule}
+              disabled={busy}
+              activeOpacity={0.8}
+              accessibilityRole="button"
+              accessibilityLabel="Suggest a different time"
+              style={[styles.secondaryBtn, styles.rescheduleBtn, styles.stackGap, busy && styles.disabled]}>
+              <RefreshCw size={14} color={c.ink} strokeWidth={2} />
+              <Text style={styles.secondaryBtnText}>Suggest Different Time</Text>
+            </TouchableOpacity>
+          ) : null}
+
+          {isPending ? (
+            <TouchableOpacity
+              onPress={handleDecline}
+              disabled={busy}
+              activeOpacity={0.8}
+              accessibilityRole="button"
+              accessibilityLabel="Decline request"
+              style={[styles.secondaryBtn, styles.declineBtn, styles.stackGap, busy && styles.disabled]}>
+              <X size={15} color="#C0392B" strokeWidth={2.2} />
+              <Text style={styles.declineBtnText}>Decline</Text>
+            </TouchableOpacity>
+          ) : null}
         </View>
       ) : null}
 
@@ -622,28 +637,22 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#FFFFFF',
   },
-  actionRow: {
-    flexDirection: 'row',
-    marginTop: 10,
-  },
-  soloActionRow: {
-    marginTop: 0,
-  },
   secondaryBtn: {
     height: 48,
     borderRadius: radius.pill,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+    paddingHorizontal: 16,
   },
   rescheduleBtn: {
-    flex: 1,
     backgroundColor: c.surfaceGrey,
-    marginRight: 10,
   },
   declineBtn: {
-    flex: 1,
     backgroundColor: '#FDECEC',
+  },
+  stackGap: {
+    marginTop: 10,
   },
   secondaryBtnText: {
     fontFamily: font.sansSemi,
