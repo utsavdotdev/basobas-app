@@ -162,6 +162,10 @@ export default function RequestDetailScreen() {
   }
 
   const isPending = row.uiStatus === 'new';
+  // Accepted visits can also be countered: the tenant may propose a new time
+  // on an accepted visit, and the reschedule RPC accepts any non-final state.
+  const canSuggestTime =
+    (row.uiStatus === 'new' || row.uiStatus === 'upcoming') && row.rescheduleCount < 3;
   const isRescheduled = row.uiStatus === 'rescheduled';
   const isFollowUp = row.uiStatus === 'completed' || row.uiStatus === 'discussion';
   const isTerminal = ['finalized', 'cancelled', 'rejected'].includes(row.uiStatus);
@@ -304,44 +308,50 @@ export default function RequestDetailScreen() {
         </View>
       ) : null}
 
-      {/* Actions — pending only */}
-      {isPending ? (
+      {/* Actions — accept/decline on new requests; suggest-time also on accepted */}
+      {isPending || canSuggestTime ? (
         <View style={styles.actions}>
-          <TouchableOpacity
-            onPress={handleAccept}
-            disabled={busy}
-            activeOpacity={0.85}
-            accessibilityRole="button"
-            accessibilityLabel="Accept and share details"
-            style={[styles.acceptBtn, busy && styles.disabled]}>
-            {busy ? (
-              <ActivityIndicator size="small" color="#FFFFFF" />
-            ) : (
-              <Text style={styles.acceptBtnText}>Accept & Share Details</Text>
-            )}
-          </TouchableOpacity>
+          {isPending ? (
+            <TouchableOpacity
+              onPress={handleAccept}
+              disabled={busy}
+              activeOpacity={0.85}
+              accessibilityRole="button"
+              accessibilityLabel="Accept and share details"
+              style={[styles.acceptBtn, busy && styles.disabled]}>
+              {busy ? (
+                <ActivityIndicator size="small" color="#FFFFFF" />
+              ) : (
+                <Text style={styles.acceptBtnText}>Accept & Share Details</Text>
+              )}
+            </TouchableOpacity>
+          ) : null}
 
-          <View style={styles.actionRow}>
-            <TouchableOpacity
-              onPress={handleReschedule}
-              disabled={busy}
-              activeOpacity={0.8}
-              accessibilityRole="button"
-              accessibilityLabel="Reschedule"
-              style={[styles.secondaryBtn, styles.rescheduleBtn]}>
-              <RefreshCw size={14} color={c.ink} strokeWidth={2} />
-              <Text style={styles.secondaryBtnText}>Reschedule</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={handleDecline}
-              disabled={busy}
-              activeOpacity={0.8}
-              accessibilityRole="button"
-              accessibilityLabel="Decline request"
-              style={[styles.secondaryBtn, styles.declineBtn]}>
-              <X size={15} color="#C0392B" strokeWidth={2.2} />
-              <Text style={styles.declineBtnText}>Decline</Text>
-            </TouchableOpacity>
+          <View style={[styles.actionRow, !isPending && styles.soloActionRow]}>
+            {canSuggestTime ? (
+              <TouchableOpacity
+                onPress={handleReschedule}
+                disabled={busy}
+                activeOpacity={0.8}
+                accessibilityRole="button"
+                accessibilityLabel="Suggest a different time"
+                style={[styles.secondaryBtn, styles.rescheduleBtn]}>
+                <RefreshCw size={14} color={c.ink} strokeWidth={2} />
+                <Text style={styles.secondaryBtnText}>Suggest Different Time</Text>
+              </TouchableOpacity>
+            ) : null}
+            {isPending ? (
+              <TouchableOpacity
+                onPress={handleDecline}
+                disabled={busy}
+                activeOpacity={0.8}
+                accessibilityRole="button"
+                accessibilityLabel="Decline request"
+                style={[styles.secondaryBtn, styles.declineBtn]}>
+                <X size={15} color="#C0392B" strokeWidth={2.2} />
+                <Text style={styles.declineBtnText}>Decline</Text>
+              </TouchableOpacity>
+            ) : null}
           </View>
         </View>
       ) : null}
@@ -615,6 +625,9 @@ const styles = StyleSheet.create({
   actionRow: {
     flexDirection: 'row',
     marginTop: 10,
+  },
+  soloActionRow: {
+    marginTop: 0,
   },
   secondaryBtn: {
     height: 48,

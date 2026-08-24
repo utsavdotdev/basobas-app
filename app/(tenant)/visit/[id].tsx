@@ -334,6 +334,19 @@ export default function VisitDetailScreen() {
                 onCall={v.landlordPhone ? handleCallHost : undefined}
               />
 
+              {/* The landlord may counter-propose, so the tenant can too. */}
+              <Button
+                variant="outline"
+                onPress={() =>
+                  router.push({
+                    pathname: '/(tenant)/visit/reschedule',
+                    params: { visitId: v.id },
+                  } as any)
+                }
+                disabled={busy}>
+                Propose a New Time
+              </Button>
+
               <Button variant="link" onPress={handleCancel} disabled={busy}>
                 Cancel Visit
               </Button>
@@ -390,6 +403,19 @@ export default function VisitDetailScreen() {
                   Accept New Time
                 </Button>
               </View>
+
+              {/* Counter-propose instead of accepting or declining outright. */}
+              <Button
+                variant="link"
+                onPress={() =>
+                  router.push({
+                    pathname: '/(tenant)/visit/reschedule',
+                    params: { visitId: v.id },
+                  } as any)
+                }
+                disabled={busy}>
+                Propose a Different Time
+              </Button>
             </VStack>
           )}
 

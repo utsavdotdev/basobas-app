@@ -1,35 +1,53 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { ArrowRight, CheckCircle2, Copy, MapPin, Phone, ShieldCheck } from 'lucide-react-native';
 
+import { AppMapView } from '@/src/components/map/AppMap';
 import { Avatar, ScreenShell, Toggle } from '@/src/components/visit/LandlordUI';
 import { useVisitsStore } from '@/src/store/visitsStore';
+import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
+import { useAuthStore } from '@/src/store/authStore';
+import { getPropertyWithUnlockedLocation } from '@/src/services/properties.service';
 import { c, font, radius, shadow } from '@/src/theme/visitTokens';
-import { dayLabel, type TimeSlot } from '@/src/types/property.types';
-
-const ADDRESS = 'Baluwatar Heights, Block B';
-const ADDRESS_SUB = 'Ward 4, Kathmandu · Behind Saraswati School';
-const PHONE = '+977 98XX-XX1234';
-
-const SLOT_START: Record<TimeSlot, string> = {
-  MORNING: '9:00 AM',
-  AFTERNOON: '12:00 PM',
-  EVENING: '4:00 PM',
-};
+import {
+  dayLabel,
+  TIME_SLOT_LABELS,
+  type PropertyUnlocked,
+  type TimeSlot,
+} from '@/src/types/property.types';
 
 export default function ShareDetailsScreen() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
+  const supabase = useClerkSupabase();
+  const profile = useAuthStore((st) => st.profile);
 
   const row = useVisitsStore((s) => s.landlordVisits.find((v) => v.id === id));
 
   const [shareLocation, setShareLocation] = useState(true);
   const [shareContact, setShareContact] = useState(true);
+  const [property, setProperty] = useState<PropertyUnlocked | null>(null);
+
+  // The landlord owns this property, so the private location tier is theirs
+  // to see and choose to share.
+  useEffect(() => {
+    let cancelled = false;
+    if (!row?.propertyId) return;
+    getPropertyWithUnlockedLocation(row.propertyId, supabase).then((detail) => {
+      if (!cancelled && detail.success) setProperty(detail.data);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [row?.propertyId, supabase]);
 
   const name = row?.tenantName ?? 'the tenant';
   const firstName = name.split(' ')[0] ?? name;
-  const visitLine = row ? `${dayLabel(row.requestedDate)} · ${SLOT_START[row.timeSlot]}` : '';
+  const visitLine = row
+    ? `${dayLabel(row.requestedDate)} · ${TIME_SLOT_LABELS[row.timeSlot]}`
+    : '';
+  const phone = profile?.phone ?? null;
 
   const canSend = shareLocation || shareContact;
 
@@ -81,18 +99,39 @@ export default function ShareDetailsScreen() {
 
         {shareLocation ? (
           <View style={styles.mapBlock}>
-            <View style={styles.mapPreview}>
-              <View style={[styles.street, styles.streetWide, { top: '33%' }]} />
-              <View style={[styles.street, styles.streetWide, { top: '66%' }]} />
-              <View style={[styles.street, styles.streetThin, { left: '25%' }]} />
-              <View style={[styles.street, styles.streetThin, { left: '50%' }]} />
-              <View style={styles.mapPin}>
-                <MapPin size={16} color="#FFFFFF" strokeWidth={2.2} />
+            {property?.locationLat != null && property?.locationLng != null ? (
+              <View style={styles.mapPreview}>
+                <AppMapView
+                  style={{ height: 130, width: '100%' }}
+                  cameraPosition={{
+                    latitude: property.locationLat,
+                    longitude: property.locationLng,
+                    zoom: 15,
+                  }}
+                  markers={[
+                    {
+                      id: 'property',
+                      latitude: property.locationLat,
+                      longitude: property.locationLng,
+                      title: property.title ?? undefined,
+                    },
+                  ]}
+                />
               </View>
-              <View style={styles.mapPinDot} />
-            </View>
-            <Text style={styles.addressTitle}>{ADDRESS}</Text>
-            <Text style={styles.addressSub}>{ADDRESS_SUB}</Text>
+            ) : (
+              <View style={[styles.mapPreview, styles.mapPreviewEmpty]}>
+                <MapPin size={20} color={c.faint} strokeWidth={2} />
+                <Text style={styles.mapEmptyText}>No map pin set yet</Text>
+              </View>
+            )}
+            <Text style={styles.addressTitle}>
+              {property?.locationAddress ?? property?.title ?? 'Address not set'}
+            </Text>
+            <Text style={styles.addressSub}>
+              {property?.locationAddress
+                ? property.locationArea
+                : 'Add an exact address to your listing to share a precise pin.'}
+            </Text>
           </View>
         ) : null}
       </View>
@@ -114,7 +153,7 @@ export default function ShareDetailsScreen() {
           <View style={styles.phonePanel}>
             <View style={styles.phoneCopy}>
               <Text style={styles.phoneLabel}>Primary number</Text>
-              <Text style={styles.phoneValue}>{PHONE}</Text>
+              <Text style={styles.phoneValue}>{phone ?? 'No number on file'}</Text>
             </View>
             <TouchableOpacity
               onPress={() => {}}
@@ -244,42 +283,18 @@ const styles = StyleSheet.create({
   mapPreview: {
     height: 130,
     borderRadius: 14,
-    backgroundColor: '#E0E6DC',
     overflow: 'hidden',
+  },
+  mapPreviewEmpty: {
+    backgroundColor: '#E0E6DC',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  street: {
-    position: 'absolute',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 2,
-  },
-  streetWide: {
-    height: 6,
-    left: 0,
-    right: 0,
-  },
-  streetThin: {
-    width: 3,
-    top: 0,
-    bottom: 0,
-  },
-  mapPin: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: c.ink,
-    borderWidth: 3,
-    borderColor: '#FFFFFF',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  mapPinDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: c.ink,
-    marginTop: -4,
+  mapEmptyText: {
+    marginTop: 6,
+    fontFamily: font.sans,
+    fontSize: 11,
+    color: c.faint,
   },
   addressTitle: {
     marginTop: 12,

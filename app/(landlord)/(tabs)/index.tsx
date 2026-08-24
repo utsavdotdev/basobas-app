@@ -2,7 +2,14 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity, RefreshControl } from 'react-native';
 import { useRouter, useFocusEffect } from 'expo-router';
 import { useUser } from '@clerk/expo';
-import { Home, Inbox, Star, Eye, ChevronRight, Plus, User } from 'lucide-react-native';
+import {
+  Home,
+  Inbox,
+  Star,
+  Eye,
+  ChevronRight,
+  User,
+} from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { LucideIcon } from 'lucide-react-native';
 
@@ -114,7 +121,7 @@ function AddNewListingButton({ onPress }: { onPress: () => void }) {
   );
 }
 
-// ─── Default demo data ──────────────────────────────────────────────────────
+// ─── Loading / empty state ───────────────────────────────────────────────────
 
 /** Shown while the first fetch is in flight, and if it fails. */
 const EMPTY_STATS: StatItem[] = [
