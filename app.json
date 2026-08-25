@@ -17,6 +17,15 @@
       "expo-font",
       "@clerk/expo",
       [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-logo.png",
+          "imageWidth": 180,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      [
         "expo-maps",
         {
           "requestLocationPermission": true,
@@ -27,11 +36,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#FBF9F4"
-    },
+    "backgroundColor": "#141416",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -45,7 +50,7 @@
       "package": "com.wcc.basobas",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#141416"
       },
       "config": {
         "googleMaps": {

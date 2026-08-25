@@ -49,6 +49,7 @@ export default function TenantLayout() {
       <Stack.Screen name="reviews/property/[id]" />
       <Stack.Screen name="reviews/write/[visitId]" />
       <Stack.Screen name="saved" />
+      <Stack.Screen name="settings" />
       <Stack.Screen name="visit/[id]" />
       <Stack.Screen name="visit/reschedule" />
       <Stack.Screen name="visit/follow-up" />

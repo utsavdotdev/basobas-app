@@ -11,7 +11,8 @@
     "test": "jest",
     "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
     "web": "expo start --web",
-    "release:android": "node scripts/release-android.mjs"
+    "release:android": "node scripts/release-android.mjs",
+    "preview:android": "npx expo run:android --variant release"
   },
   "dependencies": {
     "@clerk/expo": "^3.7.8",
