@@ -20,7 +20,12 @@ import { SectionLabel } from '@/src/components/visit/SectionLabel';
 import { Button } from '@/src/components/visit/Button';
 import { useVisitsStore } from '@/src/store/visitsStore';
 import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
-import { TIME_SLOT_LABELS, formatVisitDate } from '@/src/types/property.types';
+import {
+  FOLLOW_UP_RESPONSE_LABELS,
+  TIME_SLOT_LABELS,
+  formatVisitDate,
+  type FollowUpResponse,
+} from '@/src/types/property.types';
 
 // ─── Options ─────────────────────────────────────────────────────────────────
 
@@ -45,6 +50,7 @@ export default function PostVisitFollowUpScreen() {
   const visit = useVisitsStore((s) => s.tenantVisits.find((v) => v.id === visitId));
   const submitFollowUp = useVisitsStore((s) => s.submitFollowUp);
 
+  const [response, setResponse] = useState<FollowUpResponse | null>(null);
   const [rating, setRating] = useState(4);
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
   const [comment, setComment] = useState('');
@@ -60,19 +66,19 @@ export default function PostVisitFollowUpScreen() {
   }, []);
 
   const handleSubmit = useCallback(async () => {
-    if (!visitId) return;
+    if (!visitId || !response) return;
     setBusy(true);
-    // The review maps to the tenant being interested; the written comment is
-    // persisted as the follow-up note. (Ratings/tags have no backend column
-    // yet — they stay local to the form.)
-    const ok = await submitFollowUp(visitId, 'interested', comment.trim() || null, supabase);
+    // The chosen response drives the visit status server-side; the written
+    // comment rides along as the follow-up note. (Ratings/tags stay local
+    // until a reviews table exists.)
+    const ok = await submitFollowUp(visitId, response, comment.trim() || null, supabase);
     setBusy(false);
     if (!ok) {
       Alert.alert('Could not submit', 'Please try again.');
       return;
     }
     router.back();
-  }, [visitId, comment, submitFollowUp, supabase, router]);
+  }, [visitId, response, comment, submitFollowUp, supabase, router]);
 
   const timeLabel = visit ? TIME_SLOT_LABELS[visit.timeSlot] : null;
 
@@ -115,8 +121,34 @@ export default function PostVisitFollowUpScreen() {
           {/* Moment */}
           <View style={styles.moment}>
             <Text style={styles.momentTitle}>How was your visit?</Text>
-            <Text style={styles.momentSub}>Your feedback helps future tenants</Text>
+            <Text style={styles.momentSub}>Tell us where things stand</Text>
           </View>
+
+          {/* Response options — drive the visit status server-side */}
+          <VStack gap={sp.base}>
+            {(
+              Object.entries(FOLLOW_UP_RESPONSE_LABELS) as [FollowUpResponse, string][]
+            ).map(([value, label]) => {
+              const active = response === value;
+              return (
+                <Pressable
+                  key={value}
+                  onPress={() => setResponse(value)}
+                  style={[styles.responseOption, active && styles.responseOptionActive]}
+                  accessibilityRole="radio"
+                  accessibilityState={{ selected: active }}
+                  accessibilityLabel={label}>
+                  <Text
+                    style={[
+                      styles.responseText,
+                      active && styles.responseTextActive,
+                    ]}>
+                    {label}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </VStack>
 
           {/* Star rating */}
           <View style={styles.stars} accessibilityRole="radiogroup">
@@ -176,8 +208,8 @@ export default function PostVisitFollowUpScreen() {
 
           {/* Actions */}
           <View style={styles.actions}>
-            <Button variant="accent" onPress={handleSubmit} disabled={busy}>
-              Submit Review
+            <Button variant="accent" onPress={handleSubmit} disabled={busy || !response}>
+              Submit
             </Button>
             <Button
               variant="link"
@@ -204,6 +236,26 @@ const styles = StyleSheet.create({
     paddingBottom: 60,
   },
   // Reference row
+  responseOption: {
+    borderWidth: 1.5,
+    borderColor: c.border,
+    borderRadius: radius.control,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+  },
+  responseOptionActive: {
+    borderColor: c.accent,
+    backgroundColor: c.greenBg,
+  },
+  responseText: {
+    fontFamily: font.sans,
+    fontSize: 15,
+    color: c.body,
+  },
+  responseTextActive: {
+    fontFamily: font.sansSemi,
+    color: c.accent,
+  },
   reference: {
     flexDirection: 'row',
     alignItems: 'center',

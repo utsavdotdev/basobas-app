@@ -7,9 +7,11 @@ import {
   declineReschedule,
   finalizeRental,
   getVisitRequestsForTenant,
+  markPastVisitsCompleted,
   rejectVisit,
   rescheduleVisit,
   submitFollowUp,
+  submitLandlordFollowUp,
 } from '@/src/services/visits.service';
 import {
   toLandlordRequestUi,
@@ -37,7 +39,7 @@ const TRANSITIONS: Record<VisitStatus, VisitStatus[]> = {
   REJECTED: [],
   CANCELLED_BY_TENANT: [],
   CLOSED: [],
-  VISIT_COMPLETED: ['DISCUSSION_ONGOING', 'RENTAL_FINALIZED'],
+  VISIT_COMPLETED: ['DISCUSSION_ONGOING', 'RENTAL_FINALIZED', 'CLOSED', 'PENDING'],
   DISCUSSION_ONGOING: ['RENTAL_FINALIZED', 'CLOSED'],
   RENTAL_FINALIZED: [],
 };
@@ -230,8 +232,7 @@ export const useVisitsStore = create<VisitsState>((set, get) => ({
         status: partial.status,
         statusUi,
         statusLabel: existing?.statusLabel ?? 'Pending Approval',
-        requestedDate: partial.requestedDate,
-        timeSlot: partial.timeSlot ?? existing?.timeSlot ?? 'MORNING',
+        requestedDate: partial.requestedDate,        timeSlot: partial.timeSlot ?? existing?.timeSlot ?? 'MORNING',
         note: partial.note ?? existing?.note ?? null,
         rescheduleCount: partial.rescheduleCount ?? existing?.rescheduleCount ?? 0,
         landlordResponseNote:
@@ -244,6 +245,12 @@ export const useVisitsStore = create<VisitsState>((set, get) => ({
         tenantFollowUpResponse:
           partial.tenantFollowUpResponse ?? existing?.tenantFollowUpResponse ?? null,
         tenantFollowUpNote: partial.tenantFollowUpNote ?? existing?.tenantFollowUpNote ?? null,
+        tenantFollowUpAt: partial.tenantFollowUpAt ?? existing?.tenantFollowUpAt ?? null,
+        landlordFollowUpOutcome:
+          partial.landlordFollowUpOutcome ?? existing?.landlordFollowUpOutcome ?? null,
+        landlordFollowUpNote:
+          partial.landlordFollowUpNote ?? existing?.landlordFollowUpNote ?? null,
+        landlordFollowUpAt: partial.landlordFollowUpAt ?? existing?.landlordFollowUpAt ?? null,
         respondedAt: partial.respondedAt ?? existing?.respondedAt ?? null,
         completedAt: partial.completedAt ?? existing?.completedAt ?? null,
         createdAt: partial.createdAt ?? existing?.createdAt ?? new Date().toISOString(),
@@ -300,6 +307,12 @@ export const useVisitsStore = create<VisitsState>((set, get) => ({
         tenantFollowUpResponse:
           partial.tenantFollowUpResponse ?? existing?.tenantFollowUpResponse ?? null,
         tenantFollowUpNote: partial.tenantFollowUpNote ?? existing?.tenantFollowUpNote ?? null,
+        tenantFollowUpAt: partial.tenantFollowUpAt ?? existing?.tenantFollowUpAt ?? null,
+        landlordFollowUpOutcome:
+          partial.landlordFollowUpOutcome ?? existing?.landlordFollowUpOutcome ?? null,
+        landlordFollowUpNote:
+          partial.landlordFollowUpNote ?? existing?.landlordFollowUpNote ?? null,
+        landlordFollowUpAt: partial.landlordFollowUpAt ?? existing?.landlordFollowUpAt ?? null,
         respondedAt: partial.respondedAt ?? existing?.respondedAt ?? null,
         completedAt: partial.completedAt ?? existing?.completedAt ?? null,
         createdAt: partial.createdAt ?? existing?.createdAt ?? new Date().toISOString(),
@@ -476,29 +489,29 @@ export const useVisitsStore = create<VisitsState>((set, get) => ({
 
   landlordSubmitFollowUp: async (visitId, outcome, supabase) => {
     if (outcome === 'finalize_rental') {
+      // Full finalize path — closes siblings + flips the property to
+      // OCCUPIED via the finalize_rental RPC (optimistic UI included).
       return get().finalizeVisit(visitId, supabase);
     }
-    const next: Record<LandlordFollowUpOutcome, VisitStatus> = {
-      tenant_visited: 'DISCUSSION_ONGOING',
+    // Persisted via submit_landlord_follow_up; the server reconciles
+    // once the tenant has answered too. Until then the row stays
+    // VISIT_COMPLETED ("completed" in the landlord's tabs).
+    const next: Record<Exclude<LandlordFollowUpOutcome, 'finalize_rental'>, VisitStatus> = {
+      tenant_visited: 'VISIT_COMPLETED',
       tenant_did_not_visit: 'CLOSED',
-      discussion_ongoing: 'DISCUSSION_ONGOING',
-      finalize_rental: 'RENTAL_FINALIZED',
+      discussion_ongoing: 'VISIT_COMPLETED',
     };
-    const ui: Record<LandlordFollowUpOutcome, LandlordRow['uiStatus']> = {
-      tenant_visited: 'discussion',
+    const ui: Record<Exclude<LandlordFollowUpOutcome, 'finalize_rental'>, LandlordRow['uiStatus']> = {
+      tenant_visited: 'completed',
       tenant_did_not_visit: 'cancelled',
-      discussion_ongoing: 'discussion',
-      finalize_rental: 'finalized',
+      discussion_ongoing: 'completed',
     };
     return patchLandlord(
       set,
       get,
       visitId,
       { status: next[outcome], uiStatus: ui[outcome] },
-      // No bespoke service call — this is a local state transition until a
-      // dedicated RPC exists. The store still records the change so the UI
-      // updates synchronously.
-      async () => ({ success: true, data: undefined }),
+      () => submitLandlordFollowUp(visitId, outcome, null, supabase),
       supabase
     );
   },
@@ -622,3 +635,45 @@ const patchLandlord = async (
   if (lastClerkId) await get().fetchLandlordVisits(supabase, lastClerkId);
   return false;
 };
+
+// ─── Follow-up prompt selectors ──────────────────────────────────────────────
+
+/**
+ * Visits whose window has passed but this tenant hasn't answered the
+ * follow-up for yet — drives the auto-prompt drawer. Ordered oldest first
+ * so the longest-overdue visit prompts first.
+ */
+export const selectTenantPendingFollowUps = (state: VisitsState): TenantRow[] =>
+  state.tenantVisits
+    .filter((v) => v.followUpPending)
+    .sort((a, b) => a.requestedDate.localeCompare(b.requestedDate));
+
+/** Landlord equivalent — completed visits still missing the landlord's outcome. */
+export const selectLandlordPendingFollowUps = (state: VisitsState): LandlordRow[] =>
+  state.landlordVisits
+    .filter(
+      (v) =>
+        v.status === 'VISIT_COMPLETED' &&
+        v.landlordFollowUpOutcome == null &&
+        v.tenantFollowUpResponse != null
+    )
+    .sort((a, b) => a.requestedDate.localeCompare(b.requestedDate));
+
+/**
+ * Refresh completion states then re-read. Called by the follow-up prompt
+ * hook on app open/focus: lazily flips past-window ACCEPTED visits to
+ * VISIT_COMPLETED server-side before the lists are refetched.
+ */
+export async function refreshVisitCompletion(
+  supabase: Supabase,
+  clerkId: string,
+  role: 'tenant' | 'landlord'
+): Promise<void> {
+  const flipped = await markPastVisitsCompleted(supabase);
+  if (!flipped.success) return; // Non-fatal — derivation on read still works.
+  if (flipped.data > 0) {
+    const store = useVisitsStore.getState();
+    if (role === 'tenant') await store.fetchTenantVisits(supabase, clerkId);
+    else await store.fetchLandlordVisits(supabase, clerkId);
+  }
+}

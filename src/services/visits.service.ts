@@ -5,6 +5,7 @@ import {
   toLandlordVisitRequest,
   toTenantVisitRequest,
   type FollowUpResponse,
+  type LandlordFollowUpOutcome,
   type LandlordVisitRequest,
   type TenantVisitRequest,
   type VisitRequestRow,
@@ -348,7 +349,13 @@ export async function declineReschedule(
   }
 }
 
-/** Post-visit follow-up answer (+ optional free-text note). */
+/**
+ * Post-visit follow-up answer (+ optional free-text note).
+ *
+ * Goes through the `submit_tenant_follow_up` SECURITY DEFINER RPC so the
+ * server validates ownership, blocks double submits, stamps
+ * `tenant_follow_up_at`, and reconciles both sides' answers atomically.
+ */
 export async function submitFollowUp(
   visitId: string,
   response: FollowUpResponse,
@@ -356,20 +363,70 @@ export async function submitFollowUp(
   supabase: SupabaseClient<Database>
 ): Promise<Result<TenantVisitRequest>> {
   try {
-    const { data, error } = await supabase
-      .from('visit_requests')
-      .update({
-        tenant_follow_up_response: response,
-        tenant_follow_up_note: note ?? null,
-      })
-      .eq('id', visitId)
-      .select(VISIT_SELECT)
-      .maybeSingle();
+    const { data, error } = await supabase.rpc('submit_tenant_follow_up', {
+      p_visit_id: visitId,
+      p_response: response,
+      p_note: note ?? undefined,
+    });
 
     if (error) return err(getErrorMessage(error));
     if (!data) return err('Follow-up returned no request.');
 
     return ok(toTenantVisitRequest(data as unknown as VisitSelectRow));
+  } catch (e) {
+    return err(getErrorMessage(e));
+  }
+}
+
+/**
+ * Landlord post-visit outcome — the previously-missing half of the flow
+ * (the store used to fake this locally). Persisted via
+ * `submit_landlord_follow_up`, which also runs reconciliation once both
+ * parties have answered.
+ */
+export async function submitLandlordFollowUp(
+  visitId: string,
+  outcome: LandlordFollowUpOutcome,
+  note: string | null,
+  supabase: SupabaseClient<Database>
+): Promise<Result<LandlordVisitRequest>> {
+  try {
+    const { data, error } = await supabase.rpc('submit_landlord_follow_up', {
+      p_visit_id: visitId,
+      p_outcome: outcome,
+      p_note: note ?? undefined,
+    });
+
+    if (error) return err(getErrorMessage(error));
+    if (!data) return err('Follow-up returned no request.');
+
+    return ok(toLandlordVisitRequest(data as VisitRequestRow));
+  } catch (e) {
+    return err(getErrorMessage(e));
+  }
+}
+
+/**
+ * Flip every ACCEPTED visit owned by the caller whose date+slot window
+ * has passed to VISIT_COMPLETED. Idempotent — called on every app
+ * open/focus; returns how many rows flipped (0 on repeat calls).
+ *
+ * Demo override (`forceVisitId`) fast-forwards one visit regardless of
+ * its window; only meaningful in dev builds.
+ */
+export async function markPastVisitsCompleted(
+  supabase: SupabaseClient<Database>,
+  options?: { forceVisitId?: string }
+): Promise<Result<number>> {
+  try {
+    const { data, error } = await supabase.rpc('mark_past_visits_completed', {
+      p_visit_id: options?.forceVisitId ?? undefined,
+      p_force: options?.forceVisitId ? true : undefined,
+    });
+
+    if (error) return err(getErrorMessage(error));
+
+    return ok((data as number | null) ?? 0);
   } catch (e) {
     return err(getErrorMessage(e));
   }

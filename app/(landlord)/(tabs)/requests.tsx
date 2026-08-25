@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
+  Alert,
   RefreshControl,
   ScrollView,
   StyleSheet,
@@ -15,6 +16,8 @@ import { Calendar, ChevronRight, Clock, History } from 'lucide-react-native';
 import { ScreenBody } from '@/src/components/layout/ScreenBody';
 import { Avatar, StatusPill, type LdStatus } from '@/src/components/visit/LandlordUI';
 import { useVisitsStore, type LandlordRow } from '@/src/store/visitsStore';
+import { markPastVisitsCompleted } from '@/src/services/visits.service';
+import { DEMO_MODE } from '@/src/lib/demoMode';
 import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
 import { c, font, radius, shadow } from '@/src/theme/visitTokens';
 import { TIME_SLOT_LABELS, dayLabel } from '@/src/types/property.types';
@@ -83,6 +86,28 @@ export default function VisitRequestsScreen() {
     if (clerkId && rows.length === 0) load('initial');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clerkId]);
+
+  // DEMO ONLY — long-press an accepted request to fast-forward its window
+  // so the follow-up drawer can be demoed without waiting for real time.
+  const handleForceTimePassed = useCallback(
+    (visitId: string, title: string | null) => {
+      Alert.alert(
+        'Demo · Fast-forward visit',
+        `Treat the visit to ${title ?? 'this property'} as completed and open the follow-up?`,
+        [
+          { text: 'Cancel', style: 'cancel' },
+          {
+            text: 'Fast-forward',
+            onPress: async () => {
+              const result = await markPastVisitsCompleted(supabase, { forceVisitId: visitId });
+              if (result.success && clerkId) await fetchLandlordVisits(supabase, clerkId);
+            },
+          },
+        ]
+      );
+    },
+    [supabase, clerkId, fetchLandlordVisits]
+  );
 
   const active = useMemo(() => rows.filter(isOpen), [rows]);
   const pendingCount = useMemo(() => active.filter((r) => r.uiStatus === 'new').length, [active]);
@@ -180,6 +205,11 @@ export default function VisitRequestsScreen() {
                   params: { id: item.id },
                 } as any)
               }
+              onLongPress={
+                DEMO_MODE && item.uiStatus === 'upcoming'
+                  ? () => handleForceTimePassed(item.id, item.propertyTitle)
+                  : undefined
+              }
             />
           ))
         )}
@@ -190,12 +220,22 @@ export default function VisitRequestsScreen() {
 
 // ─── Request card ────────────────────────────────────────────────────────────
 
-const RequestCard = ({ row, onPress }: { row: LandlordRow; onPress: () => void }) => {
+const RequestCard = ({
+  row,
+  onPress,
+  onLongPress,
+}: {
+  row: LandlordRow;
+  onPress: () => void;
+  onLongPress?: () => void;
+}) => {
   const isPending = row.uiStatus === 'new';
   const pill = UI_TO_PILL[row.uiStatus];
   return (
     <TouchableOpacity
       onPress={onPress}
+      onLongPress={onLongPress}
+      delayLongPress={500}
       accessibilityRole="button"
       accessibilityLabel={`Request from ${row.tenantName ?? 'tenant'}`}
       activeOpacity={0.85}

@@ -1,8 +1,12 @@
 import { Stack } from 'expo-router';
+import { FollowUpPrompt } from '@/src/components/visit/FollowUpPrompt';
 
 export default function LandlordLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
+      {/* Auto post-visit follow-up drawer — prompts the landlord once a
+          visit's window has passed and their outcome is still missing. */}
+      <FollowUpPrompt role="landlord" />
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="ai-preferences" />
       <Stack.Screen name="decline-request" />

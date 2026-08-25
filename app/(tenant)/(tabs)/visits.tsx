@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { Alert, FlatList, View } from 'react-native';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useUser } from '@clerk/expo';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -11,6 +11,8 @@ import { VisitCard } from '@/src/components/visit/VisitCard';
 import { VisitEmptyState } from '@/src/components/visit/EmptyState';
 import { Skeleton, SkeletonBlock } from '@/src/components/visit/Skeleton';
 import { useVisitsStore } from '@/src/store/visitsStore';
+import { markPastVisitsCompleted } from '@/src/services/visits.service';
+import { DEMO_MODE } from '@/src/lib/demoMode';
 import { useClerkSupabase } from '@/src/hooks/useClerkSupabase';
 import { c, radius, sp } from '@/src/theme/visitTokens';
 import type { TenantVisitRequest, TimeSlot } from '@/src/types/property.types';
@@ -52,6 +54,28 @@ export default function VisitsTab() {
       if (!clerkId) return;
       fetchTenantVisits(supabase, clerkId);
     }, [clerkId, supabase, fetchTenantVisits])
+  );
+
+  // DEMO ONLY — long-press an accepted card to fast-forward its window so
+  // the follow-up drawer can be demoed without waiting for real time.
+  const handleForceTimePassed = useCallback(
+    (visitId: string, title: string | null) => {
+      Alert.alert(
+        'Demo · Fast-forward visit',
+        `Treat the visit to ${title ?? 'this property'} as completed and open the follow-up?`,
+        [
+          { text: 'Cancel', style: 'cancel' },
+          {
+            text: 'Fast-forward',
+            onPress: async () => {
+              const result = await markPastVisitsCompleted(supabase, { forceVisitId: visitId });
+              if (result.success && clerkId) await fetchTenantVisits(supabase, clerkId);
+            },
+          },
+        ]
+      );
+    },
+    [supabase, clerkId, fetchTenantVisits]
   );
 
   const [activeTab, setActiveTab] = useState<TabKey>('upcoming');
@@ -127,6 +151,11 @@ export default function VisitsTab() {
               propertyPhotoUrl={item.propertyPhotoUrl}
               onPress={() =>
                 router.push({ pathname: '/(tenant)/visit/[id]', params: { id: item.id } } as any)
+              }
+              onLongPress={
+                DEMO_MODE && item.statusUi === 'accepted'
+                  ? () => void handleForceTimePassed(item.id, item.propertyTitle)
+                  : undefined
               }
             />
           </View>

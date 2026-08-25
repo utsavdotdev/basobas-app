@@ -16,6 +16,8 @@ interface VisitCardBaseProps {
   date: string;
   timeSlot: keyof typeof TIME_SLOT_LABELS;
   onPress: () => void;
+  /** Demo-only fast-forward (EXPO_PUBLIC_DEMO_MODE builds). */
+  onLongPress?: () => void;
   /** Optional right-aligned footer slot (used by All Applicants for Finalize). */
   rightSlot?: React.ReactNode;
 }
@@ -47,13 +49,15 @@ type VisitCardProps = TenantVariantProps | LandlordVariantProps;
  * no border, no shadow.
  */
 export const VisitCard = (props: VisitCardProps) => {
-  const { status, date, timeSlot, onPress, rightSlot } = props;
+  const { status, date, timeSlot, onPress, onLongPress, rightSlot } = props;
   const displayDay = dayLabel(date);
   const timeLabel = TIME_SLOT_LABELS[timeSlot];
 
   return (
     <TouchableOpacity
       onPress={onPress}
+      onLongPress={onLongPress}
+      delayLongPress={500}
       accessibilityRole="button"
       accessibilityLabel={`Visit: ${headerTitle(props)}`}
       activeOpacity={0.9}

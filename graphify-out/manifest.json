@@ -90,13 +90,13 @@
     "semantic_hash": ""
   },
   "app/(landlord)/(tabs)/requests.tsx": {
-    "mtime": 1787592537.9887347,
-    "ast_hash": "f20e850939b2b18a6edea4accb8cbbb3",
+    "mtime": 1787673300.6178296,
+    "ast_hash": "fc9540904df9b0e76c424a65ce7c7aa2",
     "semantic_hash": ""
   },
   "app/(landlord)/_layout.tsx": {
-    "mtime": 1787595809.5968018,
-    "ast_hash": "1e1af262d3476e80fd4be6ec89b36dc8",
+    "mtime": 1787673300.6181412,
+    "ast_hash": "aef06b5621a5a25308b03fd9bf355ecd",
     "semantic_hash": ""
   },
   "app/(landlord)/ai-preferences.tsx": {
@@ -205,13 +205,13 @@
     "semantic_hash": ""
   },
   "app/(tenant)/(tabs)/visits.tsx": {
-    "mtime": 1787592537.9932463,
-    "ast_hash": "6502738a11735ecbc22c57b9def7a6b4",
+    "mtime": 1787673300.618898,
+    "ast_hash": "dc078fdbe13f443a366a76eae43701ac",
     "semantic_hash": ""
   },
   "app/(tenant)/_layout.tsx": {
-    "mtime": 1787665228.1890678,
-    "ast_hash": "ea48cad068a2e8a7eb52484a6f736b9c",
+    "mtime": 1787673300.6191566,
+    "ast_hash": "8dca44c7c9c09b66e8d49fad61113408",
     "semantic_hash": ""
   },
   "app/(tenant)/_modal/filter.tsx": {
@@ -655,8 +655,8 @@
     "semantic_hash": ""
   },
   "src/services/kyc.service.ts": {
-    "mtime": 1787592538.0413094,
-    "ast_hash": "d1e557de4b99b9dd28d4903eb2449747",
+    "mtime": 1787673512.0035832,
+    "ast_hash": "e7e72149aff7ba7b5d64b01d7ced1b99",
     "semantic_hash": ""
   },
   "src/services/onboarding.service.ts": {
@@ -695,8 +695,8 @@
     "semantic_hash": ""
   },
   "src/types/database.types.ts": {
-    "mtime": 1787593161.8225894,
-    "ast_hash": "2043b9707960fcd2a88ba25771014e5a",
+    "mtime": 1787673300.621764,
+    "ast_hash": "864aeb4b40bb7815a0045f3fe5dc030e",
     "semantic_hash": ""
   },
   "src/types/kyc.types.ts": {
@@ -900,13 +900,13 @@
     "semantic_hash": ""
   },
   "src/services/visits.service.ts": {
-    "mtime": 1787592538.0424056,
-    "ast_hash": "f1c0687e97db1e1e25834ac8dc806479",
+    "mtime": 1787673300.6202683,
+    "ast_hash": "59c2d7de1d79339899b9942e92affb2b",
     "semantic_hash": ""
   },
   "src/types/property.types.ts": {
-    "mtime": 1787592538.0482187,
-    "ast_hash": "47e2159853edfa4abc1aebd5fd499c28",
+    "mtime": 1787673300.6223288,
+    "ast_hash": "b753067cfe2823cfbbc3e8efa7d82b1d",
     "semantic_hash": ""
   },
   "supabase/migrations/20260729120000_landlord_properties_and_visits.sql": {
@@ -1035,8 +1035,8 @@
     "semantic_hash": ""
   },
   "app/(tenant)/visit/follow-up.tsx": {
-    "mtime": 1787592537.9961374,
-    "ast_hash": "bffe71127489c1845541b5b04a2a98a8",
+    "mtime": 1787673300.6193986,
+    "ast_hash": "fc7a0fe7e31011a851e4344d881f1d55",
     "semantic_hash": ""
   },
   "src/components/visits/FollowUpOptionCard.tsx": {
@@ -1060,8 +1060,8 @@
     "semantic_hash": ""
   },
   "src/store/visitsStore.ts": {
-    "mtime": 1787592538.0436225,
-    "ast_hash": "ddf217209d3d47eef920ce11ed16c2ec",
+    "mtime": 1787673505.1997757,
+    "ast_hash": "c0446746da64591606b3d0efae798e08",
     "semantic_hash": ""
   },
   "supabase/migrations/20260731180000_tenant_visit_workflow.sql": {
@@ -1215,8 +1215,8 @@
     "semantic_hash": ""
   },
   "src/components/visit/VisitCard.tsx": {
-    "mtime": 1787592538.0378447,
-    "ast_hash": "c7509d8688ba14678a2565e2294eb888",
+    "mtime": 1787673300.6198273,
+    "ast_hash": "48ce8e39d1bbc308ac3f80030d3d361d",
     "semantic_hash": ""
   },
   "src/hooks/useLandlordPendingCount.ts": {
@@ -1340,8 +1340,8 @@
     "semantic_hash": ""
   },
   "src/services/imageValidation.service.ts": {
-    "mtime": 1787664697.8075833,
-    "ast_hash": "90ac8ef04c25b751c51e783efcba135d",
+    "mtime": 1787666467.4603152,
+    "ast_hash": "12b1276205fc9f5b06b936db2b25a975",
     "semantic_hash": ""
   },
   "supabase/functions/validate-image/index.ts": {
@@ -1352,6 +1352,26 @@
   "supabase/migrations/20260825120000_bucket_hardening.sql": {
     "mtime": 1787665120.1410162,
     "ast_hash": "982052e474f9e93bd7609b5c89a3af6e",
+    "semantic_hash": ""
+  },
+  "src/components/visit/FollowUpPrompt.tsx": {
+    "mtime": 1787672585.3616097,
+    "ast_hash": "9f112f6e95679225e90a656f056a8414",
+    "semantic_hash": ""
+  },
+  "src/lib/demoMode.ts": {
+    "mtime": 1787673053.9600236,
+    "ast_hash": "f9a251a632b04feb0afe108101778b15",
+    "semantic_hash": ""
+  },
+  "supabase/demo/seed-follow-up-demo.sql": {
+    "mtime": 1787673650.120296,
+    "ast_hash": "b0584414a2ff68451d667c84700f2ec3",
+    "semantic_hash": ""
+  },
+  "supabase/migrations/20260826100000_visit_follow_up_reconciliation.sql": {
+    "mtime": 1787671748.2411642,
+    "ast_hash": "7a9809fe435db8fdcfed8721be857813",
     "semantic_hash": ""
   }
 }

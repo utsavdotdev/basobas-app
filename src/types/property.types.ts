@@ -170,6 +170,13 @@ export interface LandlordVisitRequest {
   previousTimeSlot: TimeSlot | null;
   tenantFollowUpResponse: FollowUpResponse | null;
   tenantFollowUpNote: string | null;
+  /** When the tenant submitted their follow-up answer. */
+  tenantFollowUpAt: string | null;
+  /** Landlord's post-visit outcome — persisted via `submit_landlord_follow_up`. */
+  landlordFollowUpOutcome: LandlordFollowUpOutcome | null;
+  landlordFollowUpNote: string | null;
+  /** When the landlord submitted their follow-up outcome. */
+  landlordFollowUpAt: string | null;
   respondedAt: string | null;
   completedAt: string | null;
   createdAt: string;
@@ -300,6 +307,7 @@ export const toLandlordRequestUi = (
     case 'REJECTED':
       return 'rejected';
     case 'VISIT_COMPLETED':
+      return 'completed';
     case 'CLOSED':
     case 'CANCELLED_BY_TENANT':
     default:
@@ -450,6 +458,11 @@ export const toLandlordVisitRequest = (
   previousTimeSlot: row.previous_time_slot,
   tenantFollowUpResponse: row.tenant_follow_up_response as FollowUpResponse | null,
   tenantFollowUpNote: row.tenant_follow_up_note,
+  tenantFollowUpAt: row.tenant_follow_up_at,
+  landlordFollowUpOutcome:
+    (row.landlord_follow_up_outcome as LandlordFollowUpOutcome | null) ?? null,
+  landlordFollowUpNote: row.landlord_follow_up_note,
+  landlordFollowUpAt: row.landlord_follow_up_at,
   respondedAt: row.responded_at,
   completedAt: row.completed_at,
   createdAt: row.created_at,
@@ -527,6 +540,14 @@ export const FOLLOW_UP_RESPONSE_LABELS: Record<FollowUpResponse, string> = {
   need_more_time: 'I need a bit more time to decide',
   not_a_fit: 'Not the right fit for me',
   missed_visit_reschedule: "I wasn't able to make it — can we reschedule?",
+};
+
+/** Human copy for each landlord post-visit outcome — drives the follow-up drawer. */
+export const LANDLORD_FOLLOW_UP_LABELS: Record<LandlordFollowUpOutcome, string> = {
+  tenant_visited: 'Yes — the tenant visited the property',
+  tenant_did_not_visit: "No — the tenant didn't show up",
+  discussion_ongoing: "We're still in discussion",
+  finalize_rental: 'Finalize rental — they got the place',
 };
 
 // ─── Display formatters ──────────────────────────────────────────────────────

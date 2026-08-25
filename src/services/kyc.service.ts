@@ -143,7 +143,7 @@ export async function submitKYC(
     p_front_image_path:       frontImagePath,
     p_back_image_path:        backImagePath,
     p_electricity_bill_path:  electricityBillPath ?? undefined,
-    p_home_tour_video_path:   homeTourVideoPath ?? null,
+    p_home_tour_video_path:   homeTourVideoPath ?? undefined,
   })
 
   if (error) return err(`KYC DB failed: ${error.message}`)
