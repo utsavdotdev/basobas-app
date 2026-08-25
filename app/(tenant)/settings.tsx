@@ -6,7 +6,6 @@ import {
   ChevronRight,
   CircleAlert,
   LogOut,
-  SlidersHorizontal,
   Sparkles,
   User,
 } from 'lucide-react-native';
@@ -15,9 +14,7 @@ import Constants from 'expo-constants';
 import { ScreenHeader } from '@/src/components/layout/ScreenHeader';
 import { MenuCard } from '@/src/components/shared/MenuCard';
 import { MenuRow } from '@/src/components/shared/MenuRow';
-import { ProPill } from '@/src/components/shared/ProPill';
 import { SectionLabel } from '@/src/components/layout/SectionLabel';
-import { useProGate } from '@/src/hooks/useProGate';
 import { useAuth } from '@/src/hooks/useAuth';
 
 // ─── Screen ──────────────────────────────────────────────────────────────────
@@ -26,7 +23,6 @@ export default function SettingsScreen() {
   const router = useRouter();
   const go = (path: string) => router.push(path as any);
 
-  const { isPro, requireProOrModal } = useProGate();
   const { logout } = useAuth();
 
   // Rounded gray icon cells, same treatment as the Profile tab rows.
@@ -58,24 +54,6 @@ export default function SettingsScreen() {
             subtitle="Choose what you get alerted about"
             onPress={() => go('/(tenant)/_modal/notifications-prefs')}
             icon={iconCell(Sparkles)}
-          />
-          <MenuRow
-            label="Rental Preferences"
-            subtitle="Location, type, budget"
-            onPress={() => go('/(tenant)/preferences')}
-            icon={iconCell(SlidersHorizontal)}
-          />
-          <MenuRow
-            label="AI Preferences"
-            subtitle={isPro ? 'Personalized recommendations active' : 'Pro · Smart picks for you'}
-            subtitleClassName={isPro ? 'text-brand' : undefined}
-            onPress={() => requireProOrModal(() => go('/(tenant)/ai-preferences'))}
-            icon={iconCell(Sparkles, {
-              color: isPro ? '#1A6B4A' : '#0A0A0A',
-              bg: isPro ? '#E8F5EE' : '#F5F5F5',
-            })}
-            rightSlot={isPro ? undefined : <ProPill size="sm" />}
-            showChevron={isPro}
             isLast
           />
         </MenuCard>
