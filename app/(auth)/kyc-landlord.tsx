@@ -23,6 +23,7 @@ import { PrimaryButton } from '@/src/components/shared/PrimaryButton'
 import { VideoUploadCard } from '@/src/components/kyc/VideoUploadCard'
 import { useOnboardingStore } from '@/src/store/onboardingStore'
 import { useClerkSupabase } from '@/src/hooks/useClerkSupabase'
+import { validateImageAsset } from '@/src/lib/imageValidation'
 import { completeOnboarding } from '@/src/services/onboarding.service'
 import { tokens } from '@/src/theme/tokens'
 import type { DocumentType } from '@/src/types/onboarding.types'
@@ -102,6 +103,11 @@ const pickFromOptions = async (
           quality: 1,
         })
         if (!result.canceled && result.assets[0]) {
+          const check = validateImageAsset(result.assets[0], 'kyc_document')
+          if (!check.ok) {
+            Alert.alert('Invalid document', check.message)
+            return
+          }
           const uri = compress
             ? await compressDoc(result.assets[0].uri)
             : result.assets[0].uri
@@ -123,6 +129,11 @@ const pickFromOptions = async (
           quality: 1,
         })
         if (!result.canceled && result.assets[0]) {
+          const check = validateImageAsset(result.assets[0], 'kyc_document')
+          if (!check.ok) {
+            Alert.alert('Invalid document', check.message)
+            return
+          }
           const uri = compress
             ? await compressDoc(result.assets[0].uri)
             : result.assets[0].uri

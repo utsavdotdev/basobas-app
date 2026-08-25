@@ -6,6 +6,7 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import * as Haptics from 'expo-haptics';
 
 import { UploadPlaceholder } from '@/src/components/kyc/UploadPlaceholder';
+import { validateImageAsset } from '@/src/lib/imageValidation';
 import { tokens } from '@/src/theme/tokens';
 
 const { color, radius, font, size } = tokens;
@@ -69,6 +70,12 @@ const pickFromOptions = async (): Promise<string | null> => {
             resolve(null);
             return;
           }
+          const check = validateImageAsset(result.assets[0], 'kyc_document');
+          if (!check.ok) {
+            Alert.alert('Invalid document', check.message);
+            resolve(null);
+            return;
+          }
           resolve(await compressImage(result.assets[0].uri));
         },
       },
@@ -90,6 +97,12 @@ const pickFromOptions = async (): Promise<string | null> => {
             quality: 1,
           });
           if (result.canceled || !result.assets[0]) {
+            resolve(null);
+            return;
+          }
+          const check = validateImageAsset(result.assets[0], 'kyc_document');
+          if (!check.ok) {
+            Alert.alert('Invalid document', check.message);
             resolve(null);
             return;
           }
