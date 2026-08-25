@@ -2,7 +2,7 @@
   "expo": {
     "name": "BasoBas",
     "slug": "basobas-app",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "scheme": "basobas",
     "web": {
       "favicon": "./assets/favicon.png"
@@ -56,7 +56,7 @@
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION"
       ],
-      "versionCode": 2
+      "versionCode": 3
     }
   }
 }
